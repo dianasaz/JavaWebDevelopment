@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Medicins>
+    <Medicine name = "Gripex">
+        <Group>ANTIBIOTICS</Group>
+        <Version versionType = "TABLETS">
+            <Pharm nameOfPharm = "PolMed">
+                <Certificate number = "1348765">
+                    <Date>123</Date>
+                    <Organization>Opera</Organization>
+                </Certificate>
+                <Dosage>
+                    <Dose>1</Dose>
+                    <Period>2</Period>
+                </Dosage>
+                <Package>
+                    <TypeOfPackage>HARD</TypeOfPackage>
+                    <Quantity>20</Quantity>
+                    <Price>230</Price>
+                </Package>
+            </Pharm>
+        </Version>
+    </Medicine>
+    <Medicine name = "TeraFlu">
+        <Group>ANTIBIOTICS</Group>
+        <Version versionType = "POWDER">
+            <Pharm nameOfPharm = "PolMed">
+                <Certificate number = "1348765">
+                    <Date>123</Date>
+                    <Organization>FireFox</Organization>
+                </Certificate>
+                <Dosage>
+                    <Dose>1</Dose>
+                    <Period>2</Period>
+                </Dosage>
+                <Package>
+                    <TypeOfPackage>SEMIHARD</TypeOfPackage>
+                    <Quantity>20</Quantity>
+                    <Price>290</Price>
+                </Package>
+            </Pharm>
+        </Version>
+    </Medicine>
+    <Medicine name = "AntiKashel'">
+        <Group>ANTIBIOTICS</Group>
+        <Version versionType = "POWDER">
+            <Pharm nameOfPharm = "PolMed">
+                <Certificate number = "12228765">
+                    <Date>129</Date>
+                    <Organization>Opera</Organization>
+                </Certificate>
+                <Dosage>
+                    <Dose>2</Dose>
+                    <Period>1</Period>
+                </Dosage>
+                <Package>
+                    <TypeOfPackage>HARD</TypeOfPackage>
+                    <Quantity>30</Quantity>
+                    <Price>250</Price>
+                </Package>
+            </Pharm>
+        </Version>
+    </Medicine>
+    <Medicine name = "Iod">
+        <Group>ANTIALLERGIAN</Group>
+        <Version versionType = "DRAGEE">
+            <Pharm nameOfPharm = "BelMed">
+                <Certificate number = "80008765">
+                    <Date>1190</Date>
+                    <Organization>Mazila</Organization>
+                </Certificate>
+                <Dosage>
+                    <Dose>1</Dose>
+                    <Period>1</Period>
+                </Dosage>
+                <Package>
+                    <TypeOfPackage>SOFT</TypeOfPackage>
+                    <Quantity>10</Quantity>
+                    <Price>90</Price>
+                </Package>
+            </Pharm>
+        </Version>
+    </Medicine>
+    <Medicine name = "ShortNose">
+        <Group>PAINKILLERS</Group>
+        <Version versionType = "CAPSULE">
+            <Pharm nameOfPharm = "BelMed">
+                <Certificate number = "12298215">
+                    <Date>32</Date>
+                    <Organization>Opera</Organization>
+                </Certificate>
+                <Dosage>
+                    <Dose>5</Dose>
+                    <Period>3</Period>
+                </Dosage>
+                <Package>
+                    <TypeOfPackage>SEMIHARD</TypeOfPackage>
+                    <Quantity>32</Quantity>
+                    <Price>270</Price>
+                </Package>
+            </Pharm>
+        </Version>
+    </Medicine>
+</Medicins>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Medicins" type="MedicinsType"/>
+  <xs:complexType name="CertificateType">
+    <xs:sequence>
+      <xs:element type="xs:int" name="Date"/>
+      <xs:element type="xs:string" name="Organization"/>
+    </xs:sequence>
+    <xs:attribute type="xs:int" name="number" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="DosageType">
+    <xs:sequence>
+      <xs:element type="xs:int" name="Dose"/>
+      <xs:element type="xs:int" name="Period"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PackageType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="TypeOfPackage"/>
+      <xs:element type="xs:int" name="Quantity"/>
+      <xs:element type="xs:int" name="Price"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PharmType">
+    <xs:sequence>
+      <xs:element type="CertificateType" name="Certificate"/>
+      <xs:element type="DosageType" name="Dosage"/>
+      <xs:element type="PackageType" name="Package"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="nameOfPharm" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="VersionType">
+    <xs:sequence>
+      <xs:element type="PharmType" name="Pharm"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="versionType" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="MedicineType">
+    <xs:sequence>
+      <xs:element type="xs:string" name="Group"/>
+      <xs:element type="VersionType" name="Version"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="MedicinsType">
+    <xs:sequence>
+      <xs:element type="MedicineType" name="Medicine" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
