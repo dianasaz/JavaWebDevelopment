@@ -25,36 +25,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DOMParser {
+public class DOMParser implements Parser{
     private Document document;
 
-    public DOMParser(String file) throws ParserConfigurationException, IOException, SAXException {
-
-        File xmlFile = new File(file);
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder;
-
-        builder = factory.newDocumentBuilder();
-        document = builder.parse(xmlFile);
-        document.getDocumentElement();
-
-        List<Medicine> medicins = new ArrayList<>();
-        NodeList nodeList = document.getDocumentElement().getChildNodes();
-
-        for (int i = 0; i < nodeList.getLength(); i++) {
-            Node node = nodeList.item(i);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element element = (Element) node;
-                Medicine med = new Medicine();
-
-                med.setName(element.getAttribute("name"));
-                med.setGroup(Group.setGroup(element.getElementsByTagName("Group").item(0).getTextContent()));
-                med.setVersion(createVersion(document.getElementsByTagName("Version")));
-                medicins.add(med);
-            }
-        }
-    }
+    public DOMParser(){}
 
     private Certificate createCertificate(NodeList nodes){
         Certificate certificate = new Certificate();
@@ -133,5 +107,34 @@ public class DOMParser {
             }
         }
         return version;
+    }
+
+    @Override
+    public void parse(String file) throws ParserConfigurationException, IOException, SAXException {
+
+        File xmlFile = new File(file);
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder;
+
+        builder = factory.newDocumentBuilder();
+        document = builder.parse(xmlFile);
+        document.getDocumentElement();
+
+        List<Medicine> medicins = new ArrayList<>();
+        NodeList nodeList = document.getDocumentElement().getChildNodes();
+
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
+                Element element = (Element) node;
+                Medicine med = new Medicine();
+
+                med.setName(element.getAttribute("name"));
+                med.setGroup(Group.setGroup(element.getElementsByTagName("Group").item(0).getTextContent()));
+                med.setVersion(createVersion(document.getElementsByTagName("Version")));
+                medicins.add(med);
+            }
+        }
     }
 }

@@ -20,9 +20,12 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SAXParser {
+public class SAXParser implements Parser{
 
-    public SAXParser(String file) {
+    public SAXParser() {}
+
+    @Override
+    public void parse(String file) throws ParserConfigurationException, IOException, SAXException {
         SAXParserFactory factory;
         factory = SAXParserFactory.newInstance();
         javax.xml.parsers.SAXParser saxParser = null;
@@ -139,7 +142,7 @@ public class SAXParser {
 
             @Override
             public void endDocument() {
-                    System.out.println(medicins.toString());
+                //System.out.println(medicins.toString());
             }
         };
 
