@@ -1,12 +1,14 @@
 package entity;
 
+import java.util.Date;
+
 public class Certificate {
     private int number;
-    private int dateOfDelivery;
+    private Date dateOfDelivery;
     private String organization;
 
 
-    public Certificate(int number, int dateOfDelivery, String organization) {
+    public Certificate(int number, Date dateOfDelivery, String organization) {
         this.number = number;
         this.dateOfDelivery = dateOfDelivery;
         this.organization = organization;
@@ -22,11 +24,11 @@ public class Certificate {
         this.number = number;
     }
 
-    public int getDateOfDelivery() {
+    public Date getDateOfDelivery() {
         return dateOfDelivery;
     }
 
-    public void setDateOfDelivery(int dateOfDelivery) {
+    public void setDateOfDelivery(Date dateOfDelivery) {
         this.dateOfDelivery = dateOfDelivery;
     }
 

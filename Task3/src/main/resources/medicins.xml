@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Medicins>
+<Medicins  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="medicins.xsd">
     <Medicine name = "Gripex">
         <Group>ANTIBIOTICS</Group>
+        <Analogs>
+            <Analog>TeraFlu</Analog>
+            <Analog>AntiGrippin</Analog>
+        </Analogs>
         <Version versionType = "TABLETS">
             <Pharm nameOfPharm = "PolMed">
                 <Certificate number = "1348765">
-                    <Date>123</Date>
+                    <Date>2019-07-09</Date>
                     <Organization>Opera</Organization>
                 </Certificate>
                 <Dosage>
@@ -22,10 +27,13 @@
     </Medicine>
     <Medicine name = "TeraFlu">
         <Group>ANTIBIOTICS</Group>
+        <Analogs>
+            <Analog>AntiGrippin</Analog>
+        </Analogs>
         <Version versionType = "POWDER">
             <Pharm nameOfPharm = "PolMed">
                 <Certificate number = "1348765">
-                    <Date>123</Date>
+                    <Date>2018-06-13</Date>
                     <Organization>FireFox</Organization>
                 </Certificate>
                 <Dosage>
@@ -42,10 +50,14 @@
     </Medicine>
     <Medicine name = "AntiKashel'">
         <Group>ANTIBIOTICS</Group>
+        <Analogs>
+            <Analog>Grippex</Analog>
+            <Analog>AntiGrippin</Analog>
+        </Analogs>
         <Version versionType = "POWDER">
             <Pharm nameOfPharm = "PolMed">
                 <Certificate number = "12228765">
-                    <Date>129</Date>
+                    <Date>2017-09-14</Date>
                     <Organization>Opera</Organization>
                 </Certificate>
                 <Dosage>
@@ -62,10 +74,13 @@
     </Medicine>
     <Medicine name = "Iod">
         <Group>ANTIALLERGIAN</Group>
+        <Analogs>
+            <Analog>Suprastin</Analog>
+        </Analogs>
         <Version versionType = "DRAGEE">
             <Pharm nameOfPharm = "BelMed">
                 <Certificate number = "80008765">
-                    <Date>1190</Date>
+                    <Date>2019-12-28</Date>
                     <Organization>Mazila</Organization>
                 </Certificate>
                 <Dosage>
@@ -82,10 +97,12 @@
     </Medicine>
     <Medicine name = "ShortNose">
         <Group>PAINKILLERS</Group>
+        <Analogs>
+        </Analogs>
         <Version versionType = "CAPSULE">
             <Pharm nameOfPharm = "BelMed">
                 <Certificate number = "12298215">
-                    <Date>32</Date>
+                    <Date>2014-11-06</Date>
                     <Organization>Opera</Organization>
                 </Certificate>
                 <Dosage>

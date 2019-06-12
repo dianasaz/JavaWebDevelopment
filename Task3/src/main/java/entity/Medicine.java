@@ -6,13 +6,13 @@ import java.util.Objects;
 public class Medicine {
     private String name;
     private Group group;
-    private List<Medicine> analog;
+    private List<String> analog;
     private Version version;
 
-    public Medicine(String name, Group group, Version version) {
+    public Medicine(String name, Group group,List<String> analog, Version version) {
         this.name = name;
         this.group = group;
-        //this.analog = analog;
+        this.analog = analog;
         this.version = version;
     }
 
@@ -35,11 +35,11 @@ public class Medicine {
         this.group = group;
     }
 
-    public List<Medicine> getAnalog() {
+    public List<String> getAnalog() {
         return analog;
     }
 
-    public void setAnalog(List<Medicine> analog) {
+    public void setAnalog(List<String> analog) {
         this.analog = analog;
     }
 

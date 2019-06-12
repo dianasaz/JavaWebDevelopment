@@ -3,7 +3,7 @@
   <xs:element name="Medicins" type="MedicinsType"/>
   <xs:complexType name="CertificateType">
     <xs:sequence>
-      <xs:element type="xs:int" name="Date"/>
+      <xs:element type="xs:date" name="Date"/>
       <xs:element type="xs:string" name="Organization"/>
     </xs:sequence>
     <xs:attribute type="xs:int" name="number" use="optional"/>
@@ -38,13 +38,20 @@
   <xs:complexType name="MedicineType">
     <xs:sequence>
       <xs:element type="xs:string" name="Group"/>
+      <xs:element name="Analogs">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Analog" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
       <xs:element type="VersionType" name="Version"/>
     </xs:sequence>
     <xs:attribute type="xs:string" name="name" use="optional"/>
   </xs:complexType>
   <xs:complexType name="MedicinsType">
     <xs:sequence>
-      <xs:element type="MedicineType" name="Medicine" maxOccurs="unbounded" minOccurs="0"/>
+      <xs:element type="MedicineType" name="Medicine" maxOccurs="unbounded" minOccurs="16"/>
     </xs:sequence>
   </xs:complexType>
 </xs:schema>

@@ -17,15 +17,22 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class SAXParser implements Parser{
+public class SAXParser extends Builder{
+    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private String file;
 
-    public SAXParser() {}
+    public SAXParser(String file) {
+        this.file = file;
+    }
 
     @Override
-    public void parse(String file) throws ParserConfigurationException, IOException, SAXException {
+    public void buildList(){
         SAXParserFactory factory;
         factory = SAXParserFactory.newInstance();
         javax.xml.parsers.SAXParser saxParser = null;
@@ -40,7 +47,6 @@ public class SAXParser implements Parser{
         }
 
         DefaultHandler handler = new DefaultHandler() {
-            List<Medicine> medicins;
             Medicine medicine;
             Certificate certificate;
             Version version;
@@ -51,21 +57,20 @@ public class SAXParser implements Parser{
             String elementName;
             String name;
             Group group;
+            List<String> analogs;
             VersionType versionType;
             String nameOfPharm;
             int number;
-            int date;
+            Date date;
             String organization;
             int dose;
             int period;
             TypeOfPackage typeOfPackage;
             int quantity;
             double price;
-            Attributes attributes;
 
             @Override
             public void startDocument() throws SAXException {
-                medicins = new ArrayList<>();
             }
 
             @Override
@@ -102,8 +107,18 @@ public class SAXParser implements Parser{
                         case "Group":
                             group = Group.setGroup(data);
                             break;
+                        case "Analogs":
+                            analogs = new ArrayList<>();
+                            break;
+                        case "Analog":
+                            analogs.add(data);
+                            break;
                         case "Date":
-                            date = Integer.valueOf(data);
+                            try {
+                                date = dateFormat.parse(data);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                             break;
                         case "Organization":
                             organization = data;
@@ -135,14 +150,13 @@ public class SAXParser implements Parser{
                     certificate = new Certificate(number, date, organization);
                     pharm = new Pharm(nameOfPharm, certificate, aPackage, dosage);
                     version = new Version(versionType, pharm);
-                    medicine = new Medicine(name, group, version);
-                    medicins.add(medicine);
+                    medicine = new Medicine(name, group, analogs, version);
+                    medicines.add(medicine);
                 }
             }
 
             @Override
             public void endDocument() {
-                //System.out.println(medicins.toString());
             }
         };
 
@@ -157,5 +171,8 @@ public class SAXParser implements Parser{
                 IOException e) {
             e.printStackTrace();
         }
+
+        System.out.println(getMedicines());
     }
+
 }

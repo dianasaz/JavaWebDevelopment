@@ -9,10 +9,8 @@ import entity.Pharm;
 import entity.TypeOfPackage;
 import entity.Version;
 import entity.VersionType;
-import org.xml.sax.SAXException;
 
 import javax.xml.namespace.QName;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -22,23 +20,29 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class StAXParser implements Parser{
+public class StAXParser extends Builder{
+    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private String file;
 
-    public StAXParser() {}
+    public StAXParser(String file) {
+        this.file = file;
+    }
 
     @Override
-    public void parse(String file) throws ParserConfigurationException, IOException, SAXException {
-        List<Medicine> medicins = new ArrayList<>();
+    public void buildList(){
         Medicine medicine = null;
         Certificate certificate = null;
         Pharm pharm = null;
         Version version = null;
         Dosage dosage = null;
         Package pack = new Package();
+        List<String> analogs = null;
         XMLInputFactory factory = XMLInputFactory.newInstance();
 
         try {
@@ -55,7 +59,13 @@ public class StAXParser implements Parser{
                     } else if (startElement.getName().getLocalPart().equalsIgnoreCase("Group")) {
                         event = eventReader.nextEvent();
                         medicine.setGroup(Group.setGroup(event.asCharacters().getData()));
+                    } else if (startElement.getName().getLocalPart().equalsIgnoreCase("Analogs")) {
+                        analogs = new ArrayList<>();
+                    } else if (startElement.getName().getLocalPart().equalsIgnoreCase("Analog")){
+                        event = eventReader.nextEvent();
+                        analogs.add(event.asCharacters().getData());
                     } else if (startElement.getName().getLocalPart().equalsIgnoreCase("Version")) {
+                        medicine.setAnalog(analogs);
                         version = new Version();
                         Attribute atr = startElement.getAttributeByName(new QName("versionType"));
                         version.setType(VersionType.setVersion(atr.getValue()));
@@ -70,7 +80,8 @@ public class StAXParser implements Parser{
                         certificate.setNumber(Integer.valueOf(att.getValue()));
                     } else if (startElement.getName().getLocalPart().equalsIgnoreCase("Date")) {
                         event = eventReader.nextEvent();
-                        certificate.setDateOfDelivery(Integer.valueOf(event.asCharacters().getData()));
+                        Date date = dateFormat.parse(String.valueOf(event.asCharacters().getData()));
+                        certificate.setDateOfDelivery(date);
                     } else if (startElement.getName().getLocalPart().equalsIgnoreCase("Organization")) {
                         event = eventReader.nextEvent();
                         certificate.setOrganization(event.asCharacters().getData());
@@ -102,7 +113,7 @@ public class StAXParser implements Parser{
                 if (event.isEndElement()) {
                     EndElement endElement = event.asEndElement();
                     if (endElement.getName().getLocalPart().equals("Medicine")) {
-                        medicins.add(medicine);
+                        medicines.add(medicine);
                     }
                 }
             }
@@ -110,6 +121,10 @@ public class StAXParser implements Parser{
             e.printStackTrace();
         } catch (XMLStreamException e) {
             e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
+        System.out.println(getMedicines());
     }
 }

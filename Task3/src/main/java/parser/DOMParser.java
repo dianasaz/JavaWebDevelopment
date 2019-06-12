@@ -11,10 +11,8 @@ import entity.Version;
 import entity.VersionType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -22,15 +20,22 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-public class DOMParser implements Parser{
+public class DOMParser extends Builder{
+    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private String file;
     private Document document;
 
-    public DOMParser(){}
+    public DOMParser(String file){
+        this.file = file;
+    }
 
-    private Certificate createCertificate(NodeList nodes){
+    private Certificate createCertificate(NodeList nodes) throws ParseException {
         Certificate certificate = new Certificate();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
@@ -38,7 +43,9 @@ public class DOMParser implements Parser{
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
-                certificate.setDateOfDelivery(Integer.valueOf(element.getElementsByTagName("Date").item(0).getTextContent()));
+                Date date = dateFormat.parse(String.valueOf(element.getElementsByTagName("Date").item(0).getTextContent()));
+
+                certificate.setDateOfDelivery(date);
                 certificate.setOrganization(element.getElementsByTagName("Organization").item(0).getTextContent());
                 certificate.setNumber(Integer.valueOf(element.getAttribute("number")));
             }
@@ -77,7 +84,7 @@ public class DOMParser implements Parser{
         return aPackage;
     }
 
-    private Pharm createPharm(NodeList nodes){
+    private Pharm createPharm(NodeList nodes) throws ParseException {
         Pharm pharm = new Pharm();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
@@ -94,7 +101,7 @@ public class DOMParser implements Parser{
         return pharm;
     }
 
-    private Version createVersion(NodeList nodes){
+    private Version createVersion(NodeList nodes) throws ParseException {
         Version version = new Version();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node node = nodes.item(i);
@@ -110,17 +117,24 @@ public class DOMParser implements Parser{
     }
 
     @Override
-    public void parse(String file) throws ParserConfigurationException, IOException, SAXException {
+    public void buildList(){
 
         File xmlFile = new File(file);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder;
 
-        builder = factory.newDocumentBuilder();
-        document = builder.parse(xmlFile);
-        document.getDocumentElement();
+        try {
+            builder = factory.newDocumentBuilder();
+            document = builder.parse(xmlFile);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        List<Medicine> medicins = new ArrayList<>();
+        document.getDocumentElement();
         NodeList nodeList = document.getDocumentElement().getChildNodes();
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -132,9 +146,25 @@ public class DOMParser implements Parser{
 
                 med.setName(element.getAttribute("name"));
                 med.setGroup(Group.setGroup(element.getElementsByTagName("Group").item(0).getTextContent()));
-                med.setVersion(createVersion(document.getElementsByTagName("Version")));
-                medicins.add(med);
+
+                List<String> analogs = new ArrayList<>();
+                NodeList nodeList1 = element.getElementsByTagName("Analogs");
+                for (int h = 0; h < nodeList1.getLength(); h++){
+                    Node node1 = nodeList1.item(h);
+                    if (nodeList1.item(h).getNodeType() == Node.ELEMENT_NODE){
+                        Element el = (Element) node1;
+                        analogs.add(el.getElementsByTagName("Analog").item(h).getTextContent());
+                    }
+                }
+                med.setAnalog(analogs);
+                try {
+                    med.setVersion(createVersion(document.getElementsByTagName("Version")));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                medicines.add(med);
             }
         }
+        System.out.println(getMedicines());
     }
 }
