@@ -27,7 +27,10 @@ public enum VersionType {
                 result = CAPSULE;
                 break;
             }
-            default: result = POWDER;
+            default: {
+                result = POWDER;
+                break;
+            }
         }
         return result;
     }

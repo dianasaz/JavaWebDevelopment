@@ -29,7 +29,7 @@ public class Version {
 
     @Override
     public String toString() {
-        return " type: " + type +
-                " pharm: " + pharm + "\n\t\t\t";
+        return "type: " + type +
+                " pharm: " + pharm ;
     }
 }

@@ -93,9 +93,9 @@ public class DOMParser extends Builder{
                 Element element = (Element) node;
 
                 pharm.setName(element.getAttribute("nameOfPharm"));
-                pharm.setCertificate(createCertificate(document.getElementsByTagName("Certificate")));
-                pharm.setDosage(createDosage(document.getElementsByTagName("Dosage")));
-                pharm.setaPackage(createPackage(document.getElementsByTagName("Package")));
+                pharm.setCertificate(createCertificate(element.getElementsByTagName("Certificate")));
+                pharm.setDosage(createDosage(element.getElementsByTagName("Dosage")));
+                pharm.setaPackage(createPackage(element.getElementsByTagName("Package")));
             }
         }
         return pharm;
@@ -110,7 +110,7 @@ public class DOMParser extends Builder{
                 Element element = (Element) node;
 
                 version.setType(VersionType.setVersion(element.getAttribute("versionType")));
-                version.setPharm(createPharm(document.getElementsByTagName("Pharm")));
+                version.setPharm(createPharm(element.getElementsByTagName("Pharm")));
             }
         }
         return version;
@@ -143,28 +143,24 @@ public class DOMParser extends Builder{
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
                 Medicine med = new Medicine();
-
+                List<String> analogs = new ArrayList<>();
                 med.setName(element.getAttribute("name"));
                 med.setGroup(Group.setGroup(element.getElementsByTagName("Group").item(0).getTextContent()));
 
-                List<String> analogs = new ArrayList<>();
-                NodeList nodeList1 = element.getElementsByTagName("Analogs");
+                NodeList nodeList1 = element.getElementsByTagName("Analog");
                 for (int h = 0; h < nodeList1.getLength(); h++){
-                    Node node1 = nodeList1.item(h);
                     if (nodeList1.item(h).getNodeType() == Node.ELEMENT_NODE){
-                        Element el = (Element) node1;
-                        analogs.add(el.getElementsByTagName("Analog").item(h).getTextContent());
+                        analogs.add(nodeList1.item(h).getTextContent());
                     }
                 }
                 med.setAnalog(analogs);
                 try {
-                    med.setVersion(createVersion(document.getElementsByTagName("Version")));
+                    med.setVersion(createVersion(element.getElementsByTagName("Version")));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 medicines.add(med);
             }
         }
-        System.out.println(getMedicines());
     }
 }

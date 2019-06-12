@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class SAXParser extends Builder{
+public class SAXParser extends Builder {
     public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private String file;
 
@@ -32,7 +32,7 @@ public class SAXParser extends Builder{
     }
 
     @Override
-    public void buildList(){
+    public void buildList() {
         SAXParserFactory factory;
         factory = SAXParserFactory.newInstance();
         javax.xml.parsers.SAXParser saxParser = null;
@@ -76,8 +76,9 @@ public class SAXParser extends Builder{
             @Override
             public void startElement(String uri, String localName, String qName, Attributes atts) throws SAXException {
                 elementName = qName;
-                switch (elementName){
-                    case "Medicine":{
+                //analogs = new ArrayList<>();
+                switch (elementName) {
+                    case "Medicine": {
                         name = atts.getValue("name");
                         break;
                     }
@@ -94,6 +95,11 @@ public class SAXParser extends Builder{
                         number = Integer.valueOf(atts.getValue("number"));
                         break;
                     }
+                    case "Analogs": {
+                        analogs = new ArrayList<>();
+                        break;
+
+                    }
                 }
             }
 
@@ -106,9 +112,6 @@ public class SAXParser extends Builder{
                     switch (elementName) {
                         case "Group":
                             group = Group.setGroup(data);
-                            break;
-                        case "Analogs":
-                            analogs = new ArrayList<>();
                             break;
                         case "Analog":
                             analogs.add(data);
@@ -162,7 +165,8 @@ public class SAXParser extends Builder{
 
         try {
             saxParser.parse(file, handler);
-        } catch (SAXException e) {
+        } catch (
+                SAXException e) {
             e.printStackTrace();
         } catch (
                 MalformedURLException e) {
@@ -171,8 +175,6 @@ public class SAXParser extends Builder{
                 IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println(getMedicines());
     }
 
 }

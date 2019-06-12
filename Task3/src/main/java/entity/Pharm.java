@@ -50,8 +50,8 @@ public class Pharm {
     @Override
     public String toString() {
         return "name: " + name +
-                "\n\t\t\t\tcertificate: " + certificate +
-                "\n\t\t\t\tPackage: " + aPackage +
-                "\n\t\t\t\tdosage: " + dosage;
+                " certificate: " + certificate +
+                " Package: " + aPackage +
+                " dosage: " + dosage;
     }
 }

@@ -31,7 +31,7 @@ public class Dosage {
 
     @Override
     public String toString() {
-        return " dose:" + dose +
+        return "dose:" + dose +
                 " period: " + period;
     }
 }

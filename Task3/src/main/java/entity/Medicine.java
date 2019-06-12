@@ -69,10 +69,10 @@ public class Medicine {
 
     @Override
     public String toString() {
-        return "Medicine\n\t" +
-                "name: " + name  +
-                "\n\tgroup: " + group +
-                "\n\tanalog: " + analog +
-                "\n\tversion: " + version ;
+        return "Medicine" +
+                " name: " + name  +
+                " group: " + group +
+                " analog: " + analog +
+                " version: " + version;
     }
 }

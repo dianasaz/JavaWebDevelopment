@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Runner {
     public static void main(String... args) throws IOException, SAXException, ParserConfigurationException {
         //new SAXParser("src\\main\\resources\\medicins.xml").buildList();
-        //new DOMParser("src\\main\\resources\\medicins.xml").buildList();
-        new StAXParser("src\\main\\resources\\medicins.xml").buildList();
+        new DOMParser("src\\main\\resources\\medicins.xml").buildList();
+        //new StAXParser("src\\main\\resources\\medicins.xml").buildList();
     }
 }

@@ -41,7 +41,7 @@ public class Package {
 
     @Override
     public String toString() {
-        return " type: " + type +
+        return "type: " + type +
                 " quantity: " + quantity +
                 " priceForPackage: " + priceForPackage ;
     }

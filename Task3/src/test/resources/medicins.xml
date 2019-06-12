@@ -121,6 +121,7 @@
         <Group>PAINKILLERS</Group>
         <Analogs>
             <Analog>Analgin</Analog>
+            <Analog></Analog>
         </Analogs>
         <Version versionType = "TABLETS">
             <Pharm nameOfPharm = "RusApt">

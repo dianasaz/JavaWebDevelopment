@@ -124,7 +124,5 @@ public class StAXParser extends Builder{
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        System.out.println(getMedicines());
     }
 }
