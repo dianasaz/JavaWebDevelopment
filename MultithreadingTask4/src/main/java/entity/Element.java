@@ -10,8 +10,8 @@ public class Element{
     private int el;
     private ReentrantLock lock;
 
-    public Element(int value){
-        this.el = value;
+    public Element(int element){
+        this.el = element;
         this.lock = new ReentrantLock();
     }
 

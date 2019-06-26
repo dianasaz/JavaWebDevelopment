@@ -18,14 +18,14 @@ public class Runner {
         Element[][] elements;
         Matrix matrix;
         Read read = new Read();
-        elements = read.read("G:\\courses\\JavaWebDevelopment\\MultithreadingTask4\\src\\main\\resources\\file.txt");
+        elements = read.read("src\\main\\resources\\file.txt");
         matrix = new Matrix(elements);
 
-        Runnable changer = new Changer(4, matrix);
-        Runnable changer2 = new Changer(21, matrix);
-        Runnable changer3 = new Changer(2, matrix);
-        Runnable changer4 = new Changer(45, matrix);
-        Runnable changer5 = new Changer(7, matrix);
+        Changer changer = new Changer(4, matrix);
+        Changer changer2 = new Changer(21, matrix);
+        Changer changer3 = new Changer(2, matrix);
+        Changer changer4 = new Changer(45, matrix);
+        Changer changer5 = new Changer(7, matrix);
 
         Thread thread = new Thread(changer);
         Thread thread2 = new Thread(changer2);
