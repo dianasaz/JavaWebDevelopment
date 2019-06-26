@@ -1,26 +1,32 @@
 package entity;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Changer implements Runnable {
     private final Logger logger = LogManager.getLogger(Changer.class);
     private Matrix matrix;
     private int element;
+    private ReentrantLock lock;
 
-    public Changer(int x){
+    public Changer(int x, Matrix matrix) {
         this.element = x;
-        matrix = new Matrix(" ", 5);
+        this.matrix = matrix;
     }
+
     public void run() {
-        for (int i = 0; i < matrix.getSize(); i++){
-            for (int j = 0; j < matrix.getSize(); j++){
-                if (matrix.getElement(i, j) == 0){
-                    matrix.setElement(i, j, element);
-                    logger.log(Level.INFO, "Element[" + i + "][" + j + "] was changed to" + element);
-                }
-            }
+        matrix.ChangeValue(element);
+        try {
+            TimeUnit.MILLISECONDS.sleep(10);
+        } catch (InterruptedException e) {
+            logger.log(Level.ERROR, e.getMessage());
         }
+    }
+
+    public String getMatrix() {
+        return matrix.toString();
     }
 }

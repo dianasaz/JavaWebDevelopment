@@ -1,16 +1,22 @@
 package entity;
 
-public class Matrix {
-    private int n;
-    private int[][] matrix;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-    public Matrix(String line, int n){
-        matrix = new int[n][];
-        matrix[0] = new int[]{0, 7, 4, 18, 32};
-        matrix[1] = new int[]{2, 0, 78, 21, 22};
-        matrix[2] = new int[]{13, 7, 0, 34, 56};
-        matrix[3] = new int[]{7, 90, 21, 0, 32};
-        matrix[4] = new int[]{9, 14, 56, 9, 0};
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
+
+
+public class Matrix {
+    private final Logger logger = LogManager.getLogger(Matrix.class);
+    private int[][] matrix;
+    private ReentrantLock lock;
+
+    public Matrix(int[][] h, ReentrantLock lock){
+        this.matrix = h;
+        this.lock = lock;
+        clearDiagonal();
     }
 
     public int getElement(int x, int y){
@@ -18,10 +24,57 @@ public class Matrix {
     }
 
     public void setElement(int x, int y, int el){
-        matrix[x][y] = el;
+        lock.lock();
+        try {
+            matrix[x][y] = el;
+        } finally {
+            lock.unlock();
+        }
     }
 
     public int getSize(){
         return matrix.length;
+    }
+
+    private void clearDiagonal(){
+        for (int i = 0; i < matrix.length; i++){
+            setElement(i, i, 0);
+        }
+    }
+
+    public void ChangeValue(int element){
+        for (int i = 0; i < matrix.length; i++) {
+            if (matrix[i][i] == 0) {
+                setElement(i, i, element);
+                logger.log(Level.INFO, "Element[" + i + "][" + i + "] was changed to " + element);
+            }
+        }
+    }
+
+    public static int[][] makeMatrix(List<String> lines){
+        int[][] m = new int[lines.size()][];
+
+        for (int a = 0; a < lines.size(); a++){
+            String[] res = lines.get(a).split(" ");
+            int[] d = new int[res.length];
+            for (int i = 0; i < res.length; i++) {
+                int s = Integer.valueOf(res[i]);
+                d[i] = s;
+            }
+            m[a] = d;
+        }
+        return m;
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < 5; i++){
+            for (int j = 0; j < 5; j++){
+                s += matrix[i][j] + " ";
+            }
+            s += "\n";
+        }
+        return s;
     }
 }
