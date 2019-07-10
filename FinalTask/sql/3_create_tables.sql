@@ -6,7 +6,7 @@ CREATE TABLE `user`
   `login`    varchar(255) UNIQUE NOT NULL,
   `email`    varchar(255) UNIQUE NOT NULL,
   `password` varchar(255)        NOT NULL,
-  `role`     int                 NOT NULL
+  `role`     ENUM ('administrator', 'visitor')
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 

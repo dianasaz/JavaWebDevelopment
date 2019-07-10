@@ -5,8 +5,17 @@ import java.util.Date;
 public class Event {
     private int eventID;
     private Date date;
-    private Service service;
-    private Pet pet;
+    private int service;
+    private int pet;
+    private int doctor;
+
+    public int getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(int doctor) {
+        this.doctor = doctor;
+    }
 
     public void setEventID(int eventID) {
         this.eventID = eventID;
@@ -16,13 +25,6 @@ public class Event {
         this.date = date;
     }
 
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-    }
 
     public int getEventID() {
         return eventID;
@@ -32,11 +34,19 @@ public class Event {
         return date;
     }
 
-    public Service getService() {
+    public int getService() {
         return service;
     }
 
-    public Pet getPet() {
+    public void setService(int service) {
+        this.service = service;
+    }
+
+    public void setPet(int pet) {
+        this.pet = pet;
+    }
+
+    public int getPet() {
         return pet;
     }
 }

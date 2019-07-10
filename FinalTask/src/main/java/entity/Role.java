@@ -1,8 +1,8 @@
 package entity;
 
 public enum Role {
-    ADMINISTRATOR("администратор"),
-    VISITOR("посетитель");
+    ADMINISTRATOR("administrator"),
+    VISITOR("visitor");
 
     private String name;
 
@@ -14,11 +14,23 @@ public enum Role {
         return name;
     }
 
+    public static Role getById(Integer id) {
+        return Role.values()[id];
+    }
+
+    public static Role setRole(String role){
+        Role r = null;
+        if (role.equalsIgnoreCase("administrator")) r = ADMINISTRATOR;
+        if (role.equalsIgnoreCase("visitor")) r = VISITOR;
+        return r;
+    }
+
     public Integer getIdentity() {
         return ordinal();
     }
 
-    public static Role getByIdentity(Integer identity) {
-        return Role.values()[identity];
+    @Override
+    public String toString() {
+        return name;
     }
 }

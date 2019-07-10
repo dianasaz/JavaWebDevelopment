@@ -1,3 +1,4 @@
+USE `myDatabase`;
 INSERT INTO `user` (`user_id`,
                     `login`,
                     `password`,
@@ -7,12 +8,12 @@ VALUES (2,
         'user1',
         'EE11CBB19052E40B07AAC0CA060C23EE', /* MD5 хэш пароля "user" */
         'das@mail.ru',
-        1),
+        'visitor'),
        (3,
         'user2',
         'WW34CBB19052E40B07AAC0CA060C23EE',
         'ERT@mail.ru',
-        1);
+        'visitor');
 
 INSERT INTO `user_info`
   (`user_id`, `name`, 'gender', `phoneNumber`, `address`, `pet`)

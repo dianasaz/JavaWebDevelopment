@@ -6,8 +6,8 @@ import java.util.List;
 public class Doctor {
     private int doctorID;
     private String name;
-    private List<Service> service;
-    private List<PetList> petList;
+    private List<Integer> service;
+    private List<Integer> petList;
     private List<Date> workList;
 
     public void setWorkList(List<Date> workList) {
@@ -26,13 +26,6 @@ public class Doctor {
         return name;
     }
 
-    public List<Service> getService() {
-        return service;
-    }
-
-    public List<PetList> getPetList() {
-        return petList;
-    }
 
     public void setDoctorID(int doctorID) {
         this.doctorID = doctorID;
@@ -42,11 +35,19 @@ public class Doctor {
         this.name = name;
     }
 
-    public void setService(List<Service> service) {
+    public List<Integer> getService() {
+        return service;
+    }
+
+    public List<Integer> getPetList() {
+        return petList;
+    }
+
+    public void setService(List<Integer> service) {
         this.service = service;
     }
 
-    public void setPetList(List<PetList> petList) {
+    public void setPetList(List<Integer> petList) {
         this.petList = petList;
     }
 }

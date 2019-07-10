@@ -9,4 +9,13 @@ public enum ServiceList {
     MICROCHIPPING,
     WELLNESS_EXAM,
     ANALYSIS;
+
+
+    public Integer getIdentity() {
+        return ordinal();
+    }
+
+    public static ServiceList getById(Integer id){
+        return ServiceList.values()[id];
+    }
 }

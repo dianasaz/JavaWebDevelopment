@@ -1,1 +1,1 @@
-DROP DATABASE IF EXISTS `mydatabase`;
+DROP DATABASE IF EXISTS `myDatabase`;
