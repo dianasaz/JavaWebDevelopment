@@ -7,6 +7,8 @@ public enum PetList {
     PARROT ("parrot"),
     HAMSTER ("hamster");
 
+    //TODO
+
     private String name;
 
     PetList(String name) {

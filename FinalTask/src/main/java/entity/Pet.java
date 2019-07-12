@@ -1,17 +1,19 @@
 package entity;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class Pet {
-    private int petID;
+    private int identity;
     private String name;
     private PetList kind;
-    private int age;
+    private Date dateOfBirth;
     private double weight;
-    private List<Integer> eventList;
+    private List<Event> eventList;
 
-    public void setPetID(int petID) {
-        this.petID = petID;
+    public void setIdentity(int identity) {
+        this.identity = identity;
     }
 
     public void setName(String name) {
@@ -22,20 +24,24 @@ public class Pet {
         this.kind = kind;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public void setEventList(List<Integer> eventList) {
+    public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
     }
 
-    public int getPetID() {
-        return petID;
+    public int getIdentity() {
+        return identity;
     }
 
     public String getName() {
@@ -46,15 +52,39 @@ public class Pet {
         return kind;
     }
 
-    public int getAge() {
-        return age;
-    }
-
     public double getWeight() {
         return weight;
     }
 
-    public List<Integer> getEventList() {
+    public List<Event> getEventList() {
         return eventList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return identity == pet.identity &&
+                Double.compare(pet.weight, weight) == 0 &&
+                Objects.equals(name, pet.name) &&
+                kind == pet.kind &&
+                Objects.equals(eventList, pet.eventList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(identity, name, kind, weight, eventList);
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "identity=" + identity +
+                ", name='" + name + '\'' +
+                ", kind=" + kind +
+                ", weight=" + weight +
+                ", eventList=" + eventList +
+                '}';
     }
 }

@@ -4,6 +4,8 @@ public enum Role {
     ADMINISTRATOR("administrator"),
     VISITOR("visitor");
 
+    //TODO
+
     private String name;
 
     private Role(String name) {

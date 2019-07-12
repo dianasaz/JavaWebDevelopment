@@ -1,13 +1,11 @@
 package dao;
 
-import exception.PersistentException;
-
 public interface Dao <T> {
-    Integer create(T entity) throws PersistentException;
+    Integer create(T entity) throws DaoException;
 
-    T read(Integer identity) throws PersistentException;
+    T read(Integer identity) throws DaoException;
 
-    void update(T entity) throws PersistentException;
+    void update(T entity) throws DaoException;
 
-    void delete(Integer id) throws PersistentException;
+    void delete(Integer id) throws DaoException;
 }

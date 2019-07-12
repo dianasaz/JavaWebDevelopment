@@ -1,9 +1,6 @@
 package dao;
 
 import entity.Event;
-import entity.Service;
-import entity.ServiceList;
-import exception.PersistentException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,13 +14,13 @@ public class EventDao extends BaseDao implements Dao<Event> {
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 
     @Override
-    public Integer create(Event entity) throws PersistentException {
+    public Integer create(Event entity) throws DaoException {
         String sql = "INSERT INTO `mydatabase`.event (`service_id`, `pet`, `date`, `event_id`, `doctor`) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, entity.getEventID());
+            statement.setInt(1, entity.getIdentity());
             statement.setInt(2, entity.getPet());
             statement.setInt(3, entity.getService());
             statement.setDate(4, (Date) entity.getDate());
@@ -35,10 +32,10 @@ public class EventDao extends BaseDao implements Dao<Event> {
                 return resultSet.getInt(1);
             } else {
                 log.error("There is no autoincremented index after trying to add record into table `users`");
-                throw new PersistentException();
+                throw new DaoException();
             }
         } catch (SQLException e) {
-            throw new PersistentException(e);
+            throw new DaoException(e);
         } finally {
             try {
                 resultSet.close();
@@ -50,7 +47,7 @@ public class EventDao extends BaseDao implements Dao<Event> {
     }
 
     @Override
-    public Event read(Integer id) throws PersistentException {
+    public Event read(Integer id) throws DaoException {
         String sql = "SELECT `service_id`, `doctor`, `pet`, `date` FROM `mydatabase`.event WHERE `event_id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -61,7 +58,7 @@ public class EventDao extends BaseDao implements Dao<Event> {
             Event event = null;
             if (resultSet.next()) {
                 event = new Event();
-                event.setEventID(id);
+                event.setIdentity(id);
                 event.setDate(resultSet.getDate("date"));
                 event.setDoctor(resultSet.getInt("doctor"));
                 event.setDoctor(resultSet.getInt("pet"));
@@ -69,7 +66,7 @@ public class EventDao extends BaseDao implements Dao<Event> {
             }
             return event;
         } catch (SQLException e) {
-            throw new PersistentException(e);
+            throw new DaoException(e);
         } finally {
             try {
                 resultSet.close();
@@ -81,7 +78,7 @@ public class EventDao extends BaseDao implements Dao<Event> {
     }
 
     @Override
-    public void update(Event entity) throws PersistentException {
+    public void update(Event entity) throws DaoException {
         String sql = "UPDATE `mydatabase`.event SET `service_id` = ?, `doctor` = ?, `pet`= ?, `date` = ? WHERE `service_id` = ?";
         PreparedStatement statement = null;
         try {
@@ -90,10 +87,10 @@ public class EventDao extends BaseDao implements Dao<Event> {
             statement.setDate(2, (Date) entity.getDate());
             statement.setInt(3, entity.getService());
             statement.setInt(4, entity.getPet());
-            statement.setInt(5, entity.getEventID());
+            statement.setInt(5, entity.getIdentity());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new PersistentException(e);
+            throw new DaoException(e);
         } finally {
             try {
                 statement.close();
@@ -102,7 +99,7 @@ public class EventDao extends BaseDao implements Dao<Event> {
     }
 
     @Override
-    public void delete(Integer id) throws PersistentException {
+    public void delete(Integer id) throws DaoException {
         String sql = "DELETE FROM `mydatabase`.event WHERE `event_id` = ?";
         PreparedStatement statement = null;
         try {
@@ -110,7 +107,7 @@ public class EventDao extends BaseDao implements Dao<Event> {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch(SQLException e) {
-            throw new PersistentException(e);
+            throw new DaoException(e);
         } finally {
             try {
                 statement.close();

@@ -1,6 +1,7 @@
 package entity;
 
 import java.util.List;
+import java.util.Objects;
 
 public class User {
     private int id;
@@ -11,7 +12,7 @@ public class User {
     private Gender gender;
     private int phoneNumber;
     private String address;
-    private List<Integer> petList;
+    private List<Pet> petList;
     private Role role;
 
     public void setRole(Role role) {
@@ -54,7 +55,7 @@ public class User {
         this.address = address;
     }
 
-    public void setPetList(List<Integer> petList) {
+    public void setPetList(List<Pet> petList) {
         this.petList = petList;
     }
 
@@ -90,7 +91,45 @@ public class User {
         return address;
     }
 
-    public List<Integer> getPetList() {
+    public List<Pet> getPetList() {
         return petList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                phoneNumber == user.phoneNumber &&
+                Objects.equals(login, user.login) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email) &&
+                gender == user.gender &&
+                Objects.equals(address, user.address) &&
+                Objects.equals(petList, user.petList) &&
+                role == user.role;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, name, email, gender, phoneNumber, address, petList, role);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", gender=" + gender +
+                ", phoneNumber=" + phoneNumber +
+                ", address='" + address + '\'' +
+                ", petList=" + petList +
+                ", role=" + role +
+                '}';
     }
 }
