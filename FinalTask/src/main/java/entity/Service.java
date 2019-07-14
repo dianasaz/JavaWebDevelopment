@@ -3,19 +3,19 @@ package entity;
 import java.util.Objects;
 
 public class Service {
-    private int identity;
+    private Integer identity;
     private String name;
-    private int price;
+    private Integer price;
 
-    public void setIdentity(int identity) {
+    public void setIdentity(Integer identity) {
         this.identity = identity;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public int getIdentity() {
+    public Integer getIdentity() {
         return identity;
     }
 
@@ -27,7 +27,7 @@ public class Service {
         this.name = name;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 

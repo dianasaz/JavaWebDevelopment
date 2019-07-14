@@ -7,6 +7,7 @@ import entity.PetList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,14 +19,14 @@ public class PetDao extends BaseDao implements Dao<Pet> {
 
     @Override
     public Integer create(Pet entity) throws DaoException {
-        String sql = "INSERT INTO `mydatabase`.pet_info (`pet_id`, `name`, `kind`, `age`, `weight`, `event`) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `mydatabase`.pet (`id`, `name`, `kind`, `date_of_birth`, `weight`, `user_id`) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, entity.getName());
             statement.setInt(2, entity.getIdentity());
-            statement.setInt(3, entity.getAge());
+            statement.setDate(3, (Date) entity.getDateOfBirth());
             statement.setDouble(4, entity.getWeight());
             statement.setInt(5, entity.getKind().getIdentity());
             statement.setString(6, null);
@@ -51,7 +52,7 @@ public class PetDao extends BaseDao implements Dao<Pet> {
 
     @Override
     public Pet read(Integer id) throws DaoException {
-        String sql = "SELECT `name`, `kind`, `age`, `weight`, `event` FROM `mydatabase`.pet_info WHERE `pet_id` = ?";
+        String sql = "SELECT `name`, `kind`, `date_of_birth`, `weight`, `user_id` FROM `mydatabase`.pet WHERE `pet_id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
@@ -62,10 +63,11 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             if (resultSet.next()) {
                 pet = new Pet();
                 pet.setIdentity(id);
-                pet.setAge(resultSet.getInt("age"));
+                pet.setDateOfBirth(resultSet.getDate("date_of_birth"));
                 pet.setWeight(resultSet.getInt("weight"));
                 pet.setKind(PetList.getById(resultSet.getInt("kind")));
                 pet.setName(resultSet.getString("name"));
+                pet.setUser_identity(resultSet.getInt("user_id"));
                 pet.setEventList(null);
             }
             return pet;
@@ -91,7 +93,7 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             statement.setInt(2, entity.getKind().getIdentity());
             statement.setDouble(3, entity.getWeight());
             statement.setInt(4, entity.getIdentity());
-            statement.setInt(5, entity.getAge());
+            statement.setDate(5, (Date) entity.getDateOfBirth());
             //TODO event
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -120,7 +122,7 @@ public class PetDao extends BaseDao implements Dao<Pet> {
         }
     }
 
-    public List<Event> read(int pet_id) throws DaoException {
+    public List<Event> readEventsOfOnePet(int pet_id) throws DaoException {
         String sql = "SELECT `event` FROM `mydatabase`.pet_info WHERE `pet_id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -147,4 +149,33 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             } catch(SQLException | NullPointerException e) {}
         }
     }
+
+    public List<Pet> readPetsWithOneUser(int user_id) throws DaoException {
+        String sql = "SELECT `id` FROM `mydatabase`.pet WHERE `user_id` = ?";
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, user_id);
+            resultSet = statement.executeQuery();
+            List<Pet> pets = null;
+            Pet pet = null;
+            while (resultSet.next()) {
+                pet = new Pet();
+                pet.setIdentity(resultSet.getInt("id"));
+                pets.add(pet);
+            }
+            return pets;
+        } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                resultSet.close();
+            } catch(SQLException | NullPointerException e) {}
+            try {
+                statement.close();
+            } catch(SQLException | NullPointerException e) {}
+        }
+    }
+
 }

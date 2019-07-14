@@ -1,6 +1,7 @@
 package dao;
 
 import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+import entity.Pet;
 import entity.Role;
 
 

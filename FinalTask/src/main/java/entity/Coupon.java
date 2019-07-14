@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Coupon {
-    private int identity;
+    private Integer identity;
     private Date time;
     private Doctor doctor;
     private boolean taken;
@@ -18,7 +18,7 @@ public class Coupon {
         this.user = user;
     }
 
-    public int getIdentity() {
+    public Integer getIdentity() {
         return identity;
     }
 
@@ -34,7 +34,7 @@ public class Coupon {
         return taken;
     }
 
-    public void setIdentity(int identity) {
+    public void setIdentity(Integer identity) {
         this.identity = identity;
     }
 

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class User {
-    private int id;
+    private Integer id;
     private String login;
     private String password;
     private String name;
@@ -23,7 +23,7 @@ public class User {
         return role;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -59,7 +59,7 @@ public class User {
         this.petList = petList;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -26,7 +26,8 @@ CREATE TABLE `pet`
   `name`   varchar(255),
   `kind`   ENUM ('cat', 'dog', 'turtle', 'parrot', 'hamster'),
   `date_of_birth`    date,
-  `weight` int
+  `weight` int,
+  `user_id` int NOT NULL
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
@@ -65,35 +66,21 @@ CREATE TABLE `service`
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE `pet_info_about_events`
-(
-  `pet_id`   int PRIMARY KEY NOT NULL,
-  `event_id` int             NOT NULL
-) ENGINE = INNODB
-  DEFAULT CHARACTER SET utf8;
-
-CREATE TABLE `user_info_about_pets`
+CREATE TABLE `user_pet`
 (
   `user_id`     int PRIMARY KEY NOT NULL,
   `pet_id` int NOT NULL
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE `doctor_info_about_service`
+CREATE TABLE `doctor_service`
 (
   `doctor_id`         int PRIMARY KEY NOT NULL,
   `service_id` int
 ) ENGINE = INNODB
   DEFAULT CHARACTER SET utf8;
 
-CREATE TABLE `doctor_info_about_pets`
-(
-  `doctor_id`  int PRIMARY KEY NOT NULL,
-  `pet` ENUM ('cat', 'dog', 'turtle', 'parrot', 'hamster')
-) ENGINE = INNODB
-  DEFAULT CHARACTER SET utf8;
-
-CREATE TABLE `doctor_info_about_coupon`
+CREATE TABLE `doctor_coupon`
 (
   `doctor_id`  int PRIMARY KEY NOT NULL,
 
@@ -131,48 +118,38 @@ ALTER TABLE `coupon`
     ON UPDATE CASCADE
     ON DELETE RESTRICT;
 
-ALTER TABLE `pet_info_about_events`
+ALTER TABLE `user_pet`
   ADD FOREIGN KEY (`pet_id`) REFERENCES `pet` (`id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT;
 
-ALTER TABLE `pet_info_about_events`
-  ADD FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE RESTRICT;
-
-ALTER TABLE `user_info_about_pets`
-  ADD FOREIGN KEY (`pet_id`) REFERENCES `pet` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE RESTRICT;
-
-ALTER TABLE `user_info_about_pets`
+ALTER TABLE `user_pet`
   ADD FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT;
 
-ALTER TABLE `doctor_info_about_coupon`
+ALTER TABLE `doctor_coupon`
   ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT;
 
-ALTER TABLE `doctor_info_about_coupon`
+ALTER TABLE `doctor_coupon`
   ADD FOREIGN KEY (`coupon_id`) REFERENCES `coupon` (`id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT;
 
-ALTER TABLE `doctor_info_about_pets`
+ALTER TABLE `doctor_service`
   ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT;
 
-ALTER TABLE `doctor_info_about_service`
-  ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE RESTRICT;
-
-ALTER TABLE `doctor_info_about_service`
+ALTER TABLE `doctor_service`
   ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE RESTRICT;
+
+ALTER TABLE `pet`
+  ADD FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`)
     ON UPDATE CASCADE
     ON DELETE RESTRICT;
 

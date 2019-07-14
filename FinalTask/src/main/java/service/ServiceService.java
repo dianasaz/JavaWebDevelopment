@@ -5,11 +5,11 @@ import dao.DaoException;
 import java.util.List;
 
 public interface ServiceService extends Service {
-    List<Service> findAll() throws DaoException;
+    List<entity.Service> findAll() throws DaoException;
 
-    Service findByIdentity(Integer identity) throws DaoException;
+    entity.Service findByIdentity(Integer identity) throws DaoException;
 
-    void save(Service service) throws DaoException;
+    void save(entity.Service service) throws DaoException;
 
     void delete(Integer identity) throws DaoException;
 }

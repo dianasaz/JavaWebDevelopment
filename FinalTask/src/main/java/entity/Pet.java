@@ -5,14 +5,23 @@ import java.util.List;
 import java.util.Objects;
 
 public class Pet {
-    private int identity;
+    private Integer identity;
+    private int user_identity;
     private String name;
     private PetList kind;
     private Date dateOfBirth;
     private double weight;
     private List<Event> eventList;
 
-    public void setIdentity(int identity) {
+    public int getUser_identity() {
+        return user_identity;
+    }
+
+    public void setUser_identity(int user_identity) {
+        this.user_identity = user_identity;
+    }
+
+    public void setIdentity(Integer identity) {
         this.identity = identity;
     }
 
@@ -40,7 +49,7 @@ public class Pet {
         this.eventList = eventList;
     }
 
-    public int getIdentity() {
+    public Integer getIdentity() {
         return identity;
     }
 

@@ -10,7 +10,7 @@ public interface UserService extends Service{
 
     User findByIdentity(Integer identity) throws DaoException;
 
-    User findByLoginAndPassword(String login, String password) throws DaoException;
+    User findByLoginAndPasswordAndEmail(String login, String password, String email) throws DaoException;
 
     void save(User user) throws DaoException;
 

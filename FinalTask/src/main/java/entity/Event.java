@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Event {
-    private int identity;
+    private Integer identity;
     private Date date;
     private int service;
     private int pet;
@@ -18,7 +18,7 @@ public class Event {
         this.doctor = doctor;
     }
 
-    public void setIdentity(int identity) {
+    public void setIdentity(Integer identity) {
         this.identity = identity;
     }
 
@@ -27,7 +27,7 @@ public class Event {
     }
 
 
-    public int getIdentity() {
+    public Integer getIdentity() {
         return identity;
     }
 
