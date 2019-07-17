@@ -2,6 +2,7 @@ package dao.transaction;
 
 import dao.DaoException;
 import dao.connectionPool.ConnectionPool;
+import dao.connectionPool.ConnectionPoolException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +13,7 @@ public class TransactionFactory {
     private static Logger logger = LogManager.getLogger(TransactionFactory.class);
     private Connection connection;
 
-    public TransactionFactory() throws DaoException {
+    public TransactionFactory() throws DaoException, ConnectionPoolException {
         connection = ConnectionPool.getInstance().getConnection();
         try {
             connection.setAutoCommit(false);

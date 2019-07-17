@@ -42,7 +42,11 @@ public class ConnectionPool {
             }
             catch (SQLException e) {
                 LOGGER.error("Can not get Instance", e);
-                throw new RuntimeException("Can not get Instance", e);
+                try {
+                    throw new ConnectionPoolException("Can not get Instance", e);
+                } catch (ConnectionPoolException e1) {
+                    e1.printStackTrace();
+                }
             } finally {
                 lock.unlock();
             }
@@ -57,7 +61,11 @@ public class ConnectionPool {
             lock.lock();
 
             if(connectionPool != null){
-                throw new UnsupportedOperationException();
+                try {
+                    throw new ConnectionPoolException();
+                } catch (ConnectionPoolException e1) {
+                    e1.printStackTrace();
+                }
             }
             else {
                 DriverManager.registerDriver(new Driver());
@@ -99,7 +107,7 @@ public class ConnectionPool {
 
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws ConnectionPoolException {
         try {
             Connection connection = freeConnections.take();
             releaseConnections.offer(connection);
@@ -107,13 +115,12 @@ public class ConnectionPool {
             return connection;
         }
         catch (InterruptedException  e) {
-            throw new RuntimeException("Can not get database", e);
+            throw new ConnectionPoolException("Can not get database", e);
         }
 
     }
 
     public void releaseConnection(Connection connection) {
-
         releaseConnections.remove(connection);
         freeConnections.offer(connection);
 

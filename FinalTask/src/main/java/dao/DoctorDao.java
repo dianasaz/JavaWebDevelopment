@@ -12,20 +12,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorDao extends BaseDao implements Dao<Doctor> {
+    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.doctor (`id`, `name`) VALUES (?, ?)";
+    private static final String SELECT_NAME = "SELECT `name` FROM `mydatabase`.doctor WHERE `id` = ?";
+    private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.doctor SET `name` = ? WHERE `id` = ?";
+    private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.doctor WHERE `id` = ?";
+    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `name` FROM `mydatabase`.doctor ORDER BY `name`";
+
     private final Logger log = LogManager.getLogger(DoctorDao.class);
 //TODO sql strings before logger static and final
 
     //TODO delete nullpointerexception in dao by if(result.equels(null)
     @Override
     public Integer create(Doctor entity) throws DaoException {
-        String sql = "INSERT INTO `mydatabase`.doctor_info (`doctor_id`, `service`, `name`, `pet`) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(INSERT_ALL_INFO, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, entity.getIdentity());
             statement.setString(2, entity.getName());
-            //TODO servicelist petlist worklist
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -38,21 +42,20 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             throw new DaoException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 
     @Override
     public Doctor read(Integer id) throws DaoException {
-        String sql = "SELECT `service`, `name`, `pet` FROM `mydatabase`.doctor_info WHERE `doctor_id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(SELECT_NAME);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             Doctor doctor = null;
@@ -67,21 +70,20 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             throw new DaoException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 
     @Override
     public void update(Doctor entity) throws DaoException {
-        String sql = "UPDATE `mydatabase`.doctor_info SET `service` = ?, `name` = ? WHERE `doctor_id` = ?";
         //TODO
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(UPDATE_DOCTOR);
             statement.setInt(1, entity.getIdentity());
             statement.setString(2, entity.getName());
          //TODO
@@ -90,35 +92,32 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             throw new DaoException(e);
         } finally {
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 
     @Override
     public void delete(Integer id) throws DaoException {
-        String sql = "DELETE FROM `mydatabase`.doctor_info WHERE `doctor_id` = ?";
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(DELETE_BY_IDENTITY);
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 
     public List<Doctor> read() throws DaoException {
-        //TODO worklist
-        String sql = "SELECT `doctor_id`, `service`, `pet` FROM `mydatabase`.doctor_info ORDER BY `name`";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(SELECT_ALL_INFO_ORDER_BY_NAME);
             resultSet = statement.executeQuery();
             List<Doctor> doc = new ArrayList<>();
             Doctor doctor = null;
@@ -136,11 +135,11 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             throw new DaoException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 

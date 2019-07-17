@@ -20,11 +20,11 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     }
 
     @Override
-    public User findByLoginAndPasswordAndEmail(String login, String password, String email) throws DaoException {
+    public User findByLoginAndPassword(String login, String password) throws DaoException {
         UserDao userDao = transaction.createDao(UserDao.class);
         User user = null;
-        if (login != null && password != null && email != null) {
-            user = userDao.read(login, password, email);
+        if (login != null && password != null) {
+            user = userDao.read(login, PasswordCode.CodeMD5(password));
         }
         return user;
     }
@@ -34,14 +34,14 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         UserDao userDao = transaction.createDao(UserDao.class);
         if(user.getId() != null) {
             if(user.getPassword() != null) {
-                user.setPassword(user.getPassword());
+                user.setPassword(PasswordCode.CodeMD5(user.getPassword()));
             } else {
                 User oldUser = userDao.read(user.getId());
                 user.setPassword(oldUser.getPassword());
             }
             userDao.update(user);
         } else {
-            user.setPassword(new String()); //TODO шифрование пароля
+            user.setPassword(PasswordCode.CodeMD5(new String()));
             user.setId(userDao.create(user));
         }
         userDao.update(user);

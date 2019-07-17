@@ -11,15 +11,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class EventDao extends BaseDao implements Dao<Event> {
+    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.event (`service_id`, `pet_id`, `date`, `id`, `doctor_id`) VALUES (?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_INFO = "SELECT `service_id`, `doctor_id`, `pet_id`, `date` FROM `mydatabase`.event WHERE `id` = ?";
+    private static final String UPDATE_ALL_INFO = "UPDATE `mydatabase`.event SET `service_id` = ?, `doctor_id` = ?, `pet_id`= ?, `date` = ? WHERE `id` = ?";
+    private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.event WHERE `id` = ?";
+
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 
     @Override
     public Integer create(Event entity) throws DaoException {
-        String sql = "INSERT INTO `mydatabase`.event (`service_id`, `pet`, `date`, `event_id`, `doctor`) VALUES (?, ?, ?, ?, ?)";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(INSERT_ALL_INFO, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, entity.getIdentity());
             statement.setInt(2, entity.getPet());
             statement.setInt(3, entity.getService());
@@ -38,21 +42,20 @@ public class EventDao extends BaseDao implements Dao<Event> {
             throw new DaoException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 
     @Override
     public Event read(Integer id) throws DaoException {
-        String sql = "SELECT `service_id`, `doctor`, `pet`, `date` FROM `mydatabase`.event WHERE `event_id` = ?";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(SELECT_ALL_INFO);
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             Event event = null;
@@ -69,20 +72,19 @@ public class EventDao extends BaseDao implements Dao<Event> {
             throw new DaoException(e);
         } finally {
             try {
-                resultSet.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 
     @Override
     public void update(Event entity) throws DaoException {
-        String sql = "UPDATE `mydatabase`.event SET `service_id` = ?, `doctor` = ?, `pet`= ?, `date` = ? WHERE `service_id` = ?";
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(UPDATE_ALL_INFO);
             statement.setInt(1, entity.getDoctor());
             statement.setDate(2, (Date) entity.getDate());
             statement.setInt(3, entity.getService());
@@ -93,25 +95,24 @@ public class EventDao extends BaseDao implements Dao<Event> {
             throw new DaoException(e);
         } finally {
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 
     @Override
     public void delete(Integer id) throws DaoException {
-        String sql = "DELETE FROM `mydatabase`.event WHERE `event_id` = ?";
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(sql);
+            statement = connection.prepareStatement(DELETE_FROM_DATABASE);
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch(SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
         }
     }
 

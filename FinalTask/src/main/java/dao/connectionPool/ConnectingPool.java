@@ -79,7 +79,11 @@ public class ConnectingPool implements Connection, AutoCloseable{
             }
             catch (SQLException e) {
                 LOGGER.error("Connection is not returned tu AUTO-commit state", e);
-                throw new RuntimeException("database is not closed", e);
+                try {
+                    throw new ConnectionPoolException("database is not closed", e);
+                } catch (ConnectionPoolException e1) {
+                    e1.printStackTrace();
+                }
             }
             ConnectionPool.getInstance().releaseConnection(this);
         }
