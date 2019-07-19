@@ -28,30 +28,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="js/modernizr.custom.js"></script>
         <script src="js/responsiveslides.min.js"></script>
-        <script>
-    // You can also use "$(window).load(function() {"
-    $(function () {
-      $("#slider2").responsiveSlides({
-        auto: true,
-        pager: true,
-        speed: 300,
-        namespace: "callbacks",
-      });
-    });
-  </script></head>
 <body>
 <div class="header">
     <div class="header-info">
         <div class="container">
             <div class="logo">
-                <a href="index.html"><img src="images/logo.png" alt="" /></a>
+                <img src="images/logo.png" alt="" />
             </div>
             <div class="search-box">
-                <form action="login.jsp">
-                    <button type="submit" value="login"></button>
-                </form>
+                    <a href="controller?command=login"><img src="images/login.png" width="50" height="50"/></a>
             </div>
-            <div class="clearfix"> </div>
         </div>
     </div>
 </div>
@@ -62,21 +48,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <ul class="cl-effect-21">
                 <li><a href="index.html" class="active">HOME</a></li>
                 <li><a href="about.html">ABOUT</a></li>
-                <li><a href="projects.html">PROJECTS</a></li>
-                <li><a href="support.html">SUPPORT</a></li>
-                <li><a href="404.html">CAREPLUS</a></li>
-                <li><a href="contact.html">CONTACT</a></li>
+                <li><a href="contact.html">PROFILE</a></li>
+                <li><a href="projects.html">SERVICES</a></li>
+                <li><a href="support.html">DOCTORS</a></li>
+                <li><a href="404.html">OUR PETS</a></li>
             </ul>
         </div>
-        <!--script-nav -->
-        <script>
-					$("span.menu-info").click(function(){
-						$("ul.cl-effect-21").slideToggle("slow" , function(){
-						});
-					});
-					</script>
-        <!-- /script-nav -->
-        <div class="clearfix"> </div>
+
     </div>
 </div>
 </body></html>

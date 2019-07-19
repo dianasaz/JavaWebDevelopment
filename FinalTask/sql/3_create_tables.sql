@@ -52,7 +52,7 @@ CREATE TABLE `coupon`
   `taken`     boolean
 ) ENGINE = INNODB;
 
-CREATE TABLE `service`
+CREATE TABLE `by.sazanchuk.finalTask.service`
 (
   `id`    int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `price` int,
@@ -91,7 +91,7 @@ ALTER TABLE `event`
     ON DELETE CASCADE;
 
 ALTER TABLE `event`
-  ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+  ADD FOREIGN KEY (`service_id`) REFERENCES `by.sazanchuk.finalTask.service` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 
@@ -136,7 +136,7 @@ ALTER TABLE `doctor_service`
     ON DELETE CASCADE;
 
 ALTER TABLE `doctor_service`
-  ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+  ADD FOREIGN KEY (`service_id`) REFERENCES `by.sazanchuk.finalTask.service` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 

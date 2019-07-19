@@ -25,39 +25,8 @@ h1,h2,h3,h4,h5,h6,p,span{
 .header-info {
 	padding-top: 1.5em;
 }
-.search-box {
-	background:#fff;
-	position: relative;
-	float: right;
-	margin-top: 27px;
-}
-.search-box form input[type="text"] {
-	border: none;
-	outline: none;
-	background: #fff;
-	width: 88%;
-	padding: 5px 13px 5px;
-	background:none;
-	margin: 0;
-	-webkit-transition: all 0.5s ease-out;
-	-moz-transition: all 0.5s ease-out;
-	-ms-transition: all 0.5s ease-out;
-	-o-transition: all 0.5s ease-out;
-	font-size: 18px;
-	font-weight: 300;
-	color: #999;
-}
-.search-box form input[type="submit"] {
-	border: none;
-	outline: none;
-	cursor: pointer;
-	background: url(../images/top-s.png)no-repeat 0px 0px;
-	position: absolute;
-	right: 0px;
-	bottom: 7px;
-	width: 33px;
-	height: 25px;
-}
+
+
 .about-desc p span {
 	display: block;
 	margin:1em 0 2em;
@@ -915,10 +884,7 @@ ul#filters {
 }
 #filters li {
 	display:inline-block;
-		display: -webkit-inline-box;
 		display: -moz-inline-box;
-		display: -o-inline-box;
-		display: -ms-inline-box;
 }
 #filters li span.active {
 	display: block;
@@ -1047,48 +1013,60 @@ margin: 0 0 2em;
 }
 /*--/footer--*/
 /*--responsive design--*/
-@media (max-width: 1024px){
+@media (max-width: 1024px) {
 	ul.callbacks_tabs.callbacks1_tabs {
 	}
+
 	ul.cl-effect-21 li {
 		margin: 0 12px;
 	}
+
 	.about-bottom-info-right img {
 		width: 100%;
 	}
+
 	.doctor-self-left img {
 		width: 100%;
 	}
+
 	.menu {
 		top: -50px;
 		left: 97px;
 		width: 76%;
 	}
+
 	.supporters h4 {
 		margin: 1.5em 0 1em;
 		font-size: 2em;
 	}
+
 	.support-info-right img {
 		margin-left: 0em;
 		width: 100%;
 	}
+
 	.aboutus {
 		padding: 4em 0 0;
 		min-height: 338px;
 	}
+
 	.support-info p {
 		padding-top: 61px;
 	}
+
 	#portfoliolist .portfolio {
 		width: 31.3333333333%;
 	}
+
 	.support-info p {
 		padding-top: 0;
 		font-size: 15px;
 	}
+
 	.map {
 		width: 100%;
 	}
+
 	.map iframe {
 		width: 910px;
 		height: 350px;
@@ -1096,434 +1074,545 @@ margin: 0 0 2em;
 		padding-left: 0;
 		border: none;
 	}
-@media (max-width: 768px){
-	.menu {
-		top: -39px;
-		left: 0px;
-		width: 100%;
-		padding:0.5em 0;
-	}
-	.support-info-bottom img {
-		padding-top: 1.5em;
-	}
-	.support-info-right-bottom img {
-		margin-bottom: 1.2em;
-	}
-	.doctor-self-left {
-		margin-bottom: 1.5em;
-	}
-	.col-md-4.dogs-food-info {
-		width: 50%;
-		float: left;
-	}
-	.about-img {
-		text-align: center;
-	}
-	.contact-us-right {
-		width: 100%;
-	}
-	.about-bottom-info-right {
-		padding-bottom: 1em;
-	}
-	#portfoliolist .portfolio {
-		width: 48%;
-	}
-	.col-md-4.about-left {
-		width: 50%;
-		float: left;
-		text-align: center;
-	}
-	ul.cl-effect-21 li{
-		margin: 0px 10px;
-	}
-	.col-md-4.support-bottom-top {
-		margin: 0 0 1em;
-	}
-	.support-info-bottom img {
-		width: 46%;
-		margin: 0 auto;
-	}
-	.support-info {
-		margin: 0em 0 1em;
-	}
-	.daily-updates-info p {
-		margin-top: 1em;
-	}
-	.support-info p {
-		margin-bottom: 1.8em;
-	}
-	.support-bottom-top img {
-		width: 30%;
-	}
-	.support-bottom-top img {
-		margin-top: 1.3em;
-	}
-	.support h4 {
-		margin: 0.5em 0 1em;
-		font-size: 2em;
-	}
-	.contact-us-info {
-		margin-top: 0em;
-	}
-	.contact input.text {
-		width: 49.5%;
-	}
-	.support-bottom {
-		padding: 2em 0;
-	}
-	.contact textarea {
-		width: 100%;
-		height: 125px;
-	}
-	.contact {
-		min-height: 452px;
-	}
-	.support-info-right {
-		margin-bottom: 0em;
-	}
-	.ul.cl-effect-21{
-		margin-bottom: 0;
-	}
-	.doctor-self-info-bottom {
-		padding: 2em 0 1.5em;
-	}
-	.doctor-self-info {
-		padding: 2em 0 0;
-	}
-	.doctor-self-info h3 {
-		margin: 0;
-	}
-	.dogs-food-info {
-		margin-top: 1em;
-	}
-	.support-info-left-top img {
-		margin: 0 auto;
-		width:20%;
-	}
-	.support-info-right-bottom img {
-		margin: 0 auto;
-		width:20%;
-	}
-	.contact input[type="submit"] {
-		margin-bottom: 13px;
-	}
-	.doctor-self-left img {
-		width: 56%;
-	}
-	.col-md-8.about-bottom-info {
-		margin: 0 0 2em;
-	}
-	.about-topgrid1 {
-		padding: 3em 0 3em;
-	}	
-	.col-md-4.about-img img {
-		padding-bottom: 30px;
-		width: 36%;
-		margin: 0 auto;	
-	}
-	.about-bottom-info-right img {
-		width: none;
-	}
-	.about-topgrid1 {
-		margin: 0em 0 1em;
-	}
-	.aboutus {
-		padding: 2em 0 0;
-	}
-	.about-bottom-into {
-		margin-bottom: 40px;
-	}
-	.about-bottom-info-right img {
-		width: 60%;
-	}
-	.support-bottom {
-		text-align: center;
-	}
-	.support-info-bottom a img {
-		margin: 0 auto;
-		padding-left: 12px;
-	}
-	.support-info input[type="submit"] {
-		margin-bottom: 22px;
-	}
-	.map iframe {
-		width: 657px;
-	}
-	.contact-us-right {
-		padding-bottom: 0em;
-	}
-	.dogs-food-info p {
-		font-size: 0.875em;
-		width: 66%;
-		line-height: 1.6em;
-		padding-bottom: 1em;
-	}
-	.doctor-self-right p {
-		font-size: 0.875em;
-		line-height: 1.8em;
-	}
-	.doctor-self-left p {
-		font-size: 0.875em;
-	}
-}
-@media (max-width: 640px){
-	span.menu-info:before {
-		content: url("../images/menu.png") no-repeat;
-		cursor: pointer;
-	}
-	.header {
-		min-height: 119px;
-	}
-	.doctor-self-info {
-		padding: 3.3em 0 0;
-	}
-	.doctor-self-info-bottom {
-		padding: 1.4em 0 1em;
-	}
-	ul.callbacks_tabs.callbacks1_tabs {
-		bottom: -15.2%;
-		padding: 0.5em 0em 1em;
-	}
-	.daily-updates-info h4 {
-		font-weight: 400;
-		font-size: 1.2em;
-		margin-bottom: 32px;
-	}
-	ul.cl-effect-21{
-		padding: 0em;
-		z-index: 999;
-		position: absolute;
-		width: 100%;
-		background: none;
-		text-align: center;
-		list-style: none;
-		margin: 0 auto;
-		right: 0em;
-		background-color: #fff;
-		display: none;
-	}
-	ul.cl-effect-21 li {
-		margin: 0 0em 0 0;
-		display: block;
-		font-size: 12px;
-		padding: 0px 0 0 0px;
-	}
-	.cl-effect-21 a {
-		padding: 10px 0;
-	}
-	ul.cl-effect-21 li a {
-		color: #3598DB;
-		margin-right: 0px;
-		text-decoration: none;
-		display:block;
-	}
-	.menu a {
-		margin: 7px 0 0 0;
-	}
-	.menu {
-		top: -30px;
-		left: 0px;
-		width: 100%;
-	}
-	.search-box {
-		right: 0px;
-		top: -13px;
-	}
-	ul.callbacks_tabs.callbacks1_tabs {
-	}
-	ul.callbacks_tabs.callbacks1_tabs {
-	}
-	.header-info {
-		padding-top: 0.6em;
-	}
-	.col-md-4.about-img img {
-		padding-bottom: 0;
-		width: 27%;
-		margin: 0 auto 1em;
-	}
-	.support-info-bottom a img {
-		margin: 0 auto;
-		padding-left: 0px;
-		width: 100%;
-	}
-	.logo a img {
-		width: 73%;
-	}
-	.map iframe {
-		width: 563px;
-	}
-	.daily-updates-info form input[type="text"] {
-		padding: 7px;
-		width: 46%;
-	}
-	.daily-updates-info input[type="submit"] {
-		padding: 9px 25px;
-	}
-	.support {
-		padding: 2em 0;
-	}
-	.support h4 {
-		font-size: 1.2em;
-	}
-	.contact-info p {
-		font-size: 1em;
-		line-height: 1.2em;
-		margin: 0px 0px 1em;
-		text-align: center;
-	}
-	.contact {
-		padding: 2em 0;
-	}
-	.about {
-		margin: 4em 0 0em;
-	}
-	.about-top-info h3 {
-		font-size: 1.5em;
-		font-weight: 400;
-	}
-	.about-desc p {
-		font-size: 0.85em;
-		height: 96px;
-		overflow: hidden;
-	}
-	.about-topgrid1 {
-	padding: 2em 0 1em;
-	}
-	.about-topgrid1 h3 {
-		font-size: 1.5em;
-		font-weight: 400;
-		margin: 0em 0 1em;
-	}
-	.portfolio_top {
-		padding: 4em 0 3em;
-	}
-	.portfolio_top h4, .support_top h4, .contact_top h4 {
-		margin: 0 0 1.5em;
-		font-size: 1.5em;
-		font-weight: 400;
-	}
-	.support_top {
-		padding: 4em 0 2em;
-	}
-	.contact_top {
-		padding: 4em 0 5em;
-	}
-}
-@media (max-width: 480px){
-	ul.callbacks_tabs.callbacks1_tabs {
-	}
-	.menu {
-		top: -30px;
-	}
-	.search-box {
-		right: 0px;
-		top: -7px;
-	}
-	ul.callbacks_tabs.callbacks1_tabs {
-		bottom: -19.2%;
-		padding: 0em 0em 1em;
-	}
-	.doctor-self-right p {
-		height: 80px;
-		overflow: hidden;
-		text-align: center;
-	}
-	.dogs-food-info p {
-		font-size: 0.875em;
-		width: 100%;
-		line-height: 1.6em;
-	}
-	.contact input.text {
-		width: 100%;
-		padding: 9px;
-	}
-	.col-md-4.dogs-food-info:nth-of-type(3) {
-		display: none;
-	}
-	.col-md-4.dogs-food-info:nth-of-type(5) {
-		display: none;
-	}
-	.col-md-4.about-left:nth-of-type(3) {
-		display: none;
-	}
-	.col-md-4.about-left:nth-of-type(5) {
-		display: none;
-	}
-	.col-md-4.dogs-food-info {
-		margin-bottom: 1em;
-	}
-	.contact-info h4 {
-		font-size: 1.2em;
-	}
-	.contact textarea {
-		width: 100%;
-	}
-	.contact-info p {
-		margin: 0;
-		padding-bottom: 18px;
-	}
-	.daily-updates-info form input[type="text"] {
-		width: 70%;
-	}
-	.col-md-4.about-img img {
-	}
-	.about-bottom-info-right img {
-		width: 100%;
-	}
-	.map iframe {
-		width: 402px;
-	}
-}
-@media (max-width: 320px){
-	.logo a img {
-		width: 50%;
-		margin-top:5px;
-	}
-	.search-box {
-		right: 0px;
-		top: -35px;
-		margin: 0;
-		width: 64%;
-	}
-	.slider {
-		min-height: 183px;
-	}
-	.rslides img {
-		width: 149%;
-	}
-	.menu {
-		top: -26px;
-		padding: 0.2em 0 0;
-	}
-	.callbacks_tabs a:after {
-		height: 12px;
-		width: 12px;
-	}
-	.doctor-self-info h3 {
-		margin: 0;
-		font-size: 1em;
-	}
-	.doctor-self-left {
-		margin-bottom: 0.5em;
-	}
-	.doctor-self {
-		background: #27B6DE;
-		min-height: 326px;
-	}
-	.dogs-food-top-info {
-		padding: 1em 0;
-	}
-	.dogs-food-info p, .check-out p {
-		font-size: 0.875em;
-		width: 100%;
-		height: 72px;
-		overflow: hidden;
-	}
-	.support-info-left-top img {
-		margin: 0 auto;
-		width: 51%;
-	}
-	#filters li span, #filters li span.active{
-		font-size: 12px;
+
+	@media (max-width: 768px) {
+		.menu {
+			top: -39px;
+			left: 0px;
+			width: 100%;
+			padding: 0.5em 0;
+		}
+
+		.support-info-bottom img {
+			padding-top: 1.5em;
+		}
+
+		.support-info-right-bottom img {
+			margin-bottom: 1.2em;
+		}
+
+		.doctor-self-left {
+			margin-bottom: 1.5em;
+		}
+
+		.col-md-4.dogs-food-info {
+			width: 50%;
+			float: left;
+		}
+
+		.about-img {
+			text-align: center;
+		}
+
+		.contact-us-right {
+			width: 100%;
+		}
+
+		.about-bottom-info-right {
+			padding-bottom: 1em;
+		}
+
+		#portfoliolist .portfolio {
+			width: 48%;
+		}
+
+		.col-md-4.about-left {
+			width: 50%;
+			float: left;
+			text-align: center;
+		}
+
+		ul.cl-effect-21 li {
+			margin: 0px 10px;
+		}
+
+		.col-md-4.support-bottom-top {
+			margin: 0 0 1em;
+		}
+
+		.support-info-bottom img {
+			width: 46%;
+			margin: 0 auto;
+		}
+
+		.support-info {
+			margin: 0em 0 1em;
+		}
+
+		.daily-updates-info p {
+			margin-top: 1em;
+		}
+
+		.support-info p {
+			margin-bottom: 1.8em;
+		}
+
+		.support-bottom-top img {
+			width: 30%;
+		}
+
+		.support-bottom-top img {
+			margin-top: 1.3em;
+		}
+
+		.support h4 {
+			margin: 0.5em 0 1em;
+			font-size: 2em;
+		}
+
+		.contact-us-info {
+			margin-top: 0em;
+		}
+
+		.contact input.text {
+			width: 49.5%;
+		}
+
+		.support-bottom {
+			padding: 2em 0;
+		}
+
+		.contact textarea {
+			width: 100%;
+			height: 125px;
+		}
+
+		.contact {
+			min-height: 452px;
+		}
+
+		.support-info-right {
+			margin-bottom: 0em;
+		}
+
+		.ul.cl-effect-21 {
+			margin-bottom: 0;
+		}
+
+		.doctor-self-info-bottom {
+			padding: 2em 0 1.5em;
+		}
+
+		.doctor-self-info {
+			padding: 2em 0 0;
+		}
+
+		.doctor-self-info h3 {
+			margin: 0;
+		}
+
+		.dogs-food-info {
+			margin-top: 1em;
+		}
+
+		.support-info-left-top img {
+			margin: 0 auto;
+			width: 20%;
+		}
+
+		.support-info-right-bottom img {
+			margin: 0 auto;
+			width: 20%;
+		}
+
+		.contact input[type="submit"] {
+			margin-bottom: 13px;
+		}
+
+		.doctor-self-left img {
+			width: 56%;
+		}
+
+		.col-md-8.about-bottom-info {
+			margin: 0 0 2em;
+		}
+
+		.about-topgrid1 {
+			padding: 3em 0 3em;
+		}
+
+		.col-md-4.about-img img {
+			padding-bottom: 30px;
+			width: 36%;
+			margin: 0 auto;
+		}
+
+		.about-topgrid1 {
+			margin: 0em 0 1em;
+		}
+
+		.aboutus {
+			padding: 2em 0 0;
+		}
+
+		.about-bottom-into {
+			margin-bottom: 40px;
+		}
+
+		.about-bottom-info-right img {
+			width: 60%;
+		}
+
+		.support-bottom {
+			text-align: center;
+		}
+
+		.support-info-bottom a img {
+			margin: 0 auto;
+			padding-left: 12px;
+		}
+
+		.support-info input[type="submit"] {
+			margin-bottom: 22px;
+		}
+
+		.map iframe {
+			width: 657px;
+		}
+
+		.contact-us-right {
+			padding-bottom: 0em;
+		}
+
+		.dogs-food-info p {
+			font-size: 0.875em;
+			width: 66%;
+			line-height: 1.6em;
+			padding-bottom: 1em;
+		}
+
+		.doctor-self-right p {
+			font-size: 0.875em;
+			line-height: 1.8em;
+		}
+
+		.doctor-self-left p {
+			font-size: 0.875em;
+		}
+	}
+	@media (max-width: 640px) {
+		span.menu-info:before {
+			content: url("../images/menu.png");
+			cursor: pointer;
+		}
+
+		.header {
+			min-height: 119px;
+		}
+
+		.doctor-self-info {
+			padding: 3.3em 0 0;
+		}
+
+		.doctor-self-info-bottom {
+			padding: 1.4em 0 1em;
+		}
+
+		ul.callbacks_tabs.callbacks1_tabs {
+			bottom: -15.2%;
+			padding: 0.5em 0em 1em;
+		}
+
+		.daily-updates-info h4 {
+			font-weight: 400;
+			font-size: 1.2em;
+			margin-bottom: 32px;
+		}
+
+		ul.cl-effect-21 {
+			padding: 0em;
+			z-index: 999;
+			position: absolute;
+			width: 100%;
+			background: none;
+			text-align: center;
+			list-style: none;
+			margin: 0 auto;
+			right: 0em;
+			background-color: #fff;
+			display: none;
+		}
+
+		ul.cl-effect-21 li {
+			margin: 0 0em 0 0;
+			display: block;
+			font-size: 12px;
+			padding: 0px 0 0 0px;
+		}
+
+		.cl-effect-21 a {
+			padding: 10px 0;
+		}
+
+		ul.cl-effect-21 li a {
+			color: #3598DB;
+			margin-right: 0px;
+			text-decoration: none;
+			display: block;
+		}
+
+		.menu a {
+			margin: 7px 0 0 0;
+		}
+
+		.menu {
+			top: -30px;
+			left: 0px;
+			width: 100%;
+		}
+
+		.search-box {
+			right: 0px;
+			top: -13px;
+		}
+
+		ul.callbacks_tabs.callbacks1_tabs {
+		}
+
+		ul.callbacks_tabs.callbacks1_tabs {
+		}
+
+		.header-info {
+			padding-top: 0.6em;
+		}
+
+		.col-md-4.about-img img {
+			padding-bottom: 0;
+			width: 27%;
+			margin: 0 auto 1em;
+		}
+
+		.support-info-bottom a img {
+			margin: 0 auto;
+			padding-left: 0px;
+			width: 100%;
+		}
+
+		.logo a img {
+			width: 73%;
+		}
+
+		.map iframe {
+			width: 563px;
+		}
+
+		.daily-updates-info form input[type="text"] {
+			padding: 7px;
+			width: 46%;
+		}
+
+		.daily-updates-info input[type="submit"] {
+			padding: 9px 25px;
+		}
+
+		.support {
+			padding: 2em 0;
+		}
+
+		.support h4 {
+			font-size: 1.2em;
+		}
+
+		.contact-info p {
+			font-size: 1em;
+			line-height: 1.2em;
+			margin: 0px 0px 1em;
+			text-align: center;
+		}
+
+		.contact {
+			padding: 2em 0;
+		}
+
+		.about {
+			margin: 4em 0 0em;
+		}
+
+		.about-top-info h3 {
+			font-size: 1.5em;
+			font-weight: 400;
+		}
+
+		.about-desc p {
+			font-size: 0.85em;
+			height: 96px;
+			overflow: hidden;
+		}
+
+		.about-topgrid1 {
+			padding: 2em 0 1em;
+		}
+
+		.about-topgrid1 h3 {
+			font-size: 1.5em;
+			font-weight: 400;
+			margin: 0em 0 1em;
+		}
+
+		.portfolio_top {
+			padding: 4em 0 3em;
+		}
+
+		.portfolio_top h4, .support_top h4, .contact_top h4 {
+			margin: 0 0 1.5em;
+			font-size: 1.5em;
+			font-weight: 400;
+		}
+
+		.support_top {
+			padding: 4em 0 2em;
+		}
+
+		.contact_top {
+			padding: 4em 0 5em;
+		}
+	}
+	@media (max-width: 480px) {
+		ul.callbacks_tabs.callbacks1_tabs {
+		}
+
+		.menu {
+			top: -30px;
+		}
+
+		.search-box {
+			right: 0px;
+			top: -7px;
+		}
+
+		ul.callbacks_tabs.callbacks1_tabs {
+			bottom: -19.2%;
+			padding: 0em 0em 1em;
+		}
+
+		.doctor-self-right p {
+			height: 80px;
+			overflow: hidden;
+			text-align: center;
+		}
+
+		.dogs-food-info p {
+			font-size: 0.875em;
+			width: 100%;
+			line-height: 1.6em;
+		}
+
+		.contact input.text {
+			width: 100%;
+			padding: 9px;
+		}
+
+		.col-md-4.dogs-food-info:nth-of-type(3) {
+			display: none;
+		}
+
+		.col-md-4.dogs-food-info:nth-of-type(5) {
+			display: none;
+		}
+
+		.col-md-4.about-left:nth-of-type(3) {
+			display: none;
+		}
+
+		.col-md-4.about-left:nth-of-type(5) {
+			display: none;
+		}
+
+		.col-md-4.dogs-food-info {
+			margin-bottom: 1em;
+		}
+
+		.contact-info h4 {
+			font-size: 1.2em;
+		}
+
+		.contact textarea {
+			width: 100%;
+		}
+
+		.contact-info p {
+			margin: 0;
+			padding-bottom: 18px;
+		}
+
+		.daily-updates-info form input[type="text"] {
+			width: 70%;
+		}
+
+		.col-md-4.about-img img {
+		}
+
+		.about-bottom-info-right img {
+			width: 100%;
+		}
+
+		.map iframe {
+			width: 402px;
+		}
+	}
+	@media (max-width: 320px) {
+		.logo a img {
+			width: 50%;
+			margin-top: 5px;
+		}
+
+		.search-box {
+			right: 0px;
+			top: -35px;
+			margin: 0;
+			width: 64%;
+		}
+
+		.slider {
+			min-height: 183px;
+		}
+
+		.rslides img {
+			width: 149%;
+		}
+
+		.menu {
+			top: -26px;
+			padding: 0.2em 0 0;
+		}
+
+		.callbacks_tabs a:after {
+			height: 12px;
+			width: 12px;
+		}
+
+		.doctor-self-info h3 {
+			margin: 0;
+			font-size: 1em;
+		}
+
+		.doctor-self-left {
+			margin-bottom: 0.5em;
+		}
+
+		.doctor-self {
+			background: #27B6DE;
+			min-height: 326px;
+		}
+
+		.dogs-food-top-info {
+			padding: 1em 0;
+		}
+
+		.dogs-food-info p, .check-out p {
+			font-size: 0.875em;
+			width: 100%;
+			height: 72px;
+			overflow: hidden;
+		}
+
+		.support-info-left-top img {
+			margin: 0 auto;
+			width: 51%;
+		}
+
+		#filters li span, #filters li span.active {
+			font-size: 12px;
+		}
 	}
 }

@@ -28,7 +28,7 @@ VALUES ('Наталья Александровна Миронова'),
        ('Федор Константинович Печкин'),
        ('Анна Алексеевна Рига');
 
-INSERT INTO `service`
+INSERT INTO `by.sazanchuk.finalTask.service`
 ( `price`, `name`)
 VALUES (120,'VACCINATION'),
        (190, 'CONSULTATION'),
