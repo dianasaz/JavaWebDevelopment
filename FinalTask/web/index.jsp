@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: dianasaz
@@ -36,8 +37,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <img src="images/logo.png" alt="" />
             </div>
             <div class="search-box">
-                    <a href="controller?command=login"><img src="images/login.png" width="50" height="50"/></a>
+                <a href="controller?command=login"><img src="images/login.png" width="50" height="50"/></a>
             </div>
+         <!--<c:choose>
+                <c:when test="${user == null}">
+                    <div class="search-box">
+                        <a href="controller?command=login"><img src="images/login.png" width="50" height="50"/></a>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="search-box">
+                        <a href="controller?command=logout"><img src="images/logout.png" width="50" height="50"/></a>
+                    </div>
+                </c:otherwise>
+            </c:choose>!-->
         </div>
     </div>
 </div>

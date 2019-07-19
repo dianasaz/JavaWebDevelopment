@@ -16,6 +16,10 @@ public class CommandFactory {
                 commandResult = new HomePageCommand();
                 break;
             }
+            case REGISTER: {
+                commandResult = new RegisterCommand();
+                break;
+            }
         }
         return commandResult;
     }

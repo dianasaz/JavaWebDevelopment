@@ -6,11 +6,13 @@ import by.sazanchuk.finalTask.entity.PetList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PetDao extends BaseDao implements Dao<Pet> {
@@ -19,6 +21,7 @@ public class PetDao extends BaseDao implements Dao<Pet> {
     private static final String UPDATE_PET = "UPDATE `mydatabase`.pet SET `name` = ?, `date_of_birth` = ?, `weight` = ?, `kind` = ?, `user_id` = ? WHERE `id` = ?";
     private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.pet WHERE `id` = ?";
     private static final String SELECT_ALL_PETS_WITH_ONE_USER = "SELECT `pet_id` FROM `mydatabase`.user_pet WHERE `user_id` = ?";
+    private static final String READ_ALL_INFORMATION_ABOUT_PET = "SELECT `user_id`, `date_of_birth`, `weight`, `kind`,`name`, `id` FROM `mydatabase`.pet ORDER BY `name`";
 
     private final Logger log = LogManager.getLogger(PetDao.class);
 
@@ -149,6 +152,43 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             } catch(SQLException e) {}
         }
     }
+
+    public List<Pet> read() throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(READ_ALL_INFORMATION_ABOUT_PET );
+            resultSet = statement.executeQuery();
+            List<Pet> pets = new ArrayList<>();
+            Pet pet = null;
+            while(resultSet.next()) {
+                pet = new Pet();
+                pet.setIdentity(resultSet.getInt("id"));
+                pet.setDateOfBirth(resultSet.getDate("date_of_birth"));
+                pet.setWeight(resultSet.getInt("weight"));
+                pet.setKind(PetList.getById(resultSet.getInt("kind")));
+                pet.setName(resultSet.getString("name"));
+                pet.setUser_identity(resultSet.getInt("user_id"));
+                pets.add(pet);
+            }
+            return pets;
+        } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+
+
+
 
 
 }

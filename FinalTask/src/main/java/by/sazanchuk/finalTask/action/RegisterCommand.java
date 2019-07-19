@@ -32,7 +32,7 @@ public class RegisterCommand implements Command {
         try {
             factory = new ServiceFactory(new TransactionFactory());
         } catch (DaoException | ConnectionPoolException e) {
-            e.printStackTrace();
+
         }
 
 
@@ -40,7 +40,7 @@ public class RegisterCommand implements Command {
         try {
             service = factory.getService(UserService.class);
         } catch (DaoException e) {
-            e.printStackTrace();
+
         }
 
         User user = new User();
@@ -54,16 +54,26 @@ public class RegisterCommand implements Command {
         user.setRole(Role.VISITOR);
         int userId = service.save(user);
         user.setId(userId);
-        HttpSession session = request.getSession();
-        session.setAttribute("user_id", userId);
-        session.setAttribute("role", Role.VISITOR);
 
+        setAtributesToSession(user, request);
 
-        return new CommandResult(Page.HOME_PAGE.getPage(), true);
+        return new CommandResult("controller?command=main", true);
     }
 
     private CommandResult forwardToLoginWithError(HttpServletRequest request,String ERROR){
         request.setAttribute(ERROR, true);
         return new CommandResult(Page.LOGIN.getPage(), false);
+    }
+
+    private void setAtributesToSession(User user, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("id", user.getId());
+        session.setAttribute("role", user.getClass().getSimpleName().toLowerCase());
+        session.setAttribute("user", user.getLogin());
+    }
+
+    private CommandResult goBackWithError(HttpServletRequest request, String error) {
+        request.setAttribute(error, true);
+        return new CommandResult(ConfigurationManager.getProperty("path.page.register"), false);
     }
 }

@@ -1,11 +1,11 @@
 package by.sazanchuk.finalTask.action;
 
 public enum Page {
-    HOME_PAGE("index.jsp"),
+    HOME_PAGE("/index.jsp"),
 
-    LOGIN("login.jsp"),
+    LOGIN("/login.jsp"),
 
-    REGISTER("register.jsp");
+    REGISTER("/register.jsp");
 
     private final String value;
 

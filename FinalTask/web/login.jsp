@@ -12,11 +12,7 @@
 
     </form>
     <div>
-        <p>Register </p>
-
-        <form action="register.jsp">
-            <button value="register"> click here</button>
-        </form>
+        <a href="controller?command=register">Register</a>
     </div>
 
 

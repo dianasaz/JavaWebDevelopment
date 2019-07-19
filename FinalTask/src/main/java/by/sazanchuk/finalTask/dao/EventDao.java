@@ -1,6 +1,8 @@
 package by.sazanchuk.finalTask.dao;
 
 import by.sazanchuk.finalTask.entity.Event;
+import by.sazanchuk.finalTask.entity.Pet;
+import by.sazanchuk.finalTask.entity.PetList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,12 +11,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventDao extends BaseDao implements Dao<Event> {
     private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.event (`service_id`, `pet_id`, `date`, `id`, `doctor_id`) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_INFO = "SELECT `service_id`, `doctor_id`, `pet_id`, `date` FROM `mydatabase`.event WHERE `id` = ?";
     private static final String UPDATE_ALL_INFO = "UPDATE `mydatabase`.event SET `service_id` = ?, `doctor_id` = ?, `pet_id`= ?, `date` = ? WHERE `id` = ?";
     private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.event WHERE `id` = ?";
+    private static final String SELECT_ALL_EVENTS_WITH_ONE_PET = "SELECT `id` FROM `mydatabase`.event WHERE `pet_id` = ?";
+    private static final String READ_ALL_INFORMATION_ABOUT_EVENT = "SELECT `id`, `date`, `pet_id`, `service_id`, `doctor_id` FROM `mydatabase`.event ORDER BY `date`";
 
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 
@@ -62,10 +68,10 @@ public class EventDao extends BaseDao implements Dao<Event> {
             if (resultSet.next()) {
                 event = new Event();
                 event.setIdentity(id);
-                event.setDate(resultSet.getDate("date"));
-                event.setDoctor(resultSet.getInt("doctor"));
-                event.setDoctor(resultSet.getInt("pet"));
-                event.setDoctor(resultSet.getInt("service"));
+                event.setDate(resultSet.getDate("date_id"));
+                event.setDoctor(resultSet.getInt("doctor_id"));
+                event.setDoctor(resultSet.getInt("pet_id"));
+                event.setDoctor(resultSet.getInt("service_id"));
             }
             return event;
         } catch (SQLException e) {
@@ -115,5 +121,66 @@ public class EventDao extends BaseDao implements Dao<Event> {
             } catch(SQLException e) {}
         }
     }
+
+
+    public List<Event> readEventsOfOnePet(int pet_id) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_ALL_EVENTS_WITH_ONE_PET);
+            statement.setInt(1, pet_id);
+            resultSet = statement.executeQuery();
+            List<Event> events = null;
+            Event event = null;
+            while (resultSet.next()) {
+                event = new Event();
+                event.setIdentity(resultSet.getInt("id"));
+                events.add(event);
+            }
+            return events;
+        } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public List<Event> read() throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(READ_ALL_INFORMATION_ABOUT_EVENT );
+            resultSet = statement.executeQuery();
+            List<Event> events = new ArrayList<>();
+            Event event = null;
+            while(resultSet.next()) {
+                event = new Event();
+                event.setIdentity(resultSet.getInt("id"));
+                event.setDate(resultSet.getDate("date_id"));
+                event.setDoctor(resultSet.getInt("doctor_id"));
+                event.setDoctor(resultSet.getInt("pet_id"));
+                event.setDoctor(resultSet.getInt("service_id"));
+                events.add(event);
+            }
+            return events;
+        } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null)
+                    statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
 
 }

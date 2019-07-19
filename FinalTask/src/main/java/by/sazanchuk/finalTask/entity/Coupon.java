@@ -1,11 +1,12 @@
 package by.sazanchuk.finalTask.entity;
 
+import java.sql.Time;
 import java.util.Date;
 import java.util.Objects;
 
 public class Coupon {
     private Integer identity;
-    private Date time;
+    private Time time;
     private Doctor doctor;
     private boolean taken;
     private User user;
@@ -38,7 +39,7 @@ public class Coupon {
         this.identity = identity;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 

@@ -1,5 +1,10 @@
 package by.sazanchuk.finalTask.controller;
+import by.sazanchuk.finalTask.action.Command;
+import by.sazanchuk.finalTask.action.CommandFactory;
+import by.sazanchuk.finalTask.action.CommandResult;
+import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPool;
+import by.sazanchuk.finalTask.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/by/sazanchuk/finalTask/controller")
+@WebServlet("/controller")
 public class Controller extends HttpServlet {
 
     private static final String COMMAND = "command";
@@ -26,29 +31,33 @@ public class Controller extends HttpServlet {
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ServiceException e) {
+
+        } catch (DaoException e) {
+
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ServiceException e) {
+            //e.printStackTrace();
+        } catch (DaoException e) {
+           // e.printStackTrace();
+        }
     }
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServiceException, DaoException {
 
         String command = request.getParameter(COMMAND);
         logger.info(COMMAND + "= " + command);
-       Command action = CommandFactory.create(command);
+        Command action = CommandFactory.create(command);
 
         CommandResult commandResult = null;
-        try {
-            commandResult = action.execute(request, response);
-        } catch (ServletException  e) {
-            logger.error(e.getMessage(), e);
-            request.setAttribute(ERROR_MESSAGE,e.getMessage());
-            commandResult = new CommandResult(ERROR_PAGE, false);
-        } catch (DaoException e) {
-            e.printStackTrace();
-        }
+        commandResult = action.execute(request, response);
 
         String page = commandResult.getPage();
         if (commandResult.isRedirect()) {
