@@ -1,6 +1,5 @@
 package by.sazanchuk.finalTask.dao;
 
-import by.sazanchuk.finalTask.entity.Gender;
 import by.sazanchuk.finalTask.entity.Role;
 
 
@@ -16,11 +15,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao extends BaseDao implements Dao<User> {
-    private static final String INSERT_INTO_USER_ALL_INFORMATION = "INSERT INTO `mydatabase`.user (`login`, `password`, `role`, `email`, `name`, `gender`, `phoneNumber`, `address`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String SELECT_ALL_INFORMATION_FROM_USER_WITHOUT_ID = "SELECT `login`, `password`, `role`, `email`, `name`, `gender`, `phoneNumber`, `address` FROM `mydatabase`.user WHERE `user_id` = ?";
-    private static final String UPDATE_USER = "UPDATE `mydatabase`.user SET `login` = ?, `password` = ?, `role` = ?, `email` = ?, `name` = ?, `gender` = ?, `phoneNumber` = ?, `address` = ? WHERE `user_id` = ?";
+    private static final String INSERT_INTO_USER_ALL_INFORMATION = "INSERT INTO `mydatabase`.user (`login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_INFORMATION_FROM_USER_WITHOUT_ID = "SELECT `login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address` FROM `mydatabase`.user WHERE `user_id` = ?";
+    private static final String UPDATE_USER = "UPDATE `mydatabase`.user SET `login` = ?, `password` = ?, `role` = ?, `email` = ?, `name` = ?, `phoneNumber` = ?, `address` = ? WHERE `user_id` = ?";
     private static final String DELETE_USER = "DELETE FROM `mydatabase`.user WHERE `user_id` = ?";
-    private static final String READ_ALL_INFORMATION_ABOUT_USER = "SELECT `user_id`, `login`, `password`, `role`, `email`, `name`, `gender`, `phoneNumber`, `address` FROM `mydatabase`.user ORDER BY `login`";
+    private static final String READ_ALL_INFORMATION_ABOUT_USER = "SELECT `user_id`, `login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address` FROM `mydatabase`.user ORDER BY `login`";
     private static final String SEARCH_LOGIN = "SELECT `login` FROM `mydatabase`.user WHERE `login` = ?";
     private static final String SELECT_USER_ID_FROM_USER = "SELECT `user_id` FROM `mydatabase`.user WHERE `login` = ? AND `password` = ?";
 
@@ -37,9 +36,8 @@ public class UserDao extends BaseDao implements Dao<User> {
             statement.setString(3, user.getRole().toString());
             statement.setString(4, user.getEmail());
             statement.setString(5, user.getName());
-            statement.setString(6, user.getGender().getName());
-            statement.setInt(7, user.getPhoneNumber());
-            statement.setString(8, user.getAddress());
+            statement.setInt(6, user.getPhoneNumber());
+            statement.setString(7, user.getAddress());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -96,7 +94,6 @@ public class UserDao extends BaseDao implements Dao<User> {
                 user.setRole(Role.setRole(resultSet.getString("role")));
                 user.setEmail(resultSet.getString("email"));
                 user.setName(resultSet.getString("name"));
-                user.setGender(Gender.setGender(resultSet.getString("gender")));
                 user.setPhoneNumber(resultSet.getInt("phoneNumber"));
                 user.setAddress(resultSet.getString("address"));
             }
@@ -124,10 +121,9 @@ public class UserDao extends BaseDao implements Dao<User> {
             statement.setString(3, user.getRole().toString());
             statement.setString(4, user.getEmail());
             statement.setString(5, user.getName());
-            statement.setString(6, user.getGender().getName());
-            statement.setInt(7, user.getPhoneNumber());
-            statement.setString(8, user.getAddress());
-            statement.setInt(9, user.getId());
+            statement.setInt(6, user.getPhoneNumber());
+            statement.setString(7, user.getAddress());
+            statement.setInt(8, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -207,7 +203,6 @@ public class UserDao extends BaseDao implements Dao<User> {
                 user.setRole(Role.setRole(resultSet.getString("role")));
                 user.setEmail(resultSet.getString("email"));
                 user.setName(resultSet.getString("name"));
-                user.setGender(Gender.setGender(resultSet.getString("gender")));
                 user.setPhoneNumber(resultSet.getInt("phoneNumber"));
                 user.setAddress(resultSet.getString("address"));
                 users.add(user);

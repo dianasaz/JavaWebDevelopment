@@ -2,7 +2,6 @@ package by.sazanchuk.finalTask.service;
 
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
-import by.sazanchuk.finalTask.entity.Gender;
 import by.sazanchuk.finalTask.entity.Role;
 import by.sazanchuk.finalTask.entity.User;
 import org.junit.Assert;
@@ -76,7 +75,6 @@ public class UserServiceImplTest {
         user.setName("User");
         user.setPhoneNumber(12894378);
         user.setRole(Role.VISITOR);
-        user.setGender(Gender.WOMEN);
         user.setAddress("njsnka skan 34-3");
         user.setLogin("User");
         user.setPassword("1073277");

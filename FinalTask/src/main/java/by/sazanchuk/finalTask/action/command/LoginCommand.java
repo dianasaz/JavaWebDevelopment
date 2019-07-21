@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static by.sazanchuk.finalTask.action.command.Const.USER;
+
 public class LoginCommand implements Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private static final String LOGIN = "login";
@@ -59,7 +61,7 @@ public class LoginCommand implements Command {
         UserService service = factory.getService(UserService.class);
         User user = service.findByLoginAndPassword(login, password);
         if (user != null && user.getId() != null) {
-          //  setAtributesToSession(user, request);
+            setAtributesToSession(user, request);
             return true;
         } else {
             return false;
@@ -68,7 +70,7 @@ public class LoginCommand implements Command {
 
     private void setAtributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute(user.getName(), user);
+        session.setAttribute(USER.getFieldName(), user);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

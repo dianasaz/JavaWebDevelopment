@@ -19,12 +19,11 @@
 
 <div class="limiter">
     <div class="container-login100">
-        <div class="row main-form">
+        <div class="main-form">
             <c:choose>
                 <c:when test="${param.register != null}">
 
-                    <!--Registration form-->
-                    <form class="login100-form" method="POST"
+                    <form class="login10-form" method="POST"
                           action="controller?command=register">
 					<span class="login100-form-title">
 						Sign Up
@@ -114,6 +113,7 @@
                                 Sign in now
                             </a>
                         </div>
+
                     </form>
                 </c:when>
                 <c:otherwise>
@@ -147,12 +147,12 @@
                             </button>
                         </div>
 
-                        <a href="controller?command=home_page" class="txt2 flex-col-c p-t-16">
+                        <a href="controller?command=home_page" class="txt2">
                             Continue as guest
                         </a>
 
                         <div class="flex-col-c p-t-120 p-b-40">
-						<span class="txt1 p-b-9">
+						<span class="txt1">
 							Don"t have an account?
 						</span>
                             <c:url value="login.jsp" var="toRegistr">
@@ -188,21 +188,20 @@
 <script src="js/main.js"></script>
 
 <style>
+    .wrap-input100{
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
     .form-group{
         margin-bottom: 15px;
     }
 
     .login100-form{
         margin-left: 43%;
-
     }
     label{
         margin-bottom: 15px;
-    }
-    input,
-    input::-webkit-input-placeholder {
-        font-size: 11px;
-        padding-top: 3px;
     }
     .form-control {
         height: auto!important;
@@ -213,26 +212,20 @@
     }
 
     .login100-form-title{
-        margin-left: 10%;
-        font-size: 15px;
+        margin-left: 3%;
+        font-size: 30px;
     }
+
+    .form-group button{
+        background-color: whitesmoke;
+    }
+
     #button {
-        border: 1px solid #ccc;
-        margin-top: 28px;
         padding: 6px 12px;
         color: #666;
         text-shadow: 0 1px #fff;
-        cursor: pointer;
         border-radius: 3px 3px;
         box-shadow: 0 1px #fff inset, 0 1px #ddd;
-        background: #f5f5f5;
-        background: -moz-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f5f5f5), color-stop(100%, #eeeeee));
-        background: -webkit-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-        background: -o-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-        background: -ms-linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-        background: linear-gradient(top, #f5f5f5 0%, #eeeeee 100%);
-        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#eeeeee', GradientType=0);
     }
     .container-login100{
         margin-top: 30px;
@@ -252,8 +245,21 @@
         margin-top: 5px;
     }
 
+    .txt2{
+        color: whitesmoke;
+    }
+
+    .txt3{
+        color: whitesmoke;
+    }
+
     .main-form {
         width: auto;
+    }
+
+    .login10-form{
+        margin-left: 30%;
+        margin-right: 30%;
     }
 </style>
 </body>

@@ -8,7 +8,6 @@ CREATE TABLE `user`
   `role`     ENUM ('administrator', 'visitor'),
   `name`        varchar(255),
   `email`    varchar(255) UNIQUE NOT NULL,
-  `gender`      ENUM ('women', 'men'),
   `phoneNumber` INTEGER UNIQUE,
   `address`     varchar(255)
 ) ENGINE = INNODB;

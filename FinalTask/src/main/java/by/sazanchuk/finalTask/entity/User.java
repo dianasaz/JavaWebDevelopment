@@ -9,7 +9,6 @@ public class User {
     private String password;
     private String name;
     private String email;
-    private Gender gender;
     private int phoneNumber;
     private String address;
     private List<Pet> petList;
@@ -41,10 +40,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     public void setPhoneNumber(int phoneNumber) {
@@ -79,10 +74,6 @@ public class User {
         return email;
     }
 
-    public Gender getGender() {
-        return gender;
-    }
-
     public int getPhoneNumber() {
         return phoneNumber;
     }
@@ -106,7 +97,6 @@ public class User {
                 Objects.equals(password, user.password) &&
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
-                gender == user.gender &&
                 Objects.equals(address, user.address) &&
                 Objects.equals(petList, user.petList) &&
                 role == user.role;
@@ -114,7 +104,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, name, email, gender, phoneNumber, address, petList, role);
+        return Objects.hash(id, login, password, name, email, phoneNumber, address, petList, role);
     }
 
     @Override
@@ -125,7 +115,6 @@ public class User {
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", gender=" + gender +
                 ", phoneNumber=" + phoneNumber +
                 ", address='" + address + '\'' +
                 ", petList=" + petList +

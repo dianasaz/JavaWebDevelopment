@@ -3,13 +3,11 @@ package by.sazanchuk.finalTask.action.command;
 import by.sazanchuk.finalTask.action.ConfigurationManager;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
-import by.sazanchuk.finalTask.entity.Gender;
 import by.sazanchuk.finalTask.entity.Role;
 import by.sazanchuk.finalTask.entity.User;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.UserService;
-import by.sazanchuk.finalTask.service.UserServiceImpl;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
+
+import static by.sazanchuk.finalTask.action.command.Const.USER;
 
 public class RegisterCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
@@ -31,7 +31,6 @@ public class RegisterCommand implements Command {
     private static final String EMAIL = "email";
     private static final String ERROR_REGISTRATION = "error_registration";
     private static final String ERROR = "error_";
-    private static final String GENDER = "genderMen";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -42,7 +41,6 @@ public class RegisterCommand implements Command {
         parameters.put(ADDRESS, request.getParameter(ADDRESS));
         parameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
         parameters.put(EMAIL, request.getParameter(EMAIL));
-       // parameters.put(GENDER, request.getParameter(GENDER));
 
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
             if (entry.getValue() == null || entry.getValue().isEmpty()) {
@@ -65,7 +63,6 @@ public class RegisterCommand implements Command {
             createUser(parameters, request);
             logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
             return new CommandResult("controller?command=home_page", true);
-            //todo
         } catch (DaoException | ConnectionPoolException e) {
             throw new ServiceException(e);
         }
@@ -86,7 +83,6 @@ public class RegisterCommand implements Command {
         user.setPassword(parameters.get(PASSWORD));
         user.setRole(Role.VISITOR);
         user.setAddress(parameters.get(ADDRESS));
-        user.setGender(Gender.WOMEN);
         user.setEmail(parameters.get(EMAIL));
         user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
         user.setName(parameters.get(NAME));
@@ -101,13 +97,13 @@ public class RegisterCommand implements Command {
         } else {
             throw new ServiceException("Can't save user!");
         }
-        setAtributesToSession(user, request);
+       setAtributesToSession(user, request);
 
     }
 
     private void setAtributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute(user.getName(), user);
+        session.setAttribute(USER.getFieldName(), user);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

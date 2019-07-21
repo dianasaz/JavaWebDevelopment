@@ -9,48 +9,51 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html>
 <head><title>Final Task</title>
-        <title>Petcare a Animals & Pets  Category Flat Bootstarp responsive Website Template| HOME :: w3layouts</title>
-        <!--bootstarp-css-->
-        <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-        <!--/bootstarp-css -->
-        <!--css-->
-        <link rel="stylesheet" href="css/style_new.css" type="text/css" media="all" />
-        <!--/css-->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="keywords" content="Petcare Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
-Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-        <link href="css/hover.css" rel="stylesheet" media="all">
-        <!--fonts-->
-        <link href='http://fonts.googleapis.com/css?family=Arimo:400,700' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
-        <!--/fonts-->
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-        <script src="js/modernizr.custom.js"></script>
-        <script src="js/responsiveslides.min.js"></script>
+    <title>Petcare a Animals & Pets Category Flat Bootstarp responsive Website Template| HOME :: w3layouts</title>
+    <!--bootstarp-css-->
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
+    <!--/bootstarp-css -->
+    <!--css-->
+    <link rel="stylesheet" href="css/style_new.css" type="text/css" media="all"/>
+    <!--/css-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Petcare Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
+    <script type="application/x-javascript">
+         addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+    </script>
+    <link href="css/hover.css" rel="stylesheet" media="all">
+    <!--fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Arimo:400,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <!--/fonts-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+    <script src="js/responsiveslides.min.js"></script>
 <body>
 <div class="header">
     <div class="header-info">
         <div class="container">
             <div class="logo">
-                <img src="images/logo.png" alt="" />
+                <img src="images/logo.png" alt=""/>
+                <div class="search-box">
+                    <a href="controller?command=login">LOG IN</a>
+                </div>
+
+                <%--
+                     <c:choose>
+                       <c:when test="${user.name == null}">
+
+                       </c:when>
+                       <c:otherwise>
+                           <div class="search-box">
+                               <a href="controller?command=logout">LOG OUT</a>
+                           </div>
+                       </c:otherwise>
+      </c:choose>  --%>
             </div>
-            <div class="search-box" >
-                <a href="controller?command=login" >LOG IN</a>
-            </div>
-         <!--<c:choose>
-                <c:when test="${user == null}">
-                    <div class="search-box">
-                        <a href="controller?command=login"><img src="images/login.png" width="50" height="50"/></a>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="search-box">
-                        <a href="controller?command=logout"><img src="images/logout.png" width="50" height="50"/></a>
-                    </div>
-                </c:otherwise>
-            </c:choose>!-->
+
         </div>
     </div>
 </div>
@@ -70,4 +73,5 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     </div>
 </div>
-</body></html>
+</body>
+</html>
