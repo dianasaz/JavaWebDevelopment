@@ -1,13 +1,13 @@
-package by.sazanchuk.finalTask.action;
+package by.sazanchuk.finalTask.action.command.factory;
 
 public enum CommandType {
     LOGIN("login"),
     LOGOUT("logout"),
-    MAIN("main"),
+    HOME_PAGE("home_page"),
     REGISTER("register");
 
     private String command;
-    private CommandType(String command) {
+    CommandType(String command) {
         this.command = command;
     }
 }

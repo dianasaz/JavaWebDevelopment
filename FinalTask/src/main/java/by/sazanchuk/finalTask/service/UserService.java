@@ -15,4 +15,6 @@ public interface UserService extends Service{
     int save(User user) throws DaoException;
 
     void delete(Integer identity) throws DaoException;
+
+    boolean isExist(String login) throws DaoException;
 }

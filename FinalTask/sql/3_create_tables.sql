@@ -5,12 +5,7 @@ CREATE TABLE `user`
   `user_id`  int PRIMARY KEY     NOT NULL AUTO_INCREMENT,
   `login`    varchar(255) UNIQUE NOT NULL,
   `password` varchar(255)        NOT NULL,
-  `role`     ENUM ('administrator', 'visitor')
-) ENGINE = INNODB;
-
-CREATE TABLE `user_info`
-(
-  `user_id`     int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `role`     ENUM ('administrator', 'visitor'),
   `name`        varchar(255),
   `email`    varchar(255) UNIQUE NOT NULL,
   `gender`      ENUM ('women', 'men'),
@@ -52,7 +47,7 @@ CREATE TABLE `coupon`
   `taken`     boolean
 ) ENGINE = INNODB;
 
-CREATE TABLE `by.sazanchuk.finalTask.service`
+CREATE TABLE `service`
 (
   `id`    int PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `price` int,
@@ -80,31 +75,26 @@ CREATE TABLE `doctor_coupon`
   CONSTRAINT PrimK PRIMARY KEY (`doctor_id`, `coupon_id`)
 ) ENGINE = INNODB;
 
-ALTER TABLE `user_info`
+ALTER TABLE `event`
+  ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
+
+ALTER TABLE `event`
+  ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
+
+ALTER TABLE `event`
+  ADD FOREIGN KEY (`pet_id`) REFERENCES `pet` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
+
+ALTER TABLE `coupon`
   ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 
-ALTER TABLE `event`
-  ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE `event`
-  ADD FOREIGN KEY (`service_id`) REFERENCES `by.sazanchuk.finalTask.service` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE `event`
-  ADD FOREIGN KEY (`pet_id`) REFERENCES `pet` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE `coupon`
-  ADD FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
 ALTER TABLE `coupon`
   ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
     ON UPDATE CASCADE
@@ -116,7 +106,7 @@ ALTER TABLE `user_pet`
     ON DELETE CASCADE;
 
 ALTER TABLE `user_pet`
-  ADD FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`)
+  ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 
@@ -136,12 +126,12 @@ ALTER TABLE `doctor_service`
     ON DELETE CASCADE;
 
 ALTER TABLE `doctor_service`
-  ADD FOREIGN KEY (`service_id`) REFERENCES `by.sazanchuk.finalTask.service` (`id`)
+  ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 
 ALTER TABLE `pet`
-  ADD FOREIGN KEY (`user_id`) REFERENCES `user_info` (`user_id`)
+  ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 

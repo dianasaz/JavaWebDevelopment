@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.action;
+package by.sazanchuk.finalTask.action.command;
 
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.service.ServiceException;

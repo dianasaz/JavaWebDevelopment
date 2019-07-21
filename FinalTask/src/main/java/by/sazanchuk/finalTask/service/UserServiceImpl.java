@@ -48,6 +48,13 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         return user.getId();
     }
 
+    public boolean isExist(String login) throws DaoException {
+        UserDao userDao = transaction.createDao(UserDao.class);
+        return userDao.isExist(login);
+
+    }
+
+
     @Override
     public void delete(Integer identity) throws DaoException {
         UserDao userDao = transaction.createDao(UserDao.class);

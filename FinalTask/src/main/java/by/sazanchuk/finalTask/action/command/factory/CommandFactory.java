@@ -1,4 +1,9 @@
-package by.sazanchuk.finalTask.action;
+package by.sazanchuk.finalTask.action.command.factory;
+
+import by.sazanchuk.finalTask.action.command.Command;
+import by.sazanchuk.finalTask.action.command.HomePageCommand;
+import by.sazanchuk.finalTask.action.command.LoginCommand;
+import by.sazanchuk.finalTask.action.command.RegisterCommand;
 
 public class CommandFactory {
     public static Command create(String command) {
@@ -12,7 +17,7 @@ public class CommandFactory {
                 commandResult = new LoginCommand();
                 break;
             }
-            case MAIN: {
+            case HOME_PAGE: {
                 commandResult = new HomePageCommand();
                 break;
             }

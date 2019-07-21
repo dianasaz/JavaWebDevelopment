@@ -2,7 +2,6 @@ package by.sazanchuk.finalTask.service;
 
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
-import by.sazanchuk.finalTask.dao.transaction.TransactionFactory;
 import by.sazanchuk.finalTask.entity.Gender;
 import by.sazanchuk.finalTask.entity.Role;
 import by.sazanchuk.finalTask.entity.User;
@@ -16,7 +15,7 @@ public class UserServiceImplTest {
     @org.junit.Test
     public void Test() throws DaoException, ConnectionPoolException {
 
-        ServiceFactory factory = new ServiceFactory(new TransactionFactory());
+        ServiceFactory factory = new ServiceFactory();
 
         UserService service = factory.getService(UserService.class);
 
@@ -37,7 +36,7 @@ public class UserServiceImplTest {
     @Test
     public void TestTwo() throws DaoException, ConnectionPoolException {
 
-        ServiceFactory factory = new ServiceFactory(new TransactionFactory());
+        ServiceFactory factory = new ServiceFactory();
 
         UserService service = factory.getService(UserService.class);
 
@@ -51,7 +50,7 @@ public class UserServiceImplTest {
     @Test
     public void TestThree() throws DaoException, ConnectionPoolException {
 
-        ServiceFactory factory = new ServiceFactory(new TransactionFactory());
+        ServiceFactory factory = new ServiceFactory();
 
         UserService service = factory.getService(UserService.class);
 
@@ -64,13 +63,13 @@ public class UserServiceImplTest {
     public void TestFour() throws DaoException, ConnectionPoolException {
 
 
-        ServiceFactory factory = new ServiceFactory(new TransactionFactory());
+        ServiceFactory factory = new ServiceFactory();
 
         UserService service = factory.getService(UserService.class);
 
         User u = service.findByLoginAndPassword("User", "1073277");
 
-        service.delete(u.getId());
+        if (service.isExist("User")) service.delete(u.getId());
 
         User user = new User();
 
@@ -87,7 +86,7 @@ public class UserServiceImplTest {
         Integer userId = service.save(user);
         user.setId(userId);
 
-        Assert.assertEquals(user.getId(), userId);
+        Assert.assertEquals(userId, user.getId());
     }
 
 }

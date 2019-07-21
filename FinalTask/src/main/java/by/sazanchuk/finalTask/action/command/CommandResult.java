@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.action;
+package by.sazanchuk.finalTask.action.command;
 
 import java.util.Objects;
 

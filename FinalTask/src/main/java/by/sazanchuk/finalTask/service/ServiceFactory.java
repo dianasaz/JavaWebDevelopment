@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import by.sazanchuk.finalTask.dao.DaoException;
+import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.dao.transaction.Transaction;
 import by.sazanchuk.finalTask.dao.transaction.TransactionFactory;
 import org.apache.logging.log4j.LogManager;
@@ -22,8 +23,8 @@ public class ServiceFactory{
         SERVICES.put(UserService.class, UserServiceImpl.class);
     }
 
-    public ServiceFactory(TransactionFactory factory) throws DaoException {
-        this.factory = factory;
+    public ServiceFactory() throws DaoException, ConnectionPoolException {
+        factory = new TransactionFactory();
     }
 
 

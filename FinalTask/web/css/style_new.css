@@ -72,6 +72,15 @@ h1,h2,h3,h4,h5,h6,p,span{
 	text-decoration:none;
 }
 
+.search-box {
+	float: right;
+	margin-top: 27px;
+}
+
+.search-box a{
+    color: whitesmoke;
+}
+
 .cl-effect-21 a:hover::before,
 .cl-effect-21 a:focus::before,
 .cl-effect-21 a:hover::after,

@@ -1,5 +1,6 @@
 package by.sazanchuk.finalTask.dao;
 
+import by.sazanchuk.finalTask.entity.Gender;
 import by.sazanchuk.finalTask.entity.Role;
 
 
@@ -15,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao extends BaseDao implements Dao<User> {
-    private static final String INSERT_INTO_USER_ALL_INFORMATION = "INSERT INTO `mydatabase`.user (`login`, `password`, `role`) VALUES (?, ?, ?)";
-    private static final String SELECT_ALL_INFORMATION_FROM_USER_WITHOUT_ID = "SELECT `login`, `password`, `role` FROM `mydatabase`.user WHERE `user_id` = ?";
-    private static final String UPDATE_USER = "UPDATE `mydatabase`.user SET `login` = ?, `password` = ?, `role` = ? WHERE `user_id` = ?";
+    private static final String INSERT_INTO_USER_ALL_INFORMATION = "INSERT INTO `mydatabase`.user (`login`, `password`, `role`, `email`, `name`, `gender`, `phoneNumber`, `address`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_INFORMATION_FROM_USER_WITHOUT_ID = "SELECT `login`, `password`, `role`, `email`, `name`, `gender`, `phoneNumber`, `address` FROM `mydatabase`.user WHERE `user_id` = ?";
+    private static final String UPDATE_USER = "UPDATE `mydatabase`.user SET `login` = ?, `password` = ?, `role` = ?, `email` = ?, `name` = ?, `gender` = ?, `phoneNumber` = ?, `address` = ? WHERE `user_id` = ?";
     private static final String DELETE_USER = "DELETE FROM `mydatabase`.user WHERE `user_id` = ?";
-    private static final String READ_ALL_INFORMATION_ABOUT_USER = "SELECT `user_id`, `login`, `password`, `role` FROM `mydatabase`.user ORDER BY `login`";
-
-    private static final String SELECT_EMAIL_ROLE_USER_ID_FROM_USER = "SELECT `user_id` FROM `mydatabase`.user WHERE `login` = ? AND `password` = ?";
+    private static final String READ_ALL_INFORMATION_ABOUT_USER = "SELECT `user_id`, `login`, `password`, `role`, `email`, `name`, `gender`, `phoneNumber`, `address` FROM `mydatabase`.user ORDER BY `login`";
+    private static final String SEARCH_LOGIN = "SELECT `login` FROM `mydatabase`.user WHERE `login` = ?";
+    private static final String SELECT_USER_ID_FROM_USER = "SELECT `user_id` FROM `mydatabase`.user WHERE `login` = ? AND `password` = ?";
 
 
     private final Logger log = LogManager.getLogger(UserDao.class);
@@ -34,6 +35,11 @@ public class UserDao extends BaseDao implements Dao<User> {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getRole().toString());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, user.getName());
+            statement.setString(6, user.getGender().getName());
+            statement.setInt(7, user.getPhoneNumber());
+            statement.setString(8, user.getAddress());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -47,11 +53,31 @@ public class UserDao extends BaseDao implements Dao<User> {
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
-            } catch(SQLException e) {}
+            } catch (SQLException e) {
+            }
             try {
                 if (statement != null) statement.close();
-            } catch(SQLException e) {}
+            } catch (SQLException e) {
+            }
         }
+    }
+
+    public boolean isExist(String login) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        User user = null;
+        try {
+            statement = connection.prepareStatement(SEARCH_LOGIN, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, login);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+            }
+        } catch (SQLException e) {
+            throw new DaoException();
+        }
+
+        return user != null;
     }
 
     public User read(Integer id) throws DaoException {
@@ -68,6 +94,11 @@ public class UserDao extends BaseDao implements Dao<User> {
                 user.setLogin(resultSet.getString("login"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(Role.setRole(resultSet.getString("role")));
+                user.setEmail(resultSet.getString("email"));
+                user.setName(resultSet.getString("name"));
+                user.setGender(Gender.setGender(resultSet.getString("gender")));
+                user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                user.setAddress(resultSet.getString("address"));
             }
             return user;
         } catch (SQLException e) {
@@ -75,10 +106,12 @@ public class UserDao extends BaseDao implements Dao<User> {
         } finally {
             try {
                 if (resultSet != null) resultSet.close();
-            } catch(SQLException e) {}
+            } catch (SQLException e) {
+            }
             try {
                 if (statement != null) statement.close();
-            } catch(SQLException e) {}
+            } catch (SQLException e) {
+            }
         }
     }
 
@@ -89,30 +122,39 @@ public class UserDao extends BaseDao implements Dao<User> {
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getRole().toString());
-            statement.setInt(4, user.getId());
+            statement.setString(4, user.getEmail());
+            statement.setString(5, user.getName());
+            statement.setString(6, user.getGender().getName());
+            statement.setInt(7, user.getPhoneNumber());
+            statement.setString(8, user.getAddress());
+            statement.setInt(9, user.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
                 if (statement != null)
-                statement.close();
-            } catch(SQLException e) {}
+                    statement.close();
+            } catch (SQLException e) {
+            }
         }
     }
 
     public void delete(Integer id) throws DaoException {
         PreparedStatement statement = null;
+        PreparedStatement statement1 = null;
         try {
             statement = connection.prepareStatement(DELETE_USER);
             statement.setInt(1, id);
             statement.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
-                statement.close();
-            } catch(SQLException | NullPointerException e) {}
+                if (statement != null)
+                    statement.close();
+            } catch (SQLException e) {
+            }
         }
     }
 
@@ -120,30 +162,32 @@ public class UserDao extends BaseDao implements Dao<User> {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SELECT_EMAIL_ROLE_USER_ID_FROM_USER);
+            statement = connection.prepareStatement(SELECT_USER_ID_FROM_USER);
             statement.setString(1, login);
             statement.setString(2, password);
+
             resultSet = statement.executeQuery();
             User user = null;
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 user = new User();
                 user.setId(resultSet.getInt("user_id"));
                 user.setLogin(login);
                 user.setPassword(password);
-               // user.setRole(Role.setRole(resultSet.getString("role")));
             }
             return user;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
                 if (resultSet != null)
                     resultSet.close();
-            } catch(SQLException e) {}
+            } catch (SQLException e) {
+            }
             try {
                 if (statement != null)
                     statement.close();
-            } catch(SQLException e) {}
+            } catch (SQLException e) {
+            }
         }
     }
 
@@ -151,30 +195,37 @@ public class UserDao extends BaseDao implements Dao<User> {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(READ_ALL_INFORMATION_ABOUT_USER );
+            statement = connection.prepareStatement(READ_ALL_INFORMATION_ABOUT_USER);
             resultSet = statement.executeQuery();
             List<User> users = new ArrayList<>();
             User user = null;
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 user = new User();
                 user.setId(resultSet.getInt("user_id"));
                 user.setLogin(resultSet.getString("login"));
                 user.setPassword(resultSet.getString("password"));
                 user.setRole(Role.setRole(resultSet.getString("role")));
+                user.setEmail(resultSet.getString("email"));
+                user.setName(resultSet.getString("name"));
+                user.setGender(Gender.setGender(resultSet.getString("gender")));
+                user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                user.setAddress(resultSet.getString("address"));
                 users.add(user);
             }
             return users;
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {
                 if (resultSet != null)
-                resultSet.close();
-            } catch(SQLException e) {}
+                    resultSet.close();
+            } catch (SQLException e) {
+            }
             try {
                 if (statement != null)
-                statement.close();
-            } catch(SQLException e) {}
+                    statement.close();
+            } catch (SQLException e) {
+            }
         }
     }
 }
