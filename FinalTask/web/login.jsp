@@ -135,7 +135,7 @@
 
 
                         <c:if test="${error_authentification eq true}">
-                            <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            <div class="container1" role="alert">
                                 Enter <strong>invalid</strong> login or password. Please try again
 
                             </div>
@@ -191,6 +191,10 @@
     .wrap-input100{
         margin-bottom: 5px;
         margin-top: 5px;
+    }
+
+    .container1{
+        margin-left: -18%;
     }
 
     .form-group{

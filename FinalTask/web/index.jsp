@@ -22,6 +22,8 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design"/>
     <script type="application/x-javascript">
          addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
+
+
     </script>
     <link href="css/hover.css" rel="stylesheet" media="all">
     <!--fonts-->
@@ -37,21 +39,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div class="container">
             <div class="logo">
                 <img src="images/logo.png" alt=""/>
-                <div class="search-box">
-                    <a href="controller?command=login">LOG IN</a>
-                </div>
 
-                <%--
-                     <c:choose>
-                       <c:when test="${user.name == null}">
-
-                       </c:when>
-                       <c:otherwise>
-                           <div class="search-box">
-                               <a href="controller?command=logout">LOG OUT</a>
-                           </div>
-                       </c:otherwise>
-      </c:choose>  --%>
+                <c:choose>
+                    <c:when test="${user != true}">
+                        <div class="search-box">
+                            <a href="controller?command=login">LOG IN</a>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="search-box">
+                            <a href="controller?command=logout">LOG OUT</a>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
 
         </div>
@@ -64,13 +64,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <ul class="cl-effect-21">
                 <li><a href="index.html" class="active">HOME</a></li>
                 <li><a href="about.html">ABOUT</a></li>
-                <li><a href="contact.html">PROFILE</a></li>
+                <li><a href="controller?command=profile">PROFILE</a></li>
                 <li><a href="projects.html">SERVICES</a></li>
                 <li><a href="support.html">DOCTORS</a></li>
                 <li><a href="404.html">OUR PETS</a></li>
             </ul>
-        </div>
+            <!--script-nav -->
+            <script>
+					$("span.menu-info").click(function(){
+						$("ul.cl-effect-21").slideToggle("slow" , function(){
+						});
+					});
 
+
+            </script>
+            <!-- /script-nav -->
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <div class="header-banner">
+        <div class="slider">
+            <ul class="rslides" id="slider2">
+                <li><a href="#"><img src="images/4.jpg" class="img-responsive" alt=""/></a></li>
+                <li><a href="#"><img src="images/2.jpg" class="img-responsive" alt=""/></a></li>
+                <li><a href="#"><img src="images/3.jpg" class="img-responsive" alt=""/></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="pr">
+        <c:if test="${user != null}">
+            <form method="POST" action="controller?command=profile">
+                <jsp:include page="profile.jsp"/>
+            </form>
+        </c:if>
     </div>
 </div>
 </body>

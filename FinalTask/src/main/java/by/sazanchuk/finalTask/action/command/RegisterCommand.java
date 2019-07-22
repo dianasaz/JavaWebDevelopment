@@ -18,8 +18,6 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.sazanchuk.finalTask.action.command.Const.USER;
-
 public class RegisterCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
 
@@ -103,7 +101,7 @@ public class RegisterCommand implements Command {
 
     private void setAtributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute(USER.getFieldName(), user);
+        session.setAttribute("user", user);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

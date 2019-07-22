@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static by.sazanchuk.finalTask.action.command.Const.USER;
-
 public class LoginCommand implements Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private static final String LOGIN = "login";
@@ -45,7 +43,7 @@ public class LoginCommand implements Command {
         }
         if (userExist) {
             logger.log(Level.INFO, "user authorized with login - " + login);
-            return new CommandResult("controller?command=home_page", true);
+            return new CommandResult("/controller?command=home_page", false);
         } else {
             logger.log(Level.INFO, "user with such login and password doesn't exist");
             return goBackWithError(request, ERROR_AUTHENTIFICATION);
@@ -70,7 +68,8 @@ public class LoginCommand implements Command {
 
     private void setAtributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute(USER.getFieldName(), user);
+        session.setAttribute("user", user);
+        request.setAttribute("user", true);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
