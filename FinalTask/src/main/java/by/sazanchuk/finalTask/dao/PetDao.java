@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PetDao extends BaseDao implements Dao<Pet> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.pet (`id`, `name`, `kind`, `date_of_birth`, `weight`, `user_id`) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SELECT_ALL_INFO = "SELECT `name`, `kind`, `date_of_birth`, `weight`, `user_id` FROM `mydatabase`.pet WHERE `pet_id` = ?";
-    private static final String UPDATE_PET = "UPDATE `mydatabase`.pet SET `name` = ?, `date_of_birth` = ?, `weight` = ?, `kind` = ?, `user_id` = ? WHERE `id` = ?";
+    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.pet (`id`, `name`, `kind`, `date_of_birth`, `user_id`) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_INFO = "SELECT `name`, `kind`, `date_of_birth`, `user_id` FROM `mydatabase`.pet WHERE `pet_id` = ?";
+    private static final String UPDATE_PET = "UPDATE `mydatabase`.pet SET `name` = ?, `date_of_birth` = ?, `kind` = ?, `user_id` = ? WHERE `id` = ?";
     private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.pet WHERE `id` = ?";
     private static final String SELECT_ALL_PETS_WITH_ONE_USER = "SELECT `pet_id` FROM `mydatabase`.user_pet WHERE `user_id` = ?";
-    private static final String READ_ALL_INFORMATION_ABOUT_PET = "SELECT `user_id`, `date_of_birth`, `weight`, `kind`,`name`, `id` FROM `mydatabase`.pet ORDER BY `name`";
+    private static final String READ_ALL_INFORMATION_ABOUT_PET = "SELECT `user_id`, `date_of_birth`, `kind`,`name`, `id` FROM `mydatabase`.pet ORDER BY `name`";
 
     private final Logger log = LogManager.getLogger(PetDao.class);
 
@@ -34,9 +34,8 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             statement.setString(1, entity.getName());
             statement.setInt(2, entity.getIdentity());
             statement.setDate(3, (Date) entity.getDateOfBirth());
-            statement.setDouble(4, entity.getWeight());
-            statement.setInt(5, entity.getKind().getIdentity());
-            statement.setString(6, null);
+            statement.setInt(4, entity.getKind().getIdentity());
+            statement.setString(5, null);
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -70,7 +69,6 @@ public class PetDao extends BaseDao implements Dao<Pet> {
                 pet = new Pet();
                 pet.setIdentity(id);
                 pet.setDateOfBirth(resultSet.getDate("date_of_birth"));
-                pet.setWeight(resultSet.getInt("weight"));
                 pet.setKind(PetList.getById(resultSet.getInt("kind")));
                 pet.setName(resultSet.getString("name"));
                 pet.setUser_identity(resultSet.getInt("user_id"));
@@ -96,9 +94,8 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             statement = connection.prepareStatement(UPDATE_PET);
             statement.setString(1, entity.getName());
             statement.setInt(2, entity.getKind().getIdentity());
-            statement.setDouble(3, entity.getWeight());
-            statement.setInt(4, entity.getIdentity());
-            statement.setDate(5, (Date) entity.getDateOfBirth());
+            statement.setInt(3, entity.getIdentity());
+            statement.setDate(4, (Date) entity.getDateOfBirth());
             //TODO event
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -165,7 +162,6 @@ public class PetDao extends BaseDao implements Dao<Pet> {
                 pet = new Pet();
                 pet.setIdentity(resultSet.getInt("id"));
                 pet.setDateOfBirth(resultSet.getDate("date_of_birth"));
-                pet.setWeight(resultSet.getInt("weight"));
                 pet.setKind(PetList.getById(resultSet.getInt("kind")));
                 pet.setName(resultSet.getString("name"));
                 pet.setUser_identity(resultSet.getInt("user_id"));

@@ -10,7 +10,6 @@ public class Pet {
     private String name;
     private PetList kind;
     private Date dateOfBirth;
-    private double weight;
     private List<Event> eventList;
 
     public int getUser_identity() {
@@ -41,10 +40,6 @@ public class Pet {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
     public void setEventList(List<Event> eventList) {
         this.eventList = eventList;
     }
@@ -61,10 +56,6 @@ public class Pet {
         return kind;
     }
 
-    public double getWeight() {
-        return weight;
-    }
-
     public List<Event> getEventList() {
         return eventList;
     }
@@ -75,7 +66,6 @@ public class Pet {
         if (o == null || getClass() != o.getClass()) return false;
         Pet pet = (Pet) o;
         return identity == pet.identity &&
-                Double.compare(pet.weight, weight) == 0 &&
                 Objects.equals(name, pet.name) &&
                 kind == pet.kind &&
                 Objects.equals(eventList, pet.eventList);
@@ -83,7 +73,7 @@ public class Pet {
 
     @Override
     public int hashCode() {
-        return Objects.hash(identity, name, kind, weight, eventList);
+        return Objects.hash(identity, name, kind, eventList);
     }
 
     @Override
@@ -92,7 +82,6 @@ public class Pet {
                 "identity=" + identity +
                 ", name='" + name + '\'' +
                 ", kind=" + kind +
-                ", weight=" + weight +
                 ", eventList=" + eventList +
                 '}';
     }

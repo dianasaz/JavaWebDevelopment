@@ -5,7 +5,7 @@ import by.sazanchuk.finalTask.entity.Pet;
 
 import java.util.List;
 
-public interface PetService {
+public interface PetService  extends Service{
 
     List<Pet> findAll() throws DaoException;
 

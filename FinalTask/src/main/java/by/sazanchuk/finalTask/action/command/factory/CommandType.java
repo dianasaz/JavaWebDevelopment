@@ -5,6 +5,7 @@ public enum CommandType {
     LOGOUT("logout"),
     HOME_PAGE("home_page"),
     REGISTER("register"),
+    REGISTER_PET("register_pet"),
     PROFILE("profile");
 
     private String command;

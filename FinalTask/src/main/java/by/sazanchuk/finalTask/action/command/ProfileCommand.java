@@ -24,7 +24,9 @@ public class ProfileCommand implements Command {
         User user = (User) request.getSession().getAttribute("user");
 
         try {
-            User u = initializeUser(user.getId(), request);
+            User u = null;
+            if (user != null){
+            u = initializeUser(user.getId(), request);}
             if (u != null)  return new CommandResult(ConfigurationManager.getProperty("path.page.profile"), false);
         } catch (DaoException e) {
         }

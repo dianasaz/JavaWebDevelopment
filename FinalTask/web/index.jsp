@@ -32,7 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <!--/fonts-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/modernizr.custom.js"></script>
-    <script src="js/responsiveslides.min.js"></script>
+    <script src="js/responsiveslides.min.js"></script></head>
 <body>
 <div class="header">
     <div class="header-info">
@@ -61,25 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="header-bottom">
         <div class="menu">
             <span class="menu-info"> </span>
-            <ul class="cl-effect-21">
-                <li><a href="index.html" class="active">HOME</a></li>
-                <li><a href="about.html">ABOUT</a></li>
-                <li><a href="controller?command=profile">PROFILE</a></li>
-                <li><a href="projects.html">SERVICES</a></li>
-                <li><a href="support.html">DOCTORS</a></li>
-                <li><a href="404.html">OUR PETS</a></li>
-            </ul>
-            <!--script-nav -->
-            <script>
-					$("span.menu-info").click(function(){
-						$("ul.cl-effect-21").slideToggle("slow" , function(){
-						});
-					});
-
-
-            </script>
-            <!-- /script-nav -->
-            <div class="clearfix"></div>
+            <jsp:include page="menu.jsp"/>
         </div>
     </div>
     <div class="header-banner">
@@ -90,13 +72,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <li><a href="#"><img src="images/3.jpg" class="img-responsive" alt=""/></a></li>
             </ul>
         </div>
-    </div>
-    <div class="pr">
-        <c:if test="${user != null}">
-            <form method="POST" action="controller?command=profile">
-                <jsp:include page="profile.jsp"/>
-            </form>
-        </c:if>
     </div>
 </div>
 </body>

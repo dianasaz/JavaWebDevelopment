@@ -18,7 +18,6 @@ CREATE TABLE `pet`
   `name`   varchar(255),
   `kind`   ENUM ('cat', 'dog', 'turtle', 'parrot', 'hamster'),
   `date_of_birth`    date,
-  `weight` int,
   `user_id` int NOT NULL
 ) ENGINE = INNODB;
 

@@ -6,6 +6,7 @@ import by.sazanchuk.finalTask.action.command.LoginCommand;
 import by.sazanchuk.finalTask.action.command.LogoutCommand;
 import by.sazanchuk.finalTask.action.command.ProfileCommand;
 import by.sazanchuk.finalTask.action.command.RegisterCommand;
+import by.sazanchuk.finalTask.action.command.RegisterPetCommand;
 
 public class CommandFactory {
     public static Command create(String command) {
@@ -33,6 +34,10 @@ public class CommandFactory {
             }
             case PROFILE: {
                 commandResult = new ProfileCommand();
+                break;
+            }
+            case REGISTER_PET: {
+                commandResult = new RegisterPetCommand();
                 break;
             }
         }

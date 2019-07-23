@@ -5,7 +5,9 @@ public enum Page {
 
     LOGIN("/login.jsp"),
 
-    PROFILE("/profile.jsp");
+    PROFILE("/profile.jsp"),
+
+    REGISTER_PET("/register_pet.jsp");
 
     private final String value;
 
