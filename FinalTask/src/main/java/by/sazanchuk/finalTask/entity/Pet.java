@@ -1,5 +1,6 @@
 package by.sazanchuk.finalTask.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -9,8 +10,11 @@ public class Pet {
     private int user_identity;
     private String name;
     private PetList kind;
-    private Date dateOfBirth;
+    private java.util.Date dateOfBirth;
     private List<Event> eventList;
+
+    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("d.MM.yyyy");
+
 
     public int getUser_identity() {
         return user_identity;
@@ -56,6 +60,10 @@ public class Pet {
         return kind;
     }
 
+    public String getDate(){
+        return dateFormat.format(dateOfBirth);
+    }
+
     public List<Event> getEventList() {
         return eventList;
     }
@@ -80,8 +88,10 @@ public class Pet {
     public String toString() {
         return "Pet{" +
                 "identity=" + identity +
+                ", user_identity=" + user_identity +
                 ", name='" + name + '\'' +
                 ", kind=" + kind +
+                ", dateOfBirth=" + dateOfBirth +
                 ", eventList=" + eventList +
                 '}';
     }

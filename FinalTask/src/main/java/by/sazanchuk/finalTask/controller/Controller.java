@@ -52,6 +52,7 @@ public class Controller extends HttpServlet {
 
         }
 
+        assert result != null;
         String page = result.getPage();
         if (result.isRedirect()) {
             redirect(response, page);

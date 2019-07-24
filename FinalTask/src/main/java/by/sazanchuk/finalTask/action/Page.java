@@ -7,7 +7,7 @@ public enum Page {
 
     PROFILE("/profile.jsp"),
 
-    REGISTER_PET("/register_pet.jsp");
+    REGISTER_PET(ConfigurationManager.getProperty("path.page.register_pet"));
 
     private final String value;
 

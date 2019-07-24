@@ -33,4 +33,9 @@ public enum PetList {
     public static PetList getById(Integer id){
         return PetList.values()[id];
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -14,4 +14,8 @@ public interface PetService  extends Service{
     int save(by.sazanchuk.finalTask.entity.Pet service) throws DaoException;
 
     void delete(Integer identity) throws DaoException;
+
+    List<Pet> getPetsOfOneUser(Integer userId) throws DaoException;
+
+    Pet findByNameAndUserId(String name, Integer user_id) throws DaoException;
 }

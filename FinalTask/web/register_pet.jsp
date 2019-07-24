@@ -20,11 +20,8 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="main-form">
-            <c:choose>
-                <c:when test="${param.register != null}">
-
                     <form class="login10-form" method="POST"
-                          action="controller?command=register">
+                          action="controller?command=register_pet">
 					<span class="login100-form-title">
 						Sign Up
 					</span>
@@ -65,67 +62,12 @@
 
                         <div class="container-login100-form-btn">
                             <button type="submit" class="login100-form-btn">
-                                Sign up
+                                Register
                             </button>
                         </div>
 
 
                     </form>
-                </c:when>
-                <c:otherwise>
-                    <c:if test="${error eq true}">
-                        <p style="margin-left: 40%">Please, log in to see your profile</p>
-                    </c:if>
-                    <form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST"
-                          action="controller?command=login">
-					<span class="login100-form-title">
-						Sign In
-					</span>
-
-                        <div class="wrap-input100 validate-input m-b-16"
-                             data-validate="Please enter login">
-                            <input class="input100" type="text" name="login" placeholder="Login">
-                            <span class="focus-input100"></span>
-                        </div>
-
-                        <div class="wrap-input100 validate-input m-b-16"
-                             data-validate="Please enter password">
-                            <input class="input100" type="password" name="password"
-                                   placeholder="Password">
-                            <span class="focus-input100"></span>
-                        </div>
-
-
-                        <c:if test="${error_authentification eq true}">
-                            <div class="container1" role="alert">
-                                Enter <strong>invalid</strong> login or password. Please try again
-
-                            </div>
-                        </c:if>
-
-                        <div class="container-login100-form-btn">
-                            <button type="submit" class="login100-form-btn">
-                                Sign in
-                            </button>
-                        </div>
-
-                        <a href="controller?command=home_page" class="txt2">
-                            Continue as guest
-                        </a>
-
-                        <div class="flex-col-c p-t-120 p-b-40">
-						<span class="txt1">
-							Don"t have an account?
-						</span>
-                            <div class="form-group ">
-                                <a href="controller?command=register" target="_blank" type="button"
-                                   id="button"
-                                   class="login-button">Register</a>
-                            </div>
-                        </div>
-                    </form>
-                </c:otherwise>
-            </c:choose>
         </div>
     </div>
 </div>
@@ -237,122 +179,5 @@
 
 </html>
 
-
-<div class="container-login100-form-btn">
-    <button type="submit" class="login100-form-btn">
-        Sign up
-    </button>
-</div>
-</form>
-</div>
-</div>
-</div>
-
-
-<!--===============================================================================================-->
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/bootstrap/js/popper.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/daterangepicker/moment.min.js"></script>
-<script src="vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-<script src="vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-<script src="js/main.js"></script>
-
-<style>
-    .wrap-input100 {
-        margin-bottom: 5px;
-        margin-top: 5px;
-    }
-
-    .container1 {
-        margin-left: -18%;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .login100-form {
-        margin-left: 43%;
-    }
-
-    label {
-        margin-bottom: 15px;
-    }
-
-    .form-control {
-        height: auto !important;
-        padding: 8px 12px !important;
-    }
-
-    .input-group {
-        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21) !important;
-    }
-
-    .login100-form-title {
-        margin-left: 3%;
-        font-size: 30px;
-    }
-
-    .form-group button {
-        background-color: whitesmoke;
-    }
-
-    #button {
-        padding: 6px 12px;
-        color: #666;
-        text-shadow: 0 1px #fff;
-        border-radius: 3px 3px;
-        box-shadow: 0 1px #fff inset, 0 1px #ddd;
-    }
-
-    .container-login100 {
-        margin-top: 30px;
-        margin: 0 auto;
-        padding: 10px 40px;
-        background: #009edf;
-        color: #FFF;
-        text-shadow: none;
-        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
-        height: auto;
-    }
-
-    span.input-group-addon i {
-        color: #009edf;
-        font-size: 17px;
-    }
-
-    .login-button {
-        margin-top: 5px;
-    }
-
-    .txt2 {
-        color: whitesmoke;
-    }
-
-    .txt3 {
-        color: whitesmoke;
-    }
-
-    .main-form {
-        width: auto;
-    }
-
-    .login10-form {
-        margin-left: 30%;
-        margin-right: 30%;
-    }
-</style>
-</body>
-
-</html>
 
 

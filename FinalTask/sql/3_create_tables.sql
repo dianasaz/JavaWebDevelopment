@@ -2,23 +2,23 @@ USE `myDatabase`;
 
 CREATE TABLE `user`
 (
-  `user_id`  int PRIMARY KEY     NOT NULL AUTO_INCREMENT,
-  `login`    varchar(255) UNIQUE NOT NULL,
-  `password` varchar(255)        NOT NULL,
-  `role`     ENUM ('administrator', 'visitor'),
+  `user_id`     int PRIMARY KEY     NOT NULL AUTO_INCREMENT,
+  `login`       varchar(255) UNIQUE NOT NULL,
+  `password`    varchar(255)        NOT NULL,
+  `role`        ENUM ('administrator', 'visitor'),
   `name`        varchar(255),
-  `email`    varchar(255) UNIQUE NOT NULL,
+  `email`       varchar(255) UNIQUE NOT NULL,
   `phoneNumber` INTEGER UNIQUE,
   `address`     varchar(255)
 ) ENGINE = INNODB;
 
 CREATE TABLE `pet`
 (
-  `id`     int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `name`   varchar(255),
-  `kind`   ENUM ('cat', 'dog', 'turtle', 'parrot', 'hamster'),
-  `date_of_birth`    date,
-  `user_id` int NOT NULL
+  `id`            int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `name`          varchar(255),
+  `kind`          ENUM ('cat', 'dog', 'turtle', 'parrot', 'hamster'),
+  `date_of_birth` date,
+  `user_id`       int             NOT NULL
 ) ENGINE = INNODB;
 
 CREATE TABLE `doctor`
@@ -54,21 +54,21 @@ CREATE TABLE `service`
 
 CREATE TABLE `user_pet`
 (
-  `user_id`     int NOT NULL,
-  `pet_id` int NOT NULL,
+  `user_id` int NOT NULL,
+  `pet_id`  int NOT NULL,
   CONSTRAINT PK PRIMARY KEY (`user_id`, `pet_id`)
 ) ENGINE = INNODB;
 
 CREATE TABLE `doctor_service`
 (
-  `doctor_id`         int NOT NULL,
+  `doctor_id`  int NOT NULL,
   `service_id` int,
   CONSTRAINT PrKy PRIMARY KEY (`doctor_id`, `service_id`)
 ) ENGINE = INNODB;
 
 CREATE TABLE `doctor_coupon`
 (
-  `doctor_id`  int NOT NULL,
+  `doctor_id` int NOT NULL,
   `coupon_id` int NOT NULL,
   CONSTRAINT PrimK PRIMARY KEY (`doctor_id`, `coupon_id`)
 ) ENGINE = INNODB;

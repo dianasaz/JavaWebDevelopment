@@ -22,6 +22,9 @@ public class PetServiceImpl extends ServiceImpl implements PetService{
     @Override
     public int save(Pet pet) throws DaoException {
         PetDao petDao = transaction.createDao(PetDao.class);
+        if (pet.getIdentity() == null) {
+            pet.setIdentity(petDao.create(pet));
+        }
         petDao.update(pet);
         return pet.getIdentity();
     }
@@ -36,4 +39,14 @@ public class PetServiceImpl extends ServiceImpl implements PetService{
         PetDao petDao = transaction.createDao(PetDao.class);
         return petDao.readPetsWithOneUser(userId);
     }
+
+    public Pet findByNameAndUserId(String name, Integer user_id) throws DaoException {
+        PetDao petDao = transaction.createDao(PetDao.class);
+        Pet pet = null;
+        if (name != null && user_id != null) {
+            pet = petDao.read(name, user_id);
+        }
+        return pet;
+    }
+
 }

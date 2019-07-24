@@ -25,7 +25,7 @@ public class RegisterPetCommand implements Command {
 
     private static final String NAME = "name";
     private static final String USER_ID = "user_id";
-    private static final String KIND = "kind";
+  //  private static final String KIND = "kind";
     private static final String DATE_OF_BIRTH = "dateOfBirth";
     private static final String ERROR_REGISTRATION = "error_registration";
     private static final String ERROR = "error_";
@@ -33,42 +33,45 @@ public class RegisterPetCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String name = request.getParameter(NAME);
-        String kind = request.getParameter(KIND);
+    //    String kind = request.getParameter(KIND);
        // parameters.put(DATE_OF_BIRTH, request.getParameter(DATE_OF_BIRTH));
 
 
         try {
-            createPet(name, kind, request);
+            createPet(name, request);
             //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-            return new CommandResult("controller?command=profile", true);
+            return new CommandResult("/controller?command=profile", false);
         } catch (DaoException | ConnectionPoolException e) {
-            throw new ServiceException(e);
+            return goBackWithError(request, "ERROR");
+            //throw new ServiceException(e);
+
         }
 
     }
 
 
-    private void createPet(String name, String kind, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void createPet(String name, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
         Integer user_id = (Integer) request.getSession().getAttribute(USER_ID);
         if (user_id != null) {
-            Pet pet = new Pet();
-            pet.setName(name);
-            SimpleDateFormat dateFormat = new SimpleDateFormat();
-            try {
-                pet.setDateOfBirth(dateFormat.parse("2000-11-11"));
-            } catch (ParseException e) {
-
-            }
-            pet.setKind(PetList.setPet(kind));
-            pet.setUser_identity(user_id);
-
+            SimpleDateFormat dateFormat = new SimpleDateFormat("d.MM.yyyy");
 
             ServiceFactory factory = new ServiceFactory();
+
             PetService service = factory.getService(PetService.class);
 
-            int id = service.save(pet);
-            if (id != 0) {
-                pet.setIdentity(id);
+            Pet pet = new Pet();
+
+            pet.setName(name);
+            pet.setUser_identity(user_id);
+            pet.setKind(PetList.setPet("cat"));
+            try {
+                pet.setDateOfBirth(dateFormat.parse("12.12.2012"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            int pet_Id = service.save(pet);
+            if (pet_Id != 0) {
+                pet.setIdentity(pet_Id);
             } else {
                 throw new ServiceException("Can't save pet!");
             }
@@ -84,6 +87,6 @@ public class RegisterPetCommand implements Command {
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
         request.setAttribute(error, true);
-        return new CommandResult(ConfigurationManager.getProperty("path.page.profile"), false);
+        return new CommandResult(ConfigurationManager.getProperty("path.page.register_pet"), false);
     }
 }

@@ -43,7 +43,7 @@ public class LoginCommand implements Command {
         }
         if (userExist) {
             logger.log(Level.INFO, "user authorized with login - " + login);
-            return new CommandResult("/controller?command=home_page", false);
+            return new CommandResult("/controller?command=profile", false);
         } else {
             logger.log(Level.INFO, "user with such login and password doesn't exist");
             return goBackWithError(request, ERROR_AUTHENTIFICATION);
@@ -68,6 +68,7 @@ public class LoginCommand implements Command {
 
     private void setAtributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
+        session.setAttribute("user_id", user.getId());
         session.setAttribute("user", user);
         request.setAttribute("user", true);
     }

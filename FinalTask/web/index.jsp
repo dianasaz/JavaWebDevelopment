@@ -41,7 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <img src="images/logo.png" alt=""/>
 
                 <c:choose>
-                    <c:when test="${user != true}">
+                    <c:when test="${user == null}">
                         <div class="search-box">
                             <a href="controller?command=login">LOG IN</a>
                         </div>
