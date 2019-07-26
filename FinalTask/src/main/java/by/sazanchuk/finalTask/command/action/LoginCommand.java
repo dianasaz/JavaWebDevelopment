@@ -1,6 +1,6 @@
-package by.sazanchuk.finalTask.action.command;
+package by.sazanchuk.finalTask.command.action;
 
-import by.sazanchuk.finalTask.action.ConfigurationManager;
+import by.sazanchuk.finalTask.command.ConfigurationManager;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.User;
@@ -59,14 +59,14 @@ public class LoginCommand implements Command {
         UserService service = factory.getService(UserService.class);
         User user = service.findByLoginAndPassword(login, password);
         if (user != null && user.getId() != null) {
-            setAtributesToSession(user, request);
+            setAttributesToSession(user, request);
             return true;
         } else {
             return false;
         }
     }
 
-    private void setAtributesToSession(User user, HttpServletRequest request) {
+    private void setAttributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("user_id", user.getId());
         session.setAttribute("user", user);

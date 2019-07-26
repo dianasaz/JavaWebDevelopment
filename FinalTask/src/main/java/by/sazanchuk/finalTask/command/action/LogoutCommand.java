@@ -1,6 +1,6 @@
-package by.sazanchuk.finalTask.action.command;
+package by.sazanchuk.finalTask.command.action;
 
-import by.sazanchuk.finalTask.action.Page;
+import by.sazanchuk.finalTask.command.Page;
 import by.sazanchuk.finalTask.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

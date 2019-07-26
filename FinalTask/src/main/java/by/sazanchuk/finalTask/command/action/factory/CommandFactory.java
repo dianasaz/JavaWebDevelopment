@@ -1,12 +1,12 @@
-package by.sazanchuk.finalTask.action.command.factory;
+package by.sazanchuk.finalTask.command.action.factory;
 
-import by.sazanchuk.finalTask.action.command.Command;
-import by.sazanchuk.finalTask.action.command.HomePageCommand;
-import by.sazanchuk.finalTask.action.command.LoginCommand;
-import by.sazanchuk.finalTask.action.command.LogoutCommand;
-import by.sazanchuk.finalTask.action.command.ProfileCommand;
-import by.sazanchuk.finalTask.action.command.RegisterCommand;
-import by.sazanchuk.finalTask.action.command.RegisterPetCommand;
+import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.HomePageCommand;
+import by.sazanchuk.finalTask.command.action.LoginCommand;
+import by.sazanchuk.finalTask.command.action.LogoutCommand;
+import by.sazanchuk.finalTask.command.action.ProfileCommand;
+import by.sazanchuk.finalTask.command.action.RegisterCommand;
+import by.sazanchuk.finalTask.command.action.RegisterPetCommand;
 
 public class CommandFactory {
     public static Command create(String command) {

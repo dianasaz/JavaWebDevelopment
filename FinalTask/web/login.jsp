@@ -167,6 +167,9 @@
 						<span class="txt1">
 							Don"t have an account?
 						</span>
+                            <c:url value="login.jsp" var="toRegistr">
+                                <c:param name="register" value="true"/>
+                            </c:url>
                             <div class="form-group ">
                                 <a href="controller?command=register" target="_blank" type="button" id="button"
                                    class="login-button">Register</a>

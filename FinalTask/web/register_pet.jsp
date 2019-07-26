@@ -19,6 +19,7 @@
 
 <div class="limiter">
     <div class="container-login100">
+
         <div class="main-form">
                     <form class="login10-form" method="POST"
                           action="controller?command=register_pet">
@@ -42,11 +43,11 @@
                             <label class="cols-sm-2 control-label">Pet</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                    <input type="radio" name="kind" value="0">Cat
-                                    <input type="radio" name="kind" VALUE="1">Dog
-                                    <input type="radio" name="kind" value="2">Hamster
-                                    <input type="radio" name="kind" value="3">Parrot
-                                    <input type="radio" name="kind" value="4">Turtle
+                                    <input type="radio" name="kind" value="cat">Cat
+                                    <input type="radio" name="kind" VALUE="dog">Dog
+                                    <input type="radio" name="kind" value="hamster">Hamster
+                                    <input type="radio" name="kind" value="parrot">Parrot
+                                    <input type="radio" name="kind" value="turtle">Turtle
                                 </div>
                             </div>
                         </div>

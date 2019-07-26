@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.action;
+package by.sazanchuk.finalTask.command;
 
 public enum Page {
     HOME_PAGE("/index.jsp"),
@@ -7,7 +7,8 @@ public enum Page {
 
     PROFILE("/profile.jsp"),
 
-    REGISTER_PET(ConfigurationManager.getProperty("path.page.register_pet"));
+    REGISTER_PET("/register_pet.jsp");
+
 
     private final String value;
 

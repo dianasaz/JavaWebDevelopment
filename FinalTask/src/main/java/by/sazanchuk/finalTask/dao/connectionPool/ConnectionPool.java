@@ -21,7 +21,7 @@ public class ConnectionPool {
 
     private static final String PROPERTY_PATH = "myDatabase.properties";
 
-    private static final int INITIAL_CAPACITY = 15;
+    private static final int INITIAL_CAPACITY = 20;
 
     private ArrayBlockingQueue<Connection> freeConnections = new ArrayBlockingQueue<>(INITIAL_CAPACITY);
 
@@ -127,6 +127,8 @@ public class ConnectionPool {
     }
 
     public void destroy(){
+        freeConnections.addAll(releaseConnections);
+        releaseConnections.clear();
 
         for (int i = 0; i < freeConnections.size(); i++) {
             try {

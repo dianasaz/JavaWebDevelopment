@@ -50,6 +50,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <div class="search-box">
                             <a href="controller?command=logout">LOG OUT</a>
                         </div>
+                        <a href="controller?command=register_pet">REGISTER PET</a>
                     </c:otherwise>
                 </c:choose>
             </div>

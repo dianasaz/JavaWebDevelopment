@@ -1,6 +1,6 @@
-package by.sazanchuk.finalTask.action.command;
+package by.sazanchuk.finalTask.command.action;
 
-import by.sazanchuk.finalTask.action.ConfigurationManager;
+import by.sazanchuk.finalTask.command.ConfigurationManager;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Pet;
@@ -8,7 +8,6 @@ import by.sazanchuk.finalTask.entity.PetList;
 import by.sazanchuk.finalTask.service.PetService;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,15 +16,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterPetCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
+    private static final Logger logger = LogManager.getLogger(RegisterPetCommand.class);
 
     private static final String NAME = "name";
     private static final String USER_ID = "user_id";
-  //  private static final String KIND = "kind";
+    private static final String KIND = "kind";
     private static final String DATE_OF_BIRTH = "dateOfBirth";
     private static final String ERROR_REGISTRATION = "error_registration";
     private static final String ERROR = "error_";
@@ -33,14 +30,17 @@ public class RegisterPetCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String name = request.getParameter(NAME);
-    //    String kind = request.getParameter(KIND);
+        String kind = request.getParameter(KIND);
        // parameters.put(DATE_OF_BIRTH, request.getParameter(DATE_OF_BIRTH));
 
 
         try {
-            createPet(name, request);
-            //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-            return new CommandResult("/controller?command=profile", false);
+            if (name != null) {
+                createPet(name, kind, request);
+                //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
+                return new CommandResult("/controller?command=profile", false);
+            }
+            else return goBackWithError(request, "Error");
         } catch (DaoException | ConnectionPoolException e) {
             return goBackWithError(request, "ERROR");
             //throw new ServiceException(e);
@@ -50,10 +50,10 @@ public class RegisterPetCommand implements Command {
     }
 
 
-    private void createPet(String name, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void createPet(String name, String kind, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
         Integer user_id = (Integer) request.getSession().getAttribute(USER_ID);
         if (user_id != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("d.MM.yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
             ServiceFactory factory = new ServiceFactory();
 
@@ -63,7 +63,7 @@ public class RegisterPetCommand implements Command {
 
             pet.setName(name);
             pet.setUser_identity(user_id);
-            pet.setKind(PetList.setPet("cat"));
+            pet.setKind(PetList.setPet(kind));
             try {
                 pet.setDateOfBirth(dateFormat.parse("12.12.2012"));
             } catch (ParseException e) {

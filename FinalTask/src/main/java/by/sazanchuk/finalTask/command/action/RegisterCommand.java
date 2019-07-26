@@ -1,6 +1,6 @@
-package by.sazanchuk.finalTask.action.command;
+package by.sazanchuk.finalTask.command.action;
 
-import by.sazanchuk.finalTask.action.ConfigurationManager;
+import by.sazanchuk.finalTask.command.ConfigurationManager;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Role;
@@ -95,11 +95,11 @@ public class RegisterCommand implements Command {
         } else {
             throw new ServiceException("Can't save user!");
         }
-       setAtributesToSession(user, request);
+       setAttributesToSession(user, request);
 
     }
 
-    private void setAtributesToSession(User user, HttpServletRequest request) {
+    private void setAttributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("user", user);
     }

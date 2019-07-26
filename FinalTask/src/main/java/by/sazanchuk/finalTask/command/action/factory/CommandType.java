@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.action.command.factory;
+package by.sazanchuk.finalTask.command.action.factory;
 
 public enum CommandType {
     LOGIN("login"),

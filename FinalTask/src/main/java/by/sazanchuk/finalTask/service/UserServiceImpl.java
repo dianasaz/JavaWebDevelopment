@@ -2,11 +2,15 @@ package by.sazanchuk.finalTask.service;
 
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.UserDao;
+import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.User;
 
 import java.util.List;
 
 public class UserServiceImpl extends ServiceImpl implements UserService {
+    public UserServiceImpl() throws DaoException, ConnectionPoolException {
+    }
+
     @Override
     public List<User> findAll() throws DaoException {
         UserDao userDao = transaction.createDao(UserDao.class);

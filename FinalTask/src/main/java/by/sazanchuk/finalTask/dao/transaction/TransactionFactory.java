@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 public class TransactionFactory {
     private static Logger logger = LogManager.getLogger(TransactionFactory.class);
+    private static TransactionFactory factory;
     private Connection connection;
 
     public TransactionFactory() throws DaoException, ConnectionPoolException {

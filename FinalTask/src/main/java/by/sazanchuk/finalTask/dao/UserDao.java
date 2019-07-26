@@ -53,10 +53,6 @@ public class UserDao extends BaseDao implements Dao<User> {
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
             }
-            try {
-                if (statement != null) statement.close();
-            } catch (SQLException e) {
-            }
         }
     }
 
@@ -105,10 +101,6 @@ public class UserDao extends BaseDao implements Dao<User> {
                 if (resultSet != null) resultSet.close();
             } catch (SQLException e) {
             }
-            try {
-                if (statement != null) statement.close();
-            } catch (SQLException e) {
-            }
         }
     }
 
@@ -127,12 +119,6 @@ public class UserDao extends BaseDao implements Dao<User> {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            try {
-                if (statement != null)
-                    statement.close();
-            } catch (SQLException e) {
-            }
         }
     }
 
@@ -145,12 +131,6 @@ public class UserDao extends BaseDao implements Dao<User> {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            try {
-                if (statement != null)
-                    statement.close();
-            } catch (SQLException e) {
-            }
         }
     }
 
@@ -177,11 +157,6 @@ public class UserDao extends BaseDao implements Dao<User> {
             try {
                 if (resultSet != null)
                     resultSet.close();
-            } catch (SQLException e) {
-            }
-            try {
-                if (statement != null)
-                    statement.close();
             } catch (SQLException e) {
             }
         }
@@ -214,11 +189,6 @@ public class UserDao extends BaseDao implements Dao<User> {
             try {
                 if (resultSet != null)
                     resultSet.close();
-            } catch (SQLException e) {
-            }
-            try {
-                if (statement != null)
-                    statement.close();
             } catch (SQLException e) {
             }
         }
