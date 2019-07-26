@@ -14,6 +14,10 @@
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
+    <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
 </head>
 <body>
 
@@ -50,6 +54,22 @@
                                     <input type="radio" name="kind" value="turtle">Turtle
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" name="dateOfBirth" id="dateOfBirth"
+                                   placeholder="Enter date of birth">
+                            <script>
+                                $(function() {
+                                    $('input[name="dateOfBirth"]').daterangepicker({
+                                        singleDatePicker: true,
+                                        showDropdowns: true,
+                                        minYear: 1990,
+                                        maxYear: parseInt(moment().format('YYYY'),10)
+                                    }
+                                    );
+                                });
+                            </script>
                         </div>
 
 

@@ -10,18 +10,28 @@
 </head>
 <body>
 <div class="container emp-profile">
-
-    <div class="row">
-        <div class="col-md-2 pb-2">
-            <a href="#" class="profile-edit-btn">EDIT PROFILE</a>
-            <a href="controller?command=home_page" class="profile-edit-btn">HOME PAGE</a>
-            <a href="controller?command=register_pet" class="profile-edit-btn">REGISTER_PET</a>
-        </div>
+    <div style="margin-left: 20%; margin-right: 20%;">
+    <table style="margin-bottom: 20px">
+        <div class="row">
+            <div class="col-md-4">
+                <a href="controller?command=edit_profile" class="profile-edit-btn">EDIT PROFILE</a>
+            </div>
+            <div class="col-md-4">
+                <a href="controller?command=home_page" class="profile-edit-btn">HOME</a>
+            </div>
+            <div class="col-md-4">
+                <a href="controller?command=register_pet" class="profile-edit-btn">REGISTER_PET</a>
+            </div>
+            </div>
+    </table>
     </div>
     <form class="form" method="POST" action="controller?command=profile">
         <div class="row">
-            <table class="col-md-8">
+            <table class="col-md-8" >
+
                 <div class="tab-content" id="myTabContent">
+                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;"> <b>USER
+                        INFO</b> </label>
                     <div class="row">
                         <div class="col-md-6">
                             <label>User login</label>
@@ -56,20 +66,28 @@
                     </div>
 
                 </div>
-                <table>
+            </table>
+            <table class="col-md-8" >
+                <div class="tab-content" id="myTaabContent">
+                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;"> <b>YOUR PETS</b> </label>
                     <c:forEach var="pet" items="${pets}">
-                        <tr>
-                            <td><c:out value="${pet.name}"/></td>
-                            <td><c:out value="${pet.kind}"/></td>
-                        </tr>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>${pet.name}</label>
+                            </div>
+                            <div class="col-md-4">
+                                <p>${pet.kind}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p>${pet.dateOfBirth}</p>
+                            </div>
+                        </div>
                     </c:forEach>
-                </table>
-
-
-            </div>
-
+                </div>
+            </table>
         </div>
     </form>
+
 </div>
 <style>
     body {
@@ -89,7 +107,9 @@
     }
 
     .tab-content {
-        margin-left: 30%;
+        margin-left: 20%;
+        margin-right: 20%;
+        width: 500px;
     }
 
     .profile-img img {

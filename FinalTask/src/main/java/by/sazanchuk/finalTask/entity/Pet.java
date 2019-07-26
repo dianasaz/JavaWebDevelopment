@@ -13,7 +13,8 @@ public class Pet {
     private java.util.Date dateOfBirth;
     private List<Event> eventList;
 
-    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("d.MM.yyyy");
+    public final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
 
 
     public int getUser_identity() {
@@ -92,7 +93,6 @@ public class Pet {
                 ", name='" + name + '\'' +
                 ", kind=" + kind +
                 ", dateOfBirth=" + dateOfBirth +
-                ", eventList=" + eventList +
                 '}';
     }
 }

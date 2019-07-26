@@ -1,6 +1,7 @@
 package by.sazanchuk.finalTask.command.action.factory;
 
 import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.EditProfileCommand;
 import by.sazanchuk.finalTask.command.action.HomePageCommand;
 import by.sazanchuk.finalTask.command.action.LoginCommand;
 import by.sazanchuk.finalTask.command.action.LogoutCommand;
@@ -38,6 +39,10 @@ public class CommandFactory {
             }
             case REGISTER_PET: {
                 commandResult = new RegisterPetCommand();
+                break;
+            }
+            case EDIT_PROFILE: {
+                commandResult = new EditProfileCommand();
                 break;
             }
         }

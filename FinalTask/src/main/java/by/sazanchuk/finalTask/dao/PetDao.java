@@ -36,7 +36,12 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             statement = connection.prepareStatement(INSERT_ALL_INFO, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, entity.getName());
             statement.setString(2, entity.getKind().toString());
-            statement.setObject(3, entity.getDateOfBirth());
+          //  statement.setObject(3, entity.getDateOfBirth());
+            if (entity.getDateOfBirth() != null) {
+                statement.setDate(3, new Date(entity.getDateOfBirth().getTime()));
+            } else {
+                statement.setDate(3, new Date(new java.util.Date().getTime()));
+            }
             statement.setInt(4, entity.getUser_identity());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();

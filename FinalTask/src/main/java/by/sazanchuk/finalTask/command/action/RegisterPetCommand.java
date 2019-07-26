@@ -31,12 +31,13 @@ public class RegisterPetCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String name = request.getParameter(NAME);
         String kind = request.getParameter(KIND);
+        String dateOfBirth = request.getParameter(DATE_OF_BIRTH);
        // parameters.put(DATE_OF_BIRTH, request.getParameter(DATE_OF_BIRTH));
 
 
         try {
-            if (name != null) {
-                createPet(name, kind, request);
+            if (name != null && dateOfBirth != null) {
+                createPet(name, kind, dateOfBirth, request);
                 //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
                 return new CommandResult("/controller?command=profile", false);
             }
@@ -50,10 +51,10 @@ public class RegisterPetCommand implements Command {
     }
 
 
-    private void createPet(String name, String kind, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void createPet(String name, String kind, String dateOfBirth, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
         Integer user_id = (Integer) request.getSession().getAttribute(USER_ID);
         if (user_id != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
             ServiceFactory factory = new ServiceFactory();
 
@@ -65,7 +66,7 @@ public class RegisterPetCommand implements Command {
             pet.setUser_identity(user_id);
             pet.setKind(PetList.setPet(kind));
             try {
-                pet.setDateOfBirth(dateFormat.parse("12.12.2012"));
+                pet.setDateOfBirth(dateFormat.parse(dateOfBirth));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
