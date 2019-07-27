@@ -1,6 +1,8 @@
-package by.sazanchuk.finalTask.command.action;
+package by.sazanchuk.finalTask.command.action.authorization;
 
 import by.sazanchuk.finalTask.command.ConfigurationManager;
+import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.CommandResult;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Role;

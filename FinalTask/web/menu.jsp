@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: dianasaz
@@ -6,7 +8,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+
+<fmt:message bundle="${language}" key="home" var="home"/>
+<fmt:message bundle="${language}" key="about" var="about"/>
+<fmt:message bundle="${language}" key="services" var="services"/>
+<fmt:message bundle="${language}" key="doctors" var="doctors"/>
+<fmt:message bundle="${language}" key="profile" var="profile"/>
+<fmt:message bundle="${language}" key="ourpets" var="ourpets"/>
+<html lang="${language}">
 <head>
     <title>Petcare a Animals & Pets Category Flat Bootstarp responsive Website Template| HOME :: w3layouts</title>
     <!--bootstarp-css-->
@@ -35,12 +44,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 <ul class="cl-effect-21">
-    <li><a href="index.html" class="active">HOME</a></li>
-    <li><a href="about.html">ABOUT</a></li>
-    <li><a href="controller?command=profile">PROFILE</a></li>
-    <li><a href="projects.html">SERVICES</a></li>
-    <li><a href="support.html">DOCTORS</a></li>
-    <li><a href="404.html">OUR PETS</a></li>
+    <li><a href="index.html" class="active">${home}</a></li>
+    <li><a href="about.html">${about}</a></li>
+    <li><a href="controller?command=profile">${profile}</a></li>
+    <li><a href="projects.html">${services}</a></li>
+    <li><a href="support.html">${doctors}</a></li>
+    <li><a href="404.html">${ourpets}</a></li>
 </ul>
 <!--script-nav -->
 <script>

@@ -1,7 +1,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
+
+
+<fmt:message bundle="${language}" key="singin" var="signin"/>
+<fmt:message bundle="${language}" key="enteroulogin" var="enterlogin"/>
+<fmt:message bundle="${language}" key="enteryoupassword" var="enterpassword"/>
+<fmt:message bundle="${language}" key="enteryouremail" var="enteremail"/>
+<fmt:message bundle="${language}" key="enteryourname" var="entername"/>
+<fmt:message bundle="${language}" key="enteryourphone" var="enterphone"/>
+<fmt:message bundle="${language}" key="login" var="log"/>
+<fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
+<fmt:message bundle="${language}" key="username" var="username"/>
+<fmt:message bundle="${language}" key="useremail" var="useremail"/>
+<fmt:message bundle="${language}" key="userphone" var="userphone"/>
+<fmt:message bundle="${language}" key="userpassword" var="userpassword"/>
+<fmt:message bundle="${language}" key="errorlogin" var="errorlogin"/>
+<fmt:message bundle="${language}" key="signup" var="signup"/>
+<fmt:message bundle="${language}" key="haveaccount" var="haveaccount"/>
+<fmt:message bundle="${language}" key="logintoseeprofile" var="pleaselogin"/>
+<fmt:message bundle="${language}" key="enterinvalid" var="enterinvalid"/>
+<fmt:message bundle="${language}" key="donthaveaccount" var="donthaveacc"/>
+<fmt:message bundle="${language}" key="continueguest" var="continuegueast"/>
+<fmt:message bundle="${language}" key="register" var="register"/>
+
+
+
+<html lang="${language}">
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
@@ -26,74 +51,74 @@
                     <form class="login10-form" method="POST"
                           action="controller?command=register">
 					<span class="login100-form-title">
-						Sign Up
+						${signin}
 					</span>
 
                         <div class="form-group">
-                            <label for="login" class="cols-sm-2 control-label">Log in</label>
+                            <label for="login" class="cols-sm-2 control-label">${log}</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
                                     <input type="text" class="form-control" name="login" id="login"
-                                           placeholder="Enter your login"/>
+                                           placeholder="${enterlogin}"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                            <label for="name" class="cols-sm-2 control-label">${username}</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
                                     <input type="text" class="form-control" name="name" id="name"
-                                           placeholder="Enter your Name"/>
+                                           placeholder="${entername}"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                            <label for="email" class="cols-sm-2 control-label">${useremail}</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
                                     <input type="text" class="form-control" name="email" id="email"
-                                           placeholder="Enter your Email"/>
+                                           placeholder="${enteremail}"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="phoneNumber" class="cols-sm-2 control-label">phoneNumber</label>
+                            <label for="phoneNumber" class="cols-sm-2 control-label">${userphone}</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-users fa"
                                                                        aria-hidden="true"></i></span>
                                     <input type="text" class="form-control" name="phoneNumber" id="phoneNumber"
-                                           placeholder="Enter your phoneNumber"/>
+                                           placeholder="${enterphone}"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="password" class="cols-sm-2 control-label">Password</label>
+                            <label for="password" class="cols-sm-2 control-label">${userpassword}</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                     <input type="password" class="form-control" name="password" id="password"
-                                           placeholder="Enter your Password"/>
+                                           placeholder="${enterpassword}"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="address" class="cols-sm-2 control-label">Address</label>
+                            <label for="address" class="cols-sm-2 control-label">${useraddress}</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                                     <input type="text" class="form-control" name="address" id="Address"
-                                           placeholder="Address"/>
+                                           placeholder="${useraddress}"/>
                                 </div>
                             </div>
                         </div>
@@ -101,25 +126,25 @@
 
                         <c:if test="${error_registration eq true}">
                             <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                                User with this login already exist. Sign in or choose another login.
+                                ${errorlogin}
                             </div>
                         </c:if>
 
 
                         <div class="container-login100-form-btn">
                             <button type="submit" class="login100-form-btn">
-                                Sign up
+                                ${signup}
                             </button>
                         </div>
 
 
                         <div class="flex-col-c p-t-170 p-b-40">
 						<span class="txt1 p-b-9">
-							Have an account?
+							${haveaccount}
 						</span>
 
                             <a href="controller?command=login" class="txt3">
-                                Sign in now
+                                ${signin}
                             </a>
                         </div>
 
@@ -127,52 +152,52 @@
                 </c:when>
                 <c:otherwise>
                     <c:if test="${error eq true}">
-                        <p style="margin-left: 40%">Please, log in to see your profile</p>
+                        <p style="margin-left: 40%">${pleaselogin}</p>
                     </c:if>
                     <form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST"
                           action="controller?command=login">
 					<span class="login100-form-title">
-						Sign In
+						${signin}
 					</span>
 
-                        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter login">
-                            <input class="input100" type="text" name="login" placeholder="Login">
+                        <div class="wrap-input100 validate-input m-b-16" data-validate="${enterlogin}">
+                            <input class="input100" type="text" name="login" placeholder="${log}">
                             <span class="focus-input100"></span>
                         </div>
 
-                        <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter password">
-                            <input class="input100" type="password" name="password" placeholder="Password">
+                        <div class="wrap-input100 validate-input m-b-16" data-validate="${enterlogin}">
+                            <input class="input100" type="password" name="password" placeholder="${userpassword}">
                             <span class="focus-input100"></span>
                         </div>
 
 
                         <c:if test="${error_authentification eq true}">
                             <div class="container1" role="alert">
-                                Enter <strong>invalid</strong> login or password. Please try again
+                                ${enterinvalid}
 
                             </div>
                         </c:if>
 
                         <div class="container-login100-form-btn">
                             <button type="submit" class="login100-form-btn">
-                                Sign in
+                                ${signin}
                             </button>
                         </div>
 
                         <a href="controller?command=home_page" class="txt2">
-                            Continue as guest
+                            ${continuegueast}
                         </a>
 
                         <div class="flex-col-c p-t-120 p-b-40">
 						<span class="txt1">
-							Don"t have an account?
+							${donthaveacc}
 						</span>
                             <c:url value="login.jsp" var="toRegistr">
                                 <c:param name="register" value="true"/>
                             </c:url>
                             <div class="form-group ">
                                 <a href="controller?command=register" target="_blank" type="button" id="button"
-                                   class="login-button">Register</a>
+                                   class="login-button">${register}</a>
                             </div>
                         </div>
                     </form>

@@ -1,7 +1,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
+
+
+<fmt:message bundle="${language}" key="editprofile" var="edit"/>
+<fmt:message bundle="${language}" key="home" var="home"/>
+<fmt:message bundle="${language}" key="registerpet" var="registerpet"/>
+<fmt:message bundle="${language}" key="userinfo" var="userinfo"/>
+<fmt:message bundle="${language}" key="userlogin" var="userlogin"/>
+<fmt:message bundle="${language}" key="username" var="username"/>
+<fmt:message bundle="${language}" key="useremail" var="useremail"/>
+<fmt:message bundle="${language}" key="userphone" var="userphone"/>
+<fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
+<fmt:message bundle="${language}" key="yourpets" var="yourpets"/>
+
+<html lang="${language}">
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
@@ -11,30 +24,30 @@
 <body>
 <div class="container emp-profile">
     <div style="margin-left: 20%; margin-right: 20%;">
-    <table style="margin-bottom: 20px">
-        <div class="row">
-            <div class="col-md-4">
-                <a href="controller?command=edit_profile" class="profile-edit-btn">EDIT PROFILE</a>
+        <table style="margin-bottom: 20px">
+            <div class="row">
+                <div class="col-md-4">
+                    <a href="controller?command=edit_profile" class="profile-edit-btn">${edit}</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="controller?command=register_pet" class="profile-edit-btn">${registerpet}</a>
+                </div>
             </div>
-            <div class="col-md-4">
-                <a href="controller?command=home_page" class="profile-edit-btn">HOME</a>
-            </div>
-            <div class="col-md-4">
-                <a href="controller?command=register_pet" class="profile-edit-btn">REGISTER_PET</a>
-            </div>
-            </div>
-    </table>
+        </table>
     </div>
     <form class="form" method="POST" action="controller?command=profile">
         <div class="row">
-            <table class="col-md-8" >
+            <table class="col-md-8">
 
                 <div class="tab-content" id="myTabContent">
-                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;"> <b>USER
-                        INFO</b> </label>
+                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                        <b>${userinfo}</b> </label>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>User login</label>
+                            <label>${userlogin}</label>
                         </div>
                         <div class="col-md-6">
                             <p>${login}</p>
@@ -42,7 +55,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Name</label>
+                            <label>${username}</label>
                         </div>
                         <div class="col-md-6">
                             <p>${name}</p>
@@ -50,7 +63,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Email</label>
+                            <label>${useremail}</label>
                         </div>
                         <div class="col-md-6">
                             <p>${email}</p>
@@ -58,18 +71,27 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Phone</label>
+                            <label>${userphone}</label>
                         </div>
                         <div class="col-md-6">
                             <p>${phone}</p>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>${useraddress}</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>${address}</p>
+                        </div>
+                    </div>
 
                 </div>
             </table>
-            <table class="col-md-8" >
+            <table class="col-md-8">
                 <div class="tab-content" id="myTaabContent">
-                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;"> <b>YOUR PETS</b> </label>
+                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                        <b>${yourpets}</b> </label>
                     <c:forEach var="pet" items="${pets}">
                         <div class="row">
                             <div class="col-md-4">

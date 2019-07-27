@@ -1,13 +1,14 @@
 package by.sazanchuk.finalTask.command.action.factory;
 
+import by.sazanchuk.finalTask.command.action.ChangeLanguageCommand;
 import by.sazanchuk.finalTask.command.action.Command;
-import by.sazanchuk.finalTask.command.action.EditProfileCommand;
+import by.sazanchuk.finalTask.command.action.profile.EditProfileCommand;
 import by.sazanchuk.finalTask.command.action.HomePageCommand;
-import by.sazanchuk.finalTask.command.action.LoginCommand;
-import by.sazanchuk.finalTask.command.action.LogoutCommand;
-import by.sazanchuk.finalTask.command.action.ProfileCommand;
-import by.sazanchuk.finalTask.command.action.RegisterCommand;
-import by.sazanchuk.finalTask.command.action.RegisterPetCommand;
+import by.sazanchuk.finalTask.command.action.authorization.LoginCommand;
+import by.sazanchuk.finalTask.command.action.authorization.LogoutCommand;
+import by.sazanchuk.finalTask.command.action.profile.ProfileCommand;
+import by.sazanchuk.finalTask.command.action.authorization.RegisterCommand;
+import by.sazanchuk.finalTask.command.action.profile.RegisterPetCommand;
 
 public class CommandFactory {
     public static Command create(String command) {
@@ -45,6 +46,11 @@ public class CommandFactory {
                 commandResult = new EditProfileCommand();
                 break;
             }
+            case CHANGE_LANGUAGE: {
+                commandResult = new ChangeLanguageCommand();
+                break;
+            }
+
         }
         return commandResult;
     }

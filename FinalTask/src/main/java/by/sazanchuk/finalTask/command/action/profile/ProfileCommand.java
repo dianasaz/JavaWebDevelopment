@@ -1,6 +1,9 @@
-package by.sazanchuk.finalTask.command.action;
+package by.sazanchuk.finalTask.command.action.profile;
 
 import by.sazanchuk.finalTask.command.ConfigurationManager;
+import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.CommandResult;
+import by.sazanchuk.finalTask.command.action.authorization.LoginCommand;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Pet;
@@ -77,6 +80,7 @@ public class ProfileCommand implements Command {
         request.setAttribute("email", user.getEmail());
         request.setAttribute("name", user.getName());
         request.setAttribute("phone", user.getPhoneNumber());
+        request.setAttribute("address", user.getAddress());
         request.setAttribute("pets", pets);
 
     }

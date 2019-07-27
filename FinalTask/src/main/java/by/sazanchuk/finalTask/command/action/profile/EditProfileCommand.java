@@ -1,9 +1,11 @@
-package by.sazanchuk.finalTask.command.action;
+package by.sazanchuk.finalTask.command.action.profile;
 
 import by.sazanchuk.finalTask.command.ConfigurationManager;
+import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.CommandResult;
+import by.sazanchuk.finalTask.command.action.authorization.RegisterCommand;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
-import by.sazanchuk.finalTask.entity.Role;
 import by.sazanchuk.finalTask.entity.User;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditProfileCommand implements Command{
+public class EditProfileCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
 
     private static final String LOGIN = "login";
@@ -50,7 +52,7 @@ public class EditProfileCommand implements Command{
 
 
         try {
-            updateUser(parameters, request);
+            updateUser(user, request);
             logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
             return new CommandResult("controller?command=profile", true);
         } catch (DaoException | ConnectionPoolException e) {
@@ -68,14 +70,14 @@ public class EditProfileCommand implements Command{
     }
 
     private void updateUser(User user, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
-        User user = new User();
-        user.setLogin(parameters.get(LOGIN));
-        user.setPassword(parameters.get(PASSWORD));
-        user.setRole(Role.VISITOR);
-        user.setAddress(parameters.get(ADDRESS));
-        user.setEmail(parameters.get(EMAIL));
-        user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
-        user.setName(parameters.get(NAME));
+        User u = new User();
+      //  user.setLogin(parameters.get(LOGIN));
+      //  user.setPassword(parameters.get(PASSWORD));
+     //   user.setRole(Role.VISITOR);
+       // user.setAddress(parameters.get(ADDRESS));
+        //user.setEmail(parameters.get(EMAIL));
+        //user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
+        //user.setName(parameters.get(NAME));
 
 
         ServiceFactory factory = new ServiceFactory();

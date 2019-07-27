@@ -1,5 +1,7 @@
-package by.sazanchuk.finalTask.command.action;
+package by.sazanchuk.finalTask.command.action.profile;
 
+import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.CommandResult;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.service.ServiceException;
 

@@ -7,7 +7,8 @@ public enum CommandType {
     REGISTER("register"),
     REGISTER_PET("register_pet"),
     PROFILE("profile"),
-    EDIT_PROFILE("edit_profile");
+    EDIT_PROFILE("edit_profile"),
+    CHANGE_LANGUAGE("change_language");
 
     private String command;
     CommandType(String command) {

@@ -1,6 +1,9 @@
-package by.sazanchuk.finalTask.command.action;
+package by.sazanchuk.finalTask.command.action.authorization;
 
 import by.sazanchuk.finalTask.command.Page;
+import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.CommandResult;
+import by.sazanchuk.finalTask.command.action.authorization.LoginCommand;
 import by.sazanchuk.finalTask.service.ServiceException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
