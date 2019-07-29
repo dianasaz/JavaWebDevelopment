@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: dianasaz
+  Date: 29.07.2019
+  Time: 2:27
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
@@ -23,6 +30,8 @@
 <fmt:message bundle="${language}" key="donthaveaccount" var="donthaveacc"/>
 <fmt:message bundle="${language}" key="continueguest" var="continuegueast"/>
 <fmt:message bundle="${language}" key="register" var="register"/>
+<fmt:message bundle="${language}" key="erroremail" var="erroremail"/>
+
 
 
 
@@ -45,54 +54,114 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="main-form">
-
-                    <c:if test="${error eq true}">
-                        <p style="margin-left: 40%">${pleaselogin}</p>
-                    </c:if>
-                    <form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST"
-                          action="controller?command=login">
+                    <form class="login10-form" method="POST"
+                          action="controller?command=register">
 					<span class="login100-form-title">
-						${signin}
-					</span>
+                            ${signin}
+                    </span>
 
-                        <div class="wrap-input100 validate-input m-b-16" data-validate="${enterlogin}">
-                            <input class="input100" type="text" name="login" placeholder="${log}">
-                            <span class="focus-input100"></span>
+                        <div class="form-group">
+                            <label for="login" class="cols-sm-2 control-label">${log}</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="login" id="login"
+                                           placeholder="${enterlogin}"/>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="wrap-input100 validate-input m-b-16" data-validate="${enterlogin}">
-                            <input class="input100" type="password" name="password" placeholder="${userpassword}">
-                            <span class="focus-input100"></span>
+                        <div class="form-group">
+                            <label for="name" class="cols-sm-2 control-label">${username}</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="name" id="name"
+                                           placeholder="${entername}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="cols-sm-2 control-label">${useremail}</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="email" id="email"
+                                           placeholder="${enteremail}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneNumber" class="cols-sm-2 control-label">${userphone}</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-users fa"
+                                                                       aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="phoneNumber" id="phoneNumber"
+                                           placeholder="${enterphone}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="cols-sm-2 control-label">${userpassword}</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           placeholder="${enterpassword}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address" class="cols-sm-2 control-label">${useraddress}</label>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="address" id="Address"
+                                           placeholder="${useraddress}"/>
+                                </div>
+                            </div>
                         </div>
 
 
-                        <c:if test="${error_authentification eq true}">
-                            <div class="container1" role="alert">
-                                ${enterinvalid}
-
+                        <c:if test="${error_registration eq true}">
+                            <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                                    ${errorlogin}
                             </div>
                         </c:if>
 
+                        <c:if test="${error_email eq true}">
+                            <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                                    ${erroremail}
+                            </div>
+                        </c:if>
+
+
                         <div class="container-login100-form-btn">
                             <button type="submit" class="login100-form-btn">
-                                ${signin}
+                                    ${signup}
                             </button>
                         </div>
 
-                        <a href="controller?command=home_page" class="txt2">
-                            ${continuegueast}
-                        </a>
 
-                        <div class="flex-col-c p-t-120 p-b-40">
-						<span class="txt1">
-							${donthaveacc}
-						</span>
-                            <div class="form-group ">
-                                <a href="controller?command=register" target="_blank" type="button" id="button"
-                                   class="login-button">${register}</a>
-                            </div>
+                        <div class="flex-col-c p-t-170 p-b-40">
+						<span class="txt1 p-b-9">
+                                ${haveaccount}
+                        </span>
+
+                            <a href="controller?command=login" class="txt3">
+                                    ${signin}
+                            </a>
                         </div>
+
                     </form>
+
         </div>
     </div>
 </div>

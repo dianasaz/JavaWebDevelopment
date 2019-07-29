@@ -75,7 +75,7 @@ public class ProfileCommand implements Command {
     private void setAttributesToSession(User user, List<Pet> pets, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("user_id", user.getId());
-        request.setAttribute("user", user);
+       // request.setAttribute("user", user);
         request.setAttribute("login", user.getLogin());
         request.setAttribute("email", user.getEmail());
         request.setAttribute("name", user.getName());

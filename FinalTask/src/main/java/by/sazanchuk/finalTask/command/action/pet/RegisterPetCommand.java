@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.command.action.profile;
+package by.sazanchuk.finalTask.command.action.pet;
 
 import by.sazanchuk.finalTask.command.ConfigurationManager;
 import by.sazanchuk.finalTask.command.action.Command;
@@ -83,8 +83,8 @@ public class RegisterPetCommand implements Command {
     }
 
     private void setAtributesToSession(Pet pet, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.setAttribute("pet", pet);
+       // HttpSession session = request.getSession();
+        request.setAttribute("pet", pet);
         request.setAttribute("petName", pet.getName());
     }
 

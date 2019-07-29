@@ -2,13 +2,14 @@ package by.sazanchuk.finalTask.command.action.factory;
 
 import by.sazanchuk.finalTask.command.action.ChangeLanguageCommand;
 import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.pet.DeletePetCommand;
 import by.sazanchuk.finalTask.command.action.profile.EditProfileCommand;
 import by.sazanchuk.finalTask.command.action.HomePageCommand;
 import by.sazanchuk.finalTask.command.action.authorization.LoginCommand;
 import by.sazanchuk.finalTask.command.action.authorization.LogoutCommand;
 import by.sazanchuk.finalTask.command.action.profile.ProfileCommand;
 import by.sazanchuk.finalTask.command.action.authorization.RegisterCommand;
-import by.sazanchuk.finalTask.command.action.profile.RegisterPetCommand;
+import by.sazanchuk.finalTask.command.action.pet.RegisterPetCommand;
 
 public class CommandFactory {
     public static Command create(String command) {
@@ -48,6 +49,10 @@ public class CommandFactory {
             }
             case CHANGE_LANGUAGE: {
                 commandResult = new ChangeLanguageCommand();
+                break;
+            }
+            case DELETE_PET: {
+                commandResult = new DeletePetCommand();
                 break;
             }
 

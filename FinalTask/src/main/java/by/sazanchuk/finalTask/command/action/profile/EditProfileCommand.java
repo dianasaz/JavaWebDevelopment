@@ -6,6 +6,7 @@ import by.sazanchuk.finalTask.command.action.CommandResult;
 import by.sazanchuk.finalTask.command.action.authorization.RegisterCommand;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
+import by.sazanchuk.finalTask.entity.Role;
 import by.sazanchuk.finalTask.entity.User;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.print.attribute.standard.MediaSize;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,7 +36,9 @@ public class EditProfileCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        User user = (User) request.getSession().getAttribute("user");
+        User olduser = (User) request.getSession().getAttribute("user");
+
+
         Map<String, String> parameters = new HashMap<>();
         parameters.put(LOGIN, request.getParameter(LOGIN));
         parameters.put(PASSWORD, request.getParameter(PASSWORD));
@@ -45,18 +49,15 @@ public class EditProfileCommand implements Command {
 
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
             if (entry.getValue() == null || entry.getValue().isEmpty()) {
-                logger.log(Level.ERROR, "Invalid " + entry.getKey() + " was received");
                 return goBackWithError(request, ERROR + entry.getKey());
             }
         }
-
-
         try {
-            updateUser(user, request);
+            updateUser(parameters, olduser, request);
             logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
             return new CommandResult("controller?command=profile", true);
         } catch (DaoException | ConnectionPoolException e) {
-            throw new ServiceException(e);
+            return new CommandResult("controller?command=edit_profile");
         }
 
     }
@@ -69,15 +70,35 @@ public class EditProfileCommand implements Command {
         return service.isExist(login);
     }
 
-    private void updateUser(User user, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
-        User u = new User();
-      //  user.setLogin(parameters.get(LOGIN));
-      //  user.setPassword(parameters.get(PASSWORD));
-     //   user.setRole(Role.VISITOR);
-       // user.setAddress(parameters.get(ADDRESS));
-        //user.setEmail(parameters.get(EMAIL));
-        //user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
-        //user.setName(parameters.get(NAME));
+    private void updateUser(Map<String, String> parameters, User olduser, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+        User user = new User();
+  /*      if (parameters.get(LOGIN) == null || parameters.get(LOGIN).isEmpty()){
+            parameters.put(LOGIN, olduser.getLogin());
+        } else parameters.put(LOGIN, request.getParameter(LOGIN));
+        if (parameters.get(PASSWORD) == null || parameters.get(PASSWORD).isEmpty()){
+            parameters.put(PASSWORD, olduser.getPassword());
+        } else parameters.put(PASSWORD, request.getParameter(PASSWORD));
+        if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()){
+            parameters.put(NAME, olduser.getName());
+        } else parameters.put(NAME, request.getParameter(NAME));
+        if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()){
+            parameters.put(ADDRESS, olduser.getAddress());
+        } else parameters.put(ADDRESS, request.getParameter(ADDRESS));
+        if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()){
+            parameters.put(PHONE_NUMBER, String.valueOf(olduser.getPhoneNumber()));
+        } else parameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
+        if (parameters.get(EMAIL) == null || parameters.get(EMAIL).isEmpty()){
+            parameters.put(EMAIL, olduser.getEmail());
+        } else parameters.put(EMAIL, request.getParameter(EMAIL));
+*/
+        user.setLogin(parameters.get(LOGIN));
+        user.setPassword(parameters.get(PASSWORD));
+        user.setRole(Role.VISITOR);
+        user.setAddress(parameters.get(ADDRESS));
+        user.setEmail(parameters.get(EMAIL));
+        user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
+        user.setName(parameters.get(NAME));
+        user.setId(olduser.getId());
 
 
         ServiceFactory factory = new ServiceFactory();
@@ -95,7 +116,7 @@ public class EditProfileCommand implements Command {
 
     private void setAttributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("user", user);
+      //  session.setAttribute("user", user);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

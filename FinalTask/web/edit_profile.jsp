@@ -1,110 +1,126 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <title>Login</title>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-            <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-            <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-            <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-            <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-            <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
-            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        </head>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
+
+<fmt:message bundle="${language}" key="editprofile" var="editprofile"/>
+<fmt:message bundle="${language}" key="edit" var="edit"/>
+<fmt:message bundle="${language}" key="enteryourphone" var="enterphone"/>
+<fmt:message bundle="${language}" key="enteryouremail" var="enteremail"/>
+<fmt:message bundle="${language}" key="enteryourname" var="entername"/>
+<fmt:message bundle="${language}" key="enteroulogin" var="enterlogin"/>
+<fmt:message bundle="${language}" key="enteryoupassword" var="enterpassword"/>
+<fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
+<fmt:message bundle="${language}" key="profile" var="profile"/>
+
+
+<html lang="${language}">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
 <body>
 
 <div class="limiter">
     <div class="container-login100">
         <div class="main-form">
-                    <form class="login10-form" method="POST"
-                          action="controller?command=edit_profile">
+            <form class="login10-form" method="POST"
+                  action="controller?command=edit_profile">
 					<span class="login100-form-title">
-						Edit profile
+						${editprofile}
 					</span>
 
-                        <div class="form-group">
-                            <label for="login" class="cols-sm-2 control-label">Login</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
+                <div class="form-group">
+                    <label for="login" class="cols-sm-2 control-label">Login</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="login" id="login"
-                                           placeholder="${user.login}"/>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" name="login" id="login"
+                                   placeholder="${user.login}"/>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="form-group">
-                            <label for="password" class="cols-sm-2 control-label">Password</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
+                <div class="form-group">
+                    <label for="password" class="cols-sm-2 control-label">Password</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="password" id="password"
-                                           placeholder="${user.password}"/>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" name="password" id="password"
+                                   placeholder="${enterpassword}"/>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Name</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">Name</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="name" id="name"
-                                           placeholder="${user.name}"/>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" name="name" id="name"
+                                   placeholder="${user.name}"/>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="form-group">
-                            <label for="email" class="cols-sm-2 control-label">Email</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="email"
-                                           placeholder="${user.email}"/>
-                                </div>
-                            </div>
+                <div class="form-group">
+                    <label for="email" class="cols-sm-2 control-label">Email</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="email" id="email"
+                                   placeholder="${user.email}"/>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="form-group">
-                            <label for="phoneNumber" class="cols-sm-2 control-label">phoneNumber</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
+                <div class="form-group">
+                    <label for="phoneNumber" class="cols-sm-2 control-label">phoneNumber</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-users fa"
                                                                        aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="phoneNumber" id="phoneNumber"
-                                           placeholder="${user.phoneNumber}"/>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" name="phoneNumber" id="phoneNumber"
+                                   placeholder="${user.phoneNumber}"/>
                         </div>
+                    </div>
+                </div>
 
 
-                        <div class="form-group">
-                            <label for="address" class="cols-sm-2 control-label">Address</label>
-                            <div class="cols-sm-10">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="address" id="Address"
-                                           placeholder="${user.address}"/>
-                                </div>
-                            </div>
+                <div class="form-group">
+                    <label for="address" class="cols-sm-2 control-label">Address</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="address" id="Address"
+                                   placeholder="${user.address}"/>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="container-login100-form-btn">
-                            <button type="submit" class="login100-form-btn">
-                                Edit
-                            </button>
-                        </div>
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                        ${edit}
+                    </button>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <a href="controller?command=profile" class="profile-edit-btn">${profile}</a>
+                </div>
 
 
-                    </form>
+            </form>
         </div>
     </div>
 </div>

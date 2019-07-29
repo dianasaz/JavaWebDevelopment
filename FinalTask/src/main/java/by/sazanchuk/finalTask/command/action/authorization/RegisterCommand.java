@@ -17,7 +17,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RegisterCommand implements Command {
@@ -31,6 +33,8 @@ public class RegisterCommand implements Command {
     private static final String EMAIL = "email";
     private static final String ERROR_REGISTRATION = "error_registration";
     private static final String ERROR = "error_";
+    private static final String ERROR_EMAIL = "error_email";
+
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -42,6 +46,7 @@ public class RegisterCommand implements Command {
         parameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
         parameters.put(EMAIL, request.getParameter(EMAIL));
 
+
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
             if (entry.getValue() == null || entry.getValue().isEmpty()) {
                 logger.log(Level.ERROR, "Invalid " + entry.getKey() + " was received");
@@ -50,14 +55,20 @@ public class RegisterCommand implements Command {
         }
 
         boolean userExist;
+        boolean emailExist;
         try {
            userExist = checkIfUserExist(parameters.get(LOGIN));
+           emailExist = checkIfEmailExist(parameters.get(EMAIL));
         } catch (DaoException | ConnectionPoolException e) {
             throw new ServiceException(e);
         }
         if (userExist) {
-            logger.log(Level.INFO, "user with such login and password already exist");
+            logger.log(Level.INFO, "user with such login already exist");
             return goBackWithError(request, ERROR_REGISTRATION);
+        }
+        if (emailExist){
+            logger.log(Level.INFO, "user with such email already exist");
+            return goBackWithError(request, ERROR_EMAIL);
         }
         try {
             createUser(parameters, request);
@@ -75,6 +86,14 @@ public class RegisterCommand implements Command {
 
         UserService service = factory.getService(UserService.class);
         return service.isExist(login);
+    }
+
+    private boolean checkIfEmailExist(String email) throws DaoException, ConnectionPoolException {
+
+        ServiceFactory factory = new ServiceFactory();
+
+        UserService service = factory.getService(UserService.class);
+        return service.searchEmail(email);
     }
 
     private void createUser(Map<String, String> parameters, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {

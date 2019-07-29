@@ -9,7 +9,9 @@ public enum Page {
 
     REGISTER_PET("/register_pet.jsp"),
 
-    EDIT_PROFILE("/edit_profile.jsp");
+    EDIT_PROFILE("/edit_profile.jsp"),
+
+    REGISTER("/register.jsp");
 
 
     private final String value;

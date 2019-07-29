@@ -17,4 +17,6 @@ public interface UserService extends Service{
     void delete(Integer identity) throws DaoException;
 
     boolean isExist(String login) throws DaoException;
+
+    boolean searchEmail(String email) throws DaoException;
 }

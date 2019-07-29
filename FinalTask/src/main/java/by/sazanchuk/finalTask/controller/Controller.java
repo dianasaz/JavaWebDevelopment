@@ -47,7 +47,7 @@ public class Controller extends HttpServlet {
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage(), e);
             request.setAttribute(MessageManager.getProperty("error"), e.getMessage());
-            result = new CommandResult("error", false);
+            result = new CommandResult("/jsp/error.jsp", false);
         } catch (DaoException e) {
 
         }

@@ -4,6 +4,7 @@
 
 
 <fmt:message bundle="${language}" key="editprofile" var="edit"/>
+<fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
 <fmt:message bundle="${language}" key="registerpet" var="registerpet"/>
 <fmt:message bundle="${language}" key="userinfo" var="userinfo"/>
@@ -92,16 +93,25 @@
                 <div class="tab-content" id="myTaabContent">
                     <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
                         <b>${yourpets}</b> </label>
+                    <c:if test="${error_delete eq true}">
+                        <div class="container1" role="alert">
+                                ${errordelete}
+                        </div>
+                    </c:if>
+
                     <c:forEach var="pet" items="${pets}">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label>${pet.name}</label>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <p>${pet.kind}</p>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <p>${pet.dateOfBirth}</p>
+                            </div>
+                            <div class="col-md-3">
+                                <p><a href="controller?command=delete_pet&name=${pet.name}">DELETE PET</a> </p>
                             </div>
                         </div>
                     </c:forEach>

@@ -66,6 +66,11 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
 
     }
 
+    public boolean searchEmail(String email) throws DaoException {
+        UserDao userDao = transaction.createDao(UserDao.class);
+        return userDao.searchEmail(email);
+    }
+
 
     @Override
     public void delete(Integer identity) throws DaoException {

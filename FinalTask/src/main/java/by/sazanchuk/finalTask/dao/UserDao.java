@@ -21,8 +21,8 @@ public class UserDao extends BaseDao implements Dao<User> {
     private static final String DELETE_USER = "DELETE FROM `mydatabase`.user WHERE `user_id` = ?";
     private static final String READ_ALL_INFORMATION_ABOUT_USER = "SELECT `user_id`, `login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address` FROM `mydatabase`.user ORDER BY `login`";
     private static final String SEARCH_LOGIN = "SELECT `login` FROM `mydatabase`.user WHERE `login` = ?";
-    private static final String SELECT_USER_ID_FROM_USER = "SELECT `user_id` FROM `mydatabase`.user WHERE `login` = ? AND `password` = ?";
-
+    private static final String SELECT_USER_FROM_USER = "SELECT `user_id`, `role`, `email`, `name`, `phoneNumber`, `address` FROM `mydatabase`.user WHERE `login` = ? AND `password` = ?";
+    private static final String SEARCH_EMAIL = "SELECT `email` FROM `mydatabase`.user WHERE `email` = ?";
 
     private final Logger log = LogManager.getLogger(UserDao.class);
 
@@ -63,6 +63,25 @@ public class UserDao extends BaseDao implements Dao<User> {
         try {
             statement = connection.prepareStatement(SEARCH_LOGIN, Statement.RETURN_GENERATED_KEYS);
             statement.setString(1, login);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = new User();
+            }
+        } catch (SQLException e) {
+            throw new DaoException();
+        }
+
+        return user != null;
+    }
+
+
+    public boolean searchEmail(String email) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        User user = null;
+        try {
+            statement = connection.prepareStatement(SEARCH_EMAIL, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, email);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 user = new User();
@@ -138,7 +157,7 @@ public class UserDao extends BaseDao implements Dao<User> {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SELECT_USER_ID_FROM_USER);
+            statement = connection.prepareStatement(SELECT_USER_FROM_USER);
             statement.setString(1, login);
             statement.setString(2, password);
 
@@ -149,6 +168,11 @@ public class UserDao extends BaseDao implements Dao<User> {
                 user.setId(resultSet.getInt("user_id"));
                 user.setLogin(login);
                 user.setPassword(password);
+                user.setRole(Role.setRole(resultSet.getString("role")));
+                user.setEmail(resultSet.getString("email"));
+                user.setName(resultSet.getString("name"));
+                user.setPhoneNumber(resultSet.getInt("phoneNumber"));
+                user.setAddress(resultSet.getString("address"));
             }
             return user;
         } catch (SQLException e) {
