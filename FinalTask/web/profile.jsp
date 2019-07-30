@@ -14,6 +14,8 @@
 <fmt:message bundle="${language}" key="userphone" var="userphone"/>
 <fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
 <fmt:message bundle="${language}" key="yourpets" var="yourpets"/>
+<fmt:message bundle="${language}" key="deletepet" var="deletepet"/>
+
 
 <html lang="${language}">
 <head>
@@ -111,7 +113,7 @@
                                 <p>${pet.dateOfBirth}</p>
                             </div>
                             <div class="col-md-3">
-                                <p><a href="controller?command=delete_pet&name=${pet.name}">DELETE PET</a> </p>
+                                <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a> </p>
                             </div>
                         </div>
                     </c:forEach>

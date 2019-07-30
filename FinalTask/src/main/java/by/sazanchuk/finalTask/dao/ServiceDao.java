@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDao extends BaseDao implements Dao<Service> {
-    private static final String SELECT_ALL_INFORMATION_ABOUT_SERVICE = "SELECT `name`, `price`, `id` FROM `mydatabase`.by.sazanchuk.finalTask.service ORDER BY `name`";
-    private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.by.sazanchuk.finalTask.service WHERE `id` = ?";
-    private static final String UPDATE_NAME_AND_PRICE = "UPDATE `mydatabase`.by.sazanchuk.finalTask.service SET `name` = ?, `price` = ? = ? WHERE `id` = ?";
-    private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM `mydatabase`.by.sazanchuk.finalTask.service WHERE `id` = ?";
-    private static final String INSERT_ALL_INFORMATION = "INSERT INTO `mydatabase`.by.sazanchuk.finalTask.service (`id`, `name`, `price`) VALUES (?, ?, ?)";
-
+    private static final String SELECT_ALL_INFORMATION_ABOUT_SERVICE = "SELECT `name`, `price`, `id` FROM `mydatabase`.service ORDER BY `name`";
+    private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.service WHERE `id` = ?";
+    private static final String UPDATE_NAME_AND_PRICE = "UPDATE `mydatabase`.service SET `name` = ?, `price` = ? = ? WHERE `id` = ?";
+    private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM `mydatabase`.service WHERE `id` = ?";
+    private static final String INSERT_ALL_INFORMATION = "INSERT INTO `mydatabase`.service (`name`, `price`) VALUES (?, ?)";
+    private static final String SEARCH_NAME = "SELECT `name` FROM `mydatabase`.service WHERE `name` = ?";
 
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 
@@ -29,7 +29,6 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
                 statement = connection.prepareStatement(INSERT_ALL_INFORMATION, Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, entity.getName());
                 statement.setInt(2, entity.getPrice());
-                statement.setInt(3, entity.getIdentity());
                 statement.executeUpdate();
                 resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {
@@ -77,6 +76,24 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
                 } catch(SQLException e) {}
             }
         }
+
+    public boolean searchService(String name) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Service service = null;
+        try {
+            statement = connection.prepareStatement(SEARCH_NAME, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, name);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                service = new Service();
+            }
+        } catch (SQLException e) {
+            throw new DaoException();
+        }
+
+        return service != null;
+    }
 
         @Override
         public void update(Service entity) throws DaoException {

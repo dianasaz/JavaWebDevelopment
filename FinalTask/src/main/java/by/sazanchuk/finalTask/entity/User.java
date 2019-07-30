@@ -11,7 +11,6 @@ public class User {
     private String email;
     private int phoneNumber;
     private String address;
-    private List<Pet> petList;
     private Role role;
 
     public void setRole(Role role) {
@@ -50,10 +49,6 @@ public class User {
         this.address = address;
     }
 
-    public void setPetList(List<Pet> petList) {
-        this.petList = petList;
-    }
-
     public Integer getId() {
         return id;
     }
@@ -82,9 +77,6 @@ public class User {
         return address;
     }
 
-    public List<Pet> getPetList() {
-        return petList;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -98,13 +90,12 @@ public class User {
                 Objects.equals(name, user.name) &&
                 Objects.equals(email, user.email) &&
                 Objects.equals(address, user.address) &&
-                Objects.equals(petList, user.petList) &&
                 role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, name, email, phoneNumber, address, petList, role);
+        return Objects.hash(id, login, password, name, email, phoneNumber, address, role);
     }
 
     @Override
@@ -117,7 +108,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", phoneNumber=" + phoneNumber +
                 ", address='" + address + '\'' +
-                ", petList=" + petList +
                 ", role=" + role +
                 '}';
     }

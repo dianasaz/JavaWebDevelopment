@@ -23,4 +23,12 @@
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
     </resource-ref>
+    <filter>
+        <filter-name>listCommandFilter</filter-name>
+        <filter-class>by.sazanchuk.finalTask.filter.ListCommandFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>listCommandFilter</filter-name>
+        <url-pattern>/controller</url-pattern>
+    </filter-mapping>
 </web-app>

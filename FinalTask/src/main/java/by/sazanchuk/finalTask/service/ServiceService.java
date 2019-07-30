@@ -9,7 +9,9 @@ public interface ServiceService extends Service {
 
     by.sazanchuk.finalTask.entity.Service findByIdentity(Integer identity) throws DaoException;
 
-    void save(by.sazanchuk.finalTask.entity.Service service) throws DaoException;
+    int save(by.sazanchuk.finalTask.entity.Service service) throws DaoException;
 
     void delete(Integer identity) throws DaoException;
+
+    boolean searchService(String name) throws DaoException;
 }

@@ -24,6 +24,10 @@ public class LoginCommand implements Command {
     private static final String ERROR_LOGIN = "error_login";
     private static final String ERROR_PASSWORD = "error_password";
     private static final String ERROR_AUTHENTIFICATION = "error_authentification";
+    private static final String USER_ID = "user_id";
+    private static final String USER_ROLE = "user_role";
+    private static final String USER = "user";
+
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -45,7 +49,7 @@ public class LoginCommand implements Command {
         }
         if (userExist) {
             logger.log(Level.INFO, "user authorized with login - " + login);
-            return new CommandResult("/controller?command=profile", false);
+            return new CommandResult("/controller?command=home_page", false);
         } else {
             logger.log(Level.INFO, "user with such login and password doesn't exist");
             return goBackWithError(request, ERROR_AUTHENTIFICATION);
@@ -70,9 +74,10 @@ public class LoginCommand implements Command {
 
     private void setAttributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("user_id", user.getId());
-        session.setAttribute("user", user);
-        request.setAttribute("user", true);
+        session.setAttribute(USER_ID, user.getId());
+        session.setAttribute(USER_ROLE, user.getRole().getName());
+        session.setAttribute(USER, user);
+        request.setAttribute(USER, true);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

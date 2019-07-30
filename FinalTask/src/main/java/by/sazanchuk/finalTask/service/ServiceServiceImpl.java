@@ -28,7 +28,7 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     }
 
     @Override
-    public void save(by.sazanchuk.finalTask.entity.Service service) throws DaoException {
+    public int save(by.sazanchuk.finalTask.entity.Service service) throws DaoException {
         ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
         if (service.getIdentity() != null){
             if (service.getName() != null && service.getPrice() != null){
@@ -37,12 +37,21 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
             } else {
                 //by.sazanchuk.finalTask.service.setPrice();
             }
+        } else {
+           service.setIdentity(serviceDao.create(service));
         }
+        return service.getIdentity();
     }
 
     @Override
     public void delete(Integer identity) throws DaoException {
         ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
         if (identity != null) serviceDao.delete(identity);
+    }
+
+    @Override
+    public boolean searchService(String name) throws DaoException {
+        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
+        return serviceDao.searchService(name);
     }
 }

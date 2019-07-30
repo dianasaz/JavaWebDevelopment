@@ -11,7 +11,9 @@ public enum Page {
 
     EDIT_PROFILE("/edit_profile.jsp"),
 
-    REGISTER("/register.jsp");
+    REGISTER("/register.jsp"),
+
+    NO_ACCESS("/noAccessPage.jsp");
 
 
     private final String value;
