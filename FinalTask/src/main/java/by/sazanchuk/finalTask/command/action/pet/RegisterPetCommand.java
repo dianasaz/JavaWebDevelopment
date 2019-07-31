@@ -41,7 +41,7 @@ public class RegisterPetCommand implements Command {
             if (name != null && dateOfBirth != null) {
                 createPet(name, kind, dateOfBirth, request);
                 //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-                return new CommandResult("/controller?command=profile", false);
+                return new CommandResult("/controller?command=profileUser", false);
             }
             else return goBackWithError(request, "Error");
         } catch (DaoException | ConnectionPoolException e) {

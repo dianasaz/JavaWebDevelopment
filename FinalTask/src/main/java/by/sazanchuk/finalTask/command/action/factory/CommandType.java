@@ -9,7 +9,10 @@ public enum CommandType {
     PROFILE("profile"),
     EDIT_PROFILE("edit_profile"),
     CHANGE_LANGUAGE("change_language"),
-    DELETE_PET("delete_pet");
+    DELETE_PET("delete_pet"),
+    WATCH_SERVICE("watch_service"),
+    PROFILE_USER("profile_user"),
+    PROFILE_ADMIN("profile_admin");
 
     private String command;
     CommandType(String command) {

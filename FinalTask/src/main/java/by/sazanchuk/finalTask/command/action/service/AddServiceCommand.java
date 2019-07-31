@@ -21,7 +21,7 @@ public class AddServiceCommand implements Command {
     private static final Logger logger = LogManager.getLogger(AddServiceCommand.class);
     private static final String NAME = "name";
     private static final String PRICE = "price";
-    private static final String ERROR_NULL = "price";
+    private static final String ERROR_NULL = "error_null";
 
 
     @Override
@@ -34,10 +34,12 @@ public class AddServiceCommand implements Command {
             return goBackWithError(request, ERROR_NULL);
         } else {
             if (!searchService(name)) {
-                createService(name, price, request);
-                return new CommandResult("/controller?command=services", false); //TODO
+                Integer a = createService(name, price, request);
+                if (a != null) {
+                    return new CommandResult("/controller?command=services", false); //TODO
+                } else return goBackWithError(request, ERROR_NULL);
             } else {
-                return new CommandResult("/", false);
+                return goBackWithError(request, ERROR_NULL);
             }
         }
     }

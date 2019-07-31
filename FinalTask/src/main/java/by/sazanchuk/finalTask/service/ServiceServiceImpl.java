@@ -52,6 +52,12 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     @Override
     public boolean searchService(String name) throws DaoException {
         ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-        return serviceDao.searchService(name);
+        return serviceDao.searchService(name) != null;
+    }
+
+    @Override
+    public Service searchServiceByName(String name) throws DaoException{
+        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
+        return serviceDao.readByName(name);
     }
 }

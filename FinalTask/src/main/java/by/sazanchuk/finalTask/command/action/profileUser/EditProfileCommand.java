@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.command.action.profile;
+package by.sazanchuk.finalTask.command.action.profileUser;
 
 import by.sazanchuk.finalTask.command.ConfigurationManager;
 import by.sazanchuk.finalTask.command.action.Command;
@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.print.attribute.standard.MediaSize;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -55,7 +54,7 @@ public class EditProfileCommand implements Command {
         try {
             updateUser(parameters, olduser, request);
             logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-            return new CommandResult("controller?command=profile", true);
+            return new CommandResult("controller?command=profileUser", true);
         } catch (DaoException | ConnectionPoolException e) {
             return new CommandResult("controller?command=edit_profile");
         }

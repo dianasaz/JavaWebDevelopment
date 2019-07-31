@@ -14,4 +14,7 @@ public interface ServiceService extends Service {
     void delete(Integer identity) throws DaoException;
 
     boolean searchService(String name) throws DaoException;
+
+    by.sazanchuk.finalTask.entity.Service searchServiceByName(String name) throws DaoException;
+
 }

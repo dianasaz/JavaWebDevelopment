@@ -3,13 +3,14 @@ package by.sazanchuk.finalTask.command.action.factory;
 import by.sazanchuk.finalTask.command.action.ChangeLanguageCommand;
 import by.sazanchuk.finalTask.command.action.Command;
 import by.sazanchuk.finalTask.command.action.pet.DeletePetCommand;
-import by.sazanchuk.finalTask.command.action.profile.EditProfileCommand;
+import by.sazanchuk.finalTask.command.action.profileUser.EditProfileCommand;
 import by.sazanchuk.finalTask.command.action.HomePageCommand;
 import by.sazanchuk.finalTask.command.action.authorization.LoginCommand;
 import by.sazanchuk.finalTask.command.action.authorization.LogoutCommand;
-import by.sazanchuk.finalTask.command.action.profile.ProfileCommand;
+import by.sazanchuk.finalTask.command.action.profileUser.ProfileUserCommand;
 import by.sazanchuk.finalTask.command.action.authorization.RegisterCommand;
 import by.sazanchuk.finalTask.command.action.pet.RegisterPetCommand;
+import by.sazanchuk.finalTask.command.action.service.WatchServiceCommand;
 
 public class CommandFactory {
     public static Command create(String command) {
@@ -36,7 +37,7 @@ public class CommandFactory {
                 break;
             }
             case PROFILE: {
-                commandResult = new ProfileCommand();
+                commandResult = new ProfileUserCommand();
                 break;
             }
             case REGISTER_PET: {
@@ -53,6 +54,10 @@ public class CommandFactory {
             }
             case DELETE_PET: {
                 commandResult = new DeletePetCommand();
+                break;
+            }
+            case WATCH_SERVICE: {
+                commandResult = new WatchServiceCommand();
                 break;
             }
 

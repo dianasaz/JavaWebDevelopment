@@ -18,6 +18,7 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
     private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM `mydatabase`.service WHERE `id` = ?";
     private static final String INSERT_ALL_INFORMATION = "INSERT INTO `mydatabase`.service (`name`, `price`) VALUES (?, ?)";
     private static final String SEARCH_NAME = "SELECT `name` FROM `mydatabase`.service WHERE `name` = ?";
+    private static final String SELECT_PRICE_AND_ID = "SELECT `id`, `price`, `name` FROM `mydatabase`.service WHERE `name` = ?";
 
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 
@@ -77,7 +78,7 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             }
         }
 
-    public boolean searchService(String name) throws DaoException {
+    public Service searchService(String name) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Service service = null;
@@ -92,7 +93,34 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             throw new DaoException();
         }
 
-        return service != null;
+        return service;
+    }
+
+    public Service readByName(String name) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_PRICE_AND_ID);
+            statement.setString(1, name);
+
+            resultSet = statement.executeQuery();
+            Service service = null;
+            if (resultSet.next()) {
+                service = new Service();
+                service.setIdentity(resultSet.getInt("id"));
+                service.setPrice(resultSet.getInt("price"));
+                service.setName(resultSet.getString("name"));
+            }
+            return service;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+            }
+        }
     }
 
         @Override

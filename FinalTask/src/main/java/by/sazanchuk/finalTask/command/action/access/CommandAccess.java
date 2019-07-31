@@ -10,6 +10,7 @@ public class CommandAccess {
 
     public List<CommandType> getAvailableCommandTypesByUser(String role) {
         List<CommandType> listAvailableCommands = new ArrayList<>();
+        listAvailableCommands.addAll(getCommandsForNotAuthorizedUsers());
         if(role != null) {
             listAvailableCommands.addAll(getCommonCommands());
             switch (role) {
@@ -26,8 +27,6 @@ public class CommandAccess {
                     //listAvailableCommands.addAll(getVisitorCommands());
                 }
             }
-        }else{
-            listAvailableCommands.addAll(getCommandsForNotAuthorizedUsers());
         }
         return listAvailableCommands;
     }
@@ -35,7 +34,6 @@ public class CommandAccess {
     private List<CommandType> getVisitorCommands() {
         List<CommandType> commandTypes = new ArrayList<>();
         commandTypes.add(CommandType.EDIT_PROFILE);
-        commandTypes.add(CommandType.PROFILE);
         commandTypes.add(CommandType.DELETE_PET);
         commandTypes.add(CommandType.REGISTER_PET);
         return commandTypes;
@@ -61,6 +59,10 @@ public class CommandAccess {
         commandTypes.add(CommandType.LOGIN);
         commandTypes.add(CommandType.CHANGE_LANGUAGE);
         commandTypes.add(CommandType.REGISTER);
+        commandTypes.add(CommandType.WATCH_SERVICE);
+        commandTypes.add(CommandType.HOME_PAGE);
+        commandTypes.add(CommandType.PROFILE);
+
 
         return commandTypes;
     }

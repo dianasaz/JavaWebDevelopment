@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.command.action.profile;
+package by.sazanchuk.finalTask.command.action.profileUser;
 
 import by.sazanchuk.finalTask.command.action.Command;
 import by.sazanchuk.finalTask.command.action.CommandResult;

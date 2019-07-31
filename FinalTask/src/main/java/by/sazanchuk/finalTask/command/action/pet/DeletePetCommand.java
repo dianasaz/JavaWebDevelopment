@@ -27,7 +27,7 @@ public class DeletePetCommand implements Command {
             if (name != null || !name.isEmpty()) {
                 deletePet(name, request);
                 //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-                return new CommandResult("/controller?command=profile", false);
+                return new CommandResult("/controller?command=profileUser", false);
             } else {
                 request.setAttribute(ERROR_DELETE, true);
                 return goBackWithError(request, "can't delete pet");
@@ -65,7 +65,7 @@ public class DeletePetCommand implements Command {
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
         request.setAttribute(error, true);
-        return new CommandResult(ConfigurationManager.getProperty("path.page.profile"), false);
+        return new CommandResult(ConfigurationManager.getProperty("path.page.profileUser"), false);
     }
 }
 
