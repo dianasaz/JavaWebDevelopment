@@ -12,7 +12,9 @@ public enum CommandType {
     DELETE_PET("delete_pet"),
     WATCH_SERVICE("watch_service"),
     PROFILE_USER("profile_user"),
-    PROFILE_ADMIN("profile_admin");
+    PROFILE_ADMIN("profile_admin"),
+    ADD_SERVICE("add_service");
+
 
     private String command;
     CommandType(String command) {

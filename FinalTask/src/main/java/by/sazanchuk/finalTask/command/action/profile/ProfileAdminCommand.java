@@ -34,11 +34,9 @@ public class ProfileAdminCommand implements Command {
             User u = null;
             if (user != null) {
                 u = initializeUser(user.getId());
-                List<Pet> pets = new ArrayList<>();
-                pets = getPets(u.getId());
-                setAttributesToSession(u, pets, request);
+                setAttributesToSession(u, request);
             }
-            if (u != null) return new CommandResult(ConfigurationManager.getProperty("path.page.profileUser"), false);
+            if (u != null) return new CommandResult(ConfigurationManager.getProperty("path.page.profile_admin"), false);
         } catch (DaoException e) {
         }
 
@@ -71,16 +69,11 @@ public class ProfileAdminCommand implements Command {
     }
 
 
-    private void setAttributesToSession(User user, List<Pet> pets, HttpServletRequest request) {
+    private void setAttributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
         //session.setAttribute("user_id", user.getId());
         // request.setAttribute("user", user);
         request.setAttribute("login", user.getLogin());
-        request.setAttribute("email", user.getEmail());
-        request.setAttribute("name", user.getName());
-        request.setAttribute("phone", user.getPhoneNumber());
-        request.setAttribute("address", user.getAddress());
-        request.setAttribute("pets", pets);
 
     }
 

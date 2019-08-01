@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,16 +26,16 @@ public class AddServiceCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
         String name = request.getParameter(NAME);
-        Integer price = Integer.valueOf(request.getParameter(PRICE));
+        String price = request.getParameter(PRICE);
 
-        if (name == null || price == 0) {
+        if (name == null || name.isEmpty() || price == null || price.isEmpty()) {
             logger.log(Level.INFO, "name or price is null");
             return goBackWithError(request, ERROR_NULL);
         } else {
             if (!searchService(name)) {
                 Integer a = createService(name, price, request);
                 if (a != null) {
-                    return new CommandResult("/controller?command=services", false); //TODO
+                    return new CommandResult("/controller?command=watch_service", false); //TODO
                 } else return goBackWithError(request, ERROR_NULL);
             } else {
                 return goBackWithError(request, ERROR_NULL);
@@ -47,10 +46,10 @@ public class AddServiceCommand implements Command {
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
         request.setAttribute(error, true);
-        return new CommandResult(ConfigurationManager.getProperty("path.page.login"), false);
+        return new CommandResult(ConfigurationManager.getProperty("path.page.add_service"), false);
     }
 
-    private Integer createService(String name, Integer price, HttpServletRequest request) {
+    private Integer createService(String name, String price, HttpServletRequest request) {
 
         ServiceFactory factory = null;
         ServiceService service = null;
@@ -61,9 +60,11 @@ public class AddServiceCommand implements Command {
             logger.log(Level.INFO, "service error");
         }
 
+        Integer pr = Integer.valueOf(price);
+
         Service s = new Service();
         s.setName(name);
-        s.setPrice(price);
+        s.setPrice(pr);
 
         try {
             assert service != null;

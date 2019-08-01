@@ -3,6 +3,8 @@ package by.sazanchuk.finalTask.command.action.factory;
 import by.sazanchuk.finalTask.command.action.ChangeLanguageCommand;
 import by.sazanchuk.finalTask.command.action.Command;
 import by.sazanchuk.finalTask.command.action.pet.DeletePetCommand;
+import by.sazanchuk.finalTask.command.action.profile.ProfileAdminCommand;
+import by.sazanchuk.finalTask.command.action.profile.ProfileCommand;
 import by.sazanchuk.finalTask.command.action.profileUser.EditProfileCommand;
 import by.sazanchuk.finalTask.command.action.HomePageCommand;
 import by.sazanchuk.finalTask.command.action.authorization.LoginCommand;
@@ -10,6 +12,7 @@ import by.sazanchuk.finalTask.command.action.authorization.LogoutCommand;
 import by.sazanchuk.finalTask.command.action.profileUser.ProfileUserCommand;
 import by.sazanchuk.finalTask.command.action.authorization.RegisterCommand;
 import by.sazanchuk.finalTask.command.action.pet.RegisterPetCommand;
+import by.sazanchuk.finalTask.command.action.service.AddServiceCommand;
 import by.sazanchuk.finalTask.command.action.service.WatchServiceCommand;
 
 public class CommandFactory {
@@ -37,7 +40,7 @@ public class CommandFactory {
                 break;
             }
             case PROFILE: {
-                commandResult = new ProfileUserCommand();
+                commandResult = new ProfileCommand();
                 break;
             }
             case REGISTER_PET: {
@@ -58,6 +61,18 @@ public class CommandFactory {
             }
             case WATCH_SERVICE: {
                 commandResult = new WatchServiceCommand();
+                break;
+            }
+            case ADD_SERVICE: {
+                commandResult = new AddServiceCommand();
+                break;
+            }
+            case PROFILE_USER: {
+                commandResult = new ProfileUserCommand();
+                break;
+            }
+            case PROFILE_ADMIN: {
+                commandResult = new ProfileAdminCommand();
                 break;
             }
 

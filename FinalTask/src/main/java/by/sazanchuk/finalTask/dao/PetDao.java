@@ -6,7 +6,6 @@ import by.sazanchuk.finalTask.entity.PetList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.nio.file.attribute.UserPrincipal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

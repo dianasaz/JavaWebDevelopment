@@ -54,7 +54,7 @@ public class EditProfileCommand implements Command {
         try {
             updateUser(parameters, olduser, request);
             logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-            return new CommandResult("controller?command=profileUser", true);
+            return new CommandResult("controller?command=profile_user", true);
         } catch (DaoException | ConnectionPoolException e) {
             return new CommandResult("controller?command=edit_profile");
         }

@@ -1,32 +1,21 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: dianasaz
+  Date: 01.08.2019
+  Time: 14:02
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<fmt:message bundle="${language}" key="add" var="add"/>
+<fmt:message bundle="${language}" key="priceService" var="priceService"/>
+<fmt:message bundle="${language}" key="nameService" var="nameService"/>
+<fmt:message bundle="${language}" key="enterprice" var="enterprice"/>
+<fmt:message bundle="${language}" key="entername" var="entername"/>
+<fmt:message bundle="${language}" key="addnewservice" var="addnewservice"/>
 
-<fmt:message bundle="${language}" key="singin" var="signin"/>
-<fmt:message bundle="${language}" key="enteroulogin" var="enterlogin"/>
-<fmt:message bundle="${language}" key="enteryoupassword" var="enterpassword"/>
-<fmt:message bundle="${language}" key="enteryouremail" var="enteremail"/>
-<fmt:message bundle="${language}" key="enteryourname" var="entername"/>
-<fmt:message bundle="${language}" key="enteryourphone" var="enterphone"/>
-<fmt:message bundle="${language}" key="login" var="log"/>
-<fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
-<fmt:message bundle="${language}" key="username" var="username"/>
-<fmt:message bundle="${language}" key="useremail" var="useremail"/>
-<fmt:message bundle="${language}" key="userphone" var="userphone"/>
-<fmt:message bundle="${language}" key="userpassword" var="userpassword"/>
-<fmt:message bundle="${language}" key="errorlogin" var="errorlogin"/>
-<fmt:message bundle="${language}" key="signup" var="signup"/>
-<fmt:message bundle="${language}" key="haveaccount" var="haveaccount"/>
-<fmt:message bundle="${language}" key="logintoseeprofile" var="pleaselogin"/>
-<fmt:message bundle="${language}" key="enterinvalid" var="enterinvalid"/>
-<fmt:message bundle="${language}" key="donthaveaccount" var="donthaveacc"/>
-<fmt:message bundle="${language}" key="continueguest" var="continuegueast"/>
-<fmt:message bundle="${language}" key="register" var="register"/>
-
-
-
-<html lang="${language}">
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
@@ -39,60 +28,57 @@
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
+    <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
 </head>
 <body>
 
 <div class="limiter">
     <div class="container-login100">
+
         <div class="main-form">
-
-                    <c:if test="${user eq null}">
-                        <p style="margin-left: 40%">${pleaselogin}</p>
-                    </c:if>
-                    <form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST"
-                          action="controller?command=login">
+            <form class="login10-form" method="POST"
+                  action="controller?command=add_service">
 					<span class="login100-form-title">
-						${signin}
-					</span>
+                        ${addnewservice}
+                    </span>
 
-                        <div class="wrap-input100 validate-input m-b-16" data-validate="${enterlogin}">
-                            <input class="input100" type="text" name="login" placeholder="${log}">
-                            <span class="focus-input100"></span>
+                <div class="form-group">
+                    <label for="name" class="cols-sm-2 control-label">${nameService}</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="name" id="name"
+                                   placeholder="${entername}"/>
                         </div>
+                    </div>
+                </div>
 
-                        <div class="wrap-input100 validate-input m-b-16" data-validate="${enterlogin}">
-                            <input class="input100" type="password" name="password" placeholder="${userpassword}">
-                            <span class="focus-input100"></span>
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label">${priceService}</label>
+                    <div class="cols-sm-10">
+                        <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span>
+                            <input type="text" class="form-control" name="price" id="price"
+                                   placeholder="${enterprice}"/>
                         </div>
+                    </div>
+                </div>
 
 
-                        <c:if test="${error_authentification eq true}">
-                            <div class="container1" role="alert">
-                                ${enterinvalid}
 
-                            </div>
-                        </c:if>
+                <div class="container-login100-form-btn">
+                    <button type="submit" class="login100-form-btn">
+                        ${add}
+                    </button>
+                </div>
 
-                        <div class="container-login100-form-btn">
-                            <button type="submit" class="login100-form-btn">
-                                ${signin}
-                            </button>
-                        </div>
 
-                        <a href="controller?command=home_page" class="txt2">
-                            ${continuegueast}
-                        </a>
-
-                        <div class="flex-col-c p-t-120 p-b-40">
-						<span class="txt1">
-							${donthaveacc}
-						</span>
-                            <div class="form-group ">
-                                <a href="controller?command=register" target="_blank" type="button" id="button"
-                                   class="login-button">${register}</a>
-                            </div>
-                        </div>
-                    </form>
+            </form>
         </div>
     </div>
 </div>
@@ -203,5 +189,7 @@
 </body>
 
 </html>
+
+
 
 

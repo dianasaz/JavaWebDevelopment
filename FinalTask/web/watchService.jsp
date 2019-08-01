@@ -39,9 +39,6 @@
                 <div class="col-md-6">
                     <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
                 </div>
-                <div class="col-md-6">
-                    <a href="controller?command=login" class="profile-edit-btn">${login}</a>
-                </div>
             </div>
         </table>
     </div>

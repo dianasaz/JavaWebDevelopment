@@ -15,7 +15,6 @@ import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -41,7 +40,7 @@ public class RegisterPetCommand implements Command {
             if (name != null && dateOfBirth != null) {
                 createPet(name, kind, dateOfBirth, request);
                 //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-                return new CommandResult("/controller?command=profileUser", false);
+                return new CommandResult("/controller?command=profile_user", false);
             }
             else return goBackWithError(request, "Error");
         } catch (DaoException | ConnectionPoolException e) {

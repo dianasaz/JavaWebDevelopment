@@ -39,7 +39,7 @@ public class ProfileUserCommand implements Command {
                 pets = getPets(u.getId());
                 setAttributesToSession(u, pets, request);
             }
-            if (u != null) return new CommandResult(ConfigurationManager.getProperty("path.page.profileUser"), false);
+            if (u != null) return new CommandResult(ConfigurationManager.getProperty("path.page.profile_user"), false);
         } catch (DaoException e) {
         }
 

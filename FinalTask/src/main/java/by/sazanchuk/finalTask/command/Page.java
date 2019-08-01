@@ -9,7 +9,8 @@ public enum Page {
     EDIT_PROFILE("/edit_profile.jsp"),
     REGISTER("/register.jsp"),
     NO_ACCESS("/noAccessPage.jsp"),
-    WATCH_SERVICE("/watchService.jsp");
+    WATCH_SERVICE("/watchService.jsp"),
+    ADD_SERVICE("/addService.jsp");
 
 
     private final String value;

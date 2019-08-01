@@ -51,7 +51,10 @@ public class CommandAccess {
 
 
     private List<CommandType> getAdminCommands() {
-        return new ArrayList<>();
+        List<CommandType> commandTypes = new ArrayList<>();
+        commandTypes.add(CommandType.ADD_SERVICE);
+
+        return commandTypes;
     }
 
     private List<CommandType> getCommandsForNotAuthorizedUsers() {

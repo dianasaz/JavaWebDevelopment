@@ -13,13 +13,16 @@ public class ProfileCommand implements Command {
     private static final String USER_ROLE = "user_role";
     private static final String USER = "user";
     private static final String VISITOR = "visitor";
-    private static final String ADMIN = "admin";
+    private static final String ADMIN = "administrator";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
         User user = (User) request.getSession().getAttribute(USER);
-
-        if (user.getRole().getName().equals(VISITOR)) return new CommandResult("/controller?command=profile_user", false);
-        else return new CommandResult("/controller?command=profile_admin", false);
+        if (user != null) {
+            if (user.getRole().getName().equals(ADMIN))
+                return new CommandResult("/controller?command=profile_admin", false);
+            else return new CommandResult("/controller?command=profile_user", false);
+        }
+        else return new CommandResult("/controller?command=login", false);
     }
 }

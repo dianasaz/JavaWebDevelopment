@@ -10,7 +10,7 @@
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
 
-<fmt:message bundle="${language}" key="editprofile" var="edit"/>
+<fmt:message bundle="${language}" key="addservice" var="addservice"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
 <fmt:message bundle="${language}" key="registerpet" var="registerpet"/>
@@ -36,14 +36,11 @@
     <div style="margin-left: 20%; margin-right: 20%;">
         <table style="margin-bottom: 20px">
             <div class="row">
-                <div class="col-md-4">
-                    <a href="controller?command=edit_profile" class="profile-edit-btn">${edit}</a>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
                 </div>
-                <div class="col-md-4">
-                    <a href="controller?command=add_service" class="profile-edit-btn">add service</a>
+                <div class="col-md-6">
+                    <a href="controller?command=add_service" class="profile-edit-btn">${addservice}</a>
                 </div>
             </div>
         </table>
