@@ -45,10 +45,6 @@
 <div class="limiter">
     <div class="container-login100">
         <div class="main-form">
-
-                    <c:if test="${user eq null}">
-                        <p style="margin-left: 40%">${pleaselogin}</p>
-                    </c:if>
                     <form class="login100-form validate-form p-l-55 p-r-55 p-t-178" method="POST"
                           action="controller?command=login">
 					<span class="login100-form-title">

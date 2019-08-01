@@ -55,6 +55,8 @@ public class ServiceServiceImplTest {
         Service service1 = service.searchServiceByName("j");
         if (service1 != null) service.delete(service1.getIdentity());
 
+        service.delete(2);
+
     }
 
 }
