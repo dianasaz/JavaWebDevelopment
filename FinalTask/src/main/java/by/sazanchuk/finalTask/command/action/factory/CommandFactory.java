@@ -13,6 +13,7 @@ import by.sazanchuk.finalTask.command.action.profileUser.ProfileUserCommand;
 import by.sazanchuk.finalTask.command.action.authorization.RegisterCommand;
 import by.sazanchuk.finalTask.command.action.pet.RegisterPetCommand;
 import by.sazanchuk.finalTask.command.action.service.AddServiceCommand;
+import by.sazanchuk.finalTask.command.action.service.DeleteServiceCommand;
 import by.sazanchuk.finalTask.command.action.service.WatchServiceCommand;
 
 public class CommandFactory {
@@ -73,6 +74,10 @@ public class CommandFactory {
             }
             case PROFILE_ADMIN: {
                 commandResult = new ProfileAdminCommand();
+                break;
+            }
+            case DELETE_SERVICE: {
+                commandResult = new DeleteServiceCommand();
                 break;
             }
 

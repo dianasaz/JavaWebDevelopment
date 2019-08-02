@@ -56,7 +56,7 @@ public class PetServiceImplTest {
 
         pets = service.getPetsOfOneUser(u.getId());
 
-       // Assert.assertEquals(3, pets.size());
+        Assert.assertEquals(3, pets.size());
 
     }
 

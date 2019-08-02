@@ -23,6 +23,7 @@ public class ServiceFactory{
         SERVICES.put(UserService.class, UserServiceImpl.class);
         SERVICES.put(PetService.class, PetServiceImpl.class);
         SERVICES.put(ServiceService.class, ServiceServiceImpl.class);
+        SERVICES.put(DoctorService.class, DoctorServiceImpl.class);
     }
 
     public ServiceFactory() throws DaoException, ConnectionPoolException {

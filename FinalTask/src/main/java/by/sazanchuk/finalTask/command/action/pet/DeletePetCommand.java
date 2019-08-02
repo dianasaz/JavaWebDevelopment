@@ -58,10 +58,6 @@ public class DeletePetCommand implements Command {
         }
     }
 
-    private void setAtributesToSession(Pet pet, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.setAttribute("pet", pet);
-    }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
         request.setAttribute(error, true);

@@ -13,7 +13,8 @@ public enum CommandType {
     WATCH_SERVICE("watch_service"),
     PROFILE_USER("profile_user"),
     PROFILE_ADMIN("profile_admin"),
-    ADD_SERVICE("add_service");
+    ADD_SERVICE("add_service"),
+    DELETE_SERVICE("delete_service");
 
 
     private String command;

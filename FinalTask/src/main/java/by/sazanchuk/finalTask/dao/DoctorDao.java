@@ -1,6 +1,7 @@
 package by.sazanchuk.finalTask.dao;
 
 import by.sazanchuk.finalTask.entity.Doctor;
+import by.sazanchuk.finalTask.entity.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,12 +18,11 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
     private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.doctor SET `name` = ? WHERE `id` = ?";
     private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.doctor WHERE `id` = ?";
     private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `name` FROM `mydatabase`.doctor ORDER BY `name`";
+    private static final String INSERT_ALL_INFO_INTO_DOCTOR_SERVICE = "INSERT INTO `mydatabase`.doctor_service (`doctor_id`, `service_id`) VALUES (?, ?)";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
-//TODO sql strings before logger static and final
 
-    //TODO delete nullpointerexception in by.sazanchuk.finalTask.dao by if(result.equels(null)
-    @Override
+     @Override
     public Integer create(Doctor entity) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -30,6 +30,33 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             statement = connection.prepareStatement(INSERT_ALL_INFO, Statement.RETURN_GENERATED_KEYS);
             statement.setInt(1, entity.getIdentity());
             statement.setString(2, entity.getName());
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                log.error("There is no autoincremented index after trying to add record into table `users`");
+                throw new DaoException();
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public Integer createDS(Doctor entity, Service service) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(INSERT_ALL_INFO_INTO_DOCTOR_SERVICE, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, entity.getIdentity());
+            statement.setInt(2, service.getIdentity());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -62,8 +89,7 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             if (resultSet.next()) {
                 doctor = new Doctor();
                 doctor.setIdentity(id);
-                doctor.setName(resultSet.getString("price"));
-                //TODO lists
+                doctor.setName(resultSet.getString("name"));
             }
             return doctor;
         } catch (SQLException e) {
@@ -80,13 +106,11 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
 
     @Override
     public void update(Doctor entity) throws DaoException {
-        //TODO
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(UPDATE_DOCTOR);
             statement.setInt(1, entity.getIdentity());
             statement.setString(2, entity.getName());
-         //TODO
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -123,11 +147,8 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             Doctor doctor = null;
             while(resultSet.next()) {
                 doctor = new Doctor();
-                doctor.setIdentity(resultSet.getInt("doctor_id"));
+                doctor.setIdentity(resultSet.getInt("id"));
                 doctor.setName(resultSet.getString("name"));
-               // doctor.setService(resultSet.getString("by.sazanchuk.finalTask.service"));
-               // doctor.setPetList(resultSet.getString("pet"));
-               // doctor.setWorkList(resultSet.getString("worklist")););
                 doc.add(doctor);
             }
             return doc;

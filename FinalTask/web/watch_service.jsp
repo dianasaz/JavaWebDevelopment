@@ -13,15 +13,8 @@
 <fmt:message bundle="${language}" key="editprofile" var="edit"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
-<fmt:message bundle="${language}" key="registerpet" var="registerpet"/>
-<fmt:message bundle="${language}" key="userinfo" var="userinfo"/>
-<fmt:message bundle="${language}" key="login" var="login"/>
-<fmt:message bundle="${language}" key="username" var="username"/>
-<fmt:message bundle="${language}" key="useremail" var="useremail"/>
-<fmt:message bundle="${language}" key="userphone" var="userphone"/>
-<fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
-<fmt:message bundle="${language}" key="yourpets" var="yourpets"/>
-<fmt:message bundle="${language}" key="deletepet" var="deletepet"/>
+<fmt:message bundle="${language}" key="addnewservice" var="add"/>
+<fmt:message bundle="${language}" key="deleteservice" var="deleteservice"/>
 
 
 <html lang="${language}">
@@ -39,6 +32,13 @@
                 <div class="col-md-6">
                     <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
                 </div>
+                <c:if test="${user != null}">
+                    <c:if test="${user_role eq 'administrator'}">
+                        <div class="col-md-6">
+                            <a href="controller?command=add_service">${add}</a>
+                        </div>
+                    </c:if>
+                </c:if>
             </div>
         </table>
     </div>
@@ -57,6 +57,14 @@
                             <div class="col-md-3">
                                 <p>${service.price}</p>
                             </div>
+                            <c:if test="${user != null}">
+                                <c:if test="${user_role eq 'administrator'}">
+                                    <div class="col-md-3">
+                                        <a href="controller?command=delete_service&name=${service.name}">${deleteservice}</a>
+                                    </div>
+                                </c:if>
+                            </c:if>
+
                         </div>
                     </c:forEach>
                 </div>

@@ -53,6 +53,7 @@ public class CommandAccess {
     private List<CommandType> getAdminCommands() {
         List<CommandType> commandTypes = new ArrayList<>();
         commandTypes.add(CommandType.ADD_SERVICE);
+        commandTypes.add(CommandType.DELETE_SERVICE);
 
         return commandTypes;
     }
