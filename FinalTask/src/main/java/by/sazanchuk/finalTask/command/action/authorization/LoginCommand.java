@@ -6,12 +6,12 @@ import by.sazanchuk.finalTask.command.action.CommandResult;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.User;
+import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
+import by.sazanchuk.finalTask.service.UserService;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import by.sazanchuk.finalTask.service.ServiceException;
-import by.sazanchuk.finalTask.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,7 +57,6 @@ public class LoginCommand implements Command {
     }
 
     private boolean initializeUser(String login, String password, HttpServletRequest request) throws DaoException, ServiceException {
-
         ServiceFactory factory = null;
         try {
             factory = new ServiceFactory();
@@ -78,10 +77,12 @@ public class LoginCommand implements Command {
         session.setAttribute(USER_ROLE, user.getRole().getName());
         session.setAttribute(USER, user);
         request.setAttribute(USER, true);
+
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
         request.setAttribute(error, true);
         return new CommandResult(ConfigurationManager.getProperty("path.page.login"), false);
     }
+
 }

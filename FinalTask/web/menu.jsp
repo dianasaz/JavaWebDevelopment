@@ -48,7 +48,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <li><a href="about.html">${about}</a></li>
     <li><a href="controller?command=profile">${profile}</a></li>
     <li><a href="controller?command=watch_service">${services}</a></li>
-    <li><a href="support.html">${doctors}</a></li>
+    <li><a href="controller?command=watch_doctor">${doctors}</a></li>
     <li><a href="404.html">${ourpets}</a></li>
 </ul>
 <!--script-nav -->

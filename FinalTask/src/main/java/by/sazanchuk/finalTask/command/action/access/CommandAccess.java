@@ -54,6 +54,7 @@ public class CommandAccess {
         List<CommandType> commandTypes = new ArrayList<>();
         commandTypes.add(CommandType.ADD_SERVICE);
         commandTypes.add(CommandType.DELETE_SERVICE);
+        commandTypes.add(CommandType.ADD_DOCTOR);
 
         return commandTypes;
     }
@@ -66,6 +67,7 @@ public class CommandAccess {
         commandTypes.add(CommandType.WATCH_SERVICE);
         commandTypes.add(CommandType.HOME_PAGE);
         commandTypes.add(CommandType.PROFILE);
+        commandTypes.add(CommandType.WATCH_DOCTOR);
 
 
         return commandTypes;

@@ -1,5 +1,6 @@
 package by.sazanchuk.finalTask.dao;
 
+import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,6 +20,7 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
     private static final String INSERT_ALL_INFORMATION = "INSERT INTO `mydatabase`.service (`name`, `price`) VALUES (?, ?)";
     private static final String SEARCH_NAME = "SELECT `name` FROM `mydatabase`.service WHERE `name` = ?";
     private static final String SELECT_PRICE_AND_ID = "SELECT `id`, `price`, `name` FROM `mydatabase`.service WHERE `name` = ?";
+    private static final String SELECT_SERVICE_ID_FROM_SERVICE_DOCTOR = "SELECT `service_id` FROM `mydatabase`.doctor_service WHERE `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 
@@ -123,6 +125,8 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
         }
     }
 
+
+
         @Override
         public void update(Service entity) throws DaoException {
             PreparedStatement statement = null;
@@ -174,6 +178,34 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             }
             return services;
         } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public List<Service> searchWithOneDoctor(Doctor doctor) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_SERVICE_ID_FROM_SERVICE_DOCTOR);
+            statement.setInt(1, doctor.getIdentity());
+            resultSet = statement.executeQuery();
+            List<Service> services = new ArrayList<>();
+            Service service = null;
+            if (resultSet.next()) {
+                service = new Service();
+                service.setIdentity(resultSet.getInt("service_id"));
+                // doctor.addService(service);
+                services.add(service);
+            }
+            return services;
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {

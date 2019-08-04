@@ -2,6 +2,8 @@ package by.sazanchuk.finalTask.command.action.factory;
 
 import by.sazanchuk.finalTask.command.action.ChangeLanguageCommand;
 import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.doctor.AddDoctorCommand;
+import by.sazanchuk.finalTask.command.action.doctor.WatchDoctorCommand;
 import by.sazanchuk.finalTask.command.action.pet.DeletePetCommand;
 import by.sazanchuk.finalTask.command.action.profile.ProfileAdminCommand;
 import by.sazanchuk.finalTask.command.action.profile.ProfileCommand;
@@ -78,6 +80,14 @@ public class CommandFactory {
             }
             case DELETE_SERVICE: {
                 commandResult = new DeleteServiceCommand();
+                break;
+            }
+            case ADD_DOCTOR: {
+                commandResult = new AddDoctorCommand();
+                break;
+            }
+            case WATCH_DOCTOR: {
+                commandResult = new WatchDoctorCommand();
                 break;
             }
 

@@ -14,7 +14,10 @@ public enum CommandType {
     PROFILE_USER("profile_user"),
     PROFILE_ADMIN("profile_admin"),
     ADD_SERVICE("add_service"),
-    DELETE_SERVICE("delete_service");
+    DELETE_SERVICE("delete_service"),
+    ADD_DOCTOR("add_doctor"),
+    WATCH_DOCTOR("watch_doctor");
+
 
 
     private String command;

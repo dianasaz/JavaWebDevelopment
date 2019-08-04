@@ -10,6 +10,10 @@ public interface DoctorService extends Service{
 
     Doctor findByIdentity(Integer identity) throws DaoException;
 
+    Doctor findByName(String name) throws DaoException;
+
+    boolean isExist(Integer doctor_id,Integer service_id) throws DaoException;
+
     int save(Doctor doctor) throws DaoException;
 
     void save(Doctor doctor, by.sazanchuk.finalTask.entity.Service service) throws DaoException;

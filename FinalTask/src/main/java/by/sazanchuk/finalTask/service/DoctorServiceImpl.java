@@ -15,7 +15,16 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
     @Override
     public List<Doctor> findAll() throws DaoException {
         DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
-        return doctorDao.read();
+        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
+        List<Doctor> doctors = doctorDao.read();
+        for (int i = 0; i < doctors.size(); i++){
+            List<Service> services = serviceDao.searchWithOneDoctor(doctors.get(i));
+            for (int j = 0; j < services.size(); j++){
+                Service s = serviceDao.searchService(services.get(j).getName());
+                doctors.get(i).addService(s);
+            }
+        }
+        return doctors;
     }
 
     @Override
@@ -26,6 +35,25 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
             doctor = doctorDao.read(identity);
         }
         return doctor;
+    }
+
+    @Override
+    public Doctor findByName(String name) throws DaoException {
+        DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
+        Doctor doctor = null;
+        if (name != null){
+            doctor = doctorDao.readByName(name);
+        }
+        return doctor;
+    }
+
+    @Override
+    public boolean isExist(Integer doctor_id, Integer service_id) throws DaoException {
+        DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
+        if (doctor_id != null && service_id !=null){
+            return doctorDao.isExist(doctor_id, service_id);
+        }
+        return true;
     }
 
     @Override
@@ -46,8 +74,8 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
         DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
         ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
         if (serviceDao.readByName(service.getName()) != null){
-            save(doctor);
-            doctorDao.createDS(doctor,service);
+            int doctor_id = save(doctor);
+            doctorDao.createDS(doctor_id, service.getIdentity());
         }
     }
 
@@ -56,6 +84,7 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
         DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
         if (doctorDao.read(identity) != null){
             doctorDao.delete(identity);
+            //doctorDao.deleteDS(identity);
         }
     }
 }

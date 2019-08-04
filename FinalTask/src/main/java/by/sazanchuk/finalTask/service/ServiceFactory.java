@@ -39,7 +39,6 @@ public class ServiceFactory{
                 Class<?>[] interfaces = {key};//??????????????????????????
                 Transaction transaction = factory.createTransaction();
                 ServiceImpl service = value.newInstance();
-                service.setTransaction(transaction);
                 InvocationHandler handler = new ServiceInvocationHandlerImpl(service);
                 return (Type)Proxy.newProxyInstance(classLoader, interfaces, handler);
             } catch(DaoException e) {

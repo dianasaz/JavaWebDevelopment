@@ -3,6 +3,7 @@ package by.sazanchuk.finalTask.service;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.ServiceDao;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
+import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
 
 import java.util.List;
@@ -17,6 +18,12 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     public List<by.sazanchuk.finalTask.entity.Service> findAll() throws DaoException {
         ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
         return serviceDao.read();
+    }
+
+    @Override
+    public List<Service> searchWithOneDoctor(Doctor doctor) throws DaoException {
+        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
+        return serviceDao.searchWithOneDoctor(doctor);
     }
 
     @Override

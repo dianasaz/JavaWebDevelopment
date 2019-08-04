@@ -13,12 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorDao extends BaseDao implements Dao<Doctor> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.doctor (`id`, `name`) VALUES (?, ?)";
+    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.doctor ( `name`) VALUES (?)";
     private static final String SELECT_NAME = "SELECT `name` FROM `mydatabase`.doctor WHERE `id` = ?";
+    private static final String SELECT_ID = "SELECT `id` FROM `mydatabase`.doctor WHERE `name` = ?";
     private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.doctor SET `name` = ? WHERE `id` = ?";
     private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.doctor WHERE `id` = ?";
     private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `name` FROM `mydatabase`.doctor ORDER BY `name`";
     private static final String INSERT_ALL_INFO_INTO_DOCTOR_SERVICE = "INSERT INTO `mydatabase`.doctor_service (`doctor_id`, `service_id`) VALUES (?, ?)";
+    private static final String SEARCH_REFERENCE = "SELECT `doctor_id`, `service_id` FROM `mydatabase`.doctor_service WHERE `service_id` = ? AND `doctor_id` = ?";
+    private static final String DELETE_BY_DOCTOR_ID_IN_DOCTOR_SERVICE = "DELETE FROM `mydatabase`.doctor_service WHERE `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
 
@@ -28,8 +31,7 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(INSERT_ALL_INFO, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, entity.getIdentity());
-            statement.setString(2, entity.getName());
+            statement.setString(1, entity.getName());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -50,21 +52,38 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         }
     }
 
-    public Integer createDS(Doctor entity, Service service) throws DaoException {
+    public void createDS(Integer entity, Integer service) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(INSERT_ALL_INFO_INTO_DOCTOR_SERVICE, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, entity.getIdentity());
-            statement.setInt(2, service.getIdentity());
+            statement.setInt(1, entity);
+            statement.setInt(2, service);
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                return resultSet.getInt(1);
-            } else {
-                log.error("There is no autoincremented index after trying to add record into table `users`");
-                throw new DaoException();
-            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public boolean isExist(Integer doctor_id, Integer service_id) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SEARCH_REFERENCE, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, doctor_id);
+            statement.setInt(2, service_id);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                return true;
+            } else return false;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -103,6 +122,33 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             } catch(SQLException e) {}
         }
     }
+
+    public Doctor readByName(String name) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_ID);
+            statement.setString(1, name);
+            resultSet = statement.executeQuery();
+            Doctor doctor = null;
+            if (resultSet.next()) {
+                doctor = new Doctor();
+                doctor.setName(name);
+                doctor.setIdentity(resultSet.getInt("id"));
+            }
+            return doctor;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
 
     @Override
     public void update(Doctor entity) throws DaoException {
