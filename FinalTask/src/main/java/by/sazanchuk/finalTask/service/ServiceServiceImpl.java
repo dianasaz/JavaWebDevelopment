@@ -8,7 +8,9 @@ import by.sazanchuk.finalTask.entity.Service;
 import java.util.List;
 
 public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
-    ServiceServiceImpl() throws DaoException, ConnectionPoolException {
+
+
+    public ServiceServiceImpl() throws ServiceException {
     }
 
     @Override

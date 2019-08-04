@@ -9,7 +9,8 @@ import java.util.List;
 
 public class EventServiceImpl extends ServiceImpl implements EventService{
 
-    EventServiceImpl() throws DaoException, ConnectionPoolException {
+
+    public EventServiceImpl() throws ServiceException {
     }
 
     @Override

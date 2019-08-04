@@ -8,7 +8,8 @@ import by.sazanchuk.finalTask.entity.User;
 import java.util.List;
 
 public class UserServiceImpl extends ServiceImpl implements UserService {
-    public UserServiceImpl() throws DaoException, ConnectionPoolException {
+
+    public UserServiceImpl() throws ServiceException {
     }
 
     @Override

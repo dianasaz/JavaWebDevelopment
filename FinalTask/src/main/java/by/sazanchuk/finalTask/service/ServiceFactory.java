@@ -27,7 +27,7 @@ public class ServiceFactory{
     }
 
     public ServiceFactory() throws DaoException, ConnectionPoolException {
-        factory = new TransactionFactory();
+        factory = TransactionFactory.getFactory();
     }
 
 

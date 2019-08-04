@@ -31,7 +31,7 @@ public class PetServiceImplTest {
         Pet u = service.findByNameAndUserId("kiko", 1);
         if (u != null) service.delete(u.getIdentity());
 
-        pet.setName("kiko");
+        pet.setName("koooo");
         pet.setUser_identity(1);
         pet.setKind(PetList.setPet("cat"));
         pet.setDateOfBirth(dateFormat.parse("07.12.2012"));

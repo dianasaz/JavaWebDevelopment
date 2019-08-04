@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PetServiceImpl extends ServiceImpl implements PetService{
-    PetServiceImpl() throws DaoException, ConnectionPoolException {
+
+
+    public PetServiceImpl() throws ServiceException {
     }
 
     @Override
