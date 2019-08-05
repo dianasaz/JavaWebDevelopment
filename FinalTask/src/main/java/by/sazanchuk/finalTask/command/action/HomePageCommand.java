@@ -3,7 +3,9 @@ package by.sazanchuk.finalTask.command.action;
 import by.sazanchuk.finalTask.command.Page;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
+import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
+import by.sazanchuk.finalTask.service.DoctorService;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.ServiceService;
@@ -17,11 +19,19 @@ public class HomePageCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<Service> services = null;
+        List<Doctor> doctors = null;
+        String[] serviceNames = null;
         try {
             services = getAllService();
+            doctors = getAllDoctors();
+            serviceNames = new String[services.size()];
+            for (int i = 0; i < services.size(); i++){
+                serviceNames[i] = services.get(i).getName();
+            }
+
         } catch (DaoException e) {
         }
-        setAttributesToSession(services, request);
+        setAttributesToSession(services, doctors, serviceNames, request);
         return new CommandResult(Page.HOME_PAGE.getPage(), false);
     }
 
@@ -37,11 +47,24 @@ public class HomePageCommand implements Command {
         return services;
     }
 
+    private List<Doctor> getAllDoctors() throws DaoException, ServiceException {
 
-    private void setAttributesToSession(List<Service> services, HttpServletRequest request) {
+        ServiceFactory factory = null;
+        try {
+            factory = new ServiceFactory();
+        } catch (ConnectionPoolException e) {
+        }
+        DoctorService service = factory.getService(DoctorService.class);
+        List<Doctor> doctors = service.findAll();
+        return doctors;
+    }
+
+
+    private void setAttributesToSession(List<Service> services, List<Doctor> doctors, String[] names, HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.setAttribute("services", services);
-
+        session.setAttribute("serviceNames", names);
+        session.setAttribute("doctors", doctors);
     }
 
 }

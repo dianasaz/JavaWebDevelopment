@@ -62,25 +62,6 @@ public class PetDao extends BaseDao implements Dao<Pet> {
         }
     }
 
-    public void createPetUser(Pet entity) throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(INSERT_ALL_INFO_IN_PET_USER, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, entity.getUser_identity());
-            statement.setInt(2, entity.getIdentity());
-            statement.executeUpdate();
-            resultSet = statement.getGeneratedKeys();
-
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-            } catch(SQLException e) {}
-        }
-    }
-
     @Override
     public Pet read(Integer id) throws DaoException {
         PreparedStatement statement = null;
@@ -133,7 +114,6 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             statement = connection.prepareStatement(DELETE_FROM_DATABASE);
             statement.setInt(1, id);
             statement.executeUpdate();
-           // deletePetUser(id);
         } catch(SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -142,22 +122,6 @@ public class PetDao extends BaseDao implements Dao<Pet> {
             } catch(SQLException e) {}
         }
     }
-
-    public void deletePetUser(Integer id) throws DaoException {
-        PreparedStatement statement = null;
-        try {
-            statement = connection.prepareStatement(DELETE_FROM_PET_USER);
-            statement.setInt(1, id);
-            statement.executeUpdate();
-        } catch(SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            try {
-                if (statement != null) statement.close();
-            } catch(SQLException e) {}
-        }
-    }
-
 
     public List<Pet> readPetsWithOneUser(int user_id) throws DaoException {
         PreparedStatement statement = null;

@@ -198,7 +198,7 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             resultSet = statement.executeQuery();
             List<Service> services = new ArrayList<>();
             Service service = null;
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 service = new Service();
                 service.setIdentity(resultSet.getInt("service_id"));
                 // doctor.addService(service);

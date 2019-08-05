@@ -3,6 +3,7 @@ package by.sazanchuk.finalTask.dao;
 
 import by.sazanchuk.finalTask.entity.Coupon;
 import by.sazanchuk.finalTask.entity.Doctor;
+import by.sazanchuk.finalTask.entity.Pet;
 import by.sazanchuk.finalTask.entity.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,31 +13,30 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CouponDao extends BaseDao implements Dao<Coupon> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.coupon (`id`, `user_id`, `doctor_id`, `time`, `taken`) VALUES (?, ?, ?, ?, ?)";
-    private static final String SELECT_NAME = "SELECT `user_id`, `doctor_id`, `time`, `taken` FROM `mydatabase`.coupon WHERE `id` = ?";
-    private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.coupon SET `user_id` = ? && `doctor_id` = ? && `time` = ? && `taken` = ? WHERE `id` = ?";
+    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.coupon (`user_id`, `doctor_id`, `time`, `taken`, `pet_id`, `service_id`) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_NAME = "SELECT `user_id`, `doctor_id`, `time`, `taken`, `pet_id`, `service_id` FROM `mydatabase`.coupon WHERE `id` = ?";
+    private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.coupon SET `user_id` = ? && `doctor_id` = ? && `time` = ? && `taken` = ? && `pet_id` = ? && `service_id` = ? WHERE `id` = ?";
     private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.coupon WHERE `id` = ?";
-    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `taken` FROM `mydatabase`.coupon ORDER BY `name`";
+    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `taken`, `pet_id`, `service_id` FROM `mydatabase`.coupon ORDER BY `user_id`";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
-//TODO sql strings before logger static and final
-
-    //TODO delete nullpointerexception in by.sazanchuk.finalTask.dao by if(result.equels(null)
-    @Override
+@Override
     public Integer create(Coupon entity) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(INSERT_ALL_INFO, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, entity.getIdentity());
-            statement.setObject(2, entity.getDoctor());
-            statement.setTime(3, (Time) entity.getTime());
-            statement.setInt(4, entity.getUser().getId());
-            statement.setBoolean(5, entity.isTaken());
+            statement.setInt(2, entity.getDoctor_id());
+            statement.setTimestamp(3, new Timestamp(entity.getTime().getTime()));
+            statement.setInt(1, entity.getUser_id());
+            statement.setBoolean(4, entity.isTaken());
+            statement.setInt(5, entity.getService_id());
+            statement.setInt(6, entity.getPet_id());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -69,11 +69,12 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
             if (resultSet.next()) {
                 coupon = new Coupon();
                 coupon.setIdentity(id);
-                coupon.setDoctor((Doctor) resultSet.getObject("doctor_id"));
+                coupon.setDoctor_id(resultSet.getInt("doctor_id"));
                 coupon.setTaken(resultSet.getBoolean("taken"));
-                coupon.setUser((User) resultSet.getObject("user_id"));
-                coupon.setTime(resultSet.getTime("time"));
-
+                coupon.setUser_id(resultSet.getInt("user_id"));
+                coupon.setTime(resultSet.getTimestamp("time"));
+                coupon.setPet_id(resultSet.getInt("pet_id"));
+                coupon.setService_id(resultSet.getInt("service_id"));
             }
             return coupon;
         } catch (SQLException e) {
@@ -90,15 +91,16 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
 
     @Override
     public void update(Coupon entity) throws DaoException {
-        //TODO
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(UPDATE_DOCTOR);
-            statement.setInt(1, entity.getIdentity());
-            statement.setObject(2, entity.getDoctor());
-            statement.setTime(3, (Time) entity.getTime());
-            statement.setInt(4, entity.getUser().getId());
-            statement.setBoolean(5, entity.isTaken());
+            statement.setInt(7, entity.getIdentity());
+            statement.setInt(6, entity.getService_id());
+            statement.setObject(2, entity.getDoctor_id());
+            statement.setTimestamp(3, new Timestamp(entity.getTime().getTime()));
+            statement.setInt(1, entity.getUser_id());
+            statement.setBoolean(4, entity.isTaken());
+            statement.setInt(5, entity.getPet_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -136,10 +138,12 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
             while(resultSet.next()) {
                 coupon = new Coupon();
                 coupon.setIdentity(resultSet.getInt("id"));
-                coupon.setDoctor((Doctor) resultSet.getObject("doctor_id"));
+                coupon.setDoctor_id(resultSet.getInt("doctor_id"));
                 coupon.setTaken(resultSet.getBoolean("taken"));
-                coupon.setUser((User) resultSet.getObject("user_id"));
-                coupon.setTime(resultSet.getTime("time"));
+                coupon.setUser_id(resultSet.getInt("user_id"));
+                coupon.setTime(resultSet.getTimestamp("time"));
+                coupon.setPet_id(resultSet.getInt("pet_id"));
+                coupon.setService_id(resultSet.getInt("service_id"));
                 cou.add(coupon);
             }
             return cou;

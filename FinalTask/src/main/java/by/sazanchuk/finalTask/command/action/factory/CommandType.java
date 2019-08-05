@@ -16,7 +16,9 @@ public enum CommandType {
     ADD_SERVICE("add_service"),
     DELETE_SERVICE("delete_service"),
     ADD_DOCTOR("add_doctor"),
-    WATCH_DOCTOR("watch_doctor");
+    WATCH_DOCTOR("watch_doctor"),
+    DELETE_DOCTOR("delete_doctor"),
+    TAKE_COUPON("take_coupon");
 
 
 

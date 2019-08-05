@@ -59,9 +59,9 @@ public class DoctorServiceImplTest {
         }*/
         List<Doctor> doctors = service.findAll();
         for (int i = 0; i < doctors.size(); i++){
-            System.out.println(doctors.get(i).getService() + ", ");
-            //for (int j = 0; j < doctors.get(i).getService().size(); j++)
-            //System.out.println(doctors.get(i).getService().get(j) + ", ");
+            //System.out.println(doctors.get(i).toString() + ", ");
+            for (int j = 0; j < doctors.get(i).getService().size(); j++)
+            System.out.println(doctors.get(i).getService().get(j) + ", ");
         }
     }
 

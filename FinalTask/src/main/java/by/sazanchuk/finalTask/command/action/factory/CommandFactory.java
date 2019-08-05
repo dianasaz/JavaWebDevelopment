@@ -2,7 +2,9 @@ package by.sazanchuk.finalTask.command.action.factory;
 
 import by.sazanchuk.finalTask.command.action.ChangeLanguageCommand;
 import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.coupon.TakeCouponCommand;
 import by.sazanchuk.finalTask.command.action.doctor.AddDoctorCommand;
+import by.sazanchuk.finalTask.command.action.doctor.DeleteDoctorCommand;
 import by.sazanchuk.finalTask.command.action.doctor.WatchDoctorCommand;
 import by.sazanchuk.finalTask.command.action.pet.DeletePetCommand;
 import by.sazanchuk.finalTask.command.action.profile.ProfileAdminCommand;
@@ -88,6 +90,14 @@ public class CommandFactory {
             }
             case WATCH_DOCTOR: {
                 commandResult = new WatchDoctorCommand();
+                break;
+            }
+            case DELETE_DOCTOR: {
+                commandResult = new DeleteDoctorCommand();
+                break;
+            }
+            case TAKE_COUPON: {
+                commandResult = new TakeCouponCommand();
                 break;
             }
 

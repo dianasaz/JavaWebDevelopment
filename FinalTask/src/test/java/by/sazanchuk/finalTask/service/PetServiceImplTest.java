@@ -55,8 +55,9 @@ public class PetServiceImplTest {
         List<Pet> pets = new ArrayList<>();
 
         pets = service.getPetsOfOneUser(u.getId());
+        //System.out.println(pets.toString());
 
-        Assert.assertEquals(3, pets.size());
+        Assert.assertEquals(2, pets.size());
 
     }
 

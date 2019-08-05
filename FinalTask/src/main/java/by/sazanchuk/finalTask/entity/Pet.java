@@ -15,8 +15,6 @@ public class Pet {
 
     public final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-
-
     public int getUser_identity() {
         return user_identity;
     }

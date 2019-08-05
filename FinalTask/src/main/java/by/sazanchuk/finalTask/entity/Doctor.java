@@ -78,9 +78,8 @@ public class Doctor {
     public String toString() {
         return "Doctor{" +
                 "identity=" + identity +
-                ", name='" + name + '\'' +
+                ", name='" + name +
                 ", service=" + service +
-                ", workList=" +
                 '}';
     }
 }

@@ -12,7 +12,8 @@ public enum Page {
     WATCH_SERVICE("/watch_service.jsp"),
     ADD_SERVICE("/add_service.jsp"),
     ADD_DOCTOR("/add_doctor.jsp"),
-    WATCH_DOCTOR("/watch_doctor.jsp");
+    WATCH_DOCTOR("/watch_doctor.jsp"),
+    TAKE_COUPON("/take_coupon.jsp");
 
 
     private final String value;

@@ -109,11 +109,14 @@
                             <div class="col-md-3">
                                 <p>${pet.kind}</p>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-">
                                 <p>${pet.dateOfBirth}</p>
                             </div>
                             <div class="col-md-3">
                                 <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a> </p>
+                            </div>
+                            <div class="col-md-3">
+                                <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">zapisatsa</a> </p>
                             </div>
                         </div>
                     </c:forEach>

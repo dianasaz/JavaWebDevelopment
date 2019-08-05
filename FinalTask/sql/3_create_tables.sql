@@ -38,11 +38,13 @@ CREATE TABLE `event`
 
 CREATE TABLE `coupon`
 (
-  `id`        int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `time`      time,
-  `doctor_id` int             NOT NULL,
-  `user_id`   int             NOT NULL,
-  `taken`     boolean
+  `id`         int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `time`       timestamp,
+  `doctor_id`  int             NOT NULL,
+  `user_id`    int             NOT NULL,
+  `taken`      boolean,
+  `pet_id`     int             NOT NULL,
+  `service_id` int             NOT NULL
 ) ENGINE = INNODB;
 
 CREATE TABLE `service`
@@ -70,52 +72,57 @@ CREATE TABLE `doctor_coupon`
 ALTER TABLE `event`
   ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 ALTER TABLE `event`
   ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 ALTER TABLE `event`
   ADD FOREIGN KEY (`pet_id`) REFERENCES `pet` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 ALTER TABLE `coupon`
   ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 ALTER TABLE `coupon`
   ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
+
+ALTER TABLE `coupon`
+  ADD FOREIGN KEY (`pet_id`) REFERENCES `pet` (`id`)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE;
 
 ALTER TABLE `doctor_coupon`
   ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 ALTER TABLE `doctor_coupon`
   ADD FOREIGN KEY (`coupon_id`) REFERENCES `coupon` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 ALTER TABLE `doctor_service`
   ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 ALTER TABLE `doctor_service`
   ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 ALTER TABLE `pet`
   ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
     ON UPDATE CASCADE
-    ON DELETE CASCADE ;
+    ON DELETE CASCADE;
 
 
 

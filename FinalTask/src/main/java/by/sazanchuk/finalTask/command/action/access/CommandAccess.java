@@ -36,6 +36,7 @@ public class CommandAccess {
         commandTypes.add(CommandType.EDIT_PROFILE);
         commandTypes.add(CommandType.DELETE_PET);
         commandTypes.add(CommandType.REGISTER_PET);
+        commandTypes.add(CommandType.TAKE_COUPON);
         return commandTypes;
     }
 
@@ -55,6 +56,7 @@ public class CommandAccess {
         commandTypes.add(CommandType.ADD_SERVICE);
         commandTypes.add(CommandType.DELETE_SERVICE);
         commandTypes.add(CommandType.ADD_DOCTOR);
+        commandTypes.add(CommandType.DELETE_DOCTOR);
 
         return commandTypes;
     }

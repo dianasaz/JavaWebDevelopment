@@ -55,13 +55,17 @@
                                 <label>${doctor.name}</label>
                             </div>
                             <div class="col-md-3">
-                                  <label>${doctor.service}</label>
-                            </div>
-                            <div class="col-md-3">
                                 <c:forEach var="service" items="${doctor.service}">
-                                    <p>${service.getName()}</p>
+                                    <p>${service.name}</p>
                                 </c:forEach>
                             </div>
+                            <c:if test="${user != null}">
+                                <c:if test="${user_role eq 'administrator'}">
+                                    <div class="col-md-3">
+                                        <a href="controller?command=delete_doctor&name=${doctor.name}">delete doctor</a>
+                                    </div>
+                                </c:if>
+                            </c:if>
                         </div>
                     </c:forEach>
                 </div>

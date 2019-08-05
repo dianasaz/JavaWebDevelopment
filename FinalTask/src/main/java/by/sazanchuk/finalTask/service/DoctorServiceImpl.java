@@ -20,7 +20,8 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
         for (int i = 0; i < doctors.size(); i++){
             List<Service> services = serviceDao.searchWithOneDoctor(doctors.get(i));
             for (int j = 0; j < services.size(); j++){
-                Service s = serviceDao.searchService(services.get(j).getName());
+                String a = services.get(j).getName();
+                Service s = serviceDao.read(services.get(j).getIdentity());
                 doctors.get(i).addService(s);
             }
         }
