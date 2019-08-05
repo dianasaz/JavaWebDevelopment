@@ -11,9 +11,17 @@ import java.sql.SQLException;
 
 public class TransactionFactory {
     private static Logger logger = LogManager.getLogger(TransactionFactory.class);
+    private static TransactionFactory factory;
     private Connection connection;
 
-    public TransactionFactory() throws DaoException, ConnectionPoolException {
+    public static TransactionFactory getFactory() throws ConnectionPoolException, DaoException {
+        if (factory == null){
+            factory = new TransactionFactory();
+        }
+        return factory;
+    }
+
+    private TransactionFactory() throws DaoException, ConnectionPoolException {
         connection = ConnectionPool.getInstance().getConnection();
         try {
             connection.setAutoCommit(false);

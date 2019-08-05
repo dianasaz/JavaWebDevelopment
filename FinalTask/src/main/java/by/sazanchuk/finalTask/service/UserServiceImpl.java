@@ -2,11 +2,16 @@ package by.sazanchuk.finalTask.service;
 
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.UserDao;
+import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.User;
 
 import java.util.List;
 
 public class UserServiceImpl extends ServiceImpl implements UserService {
+
+    public UserServiceImpl() throws ServiceException {
+    }
+
     @Override
     public List<User> findAll() throws DaoException {
         UserDao userDao = transaction.createDao(UserDao.class);
@@ -35,9 +40,17 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         if(user.getId() != null) {
             if(user.getPassword() != null) {
                 user.setPassword(PasswordCode.CodeMD5(user.getPassword()));
+                user.setAddress(user.getAddress());
+                user.setName(user.getName());
+                user.setPhoneNumber(user.getPhoneNumber());
+                user.setEmail(user.getEmail());
             } else {
                 User oldUser = userDao.read(user.getId());
                 user.setPassword(oldUser.getPassword());
+                user.setAddress(user.getAddress());
+                user.setName(user.getName());
+                user.setPhoneNumber(user.getPhoneNumber());
+                user.setEmail(user.getEmail());
             }
             userDao.update(user);
         } else {
@@ -52,6 +65,11 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
         UserDao userDao = transaction.createDao(UserDao.class);
         return userDao.isExist(login);
 
+    }
+
+    public boolean searchEmail(String email) throws DaoException {
+        UserDao userDao = transaction.createDao(UserDao.class);
+        return userDao.searchEmail(email);
     }
 
 

@@ -1,5 +1,6 @@
 package by.sazanchuk.finalTask.dao;
 
+import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,12 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDao extends BaseDao implements Dao<Service> {
-    private static final String SELECT_ALL_INFORMATION_ABOUT_SERVICE = "SELECT `name`, `price`, `id` FROM `mydatabase`.by.sazanchuk.finalTask.service ORDER BY `name`";
-    private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.by.sazanchuk.finalTask.service WHERE `id` = ?";
-    private static final String UPDATE_NAME_AND_PRICE = "UPDATE `mydatabase`.by.sazanchuk.finalTask.service SET `name` = ?, `price` = ? = ? WHERE `id` = ?";
-    private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM `mydatabase`.by.sazanchuk.finalTask.service WHERE `id` = ?";
-    private static final String INSERT_ALL_INFORMATION = "INSERT INTO `mydatabase`.by.sazanchuk.finalTask.service (`id`, `name`, `price`) VALUES (?, ?, ?)";
-
+    private static final String SELECT_ALL_INFORMATION_ABOUT_SERVICE = "SELECT `name`, `price`, `id` FROM `mydatabase`.service ORDER BY `name`";
+    private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.service WHERE `id` = ?";
+    private static final String UPDATE_NAME_AND_PRICE = "UPDATE `mydatabase`.service SET `name` = ?, `price` = ? = ? WHERE `id` = ?";
+    private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM `mydatabase`.service WHERE `id` = ?";
+    private static final String INSERT_ALL_INFORMATION = "INSERT INTO `mydatabase`.service (`name`, `price`) VALUES (?, ?)";
+    private static final String SEARCH_NAME = "SELECT `name` FROM `mydatabase`.service WHERE `name` = ?";
+    private static final String SELECT_PRICE_AND_ID = "SELECT `id`, `price`, `name` FROM `mydatabase`.service WHERE `name` = ?";
+    private static final String SELECT_SERVICE_ID_FROM_SERVICE_DOCTOR = "SELECT `service_id` FROM `mydatabase`.doctor_service WHERE `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 
@@ -29,7 +32,6 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
                 statement = connection.prepareStatement(INSERT_ALL_INFORMATION, Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, entity.getName());
                 statement.setInt(2, entity.getPrice());
-                statement.setInt(3, entity.getIdentity());
                 statement.executeUpdate();
                 resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {
@@ -77,6 +79,53 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
                 } catch(SQLException e) {}
             }
         }
+
+    public Service searchService(String name) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Service service = null;
+        try {
+            statement = connection.prepareStatement(SEARCH_NAME, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, name);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                service = new Service();
+            }
+        } catch (SQLException e) {
+            throw new DaoException();
+        }
+
+        return service;
+    }
+
+    public Service readByName(String name) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_PRICE_AND_ID);
+            statement.setString(1, name);
+
+            resultSet = statement.executeQuery();
+            Service service = null;
+            if (resultSet.next()) {
+                service = new Service();
+                service.setIdentity(resultSet.getInt("id"));
+                service.setPrice(resultSet.getInt("price"));
+                service.setName(resultSet.getString("name"));
+            }
+            return service;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null)
+                    resultSet.close();
+            } catch (SQLException e) {
+            }
+        }
+    }
+
+
 
         @Override
         public void update(Service entity) throws DaoException {
@@ -129,6 +178,34 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             }
             return services;
         } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public List<Service> searchWithOneDoctor(Doctor doctor) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_SERVICE_ID_FROM_SERVICE_DOCTOR);
+            statement.setInt(1, doctor.getIdentity());
+            resultSet = statement.executeQuery();
+            List<Service> services = new ArrayList<>();
+            Service service = null;
+            while (resultSet.next()) {
+                service = new Service();
+                service.setIdentity(resultSet.getInt("service_id"));
+                // doctor.addService(service);
+                services.add(service);
+            }
+            return services;
+        } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
             try {

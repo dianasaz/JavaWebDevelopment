@@ -23,6 +23,12 @@ public class Doctor {
         this.coupons = coupons;
     }
 
+    public void addService(Service s){
+        if (service == null){
+            service = new ArrayList<>();
+        }
+        service.add(s);
+    }
 
     public Integer getIdentity() {
         return identity;
@@ -30,6 +36,14 @@ public class Doctor {
 
     public String getName() {
         return name;
+    }
+
+    public String getServiceToString(){
+        String result = "";
+        for (int i = 0; i < service.size(); i++){
+            result += service.get(i).getName() + ", ";
+        }
+        return result;
     }
 
 
@@ -64,9 +78,8 @@ public class Doctor {
     public String toString() {
         return "Doctor{" +
                 "identity=" + identity +
-                ", name='" + name + '\'' +
-                ", by.sazanchuk.finalTask.service=" + service +
-                ", workList=" +
+                ", name='" + name +
+                ", service=" + service +
                 '}';
     }
 }

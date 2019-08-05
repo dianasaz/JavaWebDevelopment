@@ -2,23 +2,23 @@ USE `myDatabase`;
 
 CREATE TABLE `user`
 (
-  `user_id`  int PRIMARY KEY     NOT NULL AUTO_INCREMENT,
-  `login`    varchar(255) UNIQUE NOT NULL,
-  `password` varchar(255)        NOT NULL,
-  `role`     ENUM ('administrator', 'visitor'),
+  `user_id`     int PRIMARY KEY     NOT NULL AUTO_INCREMENT,
+  `login`       varchar(255) UNIQUE NOT NULL,
+  `password`    varchar(255)        NOT NULL,
+  `role`        ENUM ('administrator', 'visitor'),
   `name`        varchar(255),
-  `email`    varchar(255) UNIQUE NOT NULL,
+  `email`       varchar(255) UNIQUE NOT NULL,
   `phoneNumber` INTEGER UNIQUE,
   `address`     varchar(255)
 ) ENGINE = INNODB;
 
 CREATE TABLE `pet`
 (
-  `id`     int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `name`   varchar(255),
-  `kind`   ENUM ('cat', 'dog', 'turtle', 'parrot', 'hamster'),
-  `date_of_birth`    date,
-  `user_id` int NOT NULL
+  `id`            int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `name`          varchar(255),
+  `kind`          ENUM ('cat', 'dog', 'turtle', 'parrot', 'hamster'),
+  `date_of_birth` date,
+  `user_id`       int             NOT NULL
 ) ENGINE = INNODB;
 
 CREATE TABLE `doctor`
@@ -38,11 +38,13 @@ CREATE TABLE `event`
 
 CREATE TABLE `coupon`
 (
-  `id`        int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `time`      time,
-  `doctor_id` int             NOT NULL,
-  `user_id`   int             NOT NULL,
-  `taken`     boolean
+  `id`         int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `time`       timestamp,
+  `doctor_id`  int             NOT NULL,
+  `user_id`    int             NOT NULL,
+  `taken`      boolean,
+  `pet_id`     int             NOT NULL,
+  `service_id` int             NOT NULL
 ) ENGINE = INNODB;
 
 CREATE TABLE `service`
@@ -52,23 +54,17 @@ CREATE TABLE `service`
   `name`  varchar(255)
 ) ENGINE = INNODB;
 
-CREATE TABLE `user_pet`
-(
-  `user_id`     int NOT NULL,
-  `pet_id` int NOT NULL,
-  CONSTRAINT PK PRIMARY KEY (`user_id`, `pet_id`)
-) ENGINE = INNODB;
 
 CREATE TABLE `doctor_service`
 (
-  `doctor_id`         int NOT NULL,
+  `doctor_id`  int NOT NULL,
   `service_id` int,
   CONSTRAINT PrKy PRIMARY KEY (`doctor_id`, `service_id`)
 ) ENGINE = INNODB;
 
 CREATE TABLE `doctor_coupon`
 (
-  `doctor_id`  int NOT NULL,
+  `doctor_id` int NOT NULL,
   `coupon_id` int NOT NULL,
   CONSTRAINT PrimK PRIMARY KEY (`doctor_id`, `coupon_id`)
 ) ENGINE = INNODB;
@@ -98,13 +94,8 @@ ALTER TABLE `coupon`
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 
-ALTER TABLE `user_pet`
+ALTER TABLE `coupon`
   ADD FOREIGN KEY (`pet_id`) REFERENCES `pet` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE `user_pet`
-  ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 

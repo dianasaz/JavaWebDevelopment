@@ -1,8 +1,8 @@
 package by.sazanchuk.finalTask.controller;
-import by.sazanchuk.finalTask.action.command.Command;
-import by.sazanchuk.finalTask.action.command.factory.CommandFactory;
-import by.sazanchuk.finalTask.action.command.CommandResult;
-import by.sazanchuk.finalTask.action.MessageManager;
+import by.sazanchuk.finalTask.command.action.Command;
+import by.sazanchuk.finalTask.command.action.factory.CommandFactory;
+import by.sazanchuk.finalTask.command.action.CommandResult;
+import by.sazanchuk.finalTask.command.MessageManager;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPool;
 import by.sazanchuk.finalTask.service.ServiceException;
@@ -47,11 +47,12 @@ public class Controller extends HttpServlet {
         } catch (ServiceException e) {
             logger.log(Level.ERROR, e.getMessage(), e);
             request.setAttribute(MessageManager.getProperty("error"), e.getMessage());
-            result = new CommandResult("error", false);
+            result = new CommandResult("/jsp/error.jsp", false);
         } catch (DaoException e) {
 
         }
 
+        assert result != null;
         String page = result.getPage();
         if (result.isRedirect()) {
             redirect(response, page);

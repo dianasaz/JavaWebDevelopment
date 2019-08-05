@@ -2,11 +2,16 @@ package by.sazanchuk.finalTask.service;
 
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.EventDao;
+import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Event;
 
 import java.util.List;
 
 public class EventServiceImpl extends ServiceImpl implements EventService{
+
+
+    public EventServiceImpl() throws ServiceException {
+    }
 
     @Override
     public List<Event> findAll() throws DaoException {

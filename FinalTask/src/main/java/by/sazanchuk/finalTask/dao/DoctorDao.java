@@ -1,6 +1,7 @@
 package by.sazanchuk.finalTask.dao;
 
 import by.sazanchuk.finalTask.entity.Doctor;
+import by.sazanchuk.finalTask.entity.Service;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,24 +13,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorDao extends BaseDao implements Dao<Doctor> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.doctor (`id`, `name`) VALUES (?, ?)";
+    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.doctor ( `name`) VALUES (?)";
     private static final String SELECT_NAME = "SELECT `name` FROM `mydatabase`.doctor WHERE `id` = ?";
+    private static final String SELECT_ID = "SELECT `id` FROM `mydatabase`.doctor WHERE `name` = ?";
     private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.doctor SET `name` = ? WHERE `id` = ?";
     private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.doctor WHERE `id` = ?";
     private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `name` FROM `mydatabase`.doctor ORDER BY `name`";
+    private static final String INSERT_ALL_INFO_INTO_DOCTOR_SERVICE = "INSERT INTO `mydatabase`.doctor_service (`doctor_id`, `service_id`) VALUES (?, ?)";
+    private static final String SEARCH_REFERENCE = "SELECT `doctor_id`, `service_id` FROM `mydatabase`.doctor_service WHERE `service_id` = ? AND `doctor_id` = ?";
+    private static final String DELETE_BY_DOCTOR_ID_IN_DOCTOR_SERVICE = "DELETE FROM `mydatabase`.doctor_service WHERE `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
-//TODO sql strings before logger static and final
 
-    //TODO delete nullpointerexception in by.sazanchuk.finalTask.dao by if(result.equels(null)
-    @Override
+     @Override
     public Integer create(Doctor entity) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(INSERT_ALL_INFO, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, entity.getIdentity());
-            statement.setString(2, entity.getName());
+            statement.setString(1, entity.getName());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -38,6 +40,50 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
                 log.error("There is no autoincremented index after trying to add record into table `users`");
                 throw new DaoException();
             }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public void createDS(Integer entity, Integer service) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(INSERT_ALL_INFO_INTO_DOCTOR_SERVICE, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, entity);
+            statement.setInt(2, service);
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public boolean isExist(Integer doctor_id, Integer service_id) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SEARCH_REFERENCE, Statement.RETURN_GENERATED_KEYS);
+            statement.setInt(1, doctor_id);
+            statement.setInt(2, service_id);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()){
+                return true;
+            } else return false;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -62,8 +108,7 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             if (resultSet.next()) {
                 doctor = new Doctor();
                 doctor.setIdentity(id);
-                doctor.setName(resultSet.getString("price"));
-                //TODO lists
+                doctor.setName(resultSet.getString("name"));
             }
             return doctor;
         } catch (SQLException e) {
@@ -78,15 +123,40 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         }
     }
 
+    public Doctor readByName(String name) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_ID);
+            statement.setString(1, name);
+            resultSet = statement.executeQuery();
+            Doctor doctor = null;
+            if (resultSet.next()) {
+                doctor = new Doctor();
+                doctor.setName(name);
+                doctor.setIdentity(resultSet.getInt("id"));
+            }
+            return doctor;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+
     @Override
     public void update(Doctor entity) throws DaoException {
-        //TODO
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(UPDATE_DOCTOR);
             statement.setInt(1, entity.getIdentity());
             statement.setString(2, entity.getName());
-         //TODO
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -123,11 +193,8 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             Doctor doctor = null;
             while(resultSet.next()) {
                 doctor = new Doctor();
-                doctor.setIdentity(resultSet.getInt("doctor_id"));
+                doctor.setIdentity(resultSet.getInt("id"));
                 doctor.setName(resultSet.getString("name"));
-               // doctor.setService(resultSet.getString("by.sazanchuk.finalTask.service"));
-               // doctor.setPetList(resultSet.getString("pet"));
-               // doctor.setWorkList(resultSet.getString("worklist")););
                 doc.add(doctor);
             }
             return doc;

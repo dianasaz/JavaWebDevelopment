@@ -22,10 +22,13 @@ public class ServiceFactory{
     static {
         SERVICES.put(UserService.class, UserServiceImpl.class);
         SERVICES.put(PetService.class, PetServiceImpl.class);
+        SERVICES.put(ServiceService.class, ServiceServiceImpl.class);
+        SERVICES.put(DoctorService.class, DoctorServiceImpl.class);
+        SERVICES.put(CouponService.class, CouponServiceImpl.class);
     }
 
     public ServiceFactory() throws DaoException, ConnectionPoolException {
-        factory = new TransactionFactory();
+        factory = TransactionFactory.getFactory();
     }
 
 
@@ -37,7 +40,6 @@ public class ServiceFactory{
                 Class<?>[] interfaces = {key};//??????????????????????????
                 Transaction transaction = factory.createTransaction();
                 ServiceImpl service = value.newInstance();
-                service.setTransaction(transaction);
                 InvocationHandler handler = new ServiceInvocationHandlerImpl(service);
                 return (Type)Proxy.newProxyInstance(classLoader, interfaces, handler);
             } catch(DaoException e) {
@@ -54,4 +56,3 @@ public class ServiceFactory{
         factory.close();
     }
 }
-
