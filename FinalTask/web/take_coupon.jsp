@@ -49,35 +49,36 @@
                     </span>
 
                 <script>
-                    function Selected(a, b) {
+                    function Selected(a, size) {
                         var label = a.value;
-                        var list = b.value;
                         var i;
-                        for (i = 0; i < list.length; i++){
-                            if (label == list.get(i)) {
-                                document.getElementById(list.get(i)).style.display = 'block';
+                        for(i = 0; i < size; i++){
+                            if (label == i){
+                                document.getElementById(i).style.display="block";
+                            } else{
+                                document.getElementById(i).style.display="none";
                             }
                         }
                     }
                 </script>
 
                 <select id="actSelect" class="Validate_Required " name="service" aria-required="true"
-                        onChange="Selected(this, ${serviceNames})">
+                        onChange="Selected(this, ${services.size()})">
                     <option value="" selected="selected">-</option>
-                    <c:forEach var="service" items="${serviceNames}">
-                        <option value="${service}">${service}</option>
+                    <c:forEach var="service" items="${serviceNames}" varStatus="i">
+                        <option value="${i.index}">${service}</option>
                     </c:forEach>
                 </select>
 
 
-                <c:forEach var="service" items="serviceNames">
-                    <div id="${service}" style='display: none;'>
+                <c:forEach var="service" items="${serviceNames}" varStatus="i">
+                    <div id="${i.index}" style='display: none;'>
                         Choose doctor:
                         <select name="doctor">
                             <option value="" selected="selected">-</option>
                             <c:forEach var="doctor" items="${doctors}">
                                 <c:forEach var="docservice" items="${doctor.service}">
-                                    <c:if test="${docservice.name == service}">
+                                    <c:if test="${docservice.name eq service}">
                                         <option value="${doctor.name}">${doctor.name}</option>
                                     </c:if>
                                 </c:forEach>
