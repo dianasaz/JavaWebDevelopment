@@ -1,4 +1,5 @@
 package by.sazanchuk.finalTask.controller;
+
 import by.sazanchuk.finalTask.command.action.Command;
 import by.sazanchuk.finalTask.command.action.factory.CommandFactory;
 import by.sazanchuk.finalTask.command.action.CommandResult;
@@ -52,13 +53,14 @@ public class Controller extends HttpServlet {
 
         }
 
-        assert result != null;
         String page = result.getPage();
         if (result.isRedirect()) {
             redirect(response, page);
         } else {
             dispatch(request, response, page);
         }
+
+
     }
 
     private void dispatch(HttpServletRequest request, HttpServletResponse response, String page) throws ServletException, IOException {

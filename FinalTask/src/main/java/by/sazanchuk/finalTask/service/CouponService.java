@@ -3,6 +3,7 @@ package by.sazanchuk.finalTask.service;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.entity.Coupon;
 
+import java.util.Date;
 import java.util.List;
 
 public interface CouponService extends Service {
@@ -14,4 +15,6 @@ public interface CouponService extends Service {
     int save(Coupon coupon) throws DaoException;
 
     void delete(Integer identity) throws DaoException;
+
+    boolean isTaken(Integer doctor_id, Date date) throws DaoException;
 }

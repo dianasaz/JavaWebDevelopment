@@ -4,6 +4,7 @@ import by.sazanchuk.finalTask.dao.CouponDao;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.entity.Coupon;
 
+import java.util.Date;
 import java.util.List;
 
 public class CouponServiceImpl extends ServiceImpl implements CouponService{
@@ -40,5 +41,10 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService{
         }
     }
 
-
+    @Override
+    public boolean isTaken(Integer doctor_id, Date date) throws DaoException {
+        CouponDao couponDao = transaction.createDao(CouponDao.class);
+        Coupon c = couponDao.isTaken(doctor_id, date);
+        return c != null;
+    }
 }

@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CouponDao extends BaseDao implements Dao<Coupon> {
@@ -23,6 +24,7 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
     private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.coupon SET `user_id` = ? && `doctor_id` = ? && `time` = ? && `taken` = ? && `pet_id` = ? && `service_id` = ? WHERE `id` = ?";
     private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.coupon WHERE `id` = ?";
     private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `taken`, `pet_id`, `service_id` FROM `mydatabase`.coupon ORDER BY `user_id`";
+    private static final String IS_EXIST = "SELECT `id` FROM `mydatabase`.coupon WHERE `time` = ? && `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
 @Override
@@ -75,6 +77,32 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
                 coupon.setTime(resultSet.getTimestamp("time"));
                 coupon.setPet_id(resultSet.getInt("pet_id"));
                 coupon.setService_id(resultSet.getInt("service_id"));
+            }
+            return coupon;
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public Coupon isTaken(Integer doctor_id, Date date) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(IS_EXIST);
+            statement.setTimestamp(1, new Timestamp(date.getTime()));
+            statement.setInt(2, doctor_id);
+            resultSet = statement.executeQuery();
+            Coupon coupon = null;
+            if (resultSet.next()) {
+                coupon = new Coupon();
+                coupon.setIdentity(resultSet.getInt("id"));
             }
             return coupon;
         } catch (SQLException e) {

@@ -1,5 +1,6 @@
 package by.sazanchuk.finalTask.command.action;
 
+import by.sazanchuk.finalTask.command.ConfigurationManager;
 import by.sazanchuk.finalTask.command.Page;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.service.ServiceException;
@@ -13,20 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ChangeLanguageCommand implements Command {
-
-       // String language = request.getParameter(LANGUAGE);
-      /*  HttpSession session = request.getSession();
-        if (language == null) {
-            language = EN;
-            request.getSession().setAttribute(LANGUAGE, language);
-            session.setAttribute(LANGUAGE, language);
-            session.setAttribute(NEXT_LANGUAGE, RU);
-        } else {
-            session.setAttribute(LANGUAGE, language);
-            String nextLanguage = getLanguage(language);
-            request.setAttribute(NEXT_LANGUAGE, nextLanguage);
-            session.setAttribute(NEXT_LANGUAGE, nextLanguage);
-        }*/
         private static final Logger logger = LogManager.getLogger(ChangeLanguageCommand.class);
 
         private static final String LANGUAGE = "lang";
@@ -43,7 +30,7 @@ public class ChangeLanguageCommand implements Command {
                 language = RU;
             }
             setAttributes(request, language);
-            return new CommandResult(Page.HOME_PAGE.getPage(), false);
+            return new CommandResult(ConfigurationManager.getProperty("path.page.main"), false);
         }
 
         public void setAttributes(HttpServletRequest request, String lang){

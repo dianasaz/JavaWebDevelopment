@@ -40,12 +40,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
-
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
-
-
     </script>
     <link href="css/hover.css" rel="stylesheet" media="all">
     <!--fonts-->
@@ -77,11 +74,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
             <li style="margin-right: 22%"><c:choose>
                 <c:when test="${user == null}">
-                        <a style="color: whitesmoke" href="controller?command=login">${signin}</a>
+                    <a style="color: whitesmoke" href="controller?command=login">${signin}</a>
 
                 </c:when>
                 <c:otherwise>
-                        <a style="color: whitesmoke" href="controller?command=logout">${signout}</a>
+                    <a style="color: whitesmoke" href="controller?command=logout">${signout}</a>
                 </c:otherwise>
             </c:choose></li>
         </ul>

@@ -75,7 +75,6 @@
                     <div id="${i.index}" style='display: none;'>
                         Choose doctor:
                         <select name="doctor">
-                            <option value="" selected="selected">-</option>
                             <c:forEach var="doctor" items="${doctors}">
                                 <c:forEach var="docservice" items="${doctor.service}">
                                     <c:if test="${docservice.name eq service}">
@@ -86,6 +85,63 @@
                         </select>
                     </div>
                 </c:forEach>
+
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="date" id="date"
+                           placeholder="${enterdate}">
+                    <script>
+                        $(function() {
+                            $('input[name="date"]').daterangepicker({
+                                "singleDatePicker": true,
+                                "timePicker": true,
+                                "timePicker24Hour": true,
+                                "timePickerIncrement": 10,
+                                "autoApply": true,
+                                "locale": {
+                                    "format": "YYYY-MM-DD HH:mm",
+                                    "separator": " - ",
+                                    "applyLabel": "Apply",
+                                    "cancelLabel": "Cancel",
+                                    "fromLabel": "From",
+                                    "toLabel": "To",
+                                    "customRangeLabel": "Custom",
+                                    "weekLabel": "W",
+                                    "daysOfWeek": [
+                                        "Su",
+                                        "Mo",
+                                        "Tu",
+                                        "We",
+                                        "Th",
+                                        "Fr",
+                                        "Sa"
+                                    ],
+                                    "monthNames": [
+                                        "January",
+                                        "February",
+                                        "March",
+                                        "April",
+                                        "May",
+                                        "June",
+                                        "July",
+                                        "August",
+                                        "September",
+                                        "October",
+                                        "November",
+                                        "December"
+                                    ],
+                                    "firstDay": 1
+                                },
+                                "opens": "center"
+                            });
+                        });
+                    </script>
+                </div>
+
+                <div class="col-md-6">
+                    <input type="hidden" class="form-control" name="pet_id"
+                           value="${pet.identity}">
+                </div>
+
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">

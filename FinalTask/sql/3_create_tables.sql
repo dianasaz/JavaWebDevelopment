@@ -39,7 +39,7 @@ CREATE TABLE `event`
 CREATE TABLE `coupon`
 (
   `id`         int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `time`       timestamp,
+  `time`       datetime,
   `doctor_id`  int             NOT NULL,
   `user_id`    int             NOT NULL,
   `taken`      boolean,
