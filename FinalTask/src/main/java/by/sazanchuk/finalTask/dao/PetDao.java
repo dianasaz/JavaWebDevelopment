@@ -15,15 +15,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PetDao extends BaseDao implements Dao<Pet> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.pet (`name`, `kind`, `date_of_birth`, `user_id`) VALUES (?, ?, ?, ?)";
-    private static final String SELECT_ALL_INFO = "SELECT `name`, `kind`, `date_of_birth`, `user_id` FROM `mydatabase`.pet WHERE `id` = ?";
-    private static final String UPDATE_PET = "UPDATE `mydatabase`.pet SET `name` = ?, `date_of_birth` = ?, `kind` = ?, `user_id` = ? WHERE `id` = ?";
-    private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.pet WHERE `id` = ?";
-    private static final String SELECT_ALL_PETS_WITH_ONE_USER = "SELECT `id` FROM `mydatabase`.pet WHERE `user_id` = ?";
-    private static final String READ_ALL_INFORMATION_ABOUT_PET = "SELECT `user_id`, `date_of_birth`, `kind`,`name`, `id` FROM `mydatabase`.pet ORDER BY `name`";
-    private static final String SELECT_PET_NAME_USER_ID = "SELECT `id` FROM `mydatabase`.pet WHERE `name` = ? AND `user_id` = ?";
-    private static final String INSERT_ALL_INFO_IN_PET_USER = "INSERT INTO `mydatabase`.user_pet (`pet_id`, `user_id`) VALUES (?, ?)";
-    private static final String DELETE_FROM_PET_USER = "DELETE FROM `mydatabase`.user_pet WHERE `pet_id` = ?";
+    private static final String INSERT_ALL_INFO = "INSERT INTO pet (`name`, `kind`, `date_of_birth`, `user_id`) VALUES (?, ?, ?, ?)";
+    private static final String SELECT_ALL_INFO = "SELECT `name`, `kind`, `date_of_birth`, `user_id` FROM pet WHERE `id` = ?";
+    private static final String UPDATE_PET = "UPDATE pet SET `name` = ?, `date_of_birth` = ?, `kind` = ?, `user_id` = ? WHERE `id` = ?";
+    private static final String DELETE_FROM_DATABASE = "DELETE FROM pet WHERE `id` = ?";
+    private static final String SELECT_ALL_PETS_WITH_ONE_USER = "SELECT `id` FROM pet WHERE `user_id` = ?";
+    private static final String READ_ALL_INFORMATION_ABOUT_PET = "SELECT `user_id`, `date_of_birth`, `kind`,`name`, `id` FROM pet ORDER BY `name`";
+    private static final String SELECT_PET_NAME_USER_ID = "SELECT `id` FROM pet WHERE `name` = ? AND `user_id` = ?";
 
     private final Logger log = LogManager.getLogger(PetDao.class);
 

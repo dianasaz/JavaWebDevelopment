@@ -31,7 +31,7 @@ public class EditProfileCommand implements Command {
     private static final String PHONE_NUMBER = "phoneNumber";
     private static final String EMAIL = "email";
     private static final String ID = "id";
-    private static final String ERROR = "error_";
+    private static final String USER = "user";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
@@ -54,27 +54,28 @@ public class EditProfileCommand implements Command {
         parameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
         parameters.put(EMAIL, request.getParameter(EMAIL));
 
-        if (checkChanges(parameters)){
+        boolean b = checkChanges(parameters);
+        if (b
+        ){
             try {
-                if (checkIfUserExist(parameters.get(LOGIN))) {
+                if (!checkIfUserExist(parameters.get(LOGIN), oldParam)) {
                     try {
                         updateUser(parameters, oldParam, request);
+                        return new CommandResult("controller?command=profile", true);
                     } catch (DaoException | ConnectionPoolException e) {
                         logger.log(Level.INFO, "dao exception");
                     }
                 }
             } catch (DaoException | ConnectionPoolException e) {
                 logger.log(Level.INFO, "NO SUCH USER");
-            }
-            return new CommandResult("controller?command=profile_user", true);
+            } return goBackWithError(request, "error");
         } else return goBackWithError(request, "error update");
 
     }
 
-    private boolean checkIfUserExist(String login) throws DaoException, ConnectionPoolException {
-
+    private boolean checkIfUserExist(String login, Map<String, String> oldParam) throws DaoException, ConnectionPoolException {
+        if (login.equals(oldParam.get(LOGIN))) return true;
         ServiceFactory factory = new ServiceFactory();
-
         UserService service = factory.getService(UserService.class);
         return service.isExist(login);
     }
@@ -92,28 +93,31 @@ public class EditProfileCommand implements Command {
         User user = new User();
         if (parameters.get(LOGIN) == null || parameters.get(LOGIN).isEmpty()){
             user.setLogin(oldparam.get(LOGIN));
-        } else user.setLogin(oldparam.get(LOGIN));
+        } else user.setLogin(parameters.get(LOGIN));
         if (parameters.get(PASSWORD) == null || parameters.get(PASSWORD).isEmpty()){
             user.setPassword(oldparam.get(PASSWORD));
-        } else user.setPassword(oldparam.get(PASSWORD));
+        } else user.setPassword(parameters.get(PASSWORD));
         if (parameters.get(EMAIL) == null || parameters.get(EMAIL).isEmpty()){
             user.setEmail(oldparam.get(EMAIL));
-        } else user.setEmail(oldparam.get(EMAIL));
+        } else user.setEmail(parameters.get(EMAIL));
         if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()){
             user.setAddress(oldparam.get(ADDRESS));
-        } else user.setLogin(oldparam.get(ADDRESS));
+        } else user.setLogin(parameters.get(ADDRESS));
         if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()){
             user.setPhoneNumber(Integer.valueOf(oldparam.get(PHONE_NUMBER)));
-        } else user.setPhoneNumber(Integer.valueOf(oldparam.get(PHONE_NUMBER)));
+        } else user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
         if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()){
             user.setName(oldparam.get(NAME));
-        } else user.setName(oldparam.get(NAME));
-        user.setId(Integer.valueOf(parameters.get(ID)));
+        } else user.setName(parameters.get(NAME));
+        user.setId(Integer.valueOf(oldparam.get(ID)));
         user.setRole(Role.VISITOR);
 
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getService(UserService.class);
         service.save(user);
+
+        request.getSession().removeAttribute(USER);
+        request.getSession().setAttribute(USER, user);
 
     }
 

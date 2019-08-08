@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao extends BaseDao implements Dao<User> {
-    private static final String INSERT_INTO_USER_ALL_INFORMATION = "INSERT INTO `mydatabase`.user (`login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private static final String SELECT_ALL_INFORMATION_FROM_USER_WITHOUT_ID = "SELECT `login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address` FROM `mydatabase`.user WHERE `user_id` = ?";
-    private static final String UPDATE_USER = "UPDATE `mydatabase`.user SET `login` = ?, `password` = ?, `role` = ?, `email` = ?, `name` = ?, `phoneNumber` = ?, `address` = ? WHERE `user_id` = ?";
-    private static final String DELETE_USER = "DELETE FROM `mydatabase`.user WHERE `user_id` = ?";
-    private static final String READ_ALL_INFORMATION_ABOUT_USER = "SELECT `user_id`, `login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address` FROM `mydatabase`.user ORDER BY `login`";
-    private static final String SEARCH_LOGIN = "SELECT `login` FROM `mydatabase`.user WHERE `login` = ?";
-    private static final String SELECT_USER_FROM_USER = "SELECT `user_id`, `role`, `email`, `name`, `phoneNumber`, `address` FROM `mydatabase`.user WHERE `login` = ? AND `password` = ?";
-    private static final String SEARCH_EMAIL = "SELECT `email` FROM `mydatabase`.user WHERE `email` = ?";
+    private static final String INSERT_INTO_USER_ALL_INFORMATION = "INSERT INTO user (`login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_INFORMATION_FROM_USER_WITHOUT_ID = "SELECT `login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address` FROM user WHERE `user_id` = ?";
+    private static final String UPDATE_USER = "UPDATE user SET `login` = ?, `password` = ?, `role` = ?, `email` = ?, `name` = ?, `phoneNumber` = ?, `address` = ? WHERE `user_id` = ?";
+    private static final String DELETE_USER = "DELETE FROM user WHERE `user_id` = ?";
+    private static final String READ_ALL_INFORMATION_ABOUT_USER = "SELECT `user_id`, `login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address` FROM user ORDER BY `login`";
+    private static final String SEARCH_LOGIN = "SELECT `login` FROM user WHERE `login` = ?";
+    private static final String SELECT_USER_FROM_USER = "SELECT `user_id`, `role`, `email`, `name`, `phoneNumber`, `address` FROM user WHERE `login` = ? AND `password` = ?";
+    private static final String SEARCH_EMAIL = "SELECT `email` FROM user WHERE `email` = ?";
 
     private final Logger log = LogManager.getLogger(UserDao.class);
 

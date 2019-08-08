@@ -79,10 +79,11 @@ public class UserServiceImplTest {
         user.setLogin("User");
         user.setPassword("1073277");
         user.setEmail("gosna@mail.ru");
-
+        System.out.println(user.getPassword());
 
         Integer userId = service.save(user);
         user.setId(userId);
+        System.out.println(user.getPassword());
 
         Assert.assertEquals(userId, user.getId());
     }

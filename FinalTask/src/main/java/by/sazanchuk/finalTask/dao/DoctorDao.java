@@ -13,15 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoctorDao extends BaseDao implements Dao<Doctor> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.doctor ( `name`) VALUES (?)";
-    private static final String SELECT_NAME = "SELECT `name` FROM `mydatabase`.doctor WHERE `id` = ?";
-    private static final String SELECT_ID = "SELECT `id` FROM `mydatabase`.doctor WHERE `name` = ?";
-    private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.doctor SET `name` = ? WHERE `id` = ?";
-    private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.doctor WHERE `id` = ?";
-    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `name` FROM `mydatabase`.doctor ORDER BY `name`";
-    private static final String INSERT_ALL_INFO_INTO_DOCTOR_SERVICE = "INSERT INTO `mydatabase`.doctor_service (`doctor_id`, `service_id`) VALUES (?, ?)";
-    private static final String SEARCH_REFERENCE = "SELECT `doctor_id`, `service_id` FROM `mydatabase`.doctor_service WHERE `service_id` = ? AND `doctor_id` = ?";
-    private static final String DELETE_BY_DOCTOR_ID_IN_DOCTOR_SERVICE = "DELETE FROM `mydatabase`.doctor_service WHERE `doctor_id` = ?";
+    private static final String INSERT_ALL_INFO = "INSERT INTO doctor ( `name`) VALUES (?)";
+    private static final String SELECT_NAME = "SELECT `name` FROM doctor WHERE `id` = ?";
+    private static final String SELECT_ID = "SELECT `id` FROM doctor WHERE `name` = ?";
+    private static final String UPDATE_DOCTOR = "UPDATE doctor SET `name` = ? WHERE `id` = ?";
+    private static final String DELETE_BY_IDENTITY = "DELETE FROM doctor WHERE `id` = ?";
+    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `name` FROM doctor ORDER BY `name`";
+    private static final String INSERT_ALL_INFO_INTO_DOCTOR_SERVICE = "INSERT INTO doctor_service (`doctor_id`, `service_id`) VALUES (?, ?)";
+    private static final String SEARCH_REFERENCE = "SELECT `doctor_id`, `service_id` FROM doctor_service WHERE `service_id` = ? AND `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
 

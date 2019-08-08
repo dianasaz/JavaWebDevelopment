@@ -13,14 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ServiceDao extends BaseDao implements Dao<Service> {
-    private static final String SELECT_ALL_INFORMATION_ABOUT_SERVICE = "SELECT `name`, `price`, `id` FROM `mydatabase`.service ORDER BY `name`";
-    private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.service WHERE `id` = ?";
-    private static final String UPDATE_NAME_AND_PRICE = "UPDATE `mydatabase`.service SET `name` = ?, `price` = ? = ? WHERE `id` = ?";
-    private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM `mydatabase`.service WHERE `id` = ?";
-    private static final String INSERT_ALL_INFORMATION = "INSERT INTO `mydatabase`.service (`name`, `price`) VALUES (?, ?)";
-    private static final String SEARCH_NAME = "SELECT `name` FROM `mydatabase`.service WHERE `name` = ?";
-    private static final String SELECT_PRICE_AND_ID = "SELECT `id`, `price`, `name` FROM `mydatabase`.service WHERE `name` = ?";
-    private static final String SELECT_SERVICE_ID_FROM_SERVICE_DOCTOR = "SELECT `service_id` FROM `mydatabase`.doctor_service WHERE `doctor_id` = ?";
+    private static final String SELECT_ALL_INFORMATION_ABOUT_SERVICE = "SELECT `name`, `price`, `id` FROM service ORDER BY `name`";
+    private static final String DELETE_FROM_DATABASE = "DELETE FROM service WHERE `id` = ?";
+    private static final String UPDATE_NAME_AND_PRICE = "UPDATE service SET `name` = ?, `price` = ? = ? WHERE `id` = ?";
+    private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM service WHERE `id` = ?";
+    private static final String INSERT_ALL_INFORMATION = "INSERT INTO service (`name`, `price`) VALUES (?, ?)";
+    private static final String SEARCH_NAME = "SELECT `name` FROM service WHERE `name` = ?";
+    private static final String SELECT_PRICE_AND_ID = "SELECT `id`, `price`, `name` FROM service WHERE `name` = ?";
+    private static final String SELECT_SERVICE_ID_FROM_SERVICE_DOCTOR = "SELECT `service_id` FROM doctor_service WHERE `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 

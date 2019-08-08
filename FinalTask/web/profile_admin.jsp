@@ -10,10 +10,10 @@
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
 
-<fmt:message bundle="${language}" key="addservice" var="addservice"/>
+<fmt:message bundle="${language}" key="addnewservice" var="addservice"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
-<fmt:message bundle="${language}" key="addnewservice" var="adddoctor"/>
+<fmt:message bundle="${language}" key="addnewdoctor" var="adddoctor"/>
 
 
 <html lang="${language}">

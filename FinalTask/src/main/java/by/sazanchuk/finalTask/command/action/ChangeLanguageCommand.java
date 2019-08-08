@@ -14,28 +14,41 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class ChangeLanguageCommand implements Command {
-        private static final Logger logger = LogManager.getLogger(ChangeLanguageCommand.class);
+    private static final Logger logger = LogManager.getLogger(ChangeLanguageCommand.class);
 
-        private static final String LANGUAGE = "lang";
-        private static final String EN = "EN";
-        private static final String RU = "RU";
+    private static final String LANGUAGE = "lang";
+    private static final String EN = "EN";
+    private static final String RU = "RU";
+    private static final String NEXT_LANGUAGE = "nextLang";
 
 
     @Override
-        public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-         String language = request.getParameter(LANGUAGE).toUpperCase();
-            if (language.equalsIgnoreCase(RU)) {
-                language = EN;
-            } else {
-                language = RU;
-            }
-            setAttributes(request, language);
-            return new CommandResult(ConfigurationManager.getProperty("path.page.main"), false);
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+        String language = request.getParameter(LANGUAGE).toUpperCase();
+        if (language.equalsIgnoreCase(RU)) {
+            language = EN;
+        } else {
+            language = RU;
         }
+        String next = getNextLang(language);
+        setAttributes(request, language, next);
+        return new CommandResult(ConfigurationManager.getProperty("path.page.main"), false);
+    }
 
-        public void setAttributes(HttpServletRequest request, String lang){
-            HttpSession session = request.getSession();
-            session.setAttribute(LANGUAGE, lang);
+    public void setAttributes(HttpServletRequest request, String lang, String next) {
+        HttpSession session = request.getSession();
+        session.setAttribute(LANGUAGE, lang);
+        session.setAttribute(NEXT_LANGUAGE, next);
+    }
+
+    private String getNextLang(String lang) {
+        String next;
+        if (lang.equalsIgnoreCase(RU)) {
+            next = EN;
+        } else {
+            next = RU;
         }
+        return next;
+    }
 
 }

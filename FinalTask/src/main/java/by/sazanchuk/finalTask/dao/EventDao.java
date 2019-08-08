@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventDao extends BaseDao implements Dao<Event> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.event (`service_id`, `pet_id`, `date`, `id`, `doctor_id`) VALUES (?, ?, ?, ?, ?)";
-    private static final String SELECT_ALL_INFO = "SELECT `service_id`, `doctor_id`, `pet_id`, `date` FROM `mydatabase`.event WHERE `id` = ?";
-    private static final String UPDATE_ALL_INFO = "UPDATE `mydatabase`.event SET `service_id` = ?, `doctor_id` = ?, `pet_id`= ?, `date` = ? WHERE `id` = ?";
-    private static final String DELETE_FROM_DATABASE = "DELETE FROM `mydatabase`.event WHERE `id` = ?";
-    private static final String SELECT_ALL_EVENTS_WITH_ONE_PET = "SELECT `id` FROM `mydatabase`.event WHERE `pet_id` = ?";
-    private static final String READ_ALL_INFORMATION_ABOUT_EVENT = "SELECT `id`, `date`, `pet_id`, `service_id`, `doctor_id` FROM `mydatabase`.event ORDER BY `date`";
+    private static final String INSERT_ALL_INFO = "INSERT INTO event (`service_id`, `pet_id`, `date`, `id`, `doctor_id`) VALUES (?, ?, ?, ?, ?)";
+    private static final String SELECT_ALL_INFO = "SELECT `service_id`, `doctor_id`, `pet_id`, `date` FROM event WHERE `id` = ?";
+    private static final String UPDATE_ALL_INFO = "UPDATE event SET `service_id` = ?, `doctor_id` = ?, `pet_id`= ?, `date` = ? WHERE `id` = ?";
+    private static final String DELETE_FROM_DATABASE = "DELETE FROM event WHERE `id` = ?";
+    private static final String SELECT_ALL_EVENTS_WITH_ONE_PET = "SELECT `id` FROM event WHERE `pet_id` = ?";
+    private static final String READ_ALL_INFORMATION_ABOUT_EVENT = "SELECT `id`, `date`, `pet_id`, `service_id`, `doctor_id` FROM event ORDER BY `date`";
 
     private final Logger log = LogManager.getLogger(ServiceDao.class);
 

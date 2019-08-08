@@ -19,12 +19,12 @@ import java.util.Date;
 import java.util.List;
 
 public class CouponDao extends BaseDao implements Dao<Coupon> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.coupon (`user_id`, `doctor_id`, `time`, `pet_id`, `service_id`) VALUES (?, ?, ?, ?, ?)";
-    private static final String SELECT_NAME = "SELECT `user_id`, `doctor_id`, `time`, `pet_id`, `service_id` FROM `mydatabase`.coupon WHERE `id` = ?";
-    private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.coupon SET `user_id` = ? && `doctor_id` = ? && `time` = ? && `pet_id` = ? && `service_id` = ? WHERE `id` = ?";
-    private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.coupon WHERE `id` = ?";
-    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `pet_id`, `service_id` FROM `mydatabase`.coupon ORDER BY `user_id`";
-    private static final String IS_EXIST = "SELECT `id` FROM `mydatabase`.coupon WHERE `time` = ? && `doctor_id` = ?";
+    private static final String INSERT_ALL_INFO = "INSERT INTO coupon (`user_id`, `doctor_id`, `time`, `pet_id`, `service_id`) VALUES (?, ?, ?, ?, ?)";
+    private static final String SELECT_NAME = "SELECT `user_id`, `doctor_id`, `time`, `pet_id`, `service_id` FROM coupon WHERE `id` = ?";
+    private static final String UPDATE_DOCTOR = "UPDATE coupon SET `user_id` = ? && `doctor_id` = ? && `time` = ? && `pet_id` = ? && `service_id` = ? WHERE `id` = ?";
+    private static final String DELETE_BY_IDENTITY = "DELETE FROM coupon WHERE `id` = ?";
+    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `pet_id`, `service_id` FROM coupon ORDER BY `user_id`";
+    private static final String IS_EXIST = "SELECT `id` FROM coupon WHERE `time` = ? && `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
 @Override

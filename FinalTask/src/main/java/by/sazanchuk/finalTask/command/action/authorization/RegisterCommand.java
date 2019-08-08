@@ -73,9 +73,9 @@ public class RegisterCommand implements Command {
         try {
             createUser(parameters, request);
             logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-            return new CommandResult("/controller?command=home_page", true);
+            return new CommandResult("controller?command=home_page", true);
         } catch (DaoException | ConnectionPoolException e) {
-            return new CommandResult("/controller?command=login", false);
+            return new CommandResult("controller?command=login", false);
         }
 
     }

@@ -66,12 +66,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <c:when test="${sessionScope.lang != null}">
                         <a style="color: whitesmoke" href="controller?command=change_language&lang=${sessionScope.lang}"
                            target="_blank" type="button" id="button"
-                           class="login-button">${sessionScope.lang}</a>
+                           class="login-button">${sessionScope.nextLang}</a>
                     </c:when>
                     <c:otherwise>
                         <a style="color: whitesmoke" href="controller?command=change_language&lang=ru" target="_blank"
                            type="button" id="button"
-                           class="login-button">RU</a>
+                           class="login-button">EN</a>
                     </c:otherwise>
                 </c:choose>
             </li>

@@ -54,7 +54,7 @@
                             <label>${userlogin}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>${login}</p>
+                            <p>${user.login}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -62,7 +62,7 @@
                             <label>${username}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>${name}</p>
+                            <p>${user.name}</p>
                         </div>
                     </div>
                     <div class="row">
@@ -70,7 +70,7 @@
                             <label>${useremail}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>${email}</p>
+                            <p><a href="mailto:${user.email}">${user.email}</a></p>
                         </div>
                     </div>
                     <div class="row">
@@ -78,7 +78,7 @@
                             <label>${userphone}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>${phone}</p>
+                            <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
                         </div>
                     </div>
                     <div class="row">
@@ -86,7 +86,7 @@
                             <label>${useraddress}</label>
                         </div>
                         <div class="col-md-6">
-                            <p>${address}</p>
+                            <p>${user.address}</p>
                         </div>
                     </div>
 

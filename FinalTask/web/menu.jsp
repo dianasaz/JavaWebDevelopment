@@ -44,12 +44,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 <ul class="cl-effect-21">
-    <li><a href="index.html" class="active">${home}</a></li>
-    <li><a href="about.html">${about}</a></li>
+    <li><a href="controller?command=home_page" class="active">${home}</a></li>
     <li><a href="controller?command=profile">${profile}</a></li>
     <li><a href="controller?command=watch_service">${services}</a></li>
     <li><a href="controller?command=watch_doctor">${doctors}</a></li>
-    <li><a href="404.html">${ourpets}</a></li>
 </ul>
 <!--script-nav -->
 <script>
