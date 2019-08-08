@@ -40,6 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
+
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
@@ -60,16 +61,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <li style="margin-right: 22%">
                 <img src="images/logo.png" alt=""/>
             </li>
-            <li style="margin-right: 22%">  <c:choose>
-                <c:when test="${sessionScope.lang != null}">
-                    <a style="color: whitesmoke" href="controller?command=change_language&lang=${sessionScope.lang}" target="_blank" type="button" id="button"
-                       class="login-button">${sessionScope.lang}</a>
-                </c:when>
-                <c:otherwise>
-                    <a style="color: whitesmoke" href="controller?command=change_language&lang=ru" target="_blank"
-                       type="button" id="button"
-                       class="login-button">RU</a>
-                </c:otherwise></c:choose>
+            <li style="margin-right: 22%">
+                <c:choose>
+                    <c:when test="${sessionScope.lang != null}">
+                        <a style="color: whitesmoke" href="controller?command=change_language&lang=${sessionScope.lang}"
+                           target="_blank" type="button" id="button"
+                           class="login-button">${sessionScope.lang}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a style="color: whitesmoke" href="controller?command=change_language&lang=ru" target="_blank"
+                           type="button" id="button"
+                           class="login-button">RU</a>
+                    </c:otherwise>
+                </c:choose>
             </li>
 
             <li style="margin-right: 22%"><c:choose>

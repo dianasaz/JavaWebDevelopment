@@ -69,7 +69,6 @@ public class RegisterPetCommand implements Command {
             try {
                 pet.setDateOfBirth(dateFormat.parse(dateOfBirth));
             } catch (ParseException e) {
-                e.printStackTrace();
             }
             int pet_Id = service.save(pet);
             if (pet_Id != 0) {

@@ -9,7 +9,7 @@ public class User {
     private String password;
     private String name;
     private String email;
-    private int phoneNumber;
+    private Integer phoneNumber;
     private String address;
     private Role role;
 
@@ -41,7 +41,7 @@ public class User {
         this.email = email;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(Integer phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -69,7 +69,7 @@ public class User {
         return email;
     }
 
-    public int getPhoneNumber() {
+    public Integer getPhoneNumber() {
         return phoneNumber;
     }
 

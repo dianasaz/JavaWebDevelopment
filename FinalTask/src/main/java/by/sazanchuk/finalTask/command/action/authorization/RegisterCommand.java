@@ -22,7 +22,6 @@ import java.util.Map;
 
 public class RegisterCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
-
     private static final String LOGIN = "login";
     private static final String PASSWORD = "password";
     private static final String NAME = "name";
@@ -32,6 +31,9 @@ public class RegisterCommand implements Command {
     private static final String ERROR_REGISTRATION = "error_registration";
     private static final String ERROR = "error_";
     private static final String ERROR_EMAIL = "error_email";
+    private static final String USER_ID = "user_id";
+    private static final String USER_ROLE = "user_role";
+    private static final String USER = "user";
 
 
     @Override
@@ -71,9 +73,9 @@ public class RegisterCommand implements Command {
         try {
             createUser(parameters, request);
             logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
-            return new CommandResult("controller?command=home_page", true);
+            return new CommandResult("/controller?command=home_page", true);
         } catch (DaoException | ConnectionPoolException e) {
-            throw new ServiceException(e);
+            return new CommandResult("/controller?command=login", false);
         }
 
     }
@@ -108,19 +110,17 @@ public class RegisterCommand implements Command {
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getService(UserService.class);
 
-        int id = service.save(user);
-        if (id != 0) {
-            user.setId(id);
-        } else {
-            throw new ServiceException("Can't save user!");
-        }
-       setAttributesToSession(user, request);
+        service.save(user);
+        setAttributesToSession(user, request);
 
     }
 
     private void setAttributesToSession(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("user", user);
+        session.setAttribute(USER_ID, user.getId());
+        session.setAttribute(USER_ROLE, user.getRole().getName());
+        session.setAttribute(USER, user);
+        request.setAttribute(USER, true);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

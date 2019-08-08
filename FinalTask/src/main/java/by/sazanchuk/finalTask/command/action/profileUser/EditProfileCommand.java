@@ -30,20 +30,21 @@ public class EditProfileCommand implements Command {
     private static final String ADDRESS = "address";
     private static final String PHONE_NUMBER = "phoneNumber";
     private static final String EMAIL = "email";
-    private static final String ERROR_REGISTRATION = "error_registration";
+    private static final String ID = "id";
     private static final String ERROR = "error_";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         User olduser = (User) request.getSession().getAttribute("user");
 
-        Map<String, Object> oldParam = new HashMap<>();
+        Map<String, String> oldParam = new HashMap<>();
         oldParam.put(LOGIN, olduser.getLogin());
         oldParam.put(PASSWORD, olduser.getPassword());
         oldParam.put(NAME, olduser.getName());
         oldParam.put(ADDRESS, olduser.getAddress());
-        oldParam.put(PHONE_NUMBER, olduser.getPhoneNumber());
+        oldParam.put(PHONE_NUMBER, olduser.getPhoneNumber().toString());
         oldParam.put(EMAIL, olduser.getEmail());
+        oldParam.put(ID, olduser.getId().toString());
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put(LOGIN, request.getParameter(LOGIN));
@@ -53,18 +54,20 @@ public class EditProfileCommand implements Command {
         parameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
         parameters.put(EMAIL, request.getParameter(EMAIL));
 
-        for (Map.Entry<String, String> entry : parameters.entrySet()) {
-            if (entry.getValue() != null || !entry.getValue().isEmpty()) {
-
+        if (checkChanges(parameters)){
+            try {
+                if (checkIfUserExist(parameters.get(LOGIN))) {
+                    try {
+                        updateUser(parameters, oldParam, request);
+                    } catch (DaoException | ConnectionPoolException e) {
+                        logger.log(Level.INFO, "dao exception");
+                    }
+                }
+            } catch (DaoException | ConnectionPoolException e) {
+                logger.log(Level.INFO, "NO SUCH USER");
             }
-        }
-        try {
-            updateUser(parameters, olduser, request);
-            logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
             return new CommandResult("controller?command=profile_user", true);
-        } catch (DaoException | ConnectionPoolException e) {
-            return new CommandResult("controller?command=edit_profile");
-        }
+        } else return goBackWithError(request, "error update");
 
     }
 
@@ -76,53 +79,42 @@ public class EditProfileCommand implements Command {
         return service.isExist(login);
     }
 
-    private void updateUser(Map<String, String> parameters, User olduser, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
-        User user = new User();
-  /*      if (parameters.get(LOGIN) == null || parameters.get(LOGIN).isEmpty()){
-            parameters.put(LOGIN, olduser.getLogin());
-        } else parameters.put(LOGIN, request.getParameter(LOGIN));
-        if (parameters.get(PASSWORD) == null || parameters.get(PASSWORD).isEmpty()){
-            parameters.put(PASSWORD, olduser.getPassword());
-        } else parameters.put(PASSWORD, request.getParameter(PASSWORD));
-        if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()){
-            parameters.put(NAME, olduser.getName());
-        } else parameters.put(NAME, request.getParameter(NAME));
-        if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()){
-            parameters.put(ADDRESS, olduser.getAddress());
-        } else parameters.put(ADDRESS, request.getParameter(ADDRESS));
-        if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()){
-            parameters.put(PHONE_NUMBER, String.valueOf(olduser.getPhoneNumber()));
-        } else parameters.put(PHONE_NUMBER, request.getParameter(PHONE_NUMBER));
-        if (parameters.get(EMAIL) == null || parameters.get(EMAIL).isEmpty()){
-            parameters.put(EMAIL, olduser.getEmail());
-        } else parameters.put(EMAIL, request.getParameter(EMAIL));
-*/
-        user.setLogin(parameters.get(LOGIN));
-        user.setPassword(parameters.get(PASSWORD));
-        user.setRole(Role.VISITOR);
-        user.setAddress(parameters.get(ADDRESS));
-        user.setEmail(parameters.get(EMAIL));
-        user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
-        user.setName(parameters.get(NAME));
-        user.setId(olduser.getId());
+    private boolean checkChanges(Map<String, String> param){
+        for (Map.Entry<String, String> entry : param.entrySet()) {
+            if (entry.getValue() != null) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private void updateUser(Map<String, String> parameters, Map<String, String> oldparam, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+        User user = new User();
+        if (parameters.get(LOGIN) == null || parameters.get(LOGIN).isEmpty()){
+            user.setLogin(oldparam.get(LOGIN));
+        } else user.setLogin(oldparam.get(LOGIN));
+        if (parameters.get(PASSWORD) == null || parameters.get(PASSWORD).isEmpty()){
+            user.setPassword(oldparam.get(PASSWORD));
+        } else user.setPassword(oldparam.get(PASSWORD));
+        if (parameters.get(EMAIL) == null || parameters.get(EMAIL).isEmpty()){
+            user.setEmail(oldparam.get(EMAIL));
+        } else user.setEmail(oldparam.get(EMAIL));
+        if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()){
+            user.setAddress(oldparam.get(ADDRESS));
+        } else user.setLogin(oldparam.get(ADDRESS));
+        if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()){
+            user.setPhoneNumber(Integer.valueOf(oldparam.get(PHONE_NUMBER)));
+        } else user.setPhoneNumber(Integer.valueOf(oldparam.get(PHONE_NUMBER)));
+        if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()){
+            user.setName(oldparam.get(NAME));
+        } else user.setName(oldparam.get(NAME));
+        user.setId(Integer.valueOf(parameters.get(ID)));
+        user.setRole(Role.VISITOR);
 
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getService(UserService.class);
+        service.save(user);
 
-        int id = service.save(user);
-        if (id != 0) {
-            user.setId(id);
-        } else {
-            throw new ServiceException("Can't save user!");
-        }
-        setAttributesToSession(user, request);
-
-    }
-
-    private void setAttributesToSession(User user, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-      //  session.setAttribute("user", user);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

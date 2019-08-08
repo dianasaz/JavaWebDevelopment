@@ -1,5 +1,8 @@
 package by.sazanchuk.finalTask.command.action.factory;
 
+import java.util.Optional;
+import java.util.stream.Stream;
+
 public enum CommandType {
     LOGIN("login"),
     LOGOUT("logout"),
@@ -21,9 +24,16 @@ public enum CommandType {
     TAKE_COUPON("take_coupon");
 
 
-
     private String command;
+
     CommandType(String command) {
         this.command = command;
+    }
+
+    public static CommandType of(String command) {
+
+        return Stream.of(CommandType.values())
+                .filter(c -> c.command.equalsIgnoreCase(command))
+                .findFirst().orElse(HOME_PAGE);
     }
 }

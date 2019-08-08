@@ -9,8 +9,7 @@ public class CommandAccess {
 
 
     public List<CommandType> getAvailableCommandTypesByUser(String role) {
-        List<CommandType> listAvailableCommands = new ArrayList<>();
-        listAvailableCommands.addAll(getCommandsForNotAuthorizedUsers());
+        List<CommandType> listAvailableCommands = new ArrayList<>(getCommandsForNotAuthorizedUsers());
         if(role != null) {
             listAvailableCommands.addAll(getCommonCommands());
             switch (role) {
