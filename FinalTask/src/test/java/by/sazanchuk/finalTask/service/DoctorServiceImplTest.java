@@ -6,6 +6,7 @@ import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
 import org.junit.Test;
 
+import javax.print.Doc;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -31,34 +32,9 @@ public class DoctorServiceImplTest {
     @Test
     public void testTwo() throws ConnectionPoolException, DaoException {
         ServiceFactory factory = new ServiceFactory();
-        DoctorService service = factory.getService(DoctorService.class);
-        ServiceService serviceS = factory.getService(ServiceService.class);
-       // Doctor doctor = service.findByIdentity(5);
-        //for (int i = 0; i < doctor.getService().size(); i++){
-          //  System.out.println(doctor.getService().get(i).getName() + ", ");
-     /*   Doctor doctor = new Doctor();
-        doctor.setName("Dmitry");
-        Service service1 = serviceS.searchServiceByName("Microchiping");
-        Service service2 = serviceS.searchServiceByName("Strizka");
-        doctor.addService(service1);
-        doctor.addService(service2);
-        for (int i = 0; i < doctor.getService().size(); i++) {
-            System.out.println(doctor.getService().get(i).getName() + ", ");
-        }
-        service.save(doctor, service1);
-
-        Doctor d = new Doctor();
-        d.setName("Popa");
-        String[] services = {"Microchiping", "Strizka"};
-        for (String s : services) {
-            Service service1 = serviceS.searchServiceByName(s);
-            if (service1 != null) {
-                d.addService(service1);
-                service.save(d, service1);
-            }
-        }*/
-        Doctor doctor = service.findByName("Diana Sazanchuk");
-        System.out.println(doctor.toString());
+        DoctorService doctorService = factory.getService(DoctorService.class);
+        List<Doctor> list = doctorService.findAll();
+        System.out.println(list.toString());
     }
 
 

@@ -7,7 +7,6 @@ public class Coupon {
     private Integer identity;
     private Date time;
     private Integer doctor_id;
-    private boolean taken;
     private Integer user_id;
     private Integer pet_id;
     private Integer service_id;
@@ -52,10 +51,6 @@ public class Coupon {
         return time;
     }
 
-    public boolean isTaken() {
-        return taken;
-    }
-
     public void setIdentity(Integer identity) {
         this.identity = identity;
     }
@@ -64,17 +59,12 @@ public class Coupon {
         this.time = time;
     }
 
-    public void setTaken(boolean taken) {
-        this.taken = taken;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coupon coupon = (Coupon) o;
-        return taken == coupon.taken &&
-                Objects.equals(identity, coupon.identity) &&
+        return  Objects.equals(identity, coupon.identity) &&
                 Objects.equals(time, coupon.time) &&
                 Objects.equals(doctor_id, coupon.doctor_id) &&
                 Objects.equals(user_id, coupon.user_id) &&
@@ -84,6 +74,6 @@ public class Coupon {
 
     @Override
     public int hashCode() {
-        return Objects.hash(identity, time, doctor_id, taken, user_id, pet_id, service_id);
+        return Objects.hash(identity, time, doctor_id, user_id, pet_id, service_id);
     }
 }

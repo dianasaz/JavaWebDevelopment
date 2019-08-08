@@ -9,15 +9,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
-<fmt:message bundle="${language}" key="signup" var="signup"/>
-<fmt:message bundle="${language}" key="pet" var="pet"/>
-<fmt:message bundle="${language}" key="cat" var="cat"/>
-<fmt:message bundle="${language}" key="dog" var="dog"/>
-<fmt:message bundle="${language}" key="turtle" var="turtle"/>
-<fmt:message bundle="${language}" key="parrot" var="parrot"/>
-<fmt:message bundle="${language}" key="hamster" var="hamster"/>
-<fmt:message bundle="${language}" key="enterdate" var="enterdate"/>
-<fmt:message bundle="${language}" key="register" var="register"/>
+<fmt:message bundle="${language}" key="takecoupon" var="takecoupon"/>
+<fmt:message bundle="${language}" key="errortime" var="errortime"/>
+<fmt:message bundle="${language}" key="choosedoctor" var="choosedoctor"/>
+<fmt:message bundle="${language}" key="chooseservice" var="chooseservice"/>
+<fmt:message bundle="${language}" key="choosetimedate" var="choosetime"/>
 
 <head>
     <title>Take Coupon</title>
@@ -45,52 +41,56 @@
             <form class="login10-form" method="POST"
                   action="controller?command=take_coupon">
 <span class="login100-form-title">
-                        Take coupon
+                        ${takecoupon}
                     </span>
 
                 <script>
                     function Selected(a, size) {
                         var label = a.value;
                         var i;
-                        for(i = 0; i < size; i++){
-                            if (label == i){
-                                document.getElementById(i).style.display="block";
-                            } else{
-                                document.getElementById(i).style.display="none";
+                        for (i = 1; i < size + 1; i++) {
+                            if (label == i) {
+                                document.getElementById(i).style.display = "block";
+                            } else {
+                                document.getElementById(i).style.display = "none";
                             }
                         }
                     }
                 </script>
 
+                <label for="actSelect">${chooseservice}</label>
                 <select id="actSelect" class="Validate_Required " name="service" aria-required="true"
-                        onChange="Selected(this, ${services.size()})">
+                                                       onChange="Selected(this, ${services.size()})">
                     <option value="" selected="selected">-</option>
-                    <c:forEach var="service" items="${serviceNames}" varStatus="i">
-                        <option value="${i.index}">${service}</option>
+                    <c:forEach var="service" items="${services}" varStatus="i">
+                        <option value="${i.count}">${service.name}</option>
                     </c:forEach>
                 </select>
 
 
-                <c:forEach var="service" items="${serviceNames}" varStatus="i">
-                    <div id="${i.index}" style='display: none;'>
-                        Choose doctor:
-                        <select name="doctor">
-                            <c:forEach var="doctor" items="${doctors}">
-                                <c:forEach var="docservice" items="${doctor.service}">
-                                    <c:if test="${docservice.name eq service}">
-                                        <option value="${doctor.name}">${doctor.name}</option>
-                                    </c:if>
+                <c:forEach var="service" items="${services}" varStatus="i">
+                    <div id="${i.count}" style='display: none;'>
+                        <label>
+                            ${choosedoctor}
+                            <select name="doctor${i.count}">
+                                <c:forEach var="doc" items="${doctors}">
+                                    <c:forEach var="docservice" items="${doc.service}">
+                                        <c:if test="${docservice.name eq service.name}">
+                                            <option value="${doc.name}">${doc.name}</option>
+                                        </c:if>
+                                    </c:forEach>
                                 </c:forEach>
-                            </c:forEach>
-                        </select>
+                            </select>
+                        </label>
                     </div>
                 </c:forEach>
 
+                <label for="date" class="cols-sm-2 control-label">${choosetime}</label>
                 <div class="col-md-6">
                     <input type="text" class="form-control" name="date" id="date"
                            placeholder="${enterdate}">
                     <script>
-                        $(function() {
+                        $(function () {
                             $('input[name="date"]').daterangepicker({
                                 "singleDatePicker": true,
                                 "timePicker": true,
@@ -139,13 +139,18 @@
 
                 <div class="col-md-6">
                     <input type="hidden" class="form-control" name="pet_id"
-                           value="${pet.identity}">
+                           value="${pet_id}">
                 </div>
 
+                <c:if test="${error_time eq true}">
+                    <div class="container1" role="alert">
+                            ${errortime}
+                    </div>
+                </c:if>
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">
-                        ${register}
+                        ${takecoupon}
                     </button>
                 </div>
 

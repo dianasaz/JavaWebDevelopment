@@ -37,6 +37,13 @@ public class EditProfileCommand implements Command {
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         User olduser = (User) request.getSession().getAttribute("user");
 
+        Map<String, Object> oldParam = new HashMap<>();
+        oldParam.put(LOGIN, olduser.getLogin());
+        oldParam.put(PASSWORD, olduser.getPassword());
+        oldParam.put(NAME, olduser.getName());
+        oldParam.put(ADDRESS, olduser.getAddress());
+        oldParam.put(PHONE_NUMBER, olduser.getPhoneNumber());
+        oldParam.put(EMAIL, olduser.getEmail());
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put(LOGIN, request.getParameter(LOGIN));
@@ -47,8 +54,8 @@ public class EditProfileCommand implements Command {
         parameters.put(EMAIL, request.getParameter(EMAIL));
 
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
-            if (entry.getValue() == null || entry.getValue().isEmpty()) {
-                return goBackWithError(request, ERROR + entry.getKey());
+            if (entry.getValue() != null || !entry.getValue().isEmpty()) {
+
             }
         }
         try {

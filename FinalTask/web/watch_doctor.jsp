@@ -13,7 +13,7 @@
 <fmt:message bundle="${language}" key="editprofile" var="edit"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
-<fmt:message bundle="${language}" key="addnewservice" var="add"/>
+<fmt:message bundle="${language}" key="addnewdoctor" var="add"/>
 <fmt:message bundle="${language}" key="deleteservice" var="deleteservice"/>
 
 

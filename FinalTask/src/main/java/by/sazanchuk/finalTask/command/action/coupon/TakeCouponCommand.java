@@ -3,6 +3,7 @@ package by.sazanchuk.finalTask.command.action.coupon;
 import by.sazanchuk.finalTask.command.ConfigurationManager;
 import by.sazanchuk.finalTask.command.action.Command;
 import by.sazanchuk.finalTask.command.action.CommandResult;
+import by.sazanchuk.finalTask.dao.Dao;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Coupon;
@@ -33,28 +34,29 @@ public class TakeCouponCommand implements Command {
     private static final String SERVICE = "service";
     private static final String DOCTOR = "doctor";
     private static final String DATE = "date";
-    private static final String PET = "pet";
     private static final String SERVIES_NAMES = "serviceNames";
+    private static final String ERROR_TIME = "error_time";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
         User user = (User) request.getSession().getAttribute(USER);
-        Pet pet = (Pet) request.getSession().getAttribute(PET);
         String pet_id = request.getParameter(PET_ID);
         String serviceNumber = request.getParameter(SERVICE);
-        String doctor = request.getParameter(DOCTOR);
+        String doctor = request.getParameter(DOCTOR + serviceNumber);
         String date = request.getParameter(DATE);
 
-        if (serviceNumber == null || doctor == null || pet == null || user == null || date == null){
+        if (serviceNumber == null || doctor == null || user == null || date == null || serviceNumber.isEmpty() || doctor.isEmpty() || date.isEmpty()){
             log.log(Level.INFO, "invalid info");
+            request.getSession().setAttribute("pet_id", pet_id);
             return goBackWithError(request, "error");
         } else{
             if (pet_id == null){
                 return new CommandResult("/controller?command=home_page", false);
             }
             String[] strings = (String[]) request.getSession().getAttribute(SERVIES_NAMES);
-            String service = strings[Integer.valueOf(serviceNumber)];
+            String service = strings[Integer.valueOf(serviceNumber)-1];
             Service service1 = getService(service);
+            int serviceId = service1.getIdentity();
             ServiceFactory factory = null;
             try {
                 factory = new ServiceFactory();
@@ -63,6 +65,8 @@ public class TakeCouponCommand implements Command {
             }
 
             Doctor d = getDoctor(doctor);
+            int doctorId = d.getIdentity();
+            int petId = Integer.valueOf(pet_id);
 
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             CouponService couponService = factory.getService(CouponService.class);
@@ -74,15 +78,21 @@ public class TakeCouponCommand implements Command {
             }
             if (!couponService.isTaken(d.getIdentity(), date1)) {
                 Coupon coupon = new Coupon();
-                coupon.setPet_id(pet.getIdentity());
+                coupon.setPet_id(petId);
                 coupon.setUser_id(user.getId());
-                coupon.setDoctor_id(d.getIdentity());
-                coupon.setService_id(service1.getIdentity());
-                coupon.setTaken(true);
+                coupon.setDoctor_id(doctorId);
+                coupon.setService_id(serviceId);
                 coupon.setTime(date1);
-                couponService.save(coupon);
+                try {
+                    couponService.save(coupon);
+                } catch (DaoException e){
+                    log.log(Level.INFO, "sorry");
+                    return goBackWithError(request, "error");
+                }
+
+                request.getSession().removeAttribute("pet_id");
                 return new CommandResult("/controller?command=profile", false);
-            } else return goBackWithError(request, "error");
+            } else return goBackWithError(request, ERROR_TIME);
         }
     }
 

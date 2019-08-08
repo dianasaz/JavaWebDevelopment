@@ -42,7 +42,6 @@ CREATE TABLE `coupon`
   `time`       datetime,
   `doctor_id`  int             NOT NULL,
   `user_id`    int             NOT NULL,
-  `taken`      boolean,
   `pet_id`     int             NOT NULL,
   `service_id` int             NOT NULL
 ) ENGINE = INNODB;

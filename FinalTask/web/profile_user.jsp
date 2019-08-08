@@ -15,6 +15,7 @@
 <fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
 <fmt:message bundle="${language}" key="yourpets" var="yourpets"/>
 <fmt:message bundle="${language}" key="deletepet" var="deletepet"/>
+<fmt:message bundle="${language}" key="takecoupon" var="take"/>
 
 
 <html lang="${language}">
@@ -103,20 +104,20 @@
 
                     <c:forEach var="pet" items="${pets}">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <label>${pet.name}</label>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <p>${pet.kind}</p>
                             </div>
-                            <div class="col-md-">
+                            <div class="col-md-2">
                                 <p>${pet.dateOfBirth}</p>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a> </p>
                             </div>
-                            <div class="col-md-3">
-                                <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">zapisatsa</a> </p>
+                            <div class="col-md-2">
+                                <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">${take}</a> </p>
                             </div>
                         </div>
                     </c:forEach>

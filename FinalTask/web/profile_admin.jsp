@@ -13,15 +13,7 @@
 <fmt:message bundle="${language}" key="addservice" var="addservice"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
-<fmt:message bundle="${language}" key="registerpet" var="registerpet"/>
-<fmt:message bundle="${language}" key="userinfo" var="userinfo"/>
-<fmt:message bundle="${language}" key="userlogin" var="userlogin"/>
-<fmt:message bundle="${language}" key="username" var="username"/>
-<fmt:message bundle="${language}" key="useremail" var="useremail"/>
-<fmt:message bundle="${language}" key="userphone" var="userphone"/>
-<fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
-<fmt:message bundle="${language}" key="yourpets" var="yourpets"/>
-<fmt:message bundle="${language}" key="deletepet" var="deletepet"/>
+<fmt:message bundle="${language}" key="addnewservice" var="adddoctor"/>
 
 
 <html lang="${language}">
@@ -41,6 +33,9 @@
                 </div>
                 <div class="col-md-6">
                     <a href="controller?command=add_service" class="profile-edit-btn">${addservice}</a>
+                </div>
+                <div class="col-md-6">
+                    <a href="controller?command=add_doctor" class="profile-edit-btn">${adddoctor}</a>
                 </div>
             </div>
         </table>

@@ -19,11 +19,11 @@ import java.util.Date;
 import java.util.List;
 
 public class CouponDao extends BaseDao implements Dao<Coupon> {
-    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.coupon (`user_id`, `doctor_id`, `time`, `taken`, `pet_id`, `service_id`) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String SELECT_NAME = "SELECT `user_id`, `doctor_id`, `time`, `taken`, `pet_id`, `service_id` FROM `mydatabase`.coupon WHERE `id` = ?";
-    private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.coupon SET `user_id` = ? && `doctor_id` = ? && `time` = ? && `taken` = ? && `pet_id` = ? && `service_id` = ? WHERE `id` = ?";
+    private static final String INSERT_ALL_INFO = "INSERT INTO `mydatabase`.coupon (`user_id`, `doctor_id`, `time`, `pet_id`, `service_id`) VALUES (?, ?, ?, ?, ?)";
+    private static final String SELECT_NAME = "SELECT `user_id`, `doctor_id`, `time`, `pet_id`, `service_id` FROM `mydatabase`.coupon WHERE `id` = ?";
+    private static final String UPDATE_DOCTOR = "UPDATE `mydatabase`.coupon SET `user_id` = ? && `doctor_id` = ? && `time` = ? && `pet_id` = ? && `service_id` = ? WHERE `id` = ?";
     private static final String DELETE_BY_IDENTITY = "DELETE FROM `mydatabase`.coupon WHERE `id` = ?";
-    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `taken`, `pet_id`, `service_id` FROM `mydatabase`.coupon ORDER BY `user_id`";
+    private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `pet_id`, `service_id` FROM `mydatabase`.coupon ORDER BY `user_id`";
     private static final String IS_EXIST = "SELECT `id` FROM `mydatabase`.coupon WHERE `time` = ? && `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
@@ -36,9 +36,8 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
             statement.setInt(2, entity.getDoctor_id());
             statement.setTimestamp(3, new Timestamp(entity.getTime().getTime()));
             statement.setInt(1, entity.getUser_id());
-            statement.setBoolean(4, entity.isTaken());
             statement.setInt(5, entity.getService_id());
-            statement.setInt(6, entity.getPet_id());
+            statement.setInt(4, entity.getPet_id());
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
@@ -72,7 +71,6 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
                 coupon = new Coupon();
                 coupon.setIdentity(id);
                 coupon.setDoctor_id(resultSet.getInt("doctor_id"));
-                coupon.setTaken(resultSet.getBoolean("taken"));
                 coupon.setUser_id(resultSet.getInt("user_id"));
                 coupon.setTime(resultSet.getTimestamp("time"));
                 coupon.setPet_id(resultSet.getInt("pet_id"));
@@ -122,13 +120,12 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(UPDATE_DOCTOR);
-            statement.setInt(7, entity.getIdentity());
-            statement.setInt(6, entity.getService_id());
+            statement.setInt(6, entity.getIdentity());
+            statement.setInt(5, entity.getService_id());
             statement.setObject(2, entity.getDoctor_id());
             statement.setTimestamp(3, new Timestamp(entity.getTime().getTime()));
             statement.setInt(1, entity.getUser_id());
-            statement.setBoolean(4, entity.isTaken());
-            statement.setInt(5, entity.getPet_id());
+            statement.setInt(4, entity.getPet_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -167,7 +164,6 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
                 coupon = new Coupon();
                 coupon.setIdentity(resultSet.getInt("id"));
                 coupon.setDoctor_id(resultSet.getInt("doctor_id"));
-                coupon.setTaken(resultSet.getBoolean("taken"));
                 coupon.setUser_id(resultSet.getInt("user_id"));
                 coupon.setTime(resultSet.getTimestamp("time"));
                 coupon.setPet_id(resultSet.getInt("pet_id"));
