@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeleteDoctorCommand implements Command {
     private static final String NAME = "name";
-    private static final String USER_ID = "user_id";
     private static final String ERROR_DELETE = "error_delete";
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {

@@ -23,7 +23,6 @@ public class CommandAccess {
                 }
                 default: {
                     throw new IllegalArgumentException("Unsupported role");
-                    //listAvailableCommands.addAll(getVisitorCommands());
                 }
             }
         }
@@ -56,6 +55,8 @@ public class CommandAccess {
         commandTypes.add(CommandType.DELETE_SERVICE);
         commandTypes.add(CommandType.ADD_DOCTOR);
         commandTypes.add(CommandType.DELETE_DOCTOR);
+        commandTypes.add(CommandType.EDIT_DOCTOR);
+        commandTypes.add(CommandType.EDIT_SERVICE);
 
         return commandTypes;
     }

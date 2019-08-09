@@ -5,6 +5,7 @@ import by.sazanchuk.finalTask.command.action.Command;
 import by.sazanchuk.finalTask.command.action.coupon.TakeCouponCommand;
 import by.sazanchuk.finalTask.command.action.doctor.AddDoctorCommand;
 import by.sazanchuk.finalTask.command.action.doctor.DeleteDoctorCommand;
+import by.sazanchuk.finalTask.command.action.doctor.EditDoctorCommand;
 import by.sazanchuk.finalTask.command.action.doctor.WatchDoctorCommand;
 import by.sazanchuk.finalTask.command.action.pet.DeletePetCommand;
 import by.sazanchuk.finalTask.command.action.profile.ProfileAdminCommand;
@@ -18,6 +19,7 @@ import by.sazanchuk.finalTask.command.action.authorization.RegisterCommand;
 import by.sazanchuk.finalTask.command.action.pet.RegisterPetCommand;
 import by.sazanchuk.finalTask.command.action.service.AddServiceCommand;
 import by.sazanchuk.finalTask.command.action.service.DeleteServiceCommand;
+import by.sazanchuk.finalTask.command.action.service.EditServiceCommand;
 import by.sazanchuk.finalTask.command.action.service.WatchServiceCommand;
 
 import java.util.EnumMap;
@@ -29,7 +31,9 @@ import static by.sazanchuk.finalTask.command.action.factory.CommandType.CHANGE_L
 import static by.sazanchuk.finalTask.command.action.factory.CommandType.DELETE_DOCTOR;
 import static by.sazanchuk.finalTask.command.action.factory.CommandType.DELETE_PET;
 import static by.sazanchuk.finalTask.command.action.factory.CommandType.DELETE_SERVICE;
+import static by.sazanchuk.finalTask.command.action.factory.CommandType.EDIT_DOCTOR;
 import static by.sazanchuk.finalTask.command.action.factory.CommandType.EDIT_PROFILE;
+import static by.sazanchuk.finalTask.command.action.factory.CommandType.EDIT_SERVICE;
 import static by.sazanchuk.finalTask.command.action.factory.CommandType.HOME_PAGE;
 import static by.sazanchuk.finalTask.command.action.factory.CommandType.LOGIN;
 import static by.sazanchuk.finalTask.command.action.factory.CommandType.LOGOUT;
@@ -64,6 +68,8 @@ public class CommandFactory {
         commands.put(WATCH_DOCTOR, new WatchDoctorCommand());
         commands.put(DELETE_DOCTOR, new DeleteDoctorCommand());
         commands.put(TAKE_COUPON, new TakeCouponCommand());
+        commands.put(EDIT_DOCTOR, new EditDoctorCommand());
+        commands.put(EDIT_SERVICE, new EditServiceCommand());
     }
 
     public static Command create(String command) {

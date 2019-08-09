@@ -15,7 +15,7 @@ import java.util.List;
 public class ServiceDao extends BaseDao implements Dao<Service> {
     private static final String SELECT_ALL_INFORMATION_ABOUT_SERVICE = "SELECT `name`, `price`, `id` FROM service ORDER BY `name`";
     private static final String DELETE_FROM_DATABASE = "DELETE FROM service WHERE `id` = ?";
-    private static final String UPDATE_NAME_AND_PRICE = "UPDATE service SET `name` = ?, `price` = ? = ? WHERE `id` = ?";
+    private static final String UPDATE_NAME_AND_PRICE = "UPDATE service SET `name` = ?, `price` = ? WHERE `id` = ?";
     private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM service WHERE `id` = ?";
     private static final String INSERT_ALL_INFORMATION = "INSERT INTO service (`name`, `price`) VALUES (?, ?)";
     private static final String SEARCH_NAME = "SELECT `name` FROM service WHERE `name` = ?";
@@ -132,16 +132,12 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             PreparedStatement statement = null;
             try {
                 statement = connection.prepareStatement(UPDATE_NAME_AND_PRICE);
-                statement.setInt(1, entity.getIdentity());
-                statement.setString(2, entity.getName());
-                statement.setDouble(3, entity.getPrice());
+                statement.setInt(3, entity.getIdentity());
+                statement.setString(1, entity.getName());
+                statement.setDouble(2, entity.getPrice());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new DaoException(e);
-            } finally {
-                try {
-                    if (statement != null) statement.close();
-                } catch(SQLException e) {}
             }
         }
 

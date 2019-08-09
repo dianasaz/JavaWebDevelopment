@@ -16,6 +16,10 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class HomePageCommand implements Command {
+    private static final String SERVICES = "services";
+    private static final String SERVICE_NAMES = "serviceNames";
+    private static final String DOCTORS = "doctors";
+
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<Service> services = null;
@@ -62,9 +66,9 @@ public class HomePageCommand implements Command {
 
     private void setAttributesToSession(List<Service> services, List<Doctor> doctors, String[] names, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("services", services);
-        session.setAttribute("serviceNames", names);
-        session.setAttribute("doctors", doctors);
+        session.setAttribute(SERVICES, services);
+        session.setAttribute(SERVICE_NAMES, names);
+        session.setAttribute(DOCTORS, doctors);
     }
 
 }

@@ -21,7 +21,9 @@ public enum CommandType {
     ADD_DOCTOR("add_doctor"),
     WATCH_DOCTOR("watch_doctor"),
     DELETE_DOCTOR("delete_doctor"),
-    TAKE_COUPON("take_coupon");
+    TAKE_COUPON("take_coupon"),
+    EDIT_DOCTOR("edit_doctor"),
+    EDIT_SERVICE("edit_service");
 
 
     private String command;

@@ -14,7 +14,9 @@
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
 <fmt:message bundle="${language}" key="addnewdoctor" var="add"/>
-<fmt:message bundle="${language}" key="deleteservice" var="deleteservice"/>
+<fmt:message bundle="${language}" key="deletedoctor" var="deletedoctor"/>
+<fmt:message bundle="${language}" key="editdoctor" var="editdoctor"/>
+<fmt:message bundle="${language}" key="doctorscaps" var="doctorcaps"/>
 
 
 <html lang="${language}">
@@ -47,7 +49,7 @@
             <table class="col-md-8">
                 <div class="tab-content" id="myTaabContent">
                     <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
-                        <b>DOCTORS</b> </label>
+                        <b>${doctorcaps}</b> </label>
 
                     <c:forEach var="doctor" items="${doctors}">
                         <div class="row">
@@ -62,7 +64,10 @@
                             <c:if test="${user != null}">
                                 <c:if test="${user_role eq 'administrator'}">
                                     <div class="col-md-3">
-                                        <a href="controller?command=delete_doctor&name=${doctor.name}">delete doctor</a>
+                                        <a href="controller?command=delete_doctor&name=${doctor.name}">${deletedoctor}</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="controller?command=edit_doctor&doctor_id=${doctor.identity}">${editdoctor}</a>
                                     </div>
                                 </c:if>
                             </c:if>

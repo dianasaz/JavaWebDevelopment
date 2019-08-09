@@ -25,7 +25,6 @@
 <fmt:message bundle="${language}" key="register" var="register"/>
 
 
-
 <html lang="${language}">
 <head>
     <title>Login</title>
@@ -39,37 +38,55 @@
 
 <div class="wrapper fadeInDown">
     <div id="formContent">
-                    <form method="POST"
-                          action="controller?command=login">
-                        <div class="fadeIn first">
-                            ${signin}
-                        </div>
+        <form method="POST"
+              action="controller?command=login">
+            <div class="fadeIn first">
+                ${signin}
+            </div>
 
-                        <input type="text" id="login" class="fadeIn second" name="login" placeholder="${log}">
-                        <input type="text" id="password" class="fadeIn third" name="password" placeholder="${userpassword}">
-                        <input type="submit" class="fadeIn fourth" value=" ${signin}">
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="${log}">
+            <input type="password" id="password" class="fadeIn third" name="password" placeholder="${userpassword}"
+                   style="  background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;">
+            <input type="submit" class="fadeIn fourth" value=" ${signin}">
 
-                        <c:if test="${error_authentification eq true}">
-                            <div class="container1" role="alert">
-                                ${enterinvalid}
-                            </div>
-                        </c:if>
+            <c:if test="${error_authentification eq true}">
+                <div class="container1" role="alert">
+                        ${enterinvalid}
+                </div>
+            </c:if>
 
-                        <div id="formFooter">
-                            <a href="controller?command=home_page" class="txt2">
-                                ${continuegueast}
-                            </a>
-                        </div>
+            <div id="formFooter">
+                <a href="controller?command=home_page" class="txt2">
+                    ${continuegueast}
+                </a>
+            </div>
 
-                        <div id="formFooter">
-                            <div class="form-group ">
-                                <a href="controller?command=register" target="_blank" type="button" id="button"
-                                   class="login-button">${register}</a>
-                            </div>
-                        </div>
-                    </form>
-        </div>
+            <div id="formFooter">
+                <div class="form-group ">
+                    <a href="controller?command=register" target="_blank" type="button" id="button"
+                       class="login-button">${register}</a>
+                </div>
+            </div>
+        </form>
     </div>
+</div>
 </div>
 
 
@@ -85,7 +102,7 @@
 
     a {
         color: #92badd;
-        display:inline-block;
+        display: inline-block;
         text-decoration: none;
         font-weight: 400;
     }
@@ -95,11 +112,10 @@
         font-size: 16px;
         font-weight: 600;
         text-transform: uppercase;
-        display:inline-block;
+        display: inline-block;
         margin: 40px 8px 10px 8px;
         color: #cccccc;
     }
-
 
 
     /* STRUCTURE */
@@ -123,8 +139,8 @@
         max-width: 450px;
         position: relative;
         padding: 0px;
-        -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
-        box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+        -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
         text-align: center;
     }
 
@@ -136,7 +152,6 @@
         -webkit-border-radius: 0 0 10px 10px;
         border-radius: 0 0 10px 10px;
     }
-
 
 
     /* TABS */
@@ -151,10 +166,9 @@
     }
 
 
-
     /* FORM TYPOGRAPHY*/
 
-    input[type=button], input[type=submit], input[type=reset]  {
+    input[type=button], input[type=submit], input[type=reset] {
         background-color: #56baed;
         border: none;
         color: white;
@@ -164,8 +178,8 @@
         display: inline-block;
         text-transform: uppercase;
         font-size: 13px;
-        -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
-        box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+        -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+        box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
         -webkit-border-radius: 5px 5px 5px 5px;
         border-radius: 5px 5px 5px 5px;
         margin: 5px 20px 40px 20px;
@@ -176,11 +190,11 @@
         transition: all 0.3s ease-in-out;
     }
 
-    input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+    input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
         background-color: #39ace7;
     }
 
-    input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+    input[type=button]:active, input[type=submit]:active, input[type=reset]:active {
         -moz-transform: scale(0.95);
         -webkit-transform: scale(0.95);
         -o-transform: scale(0.95);
@@ -249,7 +263,6 @@
     }
 
 
-
     /* ANIMATIONS */
 
     /* Simple CSS3 Fade-in-down Animation */
@@ -289,23 +302,46 @@
     }
 
     /* Simple CSS3 Fade-in Animation */
-    @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-    @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-moz-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
 
     .fadeIn {
-        opacity:0;
-        -webkit-animation:fadeIn ease-in 1;
-        -moz-animation:fadeIn ease-in 1;
-        animation:fadeIn ease-in 1;
+        opacity: 0;
+        -webkit-animation: fadeIn ease-in 1;
+        -moz-animation: fadeIn ease-in 1;
+        animation: fadeIn ease-in 1;
 
-        -webkit-animation-fill-mode:forwards;
-        -moz-animation-fill-mode:forwards;
-        animation-fill-mode:forwards;
+        -webkit-animation-fill-mode: forwards;
+        -moz-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
 
-        -webkit-animation-duration:1s;
-        -moz-animation-duration:1s;
-        animation-duration:1s;
+        -webkit-animation-duration: 1s;
+        -moz-animation-duration: 1s;
+        animation-duration: 1s;
     }
 
     .fadeIn.first {
@@ -348,10 +384,9 @@
         color: #0d0d0d;
     }
 
-    .underlineHover:hover:after{
+    .underlineHover:hover:after {
         width: 100%;
     }
-
 
 
     /* OTHERS */
@@ -361,7 +396,7 @@
     }
 
     #icon {
-        width:60%;
+        width: 60%;
     }
 </style>
 </body>

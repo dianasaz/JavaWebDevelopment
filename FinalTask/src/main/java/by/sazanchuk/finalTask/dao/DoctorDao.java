@@ -21,6 +21,7 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
     private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `name` FROM doctor ORDER BY `name`";
     private static final String INSERT_ALL_INFO_INTO_DOCTOR_SERVICE = "INSERT INTO doctor_service (`doctor_id`, `service_id`) VALUES (?, ?)";
     private static final String SEARCH_REFERENCE = "SELECT `doctor_id`, `service_id` FROM doctor_service WHERE `service_id` = ? AND `doctor_id` = ?";
+    private static final String DELETE_DS = "DELETE FROM doctor_service WHERE `doctor_id` = ?";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
 
@@ -66,6 +67,21 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             try {
                 if (resultSet != null) resultSet.close();
             } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
+    public void deleteDS(Integer doctor) throws DaoException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(DELETE_DS);
+            statement.setInt(1, doctor);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        } finally {
             try {
                 if (statement != null) statement.close();
             } catch(SQLException e) {}
@@ -154,8 +170,8 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(UPDATE_DOCTOR);
-            statement.setInt(1, entity.getIdentity());
-            statement.setString(2, entity.getName());
+            statement.setInt(2, entity.getIdentity());
+            statement.setString(1, entity.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);

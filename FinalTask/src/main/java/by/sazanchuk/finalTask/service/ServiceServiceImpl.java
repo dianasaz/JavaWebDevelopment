@@ -40,15 +40,12 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     public int save(by.sazanchuk.finalTask.entity.Service service) throws DaoException {
         ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
         if (service.getIdentity() != null){
-            if (service.getName() != null && service.getPrice() != null){
                 service.setName(service.getName());
                 service.setPrice(service.getPrice());
-            } else {
-                //by.sazanchuk.finalTask.service.setPrice();
-            }
         } else {
            service.setIdentity(serviceDao.create(service));
         }
+        serviceDao.update(service);
         return service.getIdentity();
     }
 

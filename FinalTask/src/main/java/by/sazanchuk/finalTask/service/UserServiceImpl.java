@@ -38,20 +38,11 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public int save(User user) throws DaoException {
         UserDao userDao = transaction.createDao(UserDao.class);
         if(user.getId() != null) {
-            if(user.getPassword() != null) {
-                user.setPassword(PasswordCode.CodeMD5(user.getPassword()));
+                user.setPassword(user.getPassword());
                 user.setAddress(user.getAddress());
                 user.setName(user.getName());
                 user.setPhoneNumber(user.getPhoneNumber());
                 user.setEmail(user.getEmail());
-            } else {
-                User oldUser = userDao.read(user.getId());
-                user.setPassword(oldUser.getPassword());
-                user.setAddress(user.getAddress());
-                user.setName(user.getName());
-                user.setPhoneNumber(user.getPhoneNumber());
-                user.setEmail(user.getEmail());
-            }
             userDao.update(user);
         } else {
             user.setPassword(PasswordCode.CodeMD5(user.getPassword()));

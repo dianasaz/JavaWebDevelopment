@@ -16,6 +16,8 @@ public interface DoctorService extends Service{
 
     int save(Doctor doctor) throws DaoException;
 
+    void deleteReferences(Doctor doctor) throws DaoException;
+
     void save(Doctor doctor, by.sazanchuk.finalTask.entity.Service service) throws DaoException;
 
     void delete(Integer identity) throws DaoException;

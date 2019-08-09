@@ -62,7 +62,6 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
         DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
         if (doctor.getIdentity() != null){
             doctor.setName(doctor.getName());
-            doctorDao.update(doctor);
         } else {
             doctor.setIdentity(doctorDao.create(doctor));
         }
@@ -78,6 +77,11 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
             int doctor_id = save(doctor);
             doctorDao.createDS(doctor_id, service.getIdentity());
         }
+    }
+
+    public void deleteReferences(Doctor doctor) throws DaoException {
+        DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
+        doctorDao.deleteDS(doctor.getIdentity());
     }
 
     @Override

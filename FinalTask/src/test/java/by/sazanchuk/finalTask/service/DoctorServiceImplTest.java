@@ -33,8 +33,10 @@ public class DoctorServiceImplTest {
     public void testTwo() throws ConnectionPoolException, DaoException {
         ServiceFactory factory = new ServiceFactory();
         DoctorService doctorService = factory.getService(DoctorService.class);
-        List<Doctor> list = doctorService.findAll();
-        System.out.println(list.toString());
+        Doctor doctor = doctorService.findByIdentity(4);
+        System.out.println(doctor.getService().toString());
+        doctor.removeServices();
+        System.out.println(doctor.getService().toString());
     }
 
 

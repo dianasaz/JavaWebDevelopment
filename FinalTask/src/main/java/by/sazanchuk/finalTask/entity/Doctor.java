@@ -30,6 +30,16 @@ public class Doctor {
         service.add(s);
     }
 
+    public void removeServices(){
+        if (service != null) {
+            if (service.size() != 0) {
+                for (int i = 0; i < service.size(); i++) {
+                    service.remove(i);
+                }
+            }
+        }
+    }
+
     public Integer getIdentity() {
         return identity;
     }

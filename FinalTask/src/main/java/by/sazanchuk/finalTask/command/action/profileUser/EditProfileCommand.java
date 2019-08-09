@@ -55,8 +55,7 @@ public class EditProfileCommand implements Command {
         parameters.put(EMAIL, request.getParameter(EMAIL));
 
         boolean b = checkChanges(parameters);
-        if (b
-        ){
+        if (b){
             try {
                 if (!checkIfUserExist(parameters.get(LOGIN), oldParam)) {
                     try {
@@ -102,7 +101,7 @@ public class EditProfileCommand implements Command {
         } else user.setEmail(parameters.get(EMAIL));
         if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()){
             user.setAddress(oldparam.get(ADDRESS));
-        } else user.setLogin(parameters.get(ADDRESS));
+        } else user.setAddress(parameters.get(ADDRESS));
         if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()){
             user.setPhoneNumber(Integer.valueOf(oldparam.get(PHONE_NUMBER)));
         } else user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));

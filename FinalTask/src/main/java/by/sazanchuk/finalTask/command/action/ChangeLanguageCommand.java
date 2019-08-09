@@ -32,7 +32,7 @@ public class ChangeLanguageCommand implements Command {
         }
         String next = getNextLang(language);
         setAttributes(request, language, next);
-        return new CommandResult(ConfigurationManager.getProperty("path.page.main"), false);
+        return new CommandResult(Page.HOME_PAGE.getPage(), false);
     }
 
     public void setAttributes(HttpServletRequest request, String lang, String next) {

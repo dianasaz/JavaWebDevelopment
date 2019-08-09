@@ -15,6 +15,8 @@
 <fmt:message bundle="${language}" key="home" var="home"/>
 <fmt:message bundle="${language}" key="addnewservice" var="add"/>
 <fmt:message bundle="${language}" key="deleteservice" var="deleteservice"/>
+<fmt:message bundle="${language}" key="edit" var="edit"/>
+<fmt:message bundle="${language}" key="services" var="servicescaps"/>
 
 
 <html lang="${language}">
@@ -47,7 +49,7 @@
             <table class="col-md-8">
                 <div class="tab-content" id="myTaabContent">
                     <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
-                        <b>SERVICES</b> </label>
+                        <b>${servicescaps}</b> </label>
 
                     <c:forEach var="service" items="${services}">
                         <div class="row">
@@ -61,6 +63,9 @@
                                 <c:if test="${user_role eq 'administrator'}">
                                     <div class="col-md-3">
                                         <a href="controller?command=delete_service&name=${service.name}">${deleteservice}</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a href="controller?command=edit_service&id=${service.identity}">${edit}</a>
                                     </div>
                                 </c:if>
                             </c:if>

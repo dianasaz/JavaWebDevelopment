@@ -52,6 +52,9 @@ public class Controller extends HttpServlet {
         } catch (DaoException e) {
 
         }
+        if (result == null) {
+            result = new CommandResult("/jsp/error.jsp", false);
+        }
 
         String page = result.getPage();
         if (result.isRedirect()) {
