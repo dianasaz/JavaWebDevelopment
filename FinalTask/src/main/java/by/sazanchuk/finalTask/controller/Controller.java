@@ -1,13 +1,9 @@
 package by.sazanchuk.finalTask.controller;
 
-import by.sazanchuk.finalTask.command.action.Command;
-import by.sazanchuk.finalTask.command.action.factory.CommandFactory;
-import by.sazanchuk.finalTask.command.action.CommandResult;
-import by.sazanchuk.finalTask.command.MessageManager;
-import by.sazanchuk.finalTask.dao.DaoException;
+import by.sazanchuk.finalTask.controller.command.action.Command;
+import by.sazanchuk.finalTask.controller.command.action.factory.CommandFactory;
+import by.sazanchuk.finalTask.controller.command.action.CommandResult;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPool;
-import by.sazanchuk.finalTask.service.ServiceException;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,16 +38,8 @@ public class Controller extends HttpServlet {
         String command = request.getParameter(COMMAND);
         Command action = CommandFactory.create(command);
 
-        CommandResult result = null;
-        try {
-            result = action.execute(request, response);
-        } catch (ServiceException e) {
-            logger.log(Level.ERROR, e.getMessage(), e);
-            request.setAttribute(MessageManager.getProperty("error"), e.getMessage());
-            result = new CommandResult("/jsp/error.jsp", false);
-        } catch (DaoException e) {
+        CommandResult result = action.execute(request, response);
 
-        }
         if (result == null) {
             result = new CommandResult("/jsp/error.jsp", false);
         }

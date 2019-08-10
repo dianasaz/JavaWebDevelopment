@@ -1,8 +1,8 @@
 package by.sazanchuk.finalTask.filter;
 
 
-import by.sazanchuk.finalTask.command.action.access.CommandAccess;
-import by.sazanchuk.finalTask.command.action.factory.CommandType;
+import by.sazanchuk.finalTask.controller.command.action.access.CommandAccess;
+import by.sazanchuk.finalTask.controller.command.action.factory.CommandType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
 public class PetServiceImplTest {
 
     @Test
-    public void testOne() throws ConnectionPoolException, DaoException, ParseException {
+    public void testOne() throws ParseException, ServiceException {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -44,7 +44,7 @@ public class PetServiceImplTest {
     }
 
     @Test
-    public void testTwo() throws ConnectionPoolException, DaoException {
+    public void testTwo() throws ServiceException {
 
         ServiceFactory factory = new ServiceFactory();
 

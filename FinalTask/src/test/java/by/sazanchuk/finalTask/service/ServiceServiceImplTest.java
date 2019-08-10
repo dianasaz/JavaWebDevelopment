@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class ServiceServiceImplTest {
 
     @Test
-    public void testOne() throws ConnectionPoolException, DaoException {
+    public void testOne() {
 
        /* ServiceFactory factory = new ServiceFactory();
 
@@ -39,7 +39,7 @@ public class ServiceServiceImplTest {
     }
 
     @Test
-    public void testTwo() throws ConnectionPoolException, DaoException {
+    public void testTwo() throws ServiceException {
         ServiceFactory factory = new ServiceFactory();
 
         ServiceService service = factory.getService(ServiceService.class);
@@ -50,7 +50,7 @@ public class ServiceServiceImplTest {
     }
 
     @Test
-    public void testThree() throws ConnectionPoolException, DaoException {
+    public void testThree() throws ServiceException {
         ServiceFactory factory = new ServiceFactory();
 
         ServiceService service = factory.getService(ServiceService.class);

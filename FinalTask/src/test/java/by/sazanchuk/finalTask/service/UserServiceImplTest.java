@@ -12,7 +12,7 @@ import java.util.List;
 public class UserServiceImplTest {
 
     @org.junit.Test
-    public void Test() throws DaoException, ConnectionPoolException {
+    public void Test() throws ServiceException {
 
         ServiceFactory factory = new ServiceFactory();
 
@@ -33,7 +33,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void TestTwo() throws DaoException, ConnectionPoolException {
+    public void TestTwo() throws ServiceException {
 
         ServiceFactory factory = new ServiceFactory();
 
@@ -47,7 +47,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void TestThree() throws DaoException, ConnectionPoolException {
+    public void TestThree() throws ServiceException {
 
         ServiceFactory factory = new ServiceFactory();
 
@@ -59,7 +59,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void TestFour() throws DaoException, ConnectionPoolException {
+    public void TestFour() throws ServiceException {
 
 
         ServiceFactory factory = new ServiceFactory();

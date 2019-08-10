@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class DoctorServiceImplTest {
 
     @Test
-    public void testOne() throws ConnectionPoolException, DaoException {
+    public void testOne() throws ServiceException {
         ServiceFactory factory = new ServiceFactory();
         DoctorService service = factory.getService(DoctorService.class);
         ServiceService serviceS = factory.getService(ServiceService.class);
@@ -30,7 +30,7 @@ public class DoctorServiceImplTest {
 
 
     @Test
-    public void testTwo() throws ConnectionPoolException, DaoException {
+    public void testTwo() throws ServiceException {
         ServiceFactory factory = new ServiceFactory();
         DoctorService doctorService = factory.getService(DoctorService.class);
         Doctor doctor = doctorService.findByIdentity(4);

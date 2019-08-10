@@ -14,7 +14,7 @@ import java.util.List;
 public class CouponServiceImplTest {
 
     @Test
-    public void testOne() throws ConnectionPoolException, DaoException, ParseException {
+    public void testOne() throws ParseException, ServiceException {
         ServiceFactory factory = new ServiceFactory();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         CouponService service = factory.getService(CouponService.class);
