@@ -19,26 +19,29 @@ import java.util.List;
 public class WatchServiceCommand implements Command {
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
 
         try {
             List<Service> services = getAllService();
             request.setAttribute("services", services);
             return new CommandResult(ConfigurationManager.getProperty("path.page.service"), false);
-        } catch (DaoException e1) {
-            return new CommandResult("/controller?command=home_page", false);
+        } catch (ServiceException e) {
+            return goBackWithError(request, "error");
         }
     }
 
-    private List<Service> getAllService() throws DaoException, ServiceException {
+    private List<Service> getAllService() throws ServiceException {
 
-        ServiceFactory factory = null;
-        try {
-            factory = new ServiceFactory();
-        } catch (ConnectionPoolException e) {
-        }
+        ServiceFactory factory = new ServiceFactory();
+
         ServiceService service = factory.getService(ServiceService.class);
         List<Service> services = service.findAll();
         return services;
     }
+
+    private CommandResult goBackWithError(HttpServletRequest request, String error) {
+        request.setAttribute(error, true);
+        return new CommandResult(ConfigurationManager.getProperty("path.page.service"), false);
+    }
+
 }

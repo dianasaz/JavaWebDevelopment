@@ -15,55 +15,94 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<by.sazanchuk.finalTask.entity.Service> findAll() throws DaoException {
-        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-        return serviceDao.read();
-    }
-
-    @Override
-    public List<Service> searchWithOneDoctor(Doctor doctor) throws DaoException {
-        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-        return serviceDao.searchWithOneDoctor(doctor);
-    }
-
-    @Override
-    public by.sazanchuk.finalTask.entity.Service findByIdentity(Integer identity) throws DaoException {
-        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-        Service s = null;
-        if (identity != null) {
-            s = serviceDao.read(identity);
+    public List<by.sazanchuk.finalTask.entity.Service> findAll() throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            serviceDao = transaction.createDao(ServiceDao.class);
+            return serviceDao.read();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
-        return s;
     }
 
     @Override
-    public int save(by.sazanchuk.finalTask.entity.Service service) throws DaoException {
-        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-        if (service.getIdentity() != null){
+    public List<Service> searchWithOneDoctor(Doctor doctor) throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            serviceDao = transaction.createDao(ServiceDao.class);
+            return serviceDao.searchWithOneDoctor(doctor);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    @Override
+    public by.sazanchuk.finalTask.entity.Service findByIdentity(Integer identity) throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            serviceDao = transaction.createDao(ServiceDao.class);
+            Service s = null;
+            if (identity != null) {
+                s = serviceDao.read(identity);
+            }
+            return s;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+    }
+
+    @Override
+    public int save(by.sazanchuk.finalTask.entity.Service service) throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            serviceDao = transaction.createDao(ServiceDao.class);
+            if (service.getIdentity() != null){
                 service.setName(service.getName());
                 service.setPrice(service.getPrice());
-        } else {
-           service.setIdentity(serviceDao.create(service));
+            } else {
+                service.setIdentity(serviceDao.create(service));
+            }
+            serviceDao.update(service);
+            return service.getIdentity();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
-        serviceDao.update(service);
-        return service.getIdentity();
+
     }
 
     @Override
-    public void delete(Integer identity) throws DaoException {
-        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-        if (identity != null) serviceDao.delete(identity);
+    public void delete(Integer identity) throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            serviceDao = transaction.createDao(ServiceDao.class);
+            if (identity != null) serviceDao.delete(identity);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
     @Override
-    public boolean searchService(String name) throws DaoException {
-        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-        return serviceDao.searchService(name) != null;
+    public boolean searchService(String name) throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            serviceDao = transaction.createDao(ServiceDao.class);
+            return serviceDao.searchService(name) != null;
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
     }
 
     @Override
-    public Service searchServiceByName(String name) throws DaoException{
-        ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-        return serviceDao.readByName(name);
+    public Service searchServiceByName(String name) throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            serviceDao = transaction.createDao(ServiceDao.class);
+            return serviceDao.readByName(name);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
     }
 }

@@ -30,7 +30,7 @@ public class LoginCommand implements Command {
 
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
         String login = request.getParameter(LOGIN);
         String password = request.getParameter(PASSWORD);
         if (login == null || login.isEmpty()) {
@@ -44,9 +44,11 @@ public class LoginCommand implements Command {
         boolean userExist = false;
         try {
             userExist = initializeUser(login, password, request);
-        } catch (DaoException e) {
-            throw new ServiceException(e);
+        } catch (ServiceException e) {
+            logger.log(Level.INFO, e.getMessage());
+            goBackWithError(request, e.getMessage());
         }
+
         if (userExist) {
             logger.log(Level.INFO, "user authorized with login - " + login);
             return new CommandResult("/controller?command=home_page", false);
@@ -56,11 +58,8 @@ public class LoginCommand implements Command {
         }
     }
 
-    private boolean initializeUser(String login, String password, HttpServletRequest request) throws DaoException, ServiceException {
-        ServiceFactory factory = null;
-        try {
-            factory = new ServiceFactory();
-        } catch (ConnectionPoolException e) {}
+    private boolean initializeUser(String login, String password, HttpServletRequest request) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getService(UserService.class);
         User user = service.findByLoginAndPassword(login, password);
         if (user != null && user.getId() != null) {

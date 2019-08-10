@@ -1,5 +1,3 @@
-USE `myDatabase`;
-
 CREATE TABLE `user`
 (
   `user_id`     int PRIMARY KEY     NOT NULL AUTO_INCREMENT,
@@ -27,15 +25,6 @@ CREATE TABLE `doctor`
   `name` varchar(255)
 ) ENGINE = INNODB;
 
-CREATE TABLE `event`
-(
-  `id`         int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `date`       date,
-  `doctor_id`  int             NOT NULL,
-  `service_id` int,
-  `pet_id`     int             NOT NULL
-) ENGINE = INNODB;
-
 CREATE TABLE `coupon`
 (
   `id`         int PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -61,28 +50,6 @@ CREATE TABLE `doctor_service`
   CONSTRAINT PrKy PRIMARY KEY (`doctor_id`, `service_id`)
 ) ENGINE = INNODB;
 
-CREATE TABLE `doctor_coupon`
-(
-  `doctor_id` int NOT NULL,
-  `coupon_id` int NOT NULL,
-  CONSTRAINT PrimK PRIMARY KEY (`doctor_id`, `coupon_id`)
-) ENGINE = INNODB;
-
-ALTER TABLE `event`
-  ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE `event`
-  ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE `event`
-  ADD FOREIGN KEY (`pet_id`) REFERENCES `pet` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
 ALTER TABLE `coupon`
   ADD FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
     ON UPDATE CASCADE
@@ -98,13 +65,8 @@ ALTER TABLE `coupon`
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 
-ALTER TABLE `doctor_coupon`
-  ADD FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`id`)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE;
-
-ALTER TABLE `doctor_coupon`
-  ADD FOREIGN KEY (`coupon_id`) REFERENCES `coupon` (`id`)
+ALTER TABLE `coupon`
+  ADD FOREIGN KEY (`service_id`) REFERENCES `service` (`id`)
     ON UPDATE CASCADE
     ON DELETE CASCADE;
 

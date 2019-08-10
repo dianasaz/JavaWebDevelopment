@@ -18,29 +18,25 @@ public class DeleteServiceCommand implements Command {
     private static final String USER_ID = "user_id";
     private static final String ERROR_DELETE = "error_delete";
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
         String name = request.getParameter(NAME);
-    // User user = (User) request.getSession().getAttribute(USER);
 
         try {
         if (name != null | !name.isEmpty()) {
             deleteService(name, request);
-            //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
             return new CommandResult("/controller?command=watch_service", false);
         } else {
             request.setAttribute(ERROR_DELETE, true);
             return goBackWithError(request, "can't delete service");
         }
-    } catch (DaoException | ConnectionPoolException e) {
-        return goBackWithError(request, "ERROR");
-        //throw new ServiceException(e);
-
+    } catch (ServiceException e) {
+        return goBackWithError(request, e.getMessage());
     }
 
 }
 
 
-    private void deleteService(String name, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void deleteService(String name, HttpServletRequest request) throws ServiceException {
 
             ServiceFactory factory = new ServiceFactory();
 

@@ -1,4 +1,4 @@
-USE `myDatabase`;
+USE `mydatabase`;
 INSERT INTO `user` (`login`,
                     `password`,
                     `role`,

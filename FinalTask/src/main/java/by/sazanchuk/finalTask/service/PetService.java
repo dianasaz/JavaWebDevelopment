@@ -7,15 +7,15 @@ import java.util.List;
 
 public interface PetService  extends Service{
 
-    List<Pet> findAll() throws DaoException;
+    List<Pet> findAll() throws ServiceException;
 
-    by.sazanchuk.finalTask.entity.Pet findByIdentity(Integer identity) throws DaoException;
+    by.sazanchuk.finalTask.entity.Pet findByIdentity(Integer identity) throws ServiceException;
 
-    int save(by.sazanchuk.finalTask.entity.Pet service) throws DaoException;
+    int save(by.sazanchuk.finalTask.entity.Pet service) throws ServiceException;
 
-    void delete(Integer identity) throws DaoException;
+    void delete(Integer identity) throws ServiceException;
 
-    List<Pet> getPetsOfOneUser(Integer userId) throws DaoException;
+    List<Pet> getPetsOfOneUser(Integer userId) throws ServiceException;
 
-    Pet findByNameAndUserId(String name, Integer user_id) throws DaoException;
+    Pet findByNameAndUserId(String name, Integer user_id) throws ServiceException;
 }

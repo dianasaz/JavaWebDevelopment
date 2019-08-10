@@ -34,7 +34,7 @@ public class EditProfileCommand implements Command {
     private static final String USER = "user";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         User olduser = (User) request.getSession().getAttribute("user");
 
         Map<String, String> oldParam = new HashMap<>();
@@ -55,31 +55,27 @@ public class EditProfileCommand implements Command {
         parameters.put(EMAIL, request.getParameter(EMAIL));
 
         boolean b = checkChanges(parameters);
-        if (b){
+        if (b) {
             try {
                 if (!checkIfUserExist(parameters.get(LOGIN), oldParam)) {
-                    try {
-                        updateUser(parameters, oldParam, request);
-                        return new CommandResult("controller?command=profile", true);
-                    } catch (DaoException | ConnectionPoolException e) {
-                        logger.log(Level.INFO, "dao exception");
-                    }
-                }
-            } catch (DaoException | ConnectionPoolException e) {
-                logger.log(Level.INFO, "NO SUCH USER");
-            } return goBackWithError(request, "error");
+                    updateUser(parameters, oldParam, request);
+                    return new CommandResult("controller?command=profile", true);
+                } else return goBackWithError(request, "login exist");
+            } catch (ServiceException e) {
+                logger.log(Level.INFO, e.getMessage());
+                return goBackWithError(request, e.getMessage());
+            }
         } else return goBackWithError(request, "error update");
-
     }
 
-    private boolean checkIfUserExist(String login, Map<String, String> oldParam) throws DaoException, ConnectionPoolException {
+    private boolean checkIfUserExist(String login, Map<String, String> oldParam) throws ServiceException {
         if (login.equals(oldParam.get(LOGIN))) return true;
         ServiceFactory factory = new ServiceFactory();
         UserService service = factory.getService(UserService.class);
         return service.isExist(login);
     }
 
-    private boolean checkChanges(Map<String, String> param){
+    private boolean checkChanges(Map<String, String> param) {
         for (Map.Entry<String, String> entry : param.entrySet()) {
             if (entry.getValue() != null) {
                 return true;
@@ -88,24 +84,24 @@ public class EditProfileCommand implements Command {
         return false;
     }
 
-    private void updateUser(Map<String, String> parameters, Map<String, String> oldparam, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void updateUser(Map<String, String> parameters, Map<String, String> oldparam, HttpServletRequest request) throws ServiceException {
         User user = new User();
-        if (parameters.get(LOGIN) == null || parameters.get(LOGIN).isEmpty()){
+        if (parameters.get(LOGIN) == null || parameters.get(LOGIN).isEmpty()) {
             user.setLogin(oldparam.get(LOGIN));
         } else user.setLogin(parameters.get(LOGIN));
-        if (parameters.get(PASSWORD) == null || parameters.get(PASSWORD).isEmpty()){
+        if (parameters.get(PASSWORD) == null || parameters.get(PASSWORD).isEmpty()) {
             user.setPassword(oldparam.get(PASSWORD));
         } else user.setPassword(parameters.get(PASSWORD));
-        if (parameters.get(EMAIL) == null || parameters.get(EMAIL).isEmpty()){
+        if (parameters.get(EMAIL) == null || parameters.get(EMAIL).isEmpty()) {
             user.setEmail(oldparam.get(EMAIL));
         } else user.setEmail(parameters.get(EMAIL));
-        if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()){
+        if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()) {
             user.setAddress(oldparam.get(ADDRESS));
         } else user.setAddress(parameters.get(ADDRESS));
-        if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()){
+        if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()) {
             user.setPhoneNumber(Integer.valueOf(oldparam.get(PHONE_NUMBER)));
         } else user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
-        if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()){
+        if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()) {
             user.setName(oldparam.get(NAME));
         } else user.setName(parameters.get(NAME));
         user.setId(Integer.valueOf(oldparam.get(ID)));

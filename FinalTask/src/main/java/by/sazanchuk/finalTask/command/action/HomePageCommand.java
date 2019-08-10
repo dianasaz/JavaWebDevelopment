@@ -9,6 +9,9 @@ import by.sazanchuk.finalTask.service.DoctorService;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.ServiceService;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,12 +19,14 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class HomePageCommand implements Command {
+    private static final Logger logger = LogManager.getLogger(HomePageCommand.class);
+
     private static final String SERVICES = "services";
     private static final String SERVICE_NAMES = "serviceNames";
     private static final String DOCTORS = "doctors";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
         List<Service> services = null;
         List<Doctor> doctors = null;
         String[] serviceNames = null;
@@ -33,31 +38,24 @@ public class HomePageCommand implements Command {
                 serviceNames[i] = services.get(i).getName();
             }
 
-        } catch (DaoException e) {
+        } catch (ServiceException e) {
+            logger.log(Level.INFO, e.getMessage());
+            return new CommandResult(Page.HOME_PAGE.getPage(), false);
         }
         setAttributesToSession(services, doctors, serviceNames, request);
         return new CommandResult(Page.HOME_PAGE.getPage(), false);
     }
 
-    private List<Service> getAllService() throws DaoException, ServiceException {
-
-        ServiceFactory factory = null;
-        try {
-            factory = new ServiceFactory();
-        } catch (ConnectionPoolException e) {
-        }
+    private List<Service> getAllService() throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
         ServiceService service = factory.getService(ServiceService.class);
         List<Service> services = service.findAll();
         return services;
     }
 
-    private List<Doctor> getAllDoctors() throws DaoException, ServiceException {
+    private List<Doctor> getAllDoctors() throws ServiceException {
 
-        ServiceFactory factory = null;
-        try {
-            factory = new ServiceFactory();
-        } catch (ConnectionPoolException e) {
-        }
+        ServiceFactory factory = new ServiceFactory();
         DoctorService service = factory.getService(DoctorService.class);
         List<Doctor> doctors = service.findAll();
         return doctors;

@@ -24,7 +24,7 @@ public class AddServiceCommand implements Command {
 
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter(NAME);
         String price = request.getParameter(PRICE);
 
@@ -32,13 +32,18 @@ public class AddServiceCommand implements Command {
             logger.log(Level.INFO, "name or price is null");
             return goBackWithError(request, ERROR_NULL);
         } else {
-            if (!searchService(name)) {
-                Integer a = createService(name, price, request);
-                if (a != null) {
-                    return new CommandResult("/controller?command=watch_service", false); //TODO
-                } else return goBackWithError(request, ERROR_NULL);
-            } else {
-                return goBackWithError(request, ERROR_NULL);
+            try {
+                if (!searchService(name)) {
+                    Integer a = createService(name, price, request);
+                    if (a != null) {
+                        return new CommandResult("/controller?command=watch_service", false); //TODO
+                    } else return goBackWithError(request, ERROR_NULL);
+                } else {
+                    return goBackWithError(request, ERROR_NULL);
+                }
+            } catch (ServiceException e){
+                logger.log(Level.INFO, e.getMessage());
+                return goBackWithError(request, e.getMessage());
             }
         }
     }
@@ -49,44 +54,22 @@ public class AddServiceCommand implements Command {
         return new CommandResult(ConfigurationManager.getProperty("path.page.add_service"), false);
     }
 
-    private Integer createService(String name, String price, HttpServletRequest request) {
-
-        ServiceFactory factory = null;
-        ServiceService service = null;
-        try {
-            factory = new ServiceFactory();
-            service = factory.getService(ServiceService.class);
-        } catch (DaoException | ConnectionPoolException e) {
-            logger.log(Level.INFO, "service error");
-        }
-
+    private Integer createService(String name, String price, HttpServletRequest request) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
+        ServiceService service = factory.getService(ServiceService.class);
         Integer pr = Integer.valueOf(price);
-
         Service s = new Service();
         s.setName(name);
         s.setPrice(pr);
-
-        try {
-            assert service != null;
-            service.save(s);
-        } catch (DaoException e) {
-            logger.log(Level.INFO, "save error");
-        }
+        service.save(s);
 
         return s.getIdentity();
     }
 
-    private boolean searchService(String name) throws DaoException {
+    private boolean searchService(String name) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
+        ServiceService service = factory.getService(ServiceService.class);
 
-        ServiceFactory factory = null;
-        ServiceService service = null;
-        try {
-            factory = new ServiceFactory();
-            service = factory.getService(ServiceService.class);
-        } catch (DaoException | ConnectionPoolException e) {
-            logger.log(Level.INFO, "service error");
-        }
-        assert service != null;
         return service.searchService(name);
     }
 }

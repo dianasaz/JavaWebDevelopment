@@ -11,7 +11,6 @@ public class Pet {
     private String name;
     private PetList kind;
     private java.util.Date dateOfBirth;
-    private List<Event> eventList;
 
     public final static SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
@@ -43,10 +42,6 @@ public class Pet {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setEventList(List<Event> eventList) {
-        this.eventList = eventList;
-    }
-
     public Integer getIdentity() {
         return identity;
     }
@@ -63,24 +58,21 @@ public class Pet {
         return dateFormat.format(dateOfBirth);
     }
 
-    public List<Event> getEventList() {
-        return eventList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pet pet = (Pet) o;
-        return identity == pet.identity &&
+        return user_identity == pet.user_identity &&
+                Objects.equals(identity, pet.identity) &&
                 Objects.equals(name, pet.name) &&
                 kind == pet.kind &&
-                Objects.equals(eventList, pet.eventList);
+                Objects.equals(dateOfBirth, pet.dateOfBirth);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identity, name, kind, eventList);
+        return Objects.hash(identity, user_identity, name, kind, dateOfBirth);
     }
 
     @Override

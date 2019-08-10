@@ -29,7 +29,7 @@ public class AddDoctorCommand implements Command {
 
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter(NAME);
         String[] service = request.getParameterValues(SERVICES);
 
@@ -37,14 +37,19 @@ public class AddDoctorCommand implements Command {
             logger.log(Level.INFO, "name or price is null");
             return goBackWithError(request, ERROR_NULL);
         } else {
-            if (!searchDoctor(name)) {
-                List<String> services = Arrays.asList(service);
-                Integer a = createDoctor(name, services, request);
-                if (a != null) {
-                    return new CommandResult("/controller?command=watch_doctor", false); //TODO
-                } else return goBackWithError(request, ERROR_NULL);
-            } else {
-                return goBackWithError(request, ERROR_NULL);
+            try {
+                if (!searchDoctor(name)) {
+                    List<String> services = Arrays.asList(service);
+                    Integer a = createDoctor(name, services, request);
+                    if (a != null) {
+                        return new CommandResult("/controller?command=watch_doctor", false); //TODO
+                    } else return goBackWithError(request, ERROR_NULL);
+                } else {
+                    return goBackWithError(request, ERROR_NULL);
+                }
+            } catch (ServiceException e){
+                logger.log(Level.INFO, e.getMessage());
+                return goBackWithError(request, e.getMessage());
             }
         }
     }
@@ -55,20 +60,10 @@ public class AddDoctorCommand implements Command {
         return new CommandResult(ConfigurationManager.getProperty("path.page.add_doctor"), false);
     }
 
-    private Integer createDoctor(String name, List<String> services, HttpServletRequest request) throws DaoException {
-
-        ServiceFactory factory = null;
-        ServiceService service = null;
-        DoctorService doctorService = null;
-        try {
-            factory = new ServiceFactory();
-            service = factory.getService(ServiceService.class);
-            doctorService = factory.getService(DoctorService.class);
-        } catch (DaoException | ConnectionPoolException e) {
-            logger.log(Level.INFO, "service error");
-        }
-
-
+    private Integer createDoctor(String name, List<String> services, HttpServletRequest request) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
+        ServiceService service = factory.getService(ServiceService.class);
+        DoctorService doctorService = factory.getService(DoctorService.class);
         Doctor d = doctorService.findByName(name);
         if (d == null) {
             d = new Doctor();
@@ -82,20 +77,13 @@ public class AddDoctorCommand implements Command {
             }
         }
 
-            return d.getIdentity();
-        }
-
-        private boolean searchDoctor (String name) throws DaoException {
-
-            ServiceFactory factory = null;
-            DoctorService service = null;
-            try {
-                factory = new ServiceFactory();
-                service = factory.getService(DoctorService.class);
-            } catch (DaoException | ConnectionPoolException e) {
-                logger.log(Level.INFO, "service error");
-            }
-            assert service != null;
-            return service.findByName(name) != null;
-        }
+        return d.getIdentity();
     }
+
+    private boolean searchDoctor(String name) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
+        DoctorService service = factory.getService(DoctorService.class);
+
+        return service.findByName(name) != null;
+    }
+}

@@ -19,29 +19,26 @@ public class DeleteDoctorCommand implements Command {
     private static final String NAME = "name";
     private static final String ERROR_DELETE = "error_delete";
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
         String name = request.getParameter(NAME);
         // User user = (User) request.getSession().getAttribute(USER);
 
         try {
             if (name != null | !name.isEmpty()) {
                 deleteDoctor(name, request);
-                //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
                 return new CommandResult("/controller?command=watch_doctor", false);
             } else {
                 request.setAttribute(ERROR_DELETE, true);
                 return goBackWithError(request, "can't delete doctor");
             }
-        } catch (DaoException | ConnectionPoolException e) {
-            return goBackWithError(request, "ERROR");
-            //throw new ServiceException(e);
-
+        } catch (ServiceException e) {
+            return goBackWithError(request, e.getMessage());
         }
 
     }
 
 
-    private void deleteDoctor(String name, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void deleteDoctor(String name, HttpServletRequest request) throws ServiceException {
 
         ServiceFactory factory = new ServiceFactory();
 

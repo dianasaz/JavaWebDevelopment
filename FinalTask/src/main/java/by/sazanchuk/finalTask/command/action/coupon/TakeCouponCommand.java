@@ -38,101 +38,77 @@ public class TakeCouponCommand implements Command {
     private static final String ERROR_TIME = "error_time";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         User user = (User) request.getSession().getAttribute(USER);
         String pet_id = request.getParameter(PET_ID);
         String serviceNumber = request.getParameter(SERVICE);
         String doctor = request.getParameter(DOCTOR + serviceNumber);
         String date = request.getParameter(DATE);
 
-        if (serviceNumber == null || doctor == null || user == null || date == null || serviceNumber.isEmpty() || doctor.isEmpty() || date.isEmpty()){
+        if (serviceNumber == null || doctor == null || user == null || date == null || serviceNumber.isEmpty() || doctor.isEmpty() || date.isEmpty()) {
             log.log(Level.INFO, "invalid info");
             request.getSession().setAttribute("pet_id", pet_id);
             return goBackWithError(request, "error");
-        } else{
-            if (pet_id == null){
-                return new CommandResult("/controller?command=home_page", false);
-            }
-            String[] strings = (String[]) request.getSession().getAttribute(SERVIES_NAMES);
-            String service = strings[Integer.valueOf(serviceNumber)-1];
-            Service service1 = getService(service);
-            int serviceId = service1.getIdentity();
-            ServiceFactory factory = null;
+        } else {
             try {
-                factory = new ServiceFactory();
-            } catch (ConnectionPoolException e) {
-                System.out.println("lol");
-            }
-
-            Doctor d = getDoctor(doctor);
-            int doctorId = d.getIdentity();
-            int petId = Integer.valueOf(pet_id);
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            CouponService couponService = factory.getService(CouponService.class);
-            Date date1 = null;
-            try {
-                date1 = dateFormat.parse(date);
-            } catch (ParseException e) {
-                System.out.println("mda");
-            }
-            if (!couponService.isTaken(d.getIdentity(), date1)) {
-                Coupon coupon = new Coupon();
-                coupon.setPet_id(petId);
-                coupon.setUser_id(user.getId());
-                coupon.setDoctor_id(doctorId);
-                coupon.setService_id(serviceId);
-                coupon.setTime(date1);
+                Pet pet = searchPet(pet_id);
+                String[] strings = (String[]) request.getSession().getAttribute(SERVIES_NAMES);
+                String service = strings[Integer.valueOf(serviceNumber) - 1];
+                Service service1 = getService(service);
+                int serviceId = service1.getIdentity();
+                ServiceFactory factory = new ServiceFactory();
+                Doctor d = getDoctor(doctor);
+                int doctorId = d.getIdentity();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                CouponService couponService = factory.getService(CouponService.class);
+                Date date1 = null;
                 try {
-                    couponService.save(coupon);
-                } catch (DaoException e){
-                    log.log(Level.INFO, "sorry");
-                    return goBackWithError(request, "error");
+                    date1 = dateFormat.parse(date);
+                } catch (ParseException e) {
+                    log.log(Level.INFO, e.getMessage());
+                    goBackWithError(request, e.getMessage());
                 }
-
-                request.getSession().removeAttribute("pet_id");
-                return new CommandResult("/controller?command=profile", false);
-            } else return goBackWithError(request, ERROR_TIME);
+                if (!couponService.isTaken(d.getIdentity(), date1)) {
+                    Coupon coupon = new Coupon();
+                    coupon.setPet_id(pet.getIdentity());
+                    coupon.setUser_id(pet.getUser_identity());
+                    coupon.setDoctor_id(doctorId);
+                    coupon.setService_id(serviceId);
+                    coupon.setTime(date1);
+                    couponService.save(coupon);
+                    request.getSession().removeAttribute("pet_id");
+                    return new CommandResult("/controller?command=profile", false);
+                } else return goBackWithError(request, ERROR_TIME);
+            } catch (ServiceException e) {
+                log.log(Level.INFO, e.getMessage());
+                return goBackWithError(request, e.getMessage());
+            }
         }
     }
+
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
         request.setAttribute(error, true);
         return new CommandResult(ConfigurationManager.getProperty("path.page.take_coupon"), false);
     }
 
-    private Service getService(String s) throws DaoException {
-        ServiceFactory factory = null;
-        try {
-            factory = new ServiceFactory();
-        } catch (ConnectionPoolException e) {
-        }
-        assert factory != null;
+    private Service getService(String s) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
         ServiceService serviceService = factory.getService(ServiceService.class);
         return serviceService.searchServiceByName(s);
     }
 
-    private Doctor getDoctor(String name) throws DaoException {
-        ServiceFactory factory = null;
-        try {
-            factory = new ServiceFactory();
-        } catch (ConnectionPoolException e) {
-        }
-        assert factory != null;
+    private Doctor getDoctor(String name) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
         DoctorService doctorService = factory.getService(DoctorService.class);
         return doctorService.findByName(name);
     }
 
 
-    private Pet searchPet(String pet_id) throws DaoException {
-        ServiceFactory factory = null;
-        try {
-            factory = new ServiceFactory();
-        } catch (ConnectionPoolException e) {
-        }
+    private Pet searchPet(String pet_id) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
         PetService petService = factory.getService(PetService.class);
         Pet pet = petService.findByIdentity(Integer.valueOf(pet_id));
-
         return pet;
     }
 

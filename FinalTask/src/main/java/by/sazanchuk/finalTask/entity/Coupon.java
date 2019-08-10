@@ -64,7 +64,7 @@ public class Coupon {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coupon coupon = (Coupon) o;
-        return  Objects.equals(identity, coupon.identity) &&
+        return Objects.equals(identity, coupon.identity) &&
                 Objects.equals(time, coupon.time) &&
                 Objects.equals(doctor_id, coupon.doctor_id) &&
                 Objects.equals(user_id, coupon.user_id) &&
@@ -73,7 +73,14 @@ public class Coupon {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(identity, time, doctor_id, user_id, pet_id, service_id);
+    public String toString() {
+        return "Coupon{" +
+                "identity=" + identity +
+                ", time=" + time +
+                ", doctor_id=" + doctor_id +
+                ", user_id=" + user_id +
+                ", pet_id=" + pet_id +
+                ", service_id=" + service_id +
+                '}';
     }
 }

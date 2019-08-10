@@ -3,11 +3,9 @@ package by.sazanchuk.finalTask.dao.transaction;
 import by.sazanchuk.finalTask.dao.BaseDao;
 import by.sazanchuk.finalTask.dao.Dao;
 import by.sazanchuk.finalTask.dao.DaoException;
-import by.sazanchuk.finalTask.dao.EventDao;
 import by.sazanchuk.finalTask.dao.PetDao;
 import by.sazanchuk.finalTask.dao.ServiceDao;
 import by.sazanchuk.finalTask.dao.UserDao;
-import by.sazanchuk.finalTask.entity.Event;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,34 +19,6 @@ public class TransactionImpl implements Transaction {
 
     public TransactionImpl(Connection connection) {
         this.connection = connection;
-    }
-
-    public UserDao getUserDao() {
-        UserDao dao = new UserDao();
-        return (UserDao) setConnection(dao);
-    }
-
-    @Override
-    public PetDao getPetDao() {
-        PetDao dao = new PetDao();
-        return (PetDao) setConnection(dao);
-    }
-
-    @Override
-    public ServiceDao getServiceDao() {
-        ServiceDao dao = new ServiceDao();
-        return (ServiceDao) setConnection(dao);
-    }
-
-    @Override
-    public EventDao getEventDao() {
-        EventDao dao = new EventDao();
-        return (EventDao) setConnection(dao);
-    }
-
-    private Dao setConnection(Dao dao) {
-        ((BaseDao) dao).setConnection(connection);
-        return dao;
     }
 
     @Override

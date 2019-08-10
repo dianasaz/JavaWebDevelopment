@@ -19,37 +19,29 @@ public class DeletePetCommand implements Command {
     private static final String USER_ID = "user_id";
     private static final String ERROR_DELETE = "error_delete";
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
         String name = request.getParameter(NAME);
-        // User user = (User) request.getSession().getAttribute(USER);
 
         try {
             if (name != null || !name.isEmpty()) {
                 deletePet(name, request);
-                //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
                 return new CommandResult("/controller?command=profile_user", false);
             } else {
                 request.setAttribute(ERROR_DELETE, true);
                 return goBackWithError(request, "can't delete pet");
             }
-        } catch (DaoException | ConnectionPoolException e) {
+        } catch (ServiceException e) {
             return goBackWithError(request, "ERROR");
-            //throw new ServiceException(e);
-
         }
 
     }
 
 
-    private void deletePet(String name, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void deletePet(String name, HttpServletRequest request) throws ServiceException {
         Integer user_id = (Integer) request.getSession().getAttribute(USER_ID);
         if (user_id != null) {
-
             ServiceFactory factory = new ServiceFactory();
-
             PetService service = factory.getService(PetService.class);
-
-
             Pet pet;
             pet = service.findByNameAndUserId(name, user_id);
             if (pet != null) {

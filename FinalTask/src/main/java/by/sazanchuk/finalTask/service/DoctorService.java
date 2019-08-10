@@ -6,19 +6,19 @@ import by.sazanchuk.finalTask.entity.Doctor;
 import java.util.List;
 
 public interface DoctorService extends Service{
-    List<Doctor> findAll() throws DaoException;
+    List<Doctor> findAll() throws ServiceException;
 
-    Doctor findByIdentity(Integer identity) throws DaoException;
+    Doctor findByIdentity(Integer identity) throws ServiceException;
 
-    Doctor findByName(String name) throws DaoException;
+    Doctor findByName(String name) throws ServiceException;
 
-    boolean isExist(Integer doctor_id,Integer service_id) throws DaoException;
+    boolean isExist(Integer doctor_id,Integer service_id) throws ServiceException;
 
-    int save(Doctor doctor) throws DaoException;
+    int save(Doctor doctor) throws ServiceException;
 
-    void deleteReferences(Doctor doctor) throws DaoException;
+    void deleteReferences(Doctor doctor) throws ServiceException;
 
-    void save(Doctor doctor, by.sazanchuk.finalTask.entity.Service service) throws DaoException;
+    void save(Doctor doctor, by.sazanchuk.finalTask.entity.Service service) throws ServiceException;
 
-    void delete(Integer identity) throws DaoException;
+    void delete(Integer identity) throws ServiceException;
 }

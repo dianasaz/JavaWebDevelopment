@@ -15,55 +15,82 @@ public class PetServiceImpl extends ServiceImpl implements PetService{
     }
 
     @Override
-    public List<Pet> findAll() throws DaoException {
-        PetDao petDao = transaction.createDao(PetDao.class);
-        return petDao.read();
-    }
-
-    @Override
-    public Pet findByIdentity(Integer identity) throws DaoException {
-        PetDao petDao = transaction.createDao(PetDao.class);
-        return petDao.read(identity);
-    }
-
-    @Override
-    public int save(Pet pet) throws DaoException {
-        PetDao petDao = transaction.createDao(PetDao.class);
-        if (pet.getIdentity() == null) {
-            pet.setIdentity(petDao.create(pet));
-//            petDao.createPetUser(pet);
+    public List<Pet> findAll() throws ServiceException {
+        PetDao petDao = null;
+        try {
+            petDao = transaction.createDao(PetDao.class);
+            return petDao.read();
+        } catch (DaoException e) {
+            throw new ServiceException(e);
         }
-        petDao.update(pet);
+
+    }
+
+    @Override
+    public Pet findByIdentity(Integer identity) throws ServiceException {
+        PetDao petDao = null;
+        try {
+            petDao = transaction.createDao(PetDao.class);
+            return petDao.read(identity);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+
+    }
+
+    @Override
+    public int save(Pet pet) throws ServiceException {
+        try {
+            PetDao petDao = transaction.createDao(PetDao.class);
+            if (pet.getIdentity() == null) {
+                pet.setIdentity(petDao.create(pet));
+            }
+            petDao.update(pet);
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
         return pet.getIdentity();
     }
 
     @Override
-    public void delete(Integer identity) throws DaoException {
-        PetDao petDao = transaction.createDao(PetDao.class);
-        if (identity != null) {
-            petDao.delete(identity);
+    public void delete(Integer identity) throws ServiceException {
+        try {
+            PetDao petDao = transaction.createDao(PetDao.class);
+            if (identity != null) {
+                petDao.delete(identity);
+            }
+        } catch (DaoException e){
+            throw new ServiceException(e);
         }
     }
 
-    public List<Pet> getPetsOfOneUser(Integer userId) throws DaoException {
-        PetDao petDao = transaction.createDao(PetDao.class);
-        List<Pet> pets = petDao.readPetsWithOneUser(userId);
-        List<Pet> petList = new ArrayList<>();
-        for (Pet pet: pets){
-            Pet p = new Pet();
-            p = petDao.read(pet.getIdentity());
-            petList.add(p);
+    public List<Pet> getPetsOfOneUser(Integer userId) throws ServiceException {
+        try {
+            PetDao petDao = transaction.createDao(PetDao.class);
+            List<Pet> pets = petDao.readPetsWithOneUser(userId);
+            List<Pet> petList = new ArrayList<>();
+            for (Pet pet : pets) {
+                Pet p = new Pet();
+                p = petDao.read(pet.getIdentity());
+                petList.add(p);
+            }
+            return petList;
+        } catch (DaoException e){
+            throw new ServiceException(e);
         }
-        return petList;
     }
 
-    public Pet findByNameAndUserId(String name, Integer user_id) throws DaoException {
-        PetDao petDao = transaction.createDao(PetDao.class);
-        Pet pet = null;
-        if (name != null && user_id != null) {
-            pet = petDao.read(name, user_id);
+    public Pet findByNameAndUserId(String name, Integer user_id) throws ServiceException {
+        try {
+            PetDao petDao = transaction.createDao(PetDao.class);
+            Pet pet = null;
+            if (name != null && user_id != null) {
+                pet = petDao.read(name, user_id);
+            }
+            return pet;
+        } catch (DaoException e){
+            throw new ServiceException(e);
         }
-        return pet;
     }
 
 }

@@ -35,7 +35,7 @@ public class EditServiceCommand implements Command {
     private static final String SERVICE = "service";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         Service oldService = (Service) request.getSession().getAttribute(SERVICE);
         String service_id = request.getParameter(ID);
         Service s = null;
@@ -45,9 +45,9 @@ public class EditServiceCommand implements Command {
         if (oldService == null) {
             try {
                 s = searchService(service_id);
-            } catch (DaoException | ConnectionPoolException e) {
-                logger.log(Level.INFO, "can't find service");
-                return goBackWithError(request, "error");
+            } catch (ServiceException e) {
+                logger.log(Level.INFO, e.getMessage());
+                return goBackWithError(request, e.getMessage());
             }
         }
 
@@ -62,9 +62,9 @@ public class EditServiceCommand implements Command {
                 updateService(parameters, oldParam, request);
                 request.getSession().removeAttribute(SERVICE);
                 return new CommandResult("controller?command=watch_service", true);
-            } catch (DaoException | ConnectionPoolException e) {
-                logger.log(Level.INFO, "dao exception");
-                return goBackWithError(request, "error");
+            } catch (ServiceException e) {
+                logger.log(Level.INFO, e.getMessage());
+                return goBackWithError(request, e.getMessage());
             }
         } else {
             request.getSession().setAttribute(SERVICE, s);
@@ -82,7 +82,7 @@ public class EditServiceCommand implements Command {
         return false;
     }
 
-    private void updateService(Map<String, String> parameters, Map<String, String> oldparam, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void updateService(Map<String, String> parameters, Map<String, String> oldparam, HttpServletRequest request) throws ServiceException {
         Service service = new Service();
         if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()) {
             service.setName(oldparam.get(NAME));
@@ -99,7 +99,7 @@ public class EditServiceCommand implements Command {
         request.getSession().removeAttribute(SERVICE);
     }
 
-    private Service searchService(String id) throws DaoException, ConnectionPoolException {
+    private Service searchService(String id) throws ServiceException {
         ServiceFactory factory = new ServiceFactory();
         ServiceService service = factory.getService(ServiceService.class);
         return service.findByIdentity(Integer.valueOf(id));

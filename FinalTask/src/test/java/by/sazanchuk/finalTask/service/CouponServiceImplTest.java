@@ -18,20 +18,19 @@ public class CouponServiceImplTest {
         ServiceFactory factory = new ServiceFactory();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         CouponService service = factory.getService(CouponService.class);
-        /*String date = "2019-09-31 18:00";
+        String date = "2019-09-23 18:00";
         Date date1 = dateFormat.parse(date);
-        if (!service.isTaken(3, date1)) {
+        if (!service.isTaken(2, date1)) {
             Coupon coupon = new Coupon();
+            coupon.setUser_id(2);
             coupon.setPet_id(1);
-            coupon.setUser_id(1);
-            coupon.setDoctor_id(4);
-            coupon.setService_id(1);
+            coupon.setDoctor_id(2);
+            coupon.setService_id(3);
             coupon.setTime(date1);
             service.save(coupon);
-        } else System.out.println("lox");*/
-        List<Coupon> coupons = service.findAll();
-        for (Coupon c : coupons){
-            service.delete(c.getIdentity());
-        }
+            Coupon c = service.findByIdentity(6);
+            System.out.println(c.toString() );
+            System.out.println(coupon.toString());
+        } else System.out.println("lox");
     }
-}
+    }

@@ -29,53 +29,51 @@ public class EditDoctorCommand implements Command {
     private static final String ERROR_NULL = "error_null";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String doctor_id = (String) request.getSession().getAttribute(ID);
         String name = request.getParameter(NAME);
         String[] service = request.getParameterValues(SERVICES);
 
         if (name == null && service == null) {
             String id = request.getParameter(ID);
-            request.getSession().setAttribute(ID  , id);
+            request.getSession().setAttribute(ID, id);
             return goBackWithError(request, ERROR_UPDATE);
         } else {
-            ServiceFactory factory = null;
-            ServiceService serviceService = null;
-            DoctorService doctorService = null;
             try {
-                factory = new ServiceFactory();
-                serviceService = factory.getService(ServiceService.class);
-                doctorService = factory.getService(DoctorService.class);
-            } catch (DaoException | ConnectionPoolException e) {
-                logger.log(Level.INFO, "service error");
-            }
+                ServiceFactory factory = new ServiceFactory();
+                ServiceService serviceService = factory.getService(ServiceService.class);
+                DoctorService doctorService = factory.getService(DoctorService.class);
 
-            Doctor oldDoctor = searchDoctor(doctor_id);
-            Doctor doctor = new Doctor();
-            doctor.setIdentity(oldDoctor.getIdentity());
-            if (name == null || name.isEmpty()) {
-                doctor.setName(oldDoctor.getName());
-            } else {
-                doctor.setName(name);
-                doctorService.save(doctor);
-            }
-            if (service == null || service.length == 0) {
-                doctor.setService(oldDoctor.getService());
-            } else {
-                List<String> services = Arrays.asList(service);
-                doctor.removeServices();
-                doctorService.deleteReferences(doctor);
-                for (String s : services) {
-                    Service service1 = serviceService.searchServiceByName(s);
-                    if (service1 != null) {
-                        doctor.addService(service1);
-                        doctorService.save(doctor, service1);
+                Doctor oldDoctor = searchDoctor(doctor_id);
+                Doctor doctor = new Doctor();
+                doctor.setIdentity(oldDoctor.getIdentity());
+                if (name == null || name.isEmpty()) {
+                    doctor.setName(oldDoctor.getName());
+                } else {
+                    doctor.setName(name);
+                    doctorService.save(doctor);
+                }
+                if (service == null || service.length == 0) {
+                    doctor.setService(oldDoctor.getService());
+                } else {
+                    List<String> services = Arrays.asList(service);
+                    doctor.removeServices();
+                    doctorService.deleteReferences(doctor);
+                    for (String s : services) {
+                        Service service1 = serviceService.searchServiceByName(s);
+                        if (service1 != null) {
+                            doctor.addService(service1);
+                            doctorService.save(doctor, service1);
+                        }
                     }
                 }
-            }
 
-            request.getSession().removeAttribute(ID);
-            return new CommandResult("/controller?command=watch_doctor", false);
+                request.getSession().removeAttribute(ID);
+                return new CommandResult("/controller?command=watch_doctor", false);
+            } catch (ServiceException e){
+                logger.log(Level.INFO, e.getMessage());
+                return goBackWithError(request, e.getMessage());
+            }
         }
     }
 
@@ -84,15 +82,9 @@ public class EditDoctorCommand implements Command {
         return new CommandResult(ConfigurationManager.getProperty("path.page.edit_doctor"), false);
     }
 
-    private Doctor searchDoctor(String id) throws DaoException {
-        ServiceFactory factory = null;
-        DoctorService service = null;
-        try {
-            factory = new ServiceFactory();
-            service = factory.getService(DoctorService.class);
-        } catch (DaoException | ConnectionPoolException e) {
-            logger.log(Level.INFO, "service error");
-        }
+    private Doctor searchDoctor(String id) throws ServiceException {
+        ServiceFactory factory = new ServiceFactory();
+        DoctorService service = factory.getService(DoctorService.class);
         if (service != null) {
             return service.findByIdentity(Integer.valueOf(id));
         } else return null;

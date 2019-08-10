@@ -20,10 +20,9 @@ public class LogoutCommand implements Command {
 
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response)  {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute(ID);
-        User user = (User) session.getAttribute(USER);
         logger.info("user was above: id:" + userId);
         session.removeAttribute(ID);
         session.removeAttribute(USER);

@@ -16,7 +16,7 @@ public class ProfileCommand implements Command {
     private static final String ADMIN = "administrator";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException, DaoException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
         User user = (User) request.getSession().getAttribute(USER);
         if (user != null) {
             if (user.getRole().getName().equals(ADMIN))

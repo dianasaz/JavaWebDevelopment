@@ -27,12 +27,16 @@ public class ServiceFactory{
         SERVICES.put(CouponService.class, CouponServiceImpl.class);
     }
 
-    public ServiceFactory() throws DaoException, ConnectionPoolException {
-        factory = TransactionFactory.getFactory();
+    public ServiceFactory() throws ServiceException {
+        try {
+            factory = TransactionFactory.getFactory();
+        } catch (ConnectionPoolException | DaoException e) {
+            throw new ServiceException(e);
+        }
     }
 
 
-    public <Type extends Service> Type getService(Class<Type> key) throws DaoException {
+    public <Type extends Service> Type getService(Class<Type> key) throws ServiceException {
         Class<? extends ServiceImpl> value = SERVICES.get(key);
         if(value != null) {
             try {
@@ -43,10 +47,10 @@ public class ServiceFactory{
                 InvocationHandler handler = new ServiceInvocationHandlerImpl(service);
                 return (Type)Proxy.newProxyInstance(classLoader, interfaces, handler);
             } catch(DaoException e) {
-                throw e;
+                throw new ServiceException(e);
             } catch(InstantiationException | IllegalAccessException e) {
                 logger.error("It is impossible to instance by.sazanchuk.finalTask.service class", e);
-                throw new DaoException(e);
+                throw new ServiceException(e);
             }
         }
         return null;

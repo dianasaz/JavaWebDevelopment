@@ -14,7 +14,7 @@
 <fmt:message bundle="${language}" key="nameService" var="nameService"/>
 <fmt:message bundle="${language}" key="enterprice" var="enterprice"/>
 <fmt:message bundle="${language}" key="entername" var="entername"/>
-<fmt:message bundle="${language}" key="addnewservice" var="addnewservice"/>
+<fmt:message bundle="${language}" key="editservice" var="edit"/>
 
 <head>
     <title>Login</title>
@@ -42,7 +42,7 @@
             <form class="login10-form" method="POST"
                   action="controller?command=edit_service">
 					<span class="login100-form-title">
-                        ${addnewservice}
+                        ${edit}
                     </span>
 
                 <div class="form-group">
@@ -73,7 +73,7 @@
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">
-                        ${add}
+                        ${edit}
                     </button>
                 </div>
 

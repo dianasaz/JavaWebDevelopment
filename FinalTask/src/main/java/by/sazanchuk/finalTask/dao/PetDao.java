@@ -76,7 +76,7 @@ public class PetDao extends BaseDao implements Dao<Pet> {
                 pet.setKind(PetList.setPet(resultSet.getString("kind")));
                 pet.setName(resultSet.getString("name"));
                 pet.setUser_identity(resultSet.getInt("user_id"));
-                //pet.setEventList(null);
+
             }
             return pet;
         } catch (SQLException e) {

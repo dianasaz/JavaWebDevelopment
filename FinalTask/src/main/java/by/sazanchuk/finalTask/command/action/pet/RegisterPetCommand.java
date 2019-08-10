@@ -29,30 +29,24 @@ public class RegisterPetCommand implements Command {
     private static final String ERROR = "error_";
 
     @Override
-    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter(NAME);
         String kind = request.getParameter(KIND);
         String dateOfBirth = request.getParameter(DATE_OF_BIRTH);
-       // parameters.put(DATE_OF_BIRTH, request.getParameter(DATE_OF_BIRTH));
-
 
         try {
             if (name != null && dateOfBirth != null) {
                 createPet(name, kind, dateOfBirth, request);
-                //logger.log(Level.INFO, "user registrated and authorized with login - " + parameters.get(LOGIN));
                 return new CommandResult("/controller?command=profile_user", false);
-            }
-            else return goBackWithError(request, "Error");
-        } catch (DaoException | ConnectionPoolException e) {
-            return goBackWithError(request, "ERROR");
-            //throw new ServiceException(e);
-
+            } else return goBackWithError(request, "Error");
+        } catch (ServiceException e) {
+            return goBackWithError(request, e.getMessage());
         }
 
     }
 
 
-    private void createPet(String name, String kind, String dateOfBirth, HttpServletRequest request) throws DaoException, ServiceException, ConnectionPoolException {
+    private void createPet(String name, String kind, String dateOfBirth, HttpServletRequest request) throws ServiceException {
         Integer user_id = (Integer) request.getSession().getAttribute(USER_ID);
         if (user_id != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -73,15 +67,13 @@ public class RegisterPetCommand implements Command {
             int pet_Id = service.save(pet);
             if (pet_Id != 0) {
                 pet.setIdentity(pet_Id);
-            } else {
-                throw new ServiceException("Can't save pet!");
             }
             setAtributesToSession(pet, request);
         }
     }
 
     private void setAtributesToSession(Pet pet, HttpServletRequest request) {
-       // HttpSession session = request.getSession();
+        // HttpSession session = request.getSession();
         request.setAttribute("pet", pet);
         request.setAttribute("petName", pet.getName());
     }

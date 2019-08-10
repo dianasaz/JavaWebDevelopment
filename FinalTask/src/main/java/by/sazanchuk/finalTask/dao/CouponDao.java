@@ -25,6 +25,7 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
     private static final String DELETE_BY_IDENTITY = "DELETE FROM coupon WHERE `id` = ?";
     private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `pet_id`, `service_id` FROM coupon ORDER BY `user_id`";
     private static final String IS_EXIST = "SELECT `id` FROM coupon WHERE `time` = ? && `doctor_id` = ?";
+    private static final String SELECT_COUPONS_BY_USER = "SELECT `id`, `doctor_id`, `time`, `pet_id`, `service_id` FROM coupon WHERE `user_id` = ?";
 
     private final Logger log = LogManager.getLogger(DoctorDao.class);
 @Override
@@ -89,6 +90,38 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
         }
     }
 
+    public List<Coupon> getCouponsOfOneUser(int user_id) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement(SELECT_COUPONS_BY_USER);
+            statement.setInt(1, user_id);
+            resultSet = statement.executeQuery();
+            List<Coupon> coupons = new ArrayList<>();
+            Coupon coupon = null;
+            while (resultSet.next()) {
+                coupon = new Coupon();
+                coupon.setIdentity(resultSet.getInt("id"));
+                coupon.setTime(resultSet.getTimestamp("time"));
+                coupon.setService_id(resultSet.getInt("service_id"));
+                coupon.setUser_id(resultSet.getInt("user_id"));
+                coupon.setDoctor_id(resultSet.getInt("doctor_id"));
+                coupon.setPet_id(resultSet.getInt("pet_id"));
+                coupons.add(coupon);
+            }
+            return coupons;
+        } catch(SQLException e) {
+            throw new DaoException(e);
+        } finally {
+            try {
+                if (resultSet != null) resultSet.close();
+            } catch(SQLException e) {}
+            try {
+                if (statement != null) statement.close();
+            } catch(SQLException e) {}
+        }
+    }
+
     public Coupon isTaken(Integer doctor_id, Date date) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -122,7 +155,7 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
             statement = connection.prepareStatement(UPDATE_DOCTOR);
             statement.setInt(6, entity.getIdentity());
             statement.setInt(5, entity.getService_id());
-            statement.setObject(2, entity.getDoctor_id());
+            statement.setInt(2, entity.getDoctor_id());
             statement.setTimestamp(3, new Timestamp(entity.getTime().getTime()));
             statement.setInt(1, entity.getUser_id());
             statement.setInt(4, entity.getPet_id());
