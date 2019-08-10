@@ -14,6 +14,13 @@
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
 <fmt:message bundle="${language}" key="addnewdoctor" var="adddoctor"/>
+<fmt:message bundle="${language}" key="editprofile" var="edit"/>
+<fmt:message bundle="${language}" key="userinfo" var="userinfo"/>
+<fmt:message bundle="${language}" key="userlogin" var="userlogin"/>
+<fmt:message bundle="${language}" key="username" var="username"/>
+<fmt:message bundle="${language}" key="useremail" var="useremail"/>
+<fmt:message bundle="${language}" key="userphone" var="userphone"/>
+<fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
 
 
 <html lang="${language}">
@@ -28,17 +35,72 @@
     <div style="margin-left: 20%; margin-right: 20%;">
         <table style="margin-bottom: 20px">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <a href="controller?command=add_service" class="profile-edit-btn">${addservice}</a>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <a href="controller?command=add_doctor" class="profile-edit-btn">${adddoctor}</a>
+                </div>
+                <div class="col-md-3">
+                    <a href="controller?command=edit_profile" class="profile-edit-btn">${edit}</a>
                 </div>
             </div>
         </table>
+        <form class="form" method="POST" action="controller?command=profile">
+            <div class="row">
+                <table class="col-md-8">
+
+                    <div class="tab-content" id="myTabContent">
+                        <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                            <b>${userinfo}</b> </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>${userlogin}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${user.login}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>${username}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${user.name}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>${useremail}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><a href="mailto:${user.email}">${user.email}</a></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>${userphone}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>${useraddress}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${user.address}</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </table>
+            </div>
+        </form>
     </div>
 
 

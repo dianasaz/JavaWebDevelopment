@@ -4,6 +4,7 @@ import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Coupon;
 import by.sazanchuk.finalTask.entity.Doctor;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -18,7 +19,7 @@ public class CouponServiceImplTest {
         ServiceFactory factory = new ServiceFactory();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         CouponService service = factory.getService(CouponService.class);
-        String date = "2019-09-23 18:00";
+        String date = "2019-09-01 10:00";
         Date date1 = dateFormat.parse(date);
         if (!service.isTaken(2, date1)) {
             Coupon coupon = new Coupon();
@@ -28,9 +29,8 @@ public class CouponServiceImplTest {
             coupon.setService_id(3);
             coupon.setTime(date1);
             service.save(coupon);
-            Coupon c = service.findByIdentity(6);
-            System.out.println(c.toString() );
-            System.out.println(coupon.toString());
+            System.out.println(coupon);
+            System.out.println(service.findByIdentity(coupon.getIdentity()));
         } else System.out.println("lox");
     }
     }

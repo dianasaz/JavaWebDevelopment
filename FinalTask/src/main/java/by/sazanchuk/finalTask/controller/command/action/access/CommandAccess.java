@@ -31,7 +31,6 @@ public class CommandAccess {
 
     private List<CommandType> getVisitorCommands() {
         List<CommandType> commandTypes = new ArrayList<>();
-        commandTypes.add(CommandType.EDIT_PROFILE);
         commandTypes.add(CommandType.DELETE_PET);
         commandTypes.add(CommandType.REGISTER_PET);
         commandTypes.add(CommandType.TAKE_COUPON);
@@ -45,6 +44,7 @@ public class CommandAccess {
         commandTypes.add(CommandType.LOGIN);
         commandTypes.add(CommandType.HOME_PAGE);
         commandTypes.add(CommandType.LOGOUT);
+        commandTypes.add(CommandType.EDIT_PROFILE);
         return commandTypes;
     }
 

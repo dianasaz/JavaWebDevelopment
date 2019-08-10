@@ -8,7 +8,7 @@ import by.sazanchuk.finalTask.entity.Service;
 import java.util.Date;
 import java.util.List;
 
-public class CouponServiceImpl extends ServiceImpl implements CouponService{
+public class CouponServiceImpl extends ServiceImpl implements CouponService {
     public CouponServiceImpl() throws ServiceException {
     }
 
@@ -17,7 +17,7 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService{
         try {
             CouponDao couponDao = transaction.createDao(CouponDao.class);
             return couponDao.read();
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -27,7 +27,7 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService{
         try {
             CouponDao couponDao = transaction.createDao(CouponDao.class);
             return couponDao.read(identity);
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -38,10 +38,11 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService{
             CouponDao couponDao = transaction.createDao(CouponDao.class);
             if (coupon.getIdentity() == null) {
                 coupon.setIdentity(couponDao.create(coupon));
+            } else {
+                couponDao.update(coupon);
             }
-            couponDao.update(coupon);
             return coupon.getIdentity();
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -53,7 +54,7 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService{
             if (identity != null) {
                 couponDao.delete(identity);
             }
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -64,7 +65,7 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService{
             CouponDao couponDao = transaction.createDao(CouponDao.class);
             Coupon c = couponDao.isTaken(doctor_id, date);
             return c != null;
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
@@ -75,7 +76,7 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService{
             CouponDao couponDao = transaction.createDao(CouponDao.class);
             List<Coupon> coupons = couponDao.getCouponsOfOneUser(user_id);
             return coupons;
-        } catch (DaoException e){
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
