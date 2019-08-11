@@ -162,6 +162,44 @@
                     </div>
                 </c:if>
 
+                <c:if test="${email_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            you put wrong email
+                    </div>
+                </c:if>
+
+                <c:if test="${login_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            you put wrong login
+                    </div>
+                </c:if>
+
+
+                <c:if test="${error_number eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            phone number should consist of 9 characters
+                    </div>
+                </c:if>
+
+                <c:if test="${password_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            you put wrong password
+                    </div>
+                </c:if>
+
+                <c:if test="${address_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            wrong address
+                    </div>
+                </c:if>
+
+
+                <c:if test="${phone_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            you put wrong phone
+                    </div>
+                </c:if>
+
 
                 <div class="fadeIn fourth">
                     <input type="submit" class="fadeIn fourth" value="${signup}">
@@ -209,6 +247,7 @@
     .txt3 {
         color: whitesmoke;
     }
+
     html {
         background-color: #56baed;
     }

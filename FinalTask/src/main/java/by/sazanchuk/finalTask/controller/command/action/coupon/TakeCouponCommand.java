@@ -14,6 +14,7 @@ import by.sazanchuk.finalTask.service.PetService;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.ServiceService;
+import by.sazanchuk.finalTask.validator.CouponValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,6 +34,7 @@ public class TakeCouponCommand implements Command {
     private static final String DATE = "date";
     private static final String SERVIES_NAMES = "serviceNames";
     private static final String ERROR_TIME = "error_time";
+    private static final String VALID = "valid";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
@@ -72,9 +74,11 @@ public class TakeCouponCommand implements Command {
                     coupon.setDoctor_id(doctorId);
                     coupon.setService_id(serviceId);
                     coupon.setTime(date1);
-                    couponService.save(coupon);
-                    request.getSession().removeAttribute("pet_id");
-                    return new CommandResult("/controller?command=profile", false);
+                    if (isValid(coupon).equals(VALID)) {
+                        couponService.save(coupon);
+                        request.getSession().removeAttribute("pet_id");
+                        return new CommandResult("/controller?command=profile", false);
+                    } else return goBackWithError(request, isValid(coupon));
                 } else return goBackWithError(request, ERROR_TIME);
             } catch (ServiceException e) {
                 log.log(Level.INFO, e.getMessage());
@@ -99,6 +103,11 @@ public class TakeCouponCommand implements Command {
         ServiceFactory factory = new ServiceFactory();
         DoctorService doctorService = factory.getService(DoctorService.class);
         return doctorService.findByName(name);
+    }
+
+    private String isValid(Coupon coupon){
+        CouponValidator couponValidator = new CouponValidator();
+        return couponValidator.isValid(coupon);
     }
 
 

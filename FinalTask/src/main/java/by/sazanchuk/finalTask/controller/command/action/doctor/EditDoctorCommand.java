@@ -9,10 +9,12 @@ import by.sazanchuk.finalTask.service.DoctorService;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.ServiceService;
+import by.sazanchuk.finalTask.validator.DoctorValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.print.Doc;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
@@ -24,7 +26,7 @@ public class EditDoctorCommand implements Command {
     private static final String NAME = "name";
     private static final String SERVICES = "service";
     private static final String ERROR_UPDATE = "error_update";
-    private static final String ERROR_NULL = "error_null";
+    private static final String VALID = "valid";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
@@ -49,7 +51,9 @@ public class EditDoctorCommand implements Command {
                     doctor.setName(oldDoctor.getName());
                 } else {
                     doctor.setName(name);
-                    doctorService.save(doctor);
+                    if (isValid(doctor).equals(VALID)) {
+                        doctorService.save(doctor);
+                    } else return goBackWithError(request, isValid(doctor));
                 }
                 if (service == null || service.length == 0) {
                     doctor.setService(oldDoctor.getService());
@@ -86,6 +90,11 @@ public class EditDoctorCommand implements Command {
         if (service != null) {
             return service.findByIdentity(Integer.valueOf(id));
         } else return null;
+    }
+
+    private String isValid(Doctor doctor){
+        DoctorValidator doctorValidator = new DoctorValidator();
+        return doctorValidator.isValid(doctor);
     }
 }
 

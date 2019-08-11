@@ -104,7 +104,6 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
                 coupon.setIdentity(resultSet.getInt("id"));
                 coupon.setTime(resultSet.getTimestamp("time"));
                 coupon.setService_id(resultSet.getInt("service_id"));
-                coupon.setUser_id(resultSet.getInt("user_id"));
                 coupon.setDoctor_id(resultSet.getInt("doctor_id"));
                 coupon.setPet_id(resultSet.getInt("pet_id"));
                 coupons.add(coupon);

@@ -8,6 +8,7 @@ import by.sazanchuk.finalTask.entity.Service;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.ServiceService;
+import by.sazanchuk.finalTask.validator.ServiceValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,8 +24,7 @@ public class EditServiceCommand implements Command {
 
     private static final String PRICE = "price";
     private static final String NAME = "name";
-    private static final String PHONE_NUMBER = "phoneNumber";
-    private static final String SERVICE_ID = "service_id";
+    private static final String VALID = "valid";
     private static final String ID = "id";
     private static final String SERVICE = "service";
 
@@ -53,7 +53,23 @@ public class EditServiceCommand implements Command {
                 oldParam.put(PRICE, String.valueOf(oldService.getPrice()));
                 oldParam.put(ID, String.valueOf(oldService.getIdentity()));
 
-                updateService(parameters, oldParam, request);
+                Service service = new Service();
+                if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()) {
+                    service.setName(oldParam.get(NAME));
+                } else service.setName(parameters.get(NAME));
+                if (parameters.get(PRICE) == null || parameters.get(PRICE).isEmpty()) {
+                    service.setPrice(Integer.valueOf(oldParam.get(PRICE)));
+                } else service.setPrice(Integer.valueOf(parameters.get(PRICE)));
+                service.setIdentity(Integer.valueOf(oldParam.get(ID)));
+
+                ServiceFactory factory = new ServiceFactory();
+                ServiceService serviceS = factory.getService(ServiceService.class);
+
+                if (isValid(service).equals(VALID)) {
+                    serviceS.save(service);
+                } else return goBackWithError(request, isValid(service));
+
+                request.getSession().removeAttribute(SERVICE);
                 request.getSession().removeAttribute(SERVICE);
                 return new CommandResult("controller?command=watch_service", true);
             } catch (ServiceException e) {
@@ -76,21 +92,9 @@ public class EditServiceCommand implements Command {
         return false;
     }
 
-    private void updateService(Map<String, String> parameters, Map<String, String> oldparam, HttpServletRequest request) throws ServiceException {
-        Service service = new Service();
-        if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()) {
-            service.setName(oldparam.get(NAME));
-        } else service.setName(parameters.get(NAME));
-        if (parameters.get(PRICE) == null || parameters.get(PRICE).isEmpty()) {
-            service.setPrice(Integer.valueOf(oldparam.get(PRICE)));
-        } else service.setPrice(Integer.valueOf(parameters.get(PRICE)));
-        service.setIdentity(Integer.valueOf(oldparam.get(ID)));
-
-        ServiceFactory factory = new ServiceFactory();
-        ServiceService serviceS = factory.getService(ServiceService.class);
-        serviceS.save(service);
-
-        request.getSession().removeAttribute(SERVICE);
+    private String isValid(Service service) {
+        ServiceValidator serviceValidator = new ServiceValidator();
+        return serviceValidator.isValid(service);
     }
 
     private Service searchService(String id) throws ServiceException {

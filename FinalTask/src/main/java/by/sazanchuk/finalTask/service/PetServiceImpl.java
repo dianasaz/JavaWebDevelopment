@@ -44,8 +44,9 @@ public class PetServiceImpl extends ServiceImpl implements PetService{
             PetDao petDao = transaction.createDao(PetDao.class);
             if (pet.getIdentity() == null) {
                 pet.setIdentity(petDao.create(pet));
+            } else {
+                petDao.update(pet);
             }
-            petDao.update(pet);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

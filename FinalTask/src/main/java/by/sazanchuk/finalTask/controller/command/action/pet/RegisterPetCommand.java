@@ -8,6 +8,8 @@ import by.sazanchuk.finalTask.entity.PetList;
 import by.sazanchuk.finalTask.service.PetService;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
+import by.sazanchuk.finalTask.validator.PetValidator;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,8 +25,12 @@ public class RegisterPetCommand implements Command {
     private static final String USER_ID = "user_id";
     private static final String KIND = "kind";
     private static final String DATE_OF_BIRTH = "dateOfBirth";
-    private static final String ERROR_REGISTRATION = "error_registration";
-    private static final String ERROR = "error_";
+    private static final String VALID = "valid";
+    private static final String PET = "pet";
+    private static final String PETNAME = "petName";
+    private static final String ERROR_USER_NULL = "error_user_null";
+    private static final String ERROR_INFO_NULL = "error_info_null";
+    private static final String ERROR_DATE = "error_date";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
@@ -34,46 +40,48 @@ public class RegisterPetCommand implements Command {
 
         try {
             if (name != null && dateOfBirth != null) {
-                createPet(name, kind, dateOfBirth, request);
-                return new CommandResult("/controller?command=profile_user", false);
-            } else return goBackWithError(request, "Error");
+                Integer user_id = (Integer) request.getSession().getAttribute(USER_ID);
+                if (user_id != null) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
+                    ServiceFactory factory = new ServiceFactory();
+
+                    PetService service = factory.getService(PetService.class);
+
+                    Pet pet = new Pet();
+
+                    pet.setName(name);
+                    pet.setUser_identity(user_id);
+                    pet.setKind(PetList.setPet(kind));
+                    try {
+                        pet.setDateOfBirth(dateFormat.parse(dateOfBirth));
+                    } catch (ParseException e) {
+                        goBackWithError(request, ERROR_DATE);
+                    }
+                    if (isValid(pet).equals(VALID)) {
+                        int pet_Id = service.save(pet);
+                        if (pet_Id != 0) {
+                            pet.setIdentity(pet_Id);
+                        }
+                        setAtributesToSession(pet, request);
+                        return new CommandResult("/controller?command=profile_user", false);
+                    } else return goBackWithError(request, isValid(pet));
+                } else return goBackWithError(request, ERROR_USER_NULL);
+            } else return goBackWithError(request, ERROR_INFO_NULL);
         } catch (ServiceException e) {
             return goBackWithError(request, e.getMessage());
         }
-
     }
 
 
-    private void createPet(String name, String kind, String dateOfBirth, HttpServletRequest request) throws ServiceException {
-        Integer user_id = (Integer) request.getSession().getAttribute(USER_ID);
-        if (user_id != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-
-            ServiceFactory factory = new ServiceFactory();
-
-            PetService service = factory.getService(PetService.class);
-
-            Pet pet = new Pet();
-
-            pet.setName(name);
-            pet.setUser_identity(user_id);
-            pet.setKind(PetList.setPet(kind));
-            try {
-                pet.setDateOfBirth(dateFormat.parse(dateOfBirth));
-            } catch (ParseException e) {
-            }
-            int pet_Id = service.save(pet);
-            if (pet_Id != 0) {
-                pet.setIdentity(pet_Id);
-            }
-            setAtributesToSession(pet, request);
-        }
+    private String isValid(Pet pet) {
+        PetValidator petValidator = new PetValidator();
+        return petValidator.isValid(pet);
     }
 
     private void setAtributesToSession(Pet pet, HttpServletRequest request) {
-        // HttpSession session = request.getSession();
-        request.setAttribute("pet", pet);
-        request.setAttribute("petName", pet.getName());
+        request.setAttribute(PET, pet);
+        request.setAttribute(PETNAME, pet.getName());
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

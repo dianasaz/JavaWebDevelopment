@@ -64,7 +64,6 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
                 user.setPassword(PasswordCode.CodeMD5(user.getPassword()));
                 user.setId(userDao.create(user));
             }
-            userDao.update(user);
             return user.getId();
         } catch (DaoException e){
             throw new ServiceException(e);

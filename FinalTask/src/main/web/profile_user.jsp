@@ -16,6 +16,7 @@
 <fmt:message bundle="${language}" key="yourpets" var="yourpets"/>
 <fmt:message bundle="${language}" key="deletepet" var="deletepet"/>
 <fmt:message bundle="${language}" key="takecoupon" var="take"/>
+<fmt:message bundle="${language}" key="yourcoupons" var="cs"/>
 
 
 <html lang="${language}">
@@ -109,10 +110,10 @@
                                 <p>${pet.dateOfBirth}</p>
                             </div>
                             <div class="col-md-2">
-                                <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a> </p>
+                                <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a></p>
                             </div>
                             <div class="col-md-2">
-                                <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">${take}</a> </p>
+                                <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">${take}</a></p>
                             </div>
                         </div>
                     </c:forEach>
@@ -120,6 +121,36 @@
                         <div class="container1" role="alert">
                                 ${errordelete}
                         </div>
+                    </c:if>
+                </div>
+            </table>
+            <table class="col-md-8">
+                <div class="tab-content" id="myTaaabContent">
+                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                        <b>${cs}</b> </label>
+
+                    <c:if test="${coupons != null}">
+                        <c:forEach var="coupon" items="${coupons}">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <c:forEach var="doctor" items="${doctors}">
+                                        <c:if test="${doctor.identity eq coupon.doctor_id}">
+                                            <p>${doctor.name}</p>
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                                <div class="col-md-4">
+                                    <label><fmt:formatDate value="${coupon.time}" pattern="yyyy-MM-dd HH:mm"/></label>
+                                </div>
+                                <div class="col-md-4">
+                                    <c:forEach var="service" items="${services}">
+                                        <c:if test="${service.identity eq coupon.service_id}">
+                                            <p>${service.name}</p>
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </c:forEach>
                     </c:if>
                 </div>
             </table>

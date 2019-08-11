@@ -9,6 +9,7 @@ import by.sazanchuk.finalTask.entity.User;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.UserService;
+import by.sazanchuk.finalTask.validator.UserValidator;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +30,8 @@ public class EditProfileCommand implements Command {
     private static final String EMAIL = "email";
     private static final String ID = "id";
     private static final String USER = "user";
+    private static final String ROLE = "role";
+    private static final String VALID = "valid";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
@@ -42,6 +45,7 @@ public class EditProfileCommand implements Command {
         oldParam.put(PHONE_NUMBER, olduser.getPhoneNumber().toString());
         oldParam.put(EMAIL, olduser.getEmail());
         oldParam.put(ID, olduser.getId().toString());
+        oldParam.put(ROLE, olduser.getRole().getName());
 
         Map<String, String> parameters = new HashMap<>();
         parameters.put(LOGIN, request.getParameter(LOGIN));
@@ -55,7 +59,37 @@ public class EditProfileCommand implements Command {
         if (b) {
             try {
                 if (!checkIfUserExist(parameters.get(LOGIN), oldParam)) {
-                    updateUser(parameters, oldParam, request);
+                    User user = new User();
+                    if (parameters.get(LOGIN) == null || parameters.get(LOGIN).isEmpty()) {
+                        user.setLogin(oldParam.get(LOGIN));
+                    } else user.setLogin(parameters.get(LOGIN));
+                    if (parameters.get(PASSWORD) == null || parameters.get(PASSWORD).isEmpty()) {
+                        user.setPassword(oldParam.get(PASSWORD));
+                    } else user.setPassword(parameters.get(PASSWORD));
+                    if (parameters.get(EMAIL) == null || parameters.get(EMAIL).isEmpty()) {
+                        user.setEmail(oldParam.get(EMAIL));
+                    } else user.setEmail(parameters.get(EMAIL));
+                    if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()) {
+                        user.setAddress(oldParam.get(ADDRESS));
+                    } else user.setAddress(parameters.get(ADDRESS));
+                    if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()) {
+                        user.setPhoneNumber(Integer.valueOf(oldParam.get(PHONE_NUMBER)));
+                    } else user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
+                    if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()) {
+                        user.setName(oldParam.get(NAME));
+                    } else user.setName(parameters.get(NAME));
+                    user.setId(Integer.valueOf(oldParam.get(ID)));
+                    user.setRole(Role.setRole(oldParam.get(ROLE)));
+
+                    ServiceFactory factory = new ServiceFactory();
+                    UserService service = factory.getService(UserService.class);
+                    if (isValid(user).equals(VALID)) {
+                        service.save(user);
+                    } else return goBackWithError(request, isValid(user));
+
+                    request.getSession().removeAttribute(USER);
+                    request.getSession().setAttribute(USER, user);
+
                     return new CommandResult("controller?command=profile", true);
                 } else return goBackWithError(request, "login exist");
             } catch (ServiceException e) {
@@ -81,36 +115,9 @@ public class EditProfileCommand implements Command {
         return false;
     }
 
-    private void updateUser(Map<String, String> parameters, Map<String, String> oldparam, HttpServletRequest request) throws ServiceException {
-        User user = new User();
-        if (parameters.get(LOGIN) == null || parameters.get(LOGIN).isEmpty()) {
-            user.setLogin(oldparam.get(LOGIN));
-        } else user.setLogin(parameters.get(LOGIN));
-        if (parameters.get(PASSWORD) == null || parameters.get(PASSWORD).isEmpty()) {
-            user.setPassword(oldparam.get(PASSWORD));
-        } else user.setPassword(parameters.get(PASSWORD));
-        if (parameters.get(EMAIL) == null || parameters.get(EMAIL).isEmpty()) {
-            user.setEmail(oldparam.get(EMAIL));
-        } else user.setEmail(parameters.get(EMAIL));
-        if (parameters.get(ADDRESS) == null || parameters.get(ADDRESS).isEmpty()) {
-            user.setAddress(oldparam.get(ADDRESS));
-        } else user.setAddress(parameters.get(ADDRESS));
-        if (parameters.get(PHONE_NUMBER) == null || parameters.get(PHONE_NUMBER).isEmpty()) {
-            user.setPhoneNumber(Integer.valueOf(oldparam.get(PHONE_NUMBER)));
-        } else user.setPhoneNumber(Integer.valueOf(parameters.get(PHONE_NUMBER)));
-        if (parameters.get(NAME) == null || parameters.get(NAME).isEmpty()) {
-            user.setName(oldparam.get(NAME));
-        } else user.setName(parameters.get(NAME));
-        user.setId(Integer.valueOf(oldparam.get(ID)));
-        user.setRole(Role.VISITOR);
-
-        ServiceFactory factory = new ServiceFactory();
-        UserService service = factory.getService(UserService.class);
-        service.save(user);
-
-        request.getSession().removeAttribute(USER);
-        request.getSession().setAttribute(USER, user);
-
+    private String isValid(User user){
+        UserValidator userValidator = new UserValidator();
+        return userValidator.isValid(user);
     }
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {

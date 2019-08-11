@@ -21,6 +21,8 @@
 <fmt:message bundle="${language}" key="useremail" var="useremail"/>
 <fmt:message bundle="${language}" key="userphone" var="userphone"/>
 <fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
+<fmt:message bundle="${language}" key="write" var="write"/>
+<fmt:message bundle="${language}" key="call" var="call"/>
 
 
 <html lang="${language}">
@@ -54,7 +56,8 @@
                 <table class="col-md-8">
 
                     <div class="tab-content" id="myTabContent">
-                        <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                        <label class="col-md-6 col-md-offset-3 control-label"
+                               style="font-size: 20px; text-align: center;">
                             <b>${userinfo}</b> </label>
                         <div class="row">
                             <div class="col-md-6">
@@ -96,6 +99,49 @@
                                 <p>${user.address}</p>
                             </div>
                         </div>
+
+                    </div>
+                </table>
+                <table class="col-md-8">
+                    <div class="tab-content" id="myTaabContent">
+                        <label class="col-md-6 col-md-offset-3 control-label"
+                               style="font-size: 20px; text-align: center;">
+                            <b>Users, who have coupons</b> </label>
+
+                        <c:forEach var="coupon" items="${coupons}">
+                            <div class="row">
+                                <c:forEach var="user" items="${users}">
+                                    <c:if test="${user.id eq coupon.user_id}">
+                                        <div class="col-md-3">
+                                            <label>${user.name}</label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label><fmt:formatDate value="${coupon.time}"
+                                                                   pattern="yyyy-MM-dd HH:mm"/></label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <c:forEach var="service" items="${services}">
+                                                <c:if test="${service.identity eq coupon.service_id}">
+                                                    <p>${service.name}</p>
+                                                </c:if>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <c:forEach var="doctor" items="${doctors}">
+                                                <c:if test="${doctor.identity eq coupon.doctor_id}">
+                                                    <p>${doctor.name}</p>
+                                                </c:if>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p>${write} ${user.email}</p>
+                                            <p>${call} ${user.phoneNumber}</p>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
+
+                            </div>
+                        </c:forEach>
 
                     </div>
                 </table>

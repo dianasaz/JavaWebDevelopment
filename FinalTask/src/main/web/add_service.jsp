@@ -69,7 +69,23 @@
                     </div>
                 </div>
 
+                <c:if test="${name_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            name error
+                    </div>
+                </c:if>
 
+                <c:if test="${price_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            price error
+                    </div>
+                </c:if>
+
+                <c:if test="${entity_null eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        null error
+                    </div>
+                </c:if>
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">
