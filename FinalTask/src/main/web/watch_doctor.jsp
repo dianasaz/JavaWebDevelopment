@@ -92,10 +92,6 @@
         background: #fff;
     }
 
-    .profile-img {
-        text-align: center;
-    }
-
     .tab-content {
         margin-left: 20%;
         margin-right: 20%;
@@ -143,12 +139,6 @@
         cursor: pointer;
     }
 
-    .proile-rating {
-        font-size: 12px;
-        color: #818182;
-        margin-top: 5%;
-    }
-
     .proile-rating span {
         color: #495057;
         font-size: 15px;
@@ -167,11 +157,6 @@
     .profile-head .nav-tabs .nav-link.active {
         border: none;
         border-bottom: 2px solid #0062cc;
-    }
-
-    .profile-work {
-        padding: 14%;
-        margin-top: -15%;
     }
 
     .profile-work p {

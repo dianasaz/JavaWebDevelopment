@@ -10,14 +10,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:message bundle="${language}" key="add" var="add"/>
-<fmt:message bundle="${language}" key="priceService" var="priceService"/>
-<fmt:message bundle="${language}" key="nameService" var="nameService"/>
-<fmt:message bundle="${language}" key="enterprice" var="enterprice"/>
+<fmt:message bundle="${language}" key="services" var="services"/>
 <fmt:message bundle="${language}" key="entername" var="entername"/>
-<fmt:message bundle="${language}" key="addnewservice" var="addnewservice"/>
+<fmt:message bundle="${language}" key="nameError" var="nameError"/>
+<fmt:message bundle="${language}" key="errorExist" var="errorExist"/>
+<fmt:message bundle="${language}" key="addnewdoctor" var="addnewdoctor"/>
 
 <head>
-    <title>Login</title>
+    <title>${addnewdoctor}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -42,7 +42,7 @@
             <form class="login10-form" method="POST"
                   action="controller?command=add_doctor">
 					<span class="login100-form-title">
-                        Add new doctor
+                        ${addnewdoctor}
                     </span>
 
                 <div class="form-group">
@@ -58,7 +58,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">Service</label>
+                    <label class="cols-sm-2 control-label">${services}</label>
                     <div class="cols-sm-10">
                         <c:forEach var="service" items="${services}">
                             <div class="input-group">
@@ -68,7 +68,17 @@
                     </div>
                 </div>
 
+                <c:if test="${name_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${nameError}
+                    </div>
+                </c:if>
 
+                <c:if test="${error_exist eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            ${errorExist}
+                    </div>
+                </c:if>
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">
@@ -101,21 +111,8 @@
 <script src="js/main.js"></script>
 
 <style>
-    .wrap-input100 {
-        margin-bottom: 5px;
-        margin-top: 5px;
-    }
-
-    .container1 {
-        margin-left: -18%;
-    }
-
     .form-group {
         margin-bottom: 15px;
-    }
-
-    .login100-form {
-        margin-left: 43%;
     }
 
     label {
@@ -140,14 +137,6 @@
         background-color: whitesmoke;
     }
 
-    #button {
-        padding: 6px 12px;
-        color: #666;
-        text-shadow: 0 1px #fff;
-        border-radius: 3px 3px;
-        box-shadow: 0 1px #fff inset, 0 1px #ddd;
-    }
-
     .container-login100 {
         margin-top: 30px;
         margin: 0 auto;
@@ -162,18 +151,6 @@
     span.input-group-addon i {
         color: #009edf;
         font-size: 17px;
-    }
-
-    .login-button {
-        margin-top: 5px;
-    }
-
-    .txt2 {
-        color: whitesmoke;
-    }
-
-    .txt3 {
-        color: whitesmoke;
     }
 
     .main-form {

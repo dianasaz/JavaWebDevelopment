@@ -77,14 +77,14 @@
                     ${continuegueast}
                 </a>
             </div>
-
             <div id="formFooter">
                 <div class="form-group ">
-                    <a href="controller?command=register" target="_blank" type="button" id="button"
+                    <a href="controller?command=register" type="button" id="button"
                        class="login-button">${register}</a>
                 </div>
             </div>
         </form>
+
     </div>
 </div>
 </div>
@@ -393,10 +393,6 @@
 
     *:focus {
         outline: none;
-    }
-
-    #icon {
-        width: 60%;
     }
 </style>
 </body>

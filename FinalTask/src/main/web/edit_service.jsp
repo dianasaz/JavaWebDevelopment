@@ -9,7 +9,6 @@
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:message bundle="${language}" key="add" var="add"/>
 <fmt:message bundle="${language}" key="priceService" var="priceService"/>
 <fmt:message bundle="${language}" key="nameService" var="nameService"/>
 <fmt:message bundle="${language}" key="enterprice" var="enterprice"/>
@@ -17,7 +16,7 @@
 <fmt:message bundle="${language}" key="editservice" var="edit"/>
 
 <head>
-    <title>Login</title>
+    <title>${edit}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -102,23 +101,6 @@
 <script src="js/main.js"></script>
 
 <style>
-    .wrap-input100 {
-        margin-bottom: 5px;
-        margin-top: 5px;
-    }
-
-    .container1 {
-        margin-left: -18%;
-    }
-
-    .form-group {
-        margin-bottom: 15px;
-    }
-
-    .login100-form {
-        margin-left: 43%;
-    }
-
     label {
         margin-bottom: 15px;
     }
@@ -141,14 +123,6 @@
         background-color: whitesmoke;
     }
 
-    #button {
-        padding: 6px 12px;
-        color: #666;
-        text-shadow: 0 1px #fff;
-        border-radius: 3px 3px;
-        box-shadow: 0 1px #fff inset, 0 1px #ddd;
-    }
-
     .container-login100 {
         margin-top: 30px;
         margin: 0 auto;
@@ -163,18 +137,6 @@
     span.input-group-addon i {
         color: #009edf;
         font-size: 17px;
-    }
-
-    .login-button {
-        margin-top: 5px;
-    }
-
-    .txt2 {
-        color: whitesmoke;
-    }
-
-    .txt3 {
-        color: whitesmoke;
     }
 
     .main-form {

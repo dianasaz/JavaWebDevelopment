@@ -34,7 +34,7 @@ public class AddDoctorCommand implements Command {
         String name = request.getParameter(NAME);
         String[] service = request.getParameterValues(SERVICES);
 
-        if (name == null || name.isEmpty() || service.length == 0) {
+        if (name == null || name.isEmpty() || service == null ||service.length == 0) {
             logger.log(Level.INFO, "name or price is null");
             return goBackWithError(request, ERROR_NULL);
         } else {

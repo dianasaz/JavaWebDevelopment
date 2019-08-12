@@ -11,11 +11,26 @@
 <fmt:message bundle="${language}" key="enteryoupassword" var="enterpassword"/>
 <fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
 <fmt:message bundle="${language}" key="profile" var="profile"/>
+<fmt:message bundle="${language}" key="login" var="log"/>
+<fmt:message bundle="${language}" key="username" var="username"/>
+<fmt:message bundle="${language}" key="useremail" var="useremail"/>
+<fmt:message bundle="${language}" key="userphone" var="userphone"/>
+<fmt:message bundle="${language}" key="userpassword" var="userpassword"/>
+<fmt:message bundle="${language}" key="erroremail" var="erroremail"/>
+<fmt:message bundle="${language}" key="errorlogin" var="errorlogin"/>
+<fmt:message bundle="${language}" key="wrongaddress" var="wrongaddress"/>
+<fmt:message bundle="${language}" key="wrongemail" var="wrongemail"/>
+<fmt:message bundle="${language}" key="wronglogin" var="wronglogin"/>
+<fmt:message bundle="${language}" key="wrongname" var="wrongname"/>
+<fmt:message bundle="${language}" key="wrongpassword" var="wrongpassword"/>
+<fmt:message bundle="${language}" key="wrongphone" var="wrongphone"/>
+<fmt:message bundle="${language}" key="phoneproperties" var="phoneprop"/>
+
 
 
 <html lang="${language}">
 <head>
-    <title>Login</title>
+    <title>${editprofile}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -39,7 +54,7 @@
 					</span>
 
                 <div class="form-group">
-                    <label for="login" class="cols-sm-2 control-label">Login</label>
+                    <label for="login" class="cols-sm-2 control-label">${log}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
@@ -51,7 +66,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="cols-sm-2 control-label">Password</label>
+                    <label for="password" class="cols-sm-2 control-label">${userpassword}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
@@ -63,7 +78,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">Name</label>
+                    <label for="name" class="cols-sm-2 control-label">${username}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
@@ -75,7 +90,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Email</label>
+                    <label for="email" class="cols-sm-2 control-label">${useremail}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
@@ -86,7 +101,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="phoneNumber" class="cols-sm-2 control-label">phoneNumber</label>
+                    <label for="phoneNumber" class="cols-sm-2 control-label">${userphone}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-users fa"
@@ -99,7 +114,7 @@
 
 
                 <div class="form-group">
-                    <label for="address" class="cols-sm-2 control-label">Address</label>
+                    <label for="address" class="cols-sm-2 control-label">${useraddress}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
@@ -108,6 +123,62 @@
                         </div>
                     </div>
                 </div>
+
+                <c:if test="${error_registration eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            ${errorlogin}
+                    </div>
+                </c:if>
+
+                <c:if test="${error_email eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            ${erroremail}
+                    </div>
+                </c:if>
+
+                <c:if test="${email_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${wrongemail}
+                    </div>
+                </c:if>
+
+                <c:if test="${login_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${wronglogin}
+                    </div>
+                </c:if>
+
+                <c:if test="${error_number eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${phoneprop}
+                    </div>
+                </c:if>
+
+                <c:if test="${password_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${wrongpassword}
+                    </div>
+                </c:if>
+
+                <c:if test="${address_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${wrongaddress}
+                    </div>
+                </c:if>
+
+
+                <c:if test="${phone_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${wrongphone}
+                    </div>
+                </c:if>
+
+
+                <c:if test="${name_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${wrongname}
+                    </div>
+                </c:if>
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">

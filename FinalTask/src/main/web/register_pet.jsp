@@ -11,9 +11,11 @@
 <fmt:message bundle="${language}" key="hamster" var="hamster"/>
 <fmt:message bundle="${language}" key="enterdate" var="enterdate"/>
 <fmt:message bundle="${language}" key="register" var="register"/>
+<fmt:message bundle="${language}" key="wrongdateregisterpet" var="wrongdate"/>
+<fmt:message bundle="${language}" key="wrongname" var="wrongname"/>
 
 <head>
-    <title>Login</title>
+    <title>${signup}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -83,6 +85,18 @@
                         </div>
 
 
+                        <c:if test="${date_error eq true}">
+                            <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                                    ${wrongdate}
+                            </div>
+                        </c:if>
+
+                        <c:if test="${name_error eq true}">
+                            <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                                    ${wrongname}
+                            </div>
+                        </c:if>
+
 
                         <div class="container-login100-form-btn">
                             <button type="submit" class="login100-form-btn">
@@ -115,21 +129,8 @@
 <script src="js/main.js"></script>
 
 <style>
-    .wrap-input100 {
-        margin-bottom: 5px;
-        margin-top: 5px;
-    }
-
-    .container1 {
-        margin-left: -18%;
-    }
-
     .form-group {
         margin-bottom: 15px;
-    }
-
-    .login100-form {
-        margin-left: 43%;
     }
 
     label {
@@ -154,14 +155,6 @@
         background-color: whitesmoke;
     }
 
-    #button {
-        padding: 6px 12px;
-        color: #666;
-        text-shadow: 0 1px #fff;
-        border-radius: 3px 3px;
-        box-shadow: 0 1px #fff inset, 0 1px #ddd;
-    }
-
     .container-login100 {
         margin-top: 30px;
         margin: 0 auto;
@@ -176,18 +169,6 @@
     span.input-group-addon i {
         color: #009edf;
         font-size: 17px;
-    }
-
-    .login-button {
-        margin-top: 5px;
-    }
-
-    .txt2 {
-        color: whitesmoke;
-    }
-
-    .txt3 {
-        color: whitesmoke;
     }
 
     .main-form {

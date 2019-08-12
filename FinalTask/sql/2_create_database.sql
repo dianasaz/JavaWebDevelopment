@@ -7,5 +7,5 @@ GRANT SELECT,INSERT,UPDATE,DELETE
 
 GRANT SELECT,INSERT,UPDATE,DELETE
   ON `myDatabase`.*
-  TO library_user@'%'
+  TO myDatabase_user@'%'
   IDENTIFIED BY 'clinic_password';

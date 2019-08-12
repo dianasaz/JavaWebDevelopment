@@ -31,11 +31,18 @@
 <fmt:message bundle="${language}" key="continueguest" var="continuegueast"/>
 <fmt:message bundle="${language}" key="register" var="register"/>
 <fmt:message bundle="${language}" key="erroremail" var="erroremail"/>
+<fmt:message bundle="${language}" key="wrongaddress" var="wrongaddress"/>
+<fmt:message bundle="${language}" key="wrongemail" var="wrongemail"/>
+<fmt:message bundle="${language}" key="wronglogin" var="wronglogin"/>
+<fmt:message bundle="${language}" key="wrongname" var="wrongname"/>
+<fmt:message bundle="${language}" key="wrongpassword" var="wrongpassword"/>
+<fmt:message bundle="${language}" key="wrongphone" var="wrongphone"/>
+<fmt:message bundle="${language}" key="phoneproperties" var="phoneprop"/>
 
 
 <html lang="${language}">
 <head>
-    <title>Login</title>
+    <title>${register}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -164,41 +171,48 @@
 
                 <c:if test="${email_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            you put wrong email
+                            ${wrongemail}
                     </div>
                 </c:if>
 
                 <c:if test="${login_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            you put wrong login
+                            ${wronglogin}
                     </div>
                 </c:if>
 
-
                 <c:if test="${error_number eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            phone number should consist of 9 characters
+                            ${phoneprop}
                     </div>
                 </c:if>
 
                 <c:if test="${password_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            you put wrong password
+                            ${wrongpassword}
                     </div>
                 </c:if>
 
                 <c:if test="${address_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            wrong address
+                            ${wrongaddress}
                     </div>
                 </c:if>
 
 
                 <c:if test="${phone_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            you put wrong phone
+                            ${wrongphone}
                     </div>
                 </c:if>
+
+
+                <c:if test="${name_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            ${wrongname}
+                    </div>
+                </c:if>
+
 
 
                 <div class="fadeIn fourth">
@@ -301,17 +315,6 @@
         text-align: center;
     }
 
-    #formFooter {
-        background-color: #f6f6f6;
-        border-top: 1px solid #dce8f1;
-        padding: 25px;
-        text-align: center;
-        -webkit-border-radius: 0 0 10px 10px;
-        border-radius: 0 0 10px 10px;
-    }
-
-
-    /* TABS */
 
     h2.inactive {
         color: #cccccc;
@@ -525,35 +528,8 @@
         animation-delay: 1s;
     }
 
-    /* Simple CSS3 Fade-in Animation */
-    .underlineHover:after {
-        display: block;
-        left: 0;
-        bottom: -10px;
-        width: 0;
-        height: 2px;
-        background-color: #56baed;
-        content: "";
-        transition: width 0.2s;
-    }
-
-    .underlineHover:hover {
-        color: #0d0d0d;
-    }
-
-    .underlineHover:hover:after {
-        width: 100%;
-    }
-
-
-    /* OTHERS */
-
     *:focus {
         outline: none;
-    }
-
-    #icon {
-        width: 60%;
     }
 </style>
 </body>

@@ -17,7 +17,6 @@
 <fmt:message bundle="${language}" key="ourpets" var="ourpets"/>
 <html lang="${language}">
 <head>
-    <title>Petcare a Animals & Pets Category Flat Bootstarp responsive Website Template| HOME :: w3layouts</title>
     <!--bootstarp-css-->
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <!--/bootstarp-css -->

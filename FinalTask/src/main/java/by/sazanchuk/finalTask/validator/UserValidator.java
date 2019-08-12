@@ -8,11 +8,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserValidator implements Validator<User> {
+    //с ограничением 2-20 символов, которыми могут быть буквы и цифры, первый символ обязательно буква
     private static final String LOGIN = "^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$";
+    //Строчные и прописные латинские буквы, цифры, спецсимволы. Минимум 8 символов
     private static final String PASSWORD = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
     private static final String EMAIL = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$";
-    private static final String ADDRESS = "^[a-zA-Z]+\\s\\d{1,3}[\\.\\s\\,a-z]+[\\d]+";
-    private static final String NAME = "^[A-Z][a-z]+\\s[A-Z][a-z]+$";
+    //в формате (ул.\проспект\...) улица дом(-корпус*) и квартира
+    private static final String ADDRESS = "^([A-Za-z]{1,10}\\.?\\s?)?[a-zA-Z]{1,20}\\s\\d{1,3}(\\-\\d{1})?[\\.\\s\\,a-z]{1,10}[\\d]+";
+    //имя фамилия с ограничением в 16 символов
+    private static final String NAME = "^[A-Z][a-z]{1,16}\\s[A-Z][a-z]{1,16}$";
     private static final String PHONE = "[0-9]{9}";
     private static final String LOGIN_ERROR = "login_error";
     private static final String PASSWORD_ERROR = "password_error";

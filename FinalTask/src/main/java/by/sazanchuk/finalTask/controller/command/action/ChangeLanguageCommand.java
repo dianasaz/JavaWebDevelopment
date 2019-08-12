@@ -27,7 +27,7 @@ public class ChangeLanguageCommand implements Command {
         }
         String next = getNextLang(language);
         setAttributes(request, language, next);
-        return new CommandResult(Page.HOME_PAGE.getPage(), false);
+        return new CommandResult("/controller?command=home_page");
     }
 
     public void setAttributes(HttpServletRequest request, String lang, String next) {

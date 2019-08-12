@@ -23,6 +23,7 @@
 <fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
 <fmt:message bundle="${language}" key="write" var="write"/>
 <fmt:message bundle="${language}" key="call" var="call"/>
+<fmt:message bundle="${language}" key="userswithcoupons" var="userswithcoupons"/>
 
 
 <html lang="${language}">
@@ -106,7 +107,7 @@
                     <div class="tab-content" id="myTaabContent">
                         <label class="col-md-6 col-md-offset-3 control-label"
                                style="font-size: 20px; text-align: center;">
-                            <b>Users, who have coupons</b> </label>
+                            <b>${userswithcoupons}</b> </label>
 
                         <c:forEach var="coupon" items="${coupons}">
                             <div class="row">
@@ -134,8 +135,8 @@
                                             </c:forEach>
                                         </div>
                                         <div class="col-md-3">
-                                            <p>${write} ${user.email}</p>
-                                            <p>${call} ${user.phoneNumber}</p>
+                                            <p><a href="mailto:${user.email}">${user.email}</a></p>
+                                            <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
                                         </div>
                                     </c:if>
                                 </c:forEach>
@@ -162,10 +163,6 @@
         margin-bottom: 3%;
         border-radius: 0.5rem;
         background: #fff;
-    }
-
-    .profile-img {
-        text-align: center;
     }
 
     .tab-content {
@@ -215,12 +212,6 @@
         cursor: pointer;
     }
 
-    .proile-rating {
-        font-size: 12px;
-        color: #818182;
-        margin-top: 5%;
-    }
-
     .proile-rating span {
         color: #495057;
         font-size: 15px;
@@ -239,11 +230,6 @@
     .profile-head .nav-tabs .nav-link.active {
         border: none;
         border-bottom: 2px solid #0062cc;
-    }
-
-    .profile-work {
-        padding: 14%;
-        margin-top: -15%;
     }
 
     .profile-work p {

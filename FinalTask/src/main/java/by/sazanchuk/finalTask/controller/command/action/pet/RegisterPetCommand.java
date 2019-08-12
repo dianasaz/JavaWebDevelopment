@@ -39,7 +39,7 @@ public class RegisterPetCommand implements Command {
         String dateOfBirth = request.getParameter(DATE_OF_BIRTH);
 
         try {
-            if (name != null && dateOfBirth != null) {
+            if (name != null && dateOfBirth != null && kind != null) {
                 Integer user_id = (Integer) request.getSession().getAttribute(USER_ID);
                 if (user_id != null) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");

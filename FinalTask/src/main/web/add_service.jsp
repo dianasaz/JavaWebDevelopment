@@ -14,10 +14,12 @@
 <fmt:message bundle="${language}" key="nameService" var="nameService"/>
 <fmt:message bundle="${language}" key="enterprice" var="enterprice"/>
 <fmt:message bundle="${language}" key="entername" var="entername"/>
+<fmt:message bundle="${language}" key="errornameservice" var="errorname"/>
+<fmt:message bundle="${language}" key="priceerrorservice" var="errorprice"/>
 <fmt:message bundle="${language}" key="addnewservice" var="addnewservice"/>
 
 <head>
-    <title>Login</title>
+    <title>${addnewservice}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -71,19 +73,13 @@
 
                 <c:if test="${name_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            name error
+                            ${errorname}
                     </div>
                 </c:if>
 
                 <c:if test="${price_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            price error
-                    </div>
-                </c:if>
-
-                <c:if test="${entity_null eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                        null error
+                            ${errorprice}
                     </div>
                 </c:if>
 
@@ -118,21 +114,8 @@
 <script src="js/main.js"></script>
 
 <style>
-    .wrap-input100 {
-        margin-bottom: 5px;
-        margin-top: 5px;
-    }
-
-    .container1 {
-        margin-left: -18%;
-    }
-
     .form-group {
         margin-bottom: 15px;
-    }
-
-    .login100-form {
-        margin-left: 43%;
     }
 
     label {
@@ -157,14 +140,6 @@
         background-color: whitesmoke;
     }
 
-    #button {
-        padding: 6px 12px;
-        color: #666;
-        text-shadow: 0 1px #fff;
-        border-radius: 3px 3px;
-        box-shadow: 0 1px #fff inset, 0 1px #ddd;
-    }
-
     .container-login100 {
         margin-top: 30px;
         margin: 0 auto;
@@ -179,18 +154,6 @@
     span.input-group-addon i {
         color: #009edf;
         font-size: 17px;
-    }
-
-    .login-button {
-        margin-top: 5px;
-    }
-
-    .txt2 {
-        color: whitesmoke;
-    }
-
-    .txt3 {
-        color: whitesmoke;
     }
 
     .main-form {

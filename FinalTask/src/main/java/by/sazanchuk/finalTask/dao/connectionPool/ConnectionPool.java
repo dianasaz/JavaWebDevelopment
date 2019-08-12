@@ -2,6 +2,7 @@ package by.sazanchuk.finalTask.dao.connectionPool;
 
 import com.mysql.jdbc.Driver;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,22 +32,17 @@ public class ConnectionPool {
 
     private volatile static ConnectionPool connectionPool;
 
-    public static ConnectionPool getInstance(){
-
-        if(connectionPool == null){
+    public static ConnectionPool getInstance() {
+              if(connectionPool == null){
             try {
                 lock.lock();
                 if(connectionPool == null){
                     connectionPool = new ConnectionPool();
                 }
             }
-            catch (SQLException e) {
+            catch (ConnectionPoolException e) {
                 LOGGER.error("Can not get Instance", e);
-                try {
-                    throw new ConnectionPoolException("Can not get Instance", e);
-                } catch (ConnectionPoolException e1) {
-                    e1.printStackTrace();
-                }
+                throw  new RuntimeException(e);
             } finally {
                 lock.unlock();
             }
@@ -55,30 +51,24 @@ public class ConnectionPool {
         return connectionPool;
     }
 
-    private ConnectionPool() throws SQLException {
-
+    private ConnectionPool() throws ConnectionPoolException {
         try {
             lock.lock();
-
-            if(connectionPool != null){
-                try {
-                    throw new ConnectionPoolException();
-                } catch (ConnectionPoolException e1) {
-                    e1.printStackTrace();
-                }
+            if (connectionPool != null) {
+                throw new UnsupportedOperationException();
+            } else {
+                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
             }
-            else {
-                DriverManager.registerDriver(new Driver());
-                init();
-            }
-        }
-        finally {
+        } catch (SQLException e) {
+            LOGGER.log(Level.ERROR, "Can't register driver");
+            throw new ConnectionPoolException(e + "Cant' register driver");
+        } finally {
             lock.unlock();
         }
-
+        init();
     }
 
-    private void init() {
+    private void init() throws ConnectionPoolException {
 
         Properties properties = new Properties();
 
@@ -88,6 +78,7 @@ public class ConnectionPool {
             properties.load(inputStream);
         }catch (IOException e) {
             LOGGER.error("Error while reading properties", e);
+            throw new ConnectionPoolException(e);
         }
         String connectionURL = properties.getProperty("url");
         String initialCapacityString = properties.getProperty("poolSize");
@@ -126,7 +117,7 @@ public class ConnectionPool {
 
     }
 
-    public void destroy(){
+    public void destroy() throws ConnectionPoolException {
         freeConnections.addAll(releaseConnections);
         releaseConnections.clear();
 
@@ -137,6 +128,7 @@ public class ConnectionPool {
             }
             catch (InterruptedException e) {
                 LOGGER.error("Connection close exception", e);
+                throw new ConnectionPoolException(e);
             }
         }
 
@@ -150,6 +142,7 @@ public class ConnectionPool {
         }
         catch (SQLException e) {
             LOGGER.error("Drivers were not deregistrated", e);
+            throw new ConnectionPoolException(e);
         }
 
     }
