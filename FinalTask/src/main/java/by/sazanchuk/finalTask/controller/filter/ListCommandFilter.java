@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.filter;
+package by.sazanchuk.finalTask.controller.filter;
 
 
 import by.sazanchuk.finalTask.controller.command.action.access.CommandAccess;

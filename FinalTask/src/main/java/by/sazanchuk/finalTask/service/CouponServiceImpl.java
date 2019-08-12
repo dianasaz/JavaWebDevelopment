@@ -5,6 +5,7 @@ import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.entity.Coupon;
 import by.sazanchuk.finalTask.entity.Service;
 
+import javax.sql.rowset.serial.SerialException;
 import java.util.Date;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
             CouponDao couponDao = transaction.createDao(CouponDao.class);
             if (identity != null) {
                 couponDao.delete(identity);
-            }
+            } else throw new ServiceException();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

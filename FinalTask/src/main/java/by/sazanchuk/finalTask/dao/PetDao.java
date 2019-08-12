@@ -160,7 +160,7 @@ public class PetDao extends BaseDao implements Dao<Pet> {
                 pet = new Pet();
                 pet.setIdentity(resultSet.getInt("id"));
                 pet.setDateOfBirth((Date) resultSet.getObject("date_of_birth"));
-                pet.setKind(PetList.getById(resultSet.getInt("kind")));
+                pet.setKind(PetList.setPet(resultSet.getString("kind")));
                 pet.setName(resultSet.getString("name"));
                 pet.setUser_identity(resultSet.getInt("user_id"));
                 pets.add(pet);

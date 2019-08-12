@@ -11,7 +11,7 @@ public class UserValidator implements Validator<User> {
     //с ограничением 2-20 символов, которыми могут быть буквы и цифры, первый символ обязательно буква
     private static final String LOGIN = "^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$";
     //Строчные и прописные латинские буквы, цифры, спецсимволы. Минимум 8 символов
-    private static final String PASSWORD = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
+    private static final String PASSWORD = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]*)(?!.*\\s).{8,33}$";
     private static final String EMAIL = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$";
     //в формате (ул.\проспект\...) улица дом(-корпус*) и квартира
     private static final String ADDRESS = "^([A-Za-z]{1,10}\\.?\\s?)?[a-zA-Z]{1,20}\\s\\d{1,3}(\\-\\d{1})?[\\.\\s\\,a-z]{1,10}[\\d]+";

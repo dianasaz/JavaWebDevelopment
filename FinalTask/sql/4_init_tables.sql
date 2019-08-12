@@ -1,4 +1,3 @@
-USE `mydatabase`;
 INSERT INTO `user` (`login`,
                     `password`,
                     `role`,
@@ -7,9 +6,9 @@ INSERT INTO `user` (`login`,
                     `phoneNumber`,
                     `address`)
 VALUES ('admin',
-        '21232F297A57A5A743894A0E4A801FC3', /* MD5 хэш пароля "admin" */
+        'a66abb5684c45962d887564f08346e8d', /* MD5 хэш пароля "admin123456" */
         1,
         'dinka222@mail.ru',
         'Diana Sazanchuk',
-        29108326,
-        'Дзержинского 20');
+        291083264,
+        'Dzerzinskogo 20, 20');

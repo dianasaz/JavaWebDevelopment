@@ -1,4 +1,3 @@
-USE `myDatabase`;
 INSERT INTO `user` (`login`,
                     `password`,
                     `role`,
@@ -7,17 +6,17 @@ INSERT INTO `user` (`login`,
                     `phoneNumber`,
                     `address`)
 VALUES ('diana',
-        'EE11CBB19052E40B07AAC0CA060C23EE',
+        '65914b54fa170b139aa943baeddc9c51', /*string1999*/
         2,
         'din@mail.ru',
-        'Иванов Иван Иванович',
+        'Dina Horty',
         291011102,
         'ул. Покровского, 13-1'),
        ('vadim',
-        'b45cffe084dd3d20d928bee85e7b0f21',
+        '853f6953382e0929f2f6e890cae73e56', /*user19999*/
         2,
         'dinqwe@mail.ru',
-        'Козлов Сергей Петрович',
+        'Vadim Kozlov',
         291981102,
-        'ул. Покровского, 15-3');
+        'pr. Nezavisimosti 32-1, 34');
 

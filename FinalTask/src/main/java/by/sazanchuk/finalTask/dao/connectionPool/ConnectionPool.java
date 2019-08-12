@@ -33,16 +33,15 @@ public class ConnectionPool {
     private volatile static ConnectionPool connectionPool;
 
     public static ConnectionPool getInstance() {
-              if(connectionPool == null){
+        if (connectionPool == null) {
             try {
                 lock.lock();
-                if(connectionPool == null){
+                if (connectionPool == null) {
                     connectionPool = new ConnectionPool();
                 }
-            }
-            catch (ConnectionPoolException e) {
+            } catch (ConnectionPoolException e) {
                 LOGGER.error("Can not get Instance", e);
-                throw  new RuntimeException(e);
+                throw new RuntimeException(e);
             } finally {
                 lock.unlock();
             }
@@ -76,7 +75,7 @@ public class ConnectionPool {
             ClassLoader classLoader = getClass().getClassLoader();
             InputStream inputStream = classLoader.getResourceAsStream(PROPERTY_PATH);
             properties.load(inputStream);
-        }catch (IOException e) {
+        } catch (IOException e) {
             LOGGER.error("Error while reading properties", e);
             throw new ConnectionPoolException(e);
         }
@@ -89,8 +88,7 @@ public class ConnectionPool {
                 Connection connection = new ConnectingPool(DriverManager.getConnection(connectionURL, properties)) {
                 };
                 freeConnections.add(connection);
-            }
-            catch (SQLException e) {
+            } catch (SQLException e) {
                 LOGGER.error("Pool can not initialize", e);
                 throw new RuntimeException("Pool can not initialize", e);
             }
@@ -104,8 +102,7 @@ public class ConnectionPool {
             releaseConnections.offer(connection);
 
             return connection;
-        }
-        catch (InterruptedException  e) {
+        } catch (InterruptedException e) {
             throw new ConnectionPoolException("Can not get database", e);
         }
 
@@ -117,7 +114,7 @@ public class ConnectionPool {
 
     }
 
-    public void destroy() throws ConnectionPoolException {
+    public void destroy() {
         freeConnections.addAll(releaseConnections);
         releaseConnections.clear();
 
@@ -125,24 +122,21 @@ public class ConnectionPool {
             try {
                 ConnectingPool connection = (ConnectingPool) freeConnections.take();
                 connection.realClose();
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 LOGGER.error("Connection close exception", e);
-                throw new ConnectionPoolException(e);
             }
         }
 
-        try {
-            Enumeration<java.sql.Driver> drivers = DriverManager.getDrivers();
-            while (drivers.hasMoreElements()) {
-                java.sql.Driver driver = drivers.nextElement();
+
+        Enumeration<java.sql.Driver> drivers = DriverManager.getDrivers();
+        while (drivers.hasMoreElements()) {
+            java.sql.Driver driver = drivers.nextElement();
+            try {
                 DriverManager.deregisterDriver(driver);
-
+                LOGGER.log(Level.INFO, String.format("Deregistering jdbc driver: %s", driver));
+            } catch (SQLException e) {
+                LOGGER.log(Level.ERROR, String.format("Error deregistering driver %s", driver), e);
             }
-        }
-        catch (SQLException e) {
-            LOGGER.error("Drivers were not deregistrated", e);
-            throw new ConnectionPoolException(e);
         }
 
     }

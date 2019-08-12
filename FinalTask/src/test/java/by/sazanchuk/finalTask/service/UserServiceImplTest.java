@@ -4,88 +4,169 @@ import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Role;
 import by.sazanchuk.finalTask.entity.User;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.List;
 
+import static org.junit.Assert.*;
+
 public class UserServiceImplTest {
+    private static UserService service;
+    private static ServiceFactory factory;
+    private static User user1;
+    private static User user2;
+    private static User user3;
 
-    @org.junit.Test
-    public void Test() throws ServiceException {
+    @BeforeClass
+    public static void prepare() throws ServiceException {
+        factory = new ServiceFactory();
+        service = factory.getService(UserService.class);
+    }
 
-        ServiceFactory factory = new ServiceFactory();
+    @Before
+    public void prepareUsers(){
+        user1 = new User();
+        user1.setName("Masha Kozlova");
+        user1.setAddress("Prospect Smysla 23, 12");
+        user1.setPassword("user123456");
+        user1.setPhoneNumber(291083245);
+        user1.setEmail("masha1299@gmail.com");
+        user1.setRole(Role.setRole("visitor"));
+        user1.setLogin("masha1999");
 
-        UserService service = factory.getService(UserService.class);
+        user2 = new User();
+        user2.setName("Sasha Petrov");
+        user2.setAddress("v. Smysla 82, 13");
+        user2.setPassword("user123456");
+        user2.setPhoneNumber(291234875);
+        user2.setEmail("sasha1989@gmail.com");
+        user2.setRole(Role.setRole("visitor"));
+        user2.setLogin("sasha1979");
 
-        User user = null;
-
-        boolean t;
-
-        user = service.findByLoginAndPassword("diana", "user");
-
-        if (user == null) {
-            t = false;
-        }
-        else t = true;
-
-        Assert.assertEquals(true, t);
+        user3 = new User();
+        user3.setName("Vanya Serov");
+        user3.setAddress("vul. Kozlova 4, 12");
+        user3.setPassword("useR123123");
+        user3.setPhoneNumber(292433245);
+        user3.setEmail("vanya1299@gmail.com");
+        user3.setRole(Role.setRole("visitor"));
+        user3.setLogin("vanya1999");
     }
 
     @Test
-    public void TestTwo() throws ServiceException {
+    public void saveWithoutExceptions() throws ServiceException {
+        Integer i = service.save(user1);
+        assertNotNull(i);
+    }
 
-        ServiceFactory factory = new ServiceFactory();
-
-        UserService service = factory.getService(UserService.class);
-
-        User user = null;
-
-        user = service.findByIdentity(2);
-
-        Assert.assertEquals("diana", user.getLogin());
+    @Test (expected = ServiceException.class)
+    public void saveException() throws ServiceException {
+        user1.setLogin(null);
+        service.save(user1);
     }
 
     @Test
-    public void TestThree() throws ServiceException {
+    public void findByIdentity() throws ServiceException {
+        service.save(user2);
+        User user = service.findByIdentity(user2.getId());
 
-        ServiceFactory factory = new ServiceFactory();
+        assertNotNull(user);
+    }
 
-        UserService service = factory.getService(UserService.class);
+    @Test (expected = ServiceException.class)
+    public void findByIdentityWithException() throws ServiceException {
+        service.findByIdentity(user2.getId());
+    }
+
+    @Test
+    public void findAll() throws ServiceException {
+        service.save(user1);
+        service.save(user2);
+        service.save(user3);
 
         List<User> users = service.findAll();
-
-        //Assert.assertEquals(3, users.size());
+        assertEquals(3, users.size());
     }
 
     @Test
-    public void TestFour() throws ServiceException {
+    public void findByLoginAndPassword() throws ServiceException {
+        service.save(user3);
+
+        User user = service.findByLoginAndPassword("vanya1999", "useR123123");
+
+        assertNotNull(user);
+    }
+
+    @Test
+    public void findByLoginAndPasswordFalse() throws ServiceException {
+        User user = service.findByLoginAndPassword("vanya1999", "useR123123");
+
+        assertNull(user);
+    }
+
+    @Test
+    public void isExist() throws ServiceException {
+        service.save(user2);
+
+        assertEquals(true, service.isExist("sasha1979"));
+    }
+
+    @Test
+    public void isExistButNot() throws ServiceException {
+        assertEquals(false, service.isExist("sasha1979"));
+    }
+
+    @Test (expected = ServiceException.class)
+    public void saveWithException() throws ServiceException {
+        service.save(user1);
+        user3.setEmail(user1.getEmail());
+        service.save(user3);
+    }
+
+    @Test
+    public void searchEmail() throws ServiceException {
+        service.save(user3);
+
+        assertEquals(true, service.searchEmail("vanya1299@gmail.com"));
+    }
+
+    @Test
+    public void searchEmailThatNotExist() throws ServiceException {
+        service.save(user3);
+        service.save(user2);
+        service.save(user1);
+
+        assertEquals(false, service.searchEmail("vanya@gmail.com"));
+    }
+
+    @Test
+    public void deleteWithoutException() throws ServiceException{
+        service.save(user3);
+
+        service.delete(user3.getId());
+
+        assertEquals(0, service.findAll().size());
+    }
+
+    @Test (expected = ServiceException.class)
+    public void delete() throws ServiceException{
+        service.delete(user3.getId());
+    }
 
 
-        ServiceFactory factory = new ServiceFactory();
+    @After
+    public void clean() throws ServiceException {
+        List<User> users = service.findAll();
+        for (User user : users){
+            if (service.isExist(user.getLogin())){
+                service.delete(user.getId());
+            }
+        }
 
-        UserService service = factory.getService(UserService.class);
-
-        User u = service.findByLoginAndPassword("User", "1073277");
-
-        if (service.isExist("User")) service.delete(u.getId());
-
-        User user = new User();
-
-        user.setName("User");
-        user.setPhoneNumber(12894378);
-        user.setRole(Role.VISITOR);
-        user.setAddress("njsnka skan 34-3");
-        user.setLogin("User");
-        user.setPassword("1073277");
-        user.setEmail("gosna@mail.ru");
-        System.out.println(user.getPassword());
-
-        Integer userId = service.save(user);
-        user.setId(userId);
-        System.out.println(user.getPassword());
-
-        Assert.assertEquals(userId, user.getId());
     }
 
 }

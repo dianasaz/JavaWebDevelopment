@@ -27,8 +27,10 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public User findByIdentity(Integer identity) throws ServiceException {
         UserDao userDao = null;
         try {
-            userDao = transaction.createDao(UserDao.class);
-            return userDao.read(identity);
+            if (identity != null) {
+                userDao = transaction.createDao(UserDao.class);
+                return userDao.read(identity);
+            } else throw new ServiceException();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -94,9 +96,9 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     public void delete(Integer identity) throws ServiceException {
         try {
             UserDao userDao = transaction.createDao(UserDao.class);
-            if (findByIdentity(identity) != null) {
+            if (identity != null) {
                 userDao.delete(identity);
-            }
+            } else throw new ServiceException();
         } catch (DaoException e){
             throw new ServiceException(e);
         }

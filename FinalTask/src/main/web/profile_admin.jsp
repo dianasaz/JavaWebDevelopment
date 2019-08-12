@@ -154,7 +154,7 @@
 </div>
 <style>
     body {
-        background: -webkit-linear-gradient(left, #c1d5c7, #00c6ff);
+        background: -webkit-linear-gradient(left, #eaffe2, #00c6ff);
     }
 
     .emp-profile {

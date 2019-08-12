@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.filter;
+package by.sazanchuk.finalTask.controller.filter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

@@ -118,7 +118,7 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
             DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
             if (doctorDao.read(identity) != null) {
                 doctorDao.delete(identity);
-            }
+            } else throw new ServiceException();
         } catch (DaoException e){
             throw new ServiceException(e);
         }

@@ -29,8 +29,11 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     public List<Service> searchWithOneDoctor(Doctor doctor) throws ServiceException {
         ServiceDao serviceDao = null;
         try {
-            serviceDao = transaction.createDao(ServiceDao.class);
-            return serviceDao.searchWithOneDoctor(doctor);
+            if (doctor == null) throw new ServiceException();
+            else {
+                serviceDao = transaction.createDao(ServiceDao.class);
+                return serviceDao.searchWithOneDoctor(doctor);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -44,7 +47,7 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
             Service s = null;
             if (identity != null) {
                 s = serviceDao.read(identity);
-            }
+            } else throw new ServiceException();
             return s;
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -56,15 +59,18 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     public int save(by.sazanchuk.finalTask.entity.Service service) throws ServiceException {
         ServiceDao serviceDao = null;
         try {
-            serviceDao = transaction.createDao(ServiceDao.class);
-            if (service.getIdentity() != null){
-                service.setName(service.getName());
-                service.setPrice(service.getPrice());
-            } else {
-                service.setIdentity(serviceDao.create(service));
+            if (service == null) throw new ServiceException();
+            else {
+                serviceDao = transaction.createDao(ServiceDao.class);
+                if (service.getIdentity() != null) {
+                    service.setName(service.getName());
+                    service.setPrice(service.getPrice());
+                } else {
+                    service.setIdentity(serviceDao.create(service));
+                }
+                serviceDao.update(service);
+                return service.getIdentity();
             }
-            serviceDao.update(service);
-            return service.getIdentity();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -77,6 +83,7 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
         try {
             serviceDao = transaction.createDao(ServiceDao.class);
             if (identity != null) serviceDao.delete(identity);
+            else throw new ServiceException();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -86,8 +93,11 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     public boolean searchService(String name) throws ServiceException {
         ServiceDao serviceDao = null;
         try {
-            serviceDao = transaction.createDao(ServiceDao.class);
-            return serviceDao.searchService(name) != null;
+            if (name == null) throw new ServiceException();
+            else {
+                serviceDao = transaction.createDao(ServiceDao.class);
+                return serviceDao.searchService(name) != null;
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -98,8 +108,11 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
     public Service searchServiceByName(String name) throws ServiceException {
         ServiceDao serviceDao = null;
         try {
-            serviceDao = transaction.createDao(ServiceDao.class);
-            return serviceDao.readByName(name);
+            if (name == null) throw new ServiceException();
+            else {
+                serviceDao = transaction.createDao(ServiceDao.class);
+                return serviceDao.readByName(name);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }

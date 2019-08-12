@@ -1,10 +1,8 @@
-package by.sazanchuk.finalTask.filter;
+package by.sazanchuk.finalTask.controller.filter;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 public class XSSRequestWrapper extends HttpServletRequestWrapper {

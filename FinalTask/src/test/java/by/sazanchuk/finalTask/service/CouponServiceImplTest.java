@@ -5,6 +5,8 @@ import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Coupon;
 import by.sazanchuk.finalTask.entity.Doctor;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -13,11 +15,29 @@ import java.util.Date;
 import java.util.List;
 
 public class CouponServiceImplTest {
+    private static CouponService service;
+    private static ServiceFactory factory;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    private static Coupon coupon1;
+    private static Coupon coupon2;
+    private static Coupon coupon3;
+
+    @BeforeClass
+    public static void prepare() throws ServiceException {
+        factory = new ServiceFactory();
+        service = factory.getService(CouponService.class);
+    }
+
+    @Before
+    public void preparePets() throws ParseException {
+        coupon1 = new Coupon();
+
+
+    }
 
     @Test
     public void testOne() throws ParseException, ServiceException {
         ServiceFactory factory = new ServiceFactory();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         CouponService service = factory.getService(CouponService.class);
         String date = "2019-09-03 10:00";
         Date date1 = dateFormat.parse(date);
