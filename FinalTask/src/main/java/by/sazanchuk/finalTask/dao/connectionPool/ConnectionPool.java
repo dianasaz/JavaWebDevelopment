@@ -16,22 +16,37 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * Custom realization of ConnectionPool
+ */
 public class ConnectionPool {
 
+    /** The Constant LOGGER. */
     private static final Logger LOGGER = LogManager.getLogger(ConnectionPool.class);
 
+    /** The Constant PROPERTY_PATH. */
     private static final String PROPERTY_PATH = "myDatabase.properties";
 
+    /** The Constant INITIAL_CAPACITY. */
     private static final int INITIAL_CAPACITY = 20;
 
+    /** The free connections. */
     private ArrayBlockingQueue<Connection> freeConnections = new ArrayBlockingQueue<>(INITIAL_CAPACITY);
 
+    /** The release connections. */
     private ArrayBlockingQueue<Connection> releaseConnections = new ArrayBlockingQueue<>(INITIAL_CAPACITY);
 
+    /** The lock. */
     private static ReentrantLock lock = new ReentrantLock();
 
+    /** The connection pool. */
     private volatile static ConnectionPool connectionPool;
 
+    /**
+     * Gets the single instance of ConnectionPool.
+     *
+     * @return single instance of ConnectionPool
+     */
     public static ConnectionPool getInstance() {
         if (connectionPool == null) {
             try {
@@ -50,6 +65,11 @@ public class ConnectionPool {
         return connectionPool;
     }
 
+    /**
+     * Instantiates a new connection pool.
+     *
+     * @throws ConnectionPoolException the Connection Pool exception
+     */
     private ConnectionPool() throws ConnectionPoolException {
         try {
             lock.lock();
@@ -67,6 +87,9 @@ public class ConnectionPool {
         init();
     }
 
+    /**
+     * Inits the.
+     */
     private void init() throws ConnectionPoolException {
 
         Properties properties = new Properties();
@@ -96,6 +119,11 @@ public class ConnectionPool {
 
     }
 
+    /**
+     * Gets the connection.
+     *
+     * @return the connection
+     */
     public Connection getConnection() throws ConnectionPoolException {
         try {
             Connection connection = freeConnections.take();
@@ -108,12 +136,20 @@ public class ConnectionPool {
 
     }
 
+    /**
+     * Release connection.
+     *
+     * @param connection the connection
+     */
     public void releaseConnection(Connection connection) {
         releaseConnections.remove(connection);
         freeConnections.offer(connection);
 
     }
 
+    /**
+     * Destroy.
+     */
     public void destroy() {
         freeConnections.addAll(releaseConnections);
         releaseConnections.clear();

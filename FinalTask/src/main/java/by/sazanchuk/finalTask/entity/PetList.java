@@ -1,6 +1,8 @@
 package by.sazanchuk.finalTask.entity;
 
-
+/**
+ * enum PetList
+ */
 public enum PetList {
     CAT ("cat"),
     DOG ("dog"),
@@ -8,18 +10,19 @@ public enum PetList {
     PARROT ("parrot"),
     HAMSTER ("hamster");
 
-    //TODO
-
     private String name;
 
     PetList(String name) {
         this.name = name;
     }
 
-    public Integer getIdentity() {
-        return ordinal();
-    }
-
+    /**
+     * gets kind of pet
+     *
+     * @param pet the name of pet
+     *
+     * @return kind of pet
+     */
     public static PetList setPet(String pet){
         PetList r = null;
         if (pet.equalsIgnoreCase("cat")) r = CAT;
@@ -28,10 +31,6 @@ public enum PetList {
         if (pet.equalsIgnoreCase("parrot")) r = PARROT;
         if (pet.equalsIgnoreCase("hamster")) r = HAMSTER;
         return r;
-    }
-
-    public static PetList getById(Integer id){
-        return PetList.values()[id];
     }
 
     @Override

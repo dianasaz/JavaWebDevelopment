@@ -4,25 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * entity doctor
+ */
 public class Doctor {
-    private static final int QUANTITY_OF_COUPON = 50;
     private Integer identity;
     private String name;
     private List<Service> service;
-    private List<Coupon> coupons = new ArrayList<>(QUANTITY_OF_COUPON);
 
-    public List<Coupon> getCoupons() {
-        return coupons;
-    }
+    /**
+     * Instantiates a new Doctor.
+     */
+    public Doctor() {}
 
+    /**
+     * @param service list of services
+     */
     public void setService(List<Service> service) {
         this.service = service;
     }
 
-    public void setCoupons(List<Coupon> coupons) {
-        this.coupons = coupons;
-    }
-
+    /**
+     * add service to list of services
+     *
+     * @param s service
+     */
     public void addService(Service s){
         if (service == null){
             service = new ArrayList<>();
@@ -30,6 +36,9 @@ public class Doctor {
         service.add(s);
     }
 
+    /**
+     * remove all services
+     */
     public void removeServices(){
         if (service != null) {
             if (service.size() != 0) {
@@ -40,31 +49,43 @@ public class Doctor {
         }
     }
 
+    /**
+     * gets identity of doctor
+     *
+     * @return identity
+     */
     public Integer getIdentity() {
         return identity;
     }
 
+    /**
+     * gets name
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
-    public String getServiceToString(){
-        String result = "";
-        for (int i = 0; i < service.size(); i++){
-            result += service.get(i).getName() + ", ";
-        }
-        return result;
-    }
-
-
+    /**
+     * @param identity the identity
+     */
     public void setIdentity(Integer identity) {
         this.identity = identity;
     }
 
+    /**
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * gets services
+     *
+     * @return list of services
+     */
     public List<Service> getService() {
         return service;
     }

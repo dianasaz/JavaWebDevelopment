@@ -1,5 +1,10 @@
 package by.sazanchuk.finalTask.dao;
 
+/**
+ * Interface Dao
+ *
+ * @param <T> entity
+ */
 public interface Dao <T> {
     Integer create(T entity) throws DaoException;
 

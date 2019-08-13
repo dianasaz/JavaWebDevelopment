@@ -1,25 +1,23 @@
 <%--
   Created by IntelliJ IDEA.
   User: dianasaz
-  Date: 01.08.2019
-  Time: 14:02
+  Date: 09.08.2019
+  Time: 17:19
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:message bundle="${language}" key="add" var="add"/>
-<fmt:message bundle="${language}" key="priceService" var="priceService"/>
-<fmt:message bundle="${language}" key="nameService" var="nameService"/>
-<fmt:message bundle="${language}" key="enterprice" var="enterprice"/>
+<fmt:message bundle="${language}" key="namedoctor" var="namedoctor"/>
+<fmt:message bundle="${language}" key="enterservices" var="enterservices"/>
+<fmt:message bundle="${language}" key="edit" var="edit"/>
 <fmt:message bundle="${language}" key="entername" var="entername"/>
-<fmt:message bundle="${language}" key="errornameservice" var="errorname"/>
-<fmt:message bundle="${language}" key="priceerrorservice" var="errorprice"/>
-<fmt:message bundle="${language}" key="addnewservice" var="addnewservice"/>
+<fmt:message bundle="${language}" key="editdoctor" var="editdoctor"/>
+<fmt:message bundle="${language}" key="nameError" var="nameError"/>
 
 <head>
-    <title>${addnewservice}</title>
+    <title>${editdoctor}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
@@ -42,13 +40,13 @@
 
         <div class="main-form">
             <form class="login10-form" method="POST"
-                  action="controller?command=add_service">
+                  action="controller?command=edit_doctor">
 					<span class="login100-form-title">
-                        ${addnewservice}
+                        ${editdoctor}
                     </span>
 
                 <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${nameService}</label>
+                    <label for="name" class="cols-sm-2 control-label">${namedoctor}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
@@ -60,32 +58,25 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">${priceService}</label>
+                    <label class="cols-sm-2 control-label">${enterservices}</label>
                     <div class="cols-sm-10">
-                        <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa"
-                                                                       aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="price" id="price"
-                                   placeholder="${enterprice}"/>
-                        </div>
+                        <c:forEach var="service" items="${services}">
+                            <div class="input-group">
+                                <input type="checkbox" name="service" value="${service.name}"> ${service.name}
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
 
                 <c:if test="${name_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${errorname}
-                    </div>
-                </c:if>
-
-                <c:if test="${price_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${errorprice}
+                            ${nameError}
                     </div>
                 </c:if>
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">
-                        ${add}
+                        ${edit}
                     </button>
                 </div>
 
@@ -97,21 +88,21 @@
 
 
 <!--===============================================================================================-->
-<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="vendor/animsition/js/animsition.min.js"></script>
+<script src="../../vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="vendor/bootstrap/js/popper.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../vendor/bootstrap/js/popper.js"></script>
+<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="vendor/select2/select2.min.js"></script>
+<script src="../../vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="vendor/daterangepicker/moment.min.js"></script>
-<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../vendor/daterangepicker/moment.min.js"></script>
+<script src="../../vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="vendor/countdowntime/countdowntime.js"></script>
+<script src="../../vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="js/main.js"></script>
+<script src="../../js/main.js"></script>
 
 <style>
     .form-group {
@@ -168,6 +159,7 @@
 </body>
 
 </html>
+
 
 
 

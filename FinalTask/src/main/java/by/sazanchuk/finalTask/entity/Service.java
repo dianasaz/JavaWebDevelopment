@@ -2,31 +2,63 @@ package by.sazanchuk.finalTask.entity;
 
 import java.util.Objects;
 
+/**
+ * entity service
+ */
 public class Service {
     private Integer identity;
     private String name;
     private Integer price;
 
+    /**
+     * Instantiates a new Service.
+     */
+    public Service() {}
+
+    /**
+     * @param identity the identity
+     */
     public void setIdentity(Integer identity) {
         this.identity = identity;
     }
 
+    /**
+     * @param price the price
+     */
     public void setPrice(Integer price) {
         this.price = price;
     }
 
+    /**
+     * gets identity
+     *
+     * @return identity
+     */
     public Integer getIdentity() {
         return identity;
     }
 
+    /**
+     * gets name
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * gets price
+     *
+     * @return the price
+     */
     public Integer getPrice() {
         return price;
     }

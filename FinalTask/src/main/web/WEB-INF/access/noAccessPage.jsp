@@ -36,7 +36,7 @@
         }
 
         body {
-            background: url('images/404.png') center no-repeat #fff
+            background: url('../../images/404.png') center no-repeat #fff
         }
 
         .content {
