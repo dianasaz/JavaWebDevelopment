@@ -5,6 +5,9 @@ import by.sazanchuk.finalTask.entity.Service;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Service validator.
+ */
 public class ServiceValidator implements Validator<Service> {
     private static final String NAME = "^[A-Z][a-z]+\\s?[A-Z]?[a-z]+\\s?[A-Z]?[a-z]+$";
     private static final String PRICE = "^[1-9][0-9]{1,6}$";

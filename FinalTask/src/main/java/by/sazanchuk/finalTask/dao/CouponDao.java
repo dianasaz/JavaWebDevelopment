@@ -18,6 +18,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Coupon dao.
+ */
 public class CouponDao extends BaseDao implements Dao<Coupon> {
     private static final String INSERT_ALL_INFO = "INSERT INTO coupon (`user_id`, `doctor_id`, `time`, `pet_id`, `service_id`) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_NAME = "SELECT `user_id`, `doctor_id`, `time`, `pet_id`, `service_id` FROM coupon WHERE `id` = ?";
@@ -90,6 +93,13 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
         }
     }
 
+    /**
+     * Gets coupons of one user.
+     *
+     * @param user_id the user id
+     * @return the coupons of one user
+     * @throws DaoException the dao exception
+     */
     public List<Coupon> getCouponsOfOneUser(int user_id) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -121,6 +131,14 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
         }
     }
 
+    /**
+     * Is taken coupon.
+     *
+     * @param doctor_id the doctor id
+     * @param date      the date
+     * @return the coupon
+     * @throws DaoException the dao exception
+     */
     public Coupon isTaken(Integer doctor_id, Date date) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -184,6 +202,12 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
         }
     }
 
+    /**
+     * Read list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     public List<Coupon> read() throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;

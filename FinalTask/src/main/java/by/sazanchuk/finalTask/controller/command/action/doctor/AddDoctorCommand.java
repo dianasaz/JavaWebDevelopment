@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Add doctor command.
+ */
 public class AddDoctorCommand implements Command {
     private static final Logger logger = LogManager.getLogger(AddDoctorCommand.class);
     private static final String NAME = "name";

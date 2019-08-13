@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * The type Change language command.
+ */
 public class ChangeLanguageCommand implements Command {
     private static final Logger logger = LogManager.getLogger(ChangeLanguageCommand.class);
 
@@ -30,6 +33,13 @@ public class ChangeLanguageCommand implements Command {
         return new CommandResult("/controller?command=home_page");
     }
 
+    /**
+     * Sets attributes.
+     *
+     * @param request the request
+     * @param lang    the lang
+     * @param next    the next
+     */
     public void setAttributes(HttpServletRequest request, String lang, String next) {
         HttpSession session = request.getSession();
         session.setAttribute(LANGUAGE, lang);

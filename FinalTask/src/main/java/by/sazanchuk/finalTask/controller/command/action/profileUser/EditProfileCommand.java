@@ -19,6 +19,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Edit profile command.
+ */
 public class EditProfileCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
 

@@ -12,6 +12,9 @@ import by.sazanchuk.finalTask.dao.transaction.TransactionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The type Service factory.
+ */
 public class ServiceFactory{
     private static Logger logger = LogManager.getLogger(ServiceFactory.class);
 
@@ -27,6 +30,11 @@ public class ServiceFactory{
         SERVICES.put(CouponService.class, CouponServiceImpl.class);
     }
 
+    /**
+     * Instantiates a new Service factory.
+     *
+     * @throws ServiceException the service exception
+     */
     public ServiceFactory() throws ServiceException {
         try {
             factory = TransactionFactory.getFactory();
@@ -36,12 +44,20 @@ public class ServiceFactory{
     }
 
 
+    /**
+     * Gets service.
+     *
+     * @param <Type> the type parameter
+     * @param key    the key
+     * @return the service
+     * @throws ServiceException the service exception
+     */
     public <Type extends Service> Type getService(Class<Type> key) throws ServiceException {
         Class<? extends ServiceImpl> value = SERVICES.get(key);
         if(value != null) {
             try {
                 ClassLoader classLoader = value.getClassLoader();
-                Class<?>[] interfaces = {key};//??????????????????????????
+                Class<?>[] interfaces = {key};
                 Transaction transaction = factory.createTransaction();
                 ServiceImpl service = value.newInstance();
                 InvocationHandler handler = new ServiceInvocationHandlerImpl(service);
@@ -56,6 +72,9 @@ public class ServiceFactory{
         return null;
     }
 
+    /**
+     * Close.
+     */
     public void close() {
         factory.close();
     }

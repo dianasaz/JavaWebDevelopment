@@ -18,6 +18,9 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type List command filter.
+ */
 public class ListCommandFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(ListCommandFilter.class);
 

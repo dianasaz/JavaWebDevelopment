@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequestWrapper;
 
+/**
+ * The type Xss request wrapper.
+ */
 public class XSSRequestWrapper extends HttpServletRequestWrapper {
 
     private static Pattern[] patterns = new Pattern[]{
@@ -28,6 +31,11 @@ public class XSSRequestWrapper extends HttpServletRequestWrapper {
             Pattern.compile("onload(.*?)=", Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL)
     };
 
+    /**
+     * Instantiates a new Xss request wrapper.
+     *
+     * @param servletRequest the servlet request
+     */
     public XSSRequestWrapper(HttpServletRequest servletRequest) {
         super(servletRequest);
     }

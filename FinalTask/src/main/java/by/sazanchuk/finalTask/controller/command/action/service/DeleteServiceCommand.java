@@ -11,6 +11,9 @@ import by.sazanchuk.finalTask.service.ServiceService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Delete service command.
+ */
 public class DeleteServiceCommand implements Command {
     private static final String NAME = "name";
     private static final String USER_ID = "user_id";

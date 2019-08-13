@@ -5,6 +5,9 @@ import by.sazanchuk.finalTask.entity.Doctor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Doctor validator.
+ */
 public class DoctorValidator implements Validator<Doctor> {
     private static final String NAME = "^[A-Z][a-z]+\\s[A-Z][a-z]+(\\s[A-Z][a-z]+)?$";
     private static final String ENTITY_NULL = "entity_null";

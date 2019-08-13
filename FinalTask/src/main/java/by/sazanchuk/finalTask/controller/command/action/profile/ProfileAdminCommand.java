@@ -21,6 +21,9 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Profile admin command.
+ */
 public class ProfileAdminCommand implements Command {
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
     private static final String USERS = "users";

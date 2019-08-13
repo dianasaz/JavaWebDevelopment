@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
+/**
+ * The type Watch doctor command.
+ */
 public class WatchDoctorCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response){

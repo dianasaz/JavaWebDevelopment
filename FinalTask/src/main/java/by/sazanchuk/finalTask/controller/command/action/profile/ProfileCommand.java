@@ -7,6 +7,9 @@ import by.sazanchuk.finalTask.entity.User;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Profile command.
+ */
 public class ProfileCommand implements Command {
     private static final String USER_ROLE = "user_role";
     private static final String USER = "user";

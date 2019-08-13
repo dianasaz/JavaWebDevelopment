@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Edit service command.
+ */
 public class EditServiceCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);

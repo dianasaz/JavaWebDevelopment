@@ -11,6 +11,9 @@ import by.sazanchuk.finalTask.service.ServiceFactory;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Delete doctor command.
+ */
 public class DeleteDoctorCommand implements Command {
     private static final String NAME = "name";
     private static final String ERROR_DELETE = "error_delete";

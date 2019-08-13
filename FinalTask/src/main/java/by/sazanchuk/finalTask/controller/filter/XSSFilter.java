@@ -9,6 +9,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type Xss filter.
+ */
 public class XSSFilter implements Filter {
 
     @Override

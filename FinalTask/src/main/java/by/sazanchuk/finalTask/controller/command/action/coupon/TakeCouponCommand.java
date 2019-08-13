@@ -25,6 +25,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The type Take coupon command.
+ */
 public class TakeCouponCommand implements Command {
     private static final Logger log = LogManager.getLogger(TakeCouponCommand.class);
     private static final String PET_ID = "pet_id";

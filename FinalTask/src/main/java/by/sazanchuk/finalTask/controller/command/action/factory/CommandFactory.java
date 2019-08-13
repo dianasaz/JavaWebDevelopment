@@ -46,6 +46,9 @@ import static by.sazanchuk.finalTask.controller.command.action.factory.CommandTy
 import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.WATCH_DOCTOR;
 import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.WATCH_SERVICE;
 
+/**
+ * The type Command factory.
+ */
 public class CommandFactory {
 
     private static Map<CommandType, Command> commands = new EnumMap<>(CommandType.class);
@@ -72,6 +75,12 @@ public class CommandFactory {
         commands.put(EDIT_SERVICE, new EditServiceCommand());
     }
 
+    /**
+     * Create command.
+     *
+     * @param command the command
+     * @return the command
+     */
     public static Command create(String command) {
        return commands.get(CommandType.of(command));
     }

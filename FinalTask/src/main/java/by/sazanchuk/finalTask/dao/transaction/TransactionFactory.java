@@ -9,11 +9,21 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The type Transaction factory.
+ */
 public class TransactionFactory {
     private static Logger logger = LogManager.getLogger(TransactionFactory.class);
     private static TransactionFactory factory;
     private Connection connection;
 
+    /**
+     * Gets factory.
+     *
+     * @return the factory
+     * @throws ConnectionPoolException the connection pool exception
+     * @throws DaoException            the dao exception
+     */
     public static TransactionFactory getFactory() throws ConnectionPoolException, DaoException {
         if (factory == null){
             factory = new TransactionFactory();
@@ -31,10 +41,19 @@ public class TransactionFactory {
         }
     }
 
+    /**
+     * Create transaction transaction.
+     *
+     * @return the transaction
+     * @throws DaoException the dao exception
+     */
     public Transaction createTransaction() throws DaoException {
         return new TransactionImpl(connection);
     }
 
+    /**
+     * Close.
+     */
     public void close() {
         try {
             connection.close();

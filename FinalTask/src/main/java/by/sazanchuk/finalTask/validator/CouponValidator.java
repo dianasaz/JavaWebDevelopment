@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Coupon validator.
+ */
 public class CouponValidator implements Validator<Coupon> {
     private static final String TIME = "^\\w{3}\\s\\w{3}\\s\\d{0,2}\\s([0](8|9)|[1][0-9])\\:";
     private static final String ENTITY_NULL = "entity_null";

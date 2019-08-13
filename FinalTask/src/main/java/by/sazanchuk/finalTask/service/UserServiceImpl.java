@@ -7,8 +7,16 @@ import by.sazanchuk.finalTask.entity.User;
 
 import java.util.List;
 
+/**
+ * The type User service.
+ */
 public class UserServiceImpl extends ServiceImpl implements UserService {
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @throws ServiceException the service exception
+     */
     public UserServiceImpl() throws ServiceException {
     }
 

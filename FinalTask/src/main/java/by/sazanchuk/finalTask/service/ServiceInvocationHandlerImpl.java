@@ -8,11 +8,19 @@ import by.sazanchuk.finalTask.dao.DaoException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * The type Service invocation handler.
+ */
 public class ServiceInvocationHandlerImpl implements InvocationHandler {
     private static Logger logger = LogManager.getLogger(ServiceInvocationHandlerImpl.class);
 
     private ServiceImpl service;
 
+    /**
+     * Instantiates a new Service invocation handler.
+     *
+     * @param service the service
+     */
     public ServiceInvocationHandlerImpl(ServiceImpl service) {
         this.service = service;
     }

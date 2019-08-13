@@ -12,6 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Doctor dao.
+ */
 public class DoctorDao extends BaseDao implements Dao<Doctor> {
     private static final String INSERT_ALL_INFO = "INSERT INTO doctor ( `name`) VALUES (?)";
     private static final String SELECT_NAME = "SELECT `name` FROM doctor WHERE `id` = ?";
@@ -52,6 +55,13 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         }
     }
 
+    /**
+     * Create ds.
+     *
+     * @param entity  the entity
+     * @param service the service
+     * @throws DaoException the dao exception
+     */
     public void createDS(Integer entity, Integer service) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -73,6 +83,12 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         }
     }
 
+    /**
+     * Delete ds.
+     *
+     * @param doctor the doctor
+     * @throws DaoException the dao exception
+     */
     public void deleteDS(Integer doctor) throws DaoException {
         PreparedStatement statement = null;
         try {
@@ -115,6 +131,13 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         }
     }
 
+    /**
+     * Read by name doctor.
+     *
+     * @param name the name
+     * @return the doctor
+     * @throws DaoException the dao exception
+     */
     public Doctor readByName(String name) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -175,6 +198,12 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         }
     }
 
+    /**
+     * Read list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     public List<Doctor> read() throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;

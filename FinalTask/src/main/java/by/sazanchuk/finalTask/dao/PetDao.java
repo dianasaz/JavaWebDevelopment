@@ -14,6 +14,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Pet dao.
+ */
 public class PetDao extends BaseDao implements Dao<Pet> {
     private static final String INSERT_ALL_INFO = "INSERT INTO pet (`name`, `kind`, `date_of_birth`, `user_id`) VALUES (?, ?, ?, ?)";
     private static final String SELECT_ALL_INFO = "SELECT `name`, `kind`, `date_of_birth`, `user_id` FROM pet WHERE `id` = ?";
@@ -121,6 +124,13 @@ public class PetDao extends BaseDao implements Dao<Pet> {
         }
     }
 
+    /**
+     * Read pets with one user list.
+     *
+     * @param user_id the user id
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     public List<Pet> readPetsWithOneUser(int user_id) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -148,6 +158,12 @@ public class PetDao extends BaseDao implements Dao<Pet> {
         }
     }
 
+    /**
+     * Read list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     public List<Pet> read() throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -180,6 +196,14 @@ public class PetDao extends BaseDao implements Dao<Pet> {
         }
     }
 
+    /**
+     * Read pet.
+     *
+     * @param name    the name
+     * @param user_id the user id
+     * @return the pet
+     * @throws DaoException the dao exception
+     */
     public Pet read(String name, Integer user_id) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;

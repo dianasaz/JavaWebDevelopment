@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+/**
+ * The type Register pet command.
+ */
 public class RegisterPetCommand implements Command {
     private static final Logger logger = LogManager.getLogger(RegisterPetCommand.class);
 

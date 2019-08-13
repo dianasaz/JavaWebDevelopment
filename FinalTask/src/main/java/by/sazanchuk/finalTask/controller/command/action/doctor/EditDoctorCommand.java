@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * The type Edit doctor command.
+ */
 public class EditDoctorCommand implements Command {
     private static final Logger logger = LogManager.getLogger(EditDoctorCommand.class);
     private static final String ID = "doctor_id";

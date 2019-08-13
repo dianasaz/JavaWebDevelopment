@@ -8,9 +8,17 @@ import by.sazanchuk.finalTask.entity.Pet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Pet service.
+ */
 public class PetServiceImpl extends ServiceImpl implements PetService {
 
 
+    /**
+     * Instantiates a new Pet service.
+     *
+     * @throws ServiceException the service exception
+     */
     public PetServiceImpl() throws ServiceException {
     }
 

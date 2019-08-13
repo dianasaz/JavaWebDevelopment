@@ -16,6 +16,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * The type Add service command.
+ */
 public class AddServiceCommand implements Command {
     private static final Logger logger = LogManager.getLogger(AddServiceCommand.class);
     private static final String NAME = "name";

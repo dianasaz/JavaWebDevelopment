@@ -12,6 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Service dao.
+ */
 public class ServiceDao extends BaseDao implements Dao<Service> {
     private static final String SELECT_ALL_INFORMATION_ABOUT_SERVICE = "SELECT `name`, `price`, `id` FROM service ORDER BY `name`";
     private static final String DELETE_FROM_DATABASE = "DELETE FROM service WHERE `id` = ?";
@@ -80,6 +83,13 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             }
         }
 
+    /**
+     * Search service service.
+     *
+     * @param name the name
+     * @return the service
+     * @throws DaoException the dao exception
+     */
     public Service searchService(String name) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -98,6 +108,13 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
         return service;
     }
 
+    /**
+     * Read by name service.
+     *
+     * @param name the name
+     * @return the service
+     * @throws DaoException the dao exception
+     */
     public Service readByName(String name) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -157,6 +174,12 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             }
         }
 
+    /**
+     * Read list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     public List<Service> read() throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -185,6 +208,13 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
         }
     }
 
+    /**
+     * Search with one doctor list.
+     *
+     * @param doctor the doctor
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     public List<Service> searchWithOneDoctor(Doctor doctor) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;

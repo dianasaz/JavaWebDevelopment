@@ -8,9 +8,17 @@ import by.sazanchuk.finalTask.entity.Service;
 
 import java.util.List;
 
+/**
+ * The type Service service.
+ */
 public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
 
 
+    /**
+     * Instantiates a new Service service.
+     *
+     * @throws ServiceException the service exception
+     */
     public ServiceServiceImpl() throws ServiceException {
     }
 

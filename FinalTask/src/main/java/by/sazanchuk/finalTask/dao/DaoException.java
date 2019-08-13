@@ -1,37 +1,37 @@
 package by.sazanchuk.finalTask.dao;
 
 /**
- * the type of dao exception
+ * The type Dao exception.
  */
 public class DaoException extends Exception {
     /**
-     * Instantiates a new dao exception
+     * Instantiates a new Dao exception.
      */
     public DaoException() {}
 
     /**
-     * Instantiates a new dao exception
+     * Instantiates a new Dao exception.
      *
-     * @param message message
-     * @param cause cause
+     * @param message the message
+     * @param cause   the cause
      */
     public DaoException(String message, Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * Instantiates a new dao exception
+     * Instantiates a new Dao exception.
      *
-     * @param message message
+     * @param message the message
      */
     public DaoException(String message) {
         super(message);
     }
 
     /**
-     * Instantiates a new dao exception
+     * Instantiates a new Dao exception.
      *
-     * @param cause cause
+     * @param cause the cause
      */
     public DaoException(Throwable cause) {
         super(cause);

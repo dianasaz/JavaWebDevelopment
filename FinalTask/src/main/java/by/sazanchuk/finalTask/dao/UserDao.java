@@ -14,6 +14,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type User dao.
+ */
 public class UserDao extends BaseDao implements Dao<User> {
     private static final String INSERT_INTO_USER_ALL_INFORMATION = "INSERT INTO user (`login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address`) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_INFORMATION_FROM_USER_WITHOUT_ID = "SELECT `login`, `password`, `role`, `email`, `name`, `phoneNumber`, `address` FROM user WHERE `user_id` = ?";
@@ -56,6 +59,13 @@ public class UserDao extends BaseDao implements Dao<User> {
         }
     }
 
+    /**
+     * Is exist boolean.
+     *
+     * @param login the login
+     * @return the boolean
+     * @throws DaoException the dao exception
+     */
     public boolean isExist(String login) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -75,6 +85,13 @@ public class UserDao extends BaseDao implements Dao<User> {
     }
 
 
+    /**
+     * Search email boolean.
+     *
+     * @param email the email
+     * @return the boolean
+     * @throws DaoException the dao exception
+     */
     public boolean searchEmail(String email) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -153,6 +170,14 @@ public class UserDao extends BaseDao implements Dao<User> {
         }
     }
 
+    /**
+     * Read user.
+     *
+     * @param login    the login
+     * @param password the password
+     * @return the user
+     * @throws DaoException the dao exception
+     */
     public User read(String login, String password) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
@@ -186,6 +211,12 @@ public class UserDao extends BaseDao implements Dao<User> {
         }
     }
 
+    /**
+     * Read list.
+     *
+     * @return the list
+     * @throws DaoException the dao exception
+     */
     public List<User> read() throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;

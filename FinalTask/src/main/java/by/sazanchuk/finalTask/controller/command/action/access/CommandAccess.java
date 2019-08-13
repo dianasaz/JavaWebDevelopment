@@ -5,9 +5,18 @@ import by.sazanchuk.finalTask.controller.command.action.factory.CommandType;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Command access.
+ */
 public class CommandAccess {
 
 
+    /**
+     * Gets available command types by user.
+     *
+     * @param role the role
+     * @return the available command types by user
+     */
     public List<CommandType> getAvailableCommandTypesByUser(String role) {
         List<CommandType> listAvailableCommands = new ArrayList<>(getCommandsForNotAuthorizedUsers());
         if(role != null) {

@@ -8,7 +8,15 @@ import by.sazanchuk.finalTask.entity.Service;
 
 import java.util.List;
 
+/**
+ * The type Doctor service.
+ */
 public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
+    /**
+     * Instantiates a new Doctor service.
+     *
+     * @throws ServiceException the service exception
+     */
     public DoctorServiceImpl() throws ServiceException {
     }
 

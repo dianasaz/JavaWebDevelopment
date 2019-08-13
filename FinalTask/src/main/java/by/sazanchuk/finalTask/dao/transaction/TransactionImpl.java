@@ -12,11 +12,19 @@ import org.apache.logging.log4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The type Transaction.
+ */
 public class TransactionImpl implements Transaction {
     private static Logger logger = LogManager.getLogger(TransactionImpl.class);
 
     private Connection connection;
 
+    /**
+     * Instantiates a new Transaction.
+     *
+     * @param connection the connection
+     */
     public TransactionImpl(Connection connection) {
         this.connection = connection;
     }

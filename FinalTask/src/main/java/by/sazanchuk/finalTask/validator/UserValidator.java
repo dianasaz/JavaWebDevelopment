@@ -7,6 +7,9 @@ import com.sun.org.apache.xerces.internal.impl.dv.xs.AbstractDateTimeDV;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type User validator.
+ */
 public class UserValidator implements Validator<User> {
     //с ограничением 2-20 символов, которыми могут быть буквы и цифры, первый символ обязательно буква
     private static final String LOGIN = "^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$";

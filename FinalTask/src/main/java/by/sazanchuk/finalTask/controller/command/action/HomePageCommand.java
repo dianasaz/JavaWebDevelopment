@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+/**
+ * The type Home page command.
+ */
 public class HomePageCommand implements Command {
     private static final Logger logger = LogManager.getLogger(HomePageCommand.class);
 

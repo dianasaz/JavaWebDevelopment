@@ -9,7 +9,15 @@ import javax.sql.rowset.serial.SerialException;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The type Coupon service.
+ */
 public class CouponServiceImpl extends ServiceImpl implements CouponService {
+    /**
+     * Instantiates a new Coupon service.
+     *
+     * @throws ServiceException the service exception
+     */
     public CouponServiceImpl() throws ServiceException {
     }
 
