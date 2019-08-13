@@ -54,19 +54,22 @@ public class UserServiceImpl extends ServiceImpl implements UserService {
     @Override
     public int save(User user) throws ServiceException {
         try {
-            UserDao userDao = transaction.createDao(UserDao.class);
-            if (user.getId() != null) {
-                user.setPassword(user.getPassword());
-                user.setAddress(user.getAddress());
-                user.setName(user.getName());
-                user.setPhoneNumber(user.getPhoneNumber());
-                user.setEmail(user.getEmail());
-                userDao.update(user);
-            } else {
-                user.setPassword(PasswordCode.CodeMD5(user.getPassword()));
-                user.setId(userDao.create(user));
+            if (user == null) throw new ServiceException();
+            else {
+                UserDao userDao = transaction.createDao(UserDao.class);
+                if (user.getId() != null) {
+                    user.setPassword(user.getPassword());
+                    user.setAddress(user.getAddress());
+                    user.setName(user.getName());
+                    user.setPhoneNumber(user.getPhoneNumber());
+                    user.setEmail(user.getEmail());
+                    userDao.update(user);
+                } else {
+                    user.setPassword(PasswordCode.CodeMD5(user.getPassword()));
+                    user.setId(userDao.create(user));
+                }
+                return user.getId();
             }
-            return user.getId();
         } catch (DaoException e){
             throw new ServiceException(e);
         }

@@ -12,8 +12,6 @@ public interface DoctorService extends Service{
 
     Doctor findByName(String name) throws ServiceException;
 
-    boolean isExist(Integer doctor_id,Integer service_id) throws ServiceException;
-
     int save(Doctor doctor) throws ServiceException;
 
     void deleteReferences(Doctor doctor) throws ServiceException;

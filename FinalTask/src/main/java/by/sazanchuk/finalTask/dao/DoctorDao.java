@@ -88,29 +88,6 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
         }
     }
 
-    public boolean isExist(Integer doctor_id, Integer service_id) throws DaoException {
-        PreparedStatement statement = null;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.prepareStatement(SEARCH_REFERENCE, Statement.RETURN_GENERATED_KEYS);
-            statement.setInt(1, doctor_id);
-            statement.setInt(2, service_id);
-            resultSet = statement.executeQuery();
-            if (resultSet.next()){
-                return true;
-            } else return false;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-            } catch(SQLException e) {}
-            try {
-                if (statement != null) statement.close();
-            } catch(SQLException e) {}
-        }
-    }
-
     @Override
     public Doctor read(Integer id) throws DaoException {
         PreparedStatement statement = null;

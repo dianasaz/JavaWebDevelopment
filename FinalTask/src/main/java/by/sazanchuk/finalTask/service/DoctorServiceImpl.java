@@ -39,7 +39,7 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
             Doctor doctor = null;
             if (identity != null) {
                 doctor = doctorDao.read(identity);
-            }
+            } else throw new ServiceException();
             return doctor;
         } catch (DaoException e){
             throw new ServiceException(e);
@@ -53,21 +53,8 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
             Doctor doctor = null;
             if (name != null) {
                 doctor = doctorDao.readByName(name);
-            }
+            } else throw new ServiceException();
             return doctor;
-        } catch (DaoException e){
-            throw new ServiceException(e);
-        }
-    }
-
-    @Override
-    public boolean isExist(Integer doctor_id, Integer service_id) throws ServiceException {
-        try {
-            DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
-            if (doctor_id != null && service_id != null) {
-                return doctorDao.isExist(doctor_id, service_id);
-            }
-            return true;
         } catch (DaoException e){
             throw new ServiceException(e);
         }
@@ -76,14 +63,17 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
     @Override
     public int save(Doctor doctor) throws ServiceException {
         try {
-            DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
-            if (doctor.getIdentity() != null) {
-                doctor.setName(doctor.getName());
-            } else {
-                doctor.setIdentity(doctorDao.create(doctor));
+            if (doctor == null) throw new ServiceException();
+            else {
+                DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
+                if (doctor.getIdentity() != null) {
+                    doctor.setName(doctor.getName());
+                } else {
+                    doctor.setIdentity(doctorDao.create(doctor));
+                }
+                doctorDao.update(doctor);
+                return doctor.getIdentity();
             }
-            doctorDao.update(doctor);
-            return doctor.getIdentity();
         } catch (DaoException e){
             throw new ServiceException(e);
         }
@@ -92,11 +82,14 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
     @Override
     public void save(Doctor doctor, Service service) throws ServiceException {
         try {
-            DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
-            ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-            if (serviceDao.readByName(service.getName()) != null) {
-                int doctor_id = save(doctor);
-                doctorDao.createDS(doctor_id, service.getIdentity());
+            if (doctor == null || service == null) throw new ServiceException();
+            else {
+                DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
+                ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
+                if (serviceDao.readByName(service.getName()) != null) {
+                    int doctor_id = save(doctor);
+                    doctorDao.createDS(doctor_id, service.getIdentity());
+                } else throw new ServiceException();
             }
         } catch (DaoException e){
             throw new ServiceException(e);
@@ -105,8 +98,11 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
 
     public void deleteReferences(Doctor doctor) throws ServiceException {
         try {
-            DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
-            doctorDao.deleteDS(doctor.getIdentity());
+            if (doctor == null) throw new ServiceException();
+            else {
+                DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
+                doctorDao.deleteDS(doctor.getIdentity());
+            }
         } catch (DaoException e){
             throw new ServiceException(e);
         }
@@ -116,9 +112,10 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
     public void delete(Integer identity) throws ServiceException {
         try {
             DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
-            if (doctorDao.read(identity) != null) {
+            if (identity == null) throw new ServiceException();
+            else {
                 doctorDao.delete(identity);
-            } else throw new ServiceException();
+            }
         } catch (DaoException e){
             throw new ServiceException(e);
         }

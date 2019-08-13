@@ -26,8 +26,11 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
     @Override
     public Coupon findByIdentity(Integer identity) throws ServiceException {
         try {
-            CouponDao couponDao = transaction.createDao(CouponDao.class);
-            return couponDao.read(identity);
+            if (identity == null) throw new ServiceException();
+            else {
+                CouponDao couponDao = transaction.createDao(CouponDao.class);
+                return couponDao.read(identity);
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -36,13 +39,17 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
     @Override
     public int save(Coupon coupon) throws ServiceException {
         try {
-            CouponDao couponDao = transaction.createDao(CouponDao.class);
-            if (coupon.getIdentity() == null) {
-                coupon.setIdentity(couponDao.create(coupon));
-            } else {
-                couponDao.update(coupon);
+            if (coupon == null) throw new ServiceException();
+            if (coupon.getTime() == null || coupon.getDoctor_id() == null || coupon.getPet_id() == null || coupon.getService_id() == null || coupon.getUser_id() == null) throw new ServiceException();
+            else {
+                CouponDao couponDao = transaction.createDao(CouponDao.class);
+                if (coupon.getIdentity() == null) {
+                    coupon.setIdentity(couponDao.create(coupon));
+                } else {
+                    couponDao.update(coupon);
+                }
+                return coupon.getIdentity();
             }
-            return coupon.getIdentity();
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -52,9 +59,8 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
     public void delete(Integer identity) throws ServiceException {
         try {
             CouponDao couponDao = transaction.createDao(CouponDao.class);
-            if (identity != null) {
-                couponDao.delete(identity);
-            } else throw new ServiceException();
+            if (identity == null) throw new ServiceException();
+            else couponDao.delete(identity);
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -63,9 +69,12 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
     @Override
     public boolean isTaken(Integer doctor_id, Date date) throws ServiceException {
         try {
-            CouponDao couponDao = transaction.createDao(CouponDao.class);
-            Coupon c = couponDao.isTaken(doctor_id, date);
-            return c != null;
+            if (doctor_id == null || date == null) throw new ServiceException();
+            else {
+                CouponDao couponDao = transaction.createDao(CouponDao.class);
+                Coupon c = couponDao.isTaken(doctor_id, date);
+                return c != null;
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
@@ -74,9 +83,12 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
     @Override
     public List<Coupon> getCouponsOfOneUser(int user_id) throws ServiceException {
         try {
-            CouponDao couponDao = transaction.createDao(CouponDao.class);
-            List<Coupon> coupons = couponDao.getCouponsOfOneUser(user_id);
-            return coupons;
+            if (user_id == 0) throw new ServiceException();
+            else {
+                CouponDao couponDao = transaction.createDao(CouponDao.class);
+                List<Coupon> coupons = couponDao.getCouponsOfOneUser(user_id);
+                return coupons;
+            }
         } catch (DaoException e) {
             throw new ServiceException(e);
         }
