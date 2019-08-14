@@ -30,7 +30,7 @@ public class CouponValidator implements Validator<Coupon> {
         d.add(Calendar.MONTH, 1);
 
         if (entity.getTime().after(d.getTime())) {
-            return DATE_ERROR;
+            return DATE_MONTH_ERROR;
         }
 
         Pattern pattern = Pattern.compile(TIME);

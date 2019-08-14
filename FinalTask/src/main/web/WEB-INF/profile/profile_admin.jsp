@@ -135,8 +135,8 @@
                                             </c:forEach>
                                         </div>
                                         <div class="col-md-3">
-                                            <p><a href="mailto:${user.email}">${user.email}</a></p>
-                                            <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
+                                            <p><a href="mailto:${user.email}">${write} ${user.email}</a></p>
+                                            <p><a href="callto:${user.phoneNumber}">${call} ${user.phoneNumber}</a></p>
                                         </div>
                                     </c:if>
                                 </c:forEach>
