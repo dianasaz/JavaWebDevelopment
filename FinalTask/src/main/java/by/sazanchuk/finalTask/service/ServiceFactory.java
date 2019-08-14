@@ -58,7 +58,7 @@ public class ServiceFactory{
             try {
                 ClassLoader classLoader = value.getClassLoader();
                 Class<?>[] interfaces = {key};
-                Transaction transaction = factory.createTransaction();
+                factory.createTransaction();
                 ServiceImpl service = value.newInstance();
                 InvocationHandler handler = new ServiceInvocationHandlerImpl(service);
                 return (Type)Proxy.newProxyInstance(classLoader, interfaces, handler);

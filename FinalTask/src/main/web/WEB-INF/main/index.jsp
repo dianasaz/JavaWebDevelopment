@@ -21,6 +21,7 @@
 
 <fmt:message bundle="${language}" key="singin" var="signin"/>
 <fmt:message bundle="${language}" key="signout" var="signout"/>
+<fmt:message bundle="${language}" key="workhours" var="workh"/>
 
 <!DOCTYPE html>
 <html lang="${lang}">
@@ -40,10 +41,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
     </script>
     <link href="css/hover.css" rel="stylesheet" media="all">
     <!--fonts-->
@@ -57,34 +54,37 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 <div class="header">
     <div class="container mt-5">
-        <ul class="cl-effect-21" style="margin-top: 2%; ">
-            <li style="margin-right: 22%">
+        <ul class="cl-effect-21" style="margin-top: 2%">
+            <li style="margin-top: 2%; float: left;">
                 <img src="images/logo.png" alt=""/>
             </li>
-            <li style="margin-right: 22%">
+            <li style="margin-top: 3.5%; color: black; float: left;"><p style="color: black;">${workh}</p></li>
+
+            <li style="margin-top: 3.5%; float: right;">
+                <c:choose>
+                    <c:when test="${user == null}">
+                        <a style="color: black" href="controller?command=login">${signin}</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a style="color: black" href="controller?command=logout">${signout}</a>
+                    </c:otherwise>
+                </c:choose>
+            </li>
+            <li style="float: right; margin-top: 3.5%;">
                 <c:choose>
                     <c:when test="${sessionScope.lang != null}">
-                        <a style="color: whitesmoke" href="controller?command=change_language&lang=${sessionScope.lang}"
+                        <a style="color: black"
+                           href="controller?command=change_language&lang=${sessionScope.lang}"
                            type="button" id="button"
                            class="login-button">${sessionScope.nextLang}</a>
                     </c:when>
                     <c:otherwise>
-                        <a style="color: whitesmoke" href="controller?command=change_language&lang=ru"
+                        <a style="color: black" href="controller?command=change_language&lang=ru"
                            type="button" id="button"
                            class="login-button">EN</a>
                     </c:otherwise>
                 </c:choose>
             </li>
-
-            <li style="margin-right: 22%"><c:choose>
-                <c:when test="${user == null}">
-                    <a style="color: whitesmoke" href="controller?command=login">${signin}</a>
-
-                </c:when>
-                <c:otherwise>
-                    <a style="color: whitesmoke" href="controller?command=logout">${signout}</a>
-                </c:otherwise>
-            </c:choose></li>
         </ul>
     </div>
 </div>

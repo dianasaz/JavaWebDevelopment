@@ -15,7 +15,7 @@ h1,h2,h3,h4,h5,h6,p,span{
 }
 /*--header--*/
 .header {
-	background: #3598DB;
+	background: #d2d6ff;
 	min-height: 180px;
 }
 .logo image{
@@ -32,7 +32,15 @@ h1,h2,h3,h4,h5,h6,p,span{
 	margin:1em 0 2em;
 }
 /* Effect 21: borders slight translate */
+.myclass li{
+	float: left;
+	margin-top: 3.5%;
+}
 
+.myclasstwo li{
+	float: right;
+	margin-top: 3.5%;
+}
 .cl-effect-21 a {
 	padding: 10px 0 10px 0;
 }
@@ -216,7 +224,7 @@ ul.callbacks_tabs.callbacks1_tabs {
 .doctor-self {
 	background: #27B6DE;
 	min-height: 400px;
-	color: #fff;
+	color: #25fdff;
 }
 .doctor-self-info-bottom {
 	padding-top: 4em;
@@ -906,12 +914,12 @@ ul#filters {
 	margin: 0 0.875em;
 }
 #filters li span:hover {
-	color: #A4A4A4;
+	color: #eafff2;
 }
 #filters li label {
 	margin: 0;
 	padding: 0;
-	color: #A4A4A4;
+	color: #ffffff;
 }
 #filters li span {
 	display: block;
@@ -1328,6 +1336,16 @@ div#portfoliolist {
 			font-weight: 400;
 			font-size: 1.2em;
 			margin-bottom: 32px;
+		}
+
+		li.myclass {
+			float: none;
+			margin-top: 0;
+		}
+
+		li.myclasstwo {
+			float: none;
+			margin-top: 0;
 		}
 
 		ul.cl-effect-21 {

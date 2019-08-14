@@ -15,6 +15,7 @@
 <fmt:message bundle="${language}" key="chooseservice" var="chooseservice"/>
 <fmt:message bundle="${language}" key="choosetimedate" var="choosetime"/>
 <fmt:message bundle="${language}" key="dateerror" var="dateerror"/>
+<fmt:message bundle="${language}" key="datemntherror" var="montherror"/>
 
 <head>
     <title>${takecoupon}</title>
@@ -146,6 +147,12 @@
                 <c:if test="${error_time eq true}">
                     <div class="container1" role="alert">
                             ${errortime}
+                    </div>
+                </c:if>
+
+                <c:if test="${date_month_error eq true}">
+                    <div class="container1" role="alert">
+                            ${montherror}
                     </div>
                 </c:if>
 

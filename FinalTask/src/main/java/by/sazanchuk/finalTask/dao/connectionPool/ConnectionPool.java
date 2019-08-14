@@ -1,7 +1,5 @@
 package by.sazanchuk.finalTask.dao.connectionPool;
 
-import com.mysql.jdbc.Driver;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -108,7 +106,7 @@ public class ConnectionPool {
 
         for (int i = 0; i < initialCapacity; i++) {
             try {
-                Connection connection = new ConnectingPool(DriverManager.getConnection(connectionURL, properties)) {
+                Connection connection = new PoolConnection(DriverManager.getConnection(connectionURL, properties)) {
                 };
                 freeConnections.add(connection);
             } catch (SQLException e) {
@@ -156,7 +154,7 @@ public class ConnectionPool {
 
         for (int i = 0; i < freeConnections.size(); i++) {
             try {
-                ConnectingPool connection = (ConnectingPool) freeConnections.take();
+                PoolConnection connection = (PoolConnection) freeConnections.take();
                 connection.realClose();
             } catch (InterruptedException e) {
                 LOGGER.error("Connection close exception", e);

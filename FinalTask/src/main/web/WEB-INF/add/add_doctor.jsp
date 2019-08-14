@@ -10,11 +10,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:message bundle="${language}" key="add" var="add"/>
-<fmt:message bundle="${language}" key="services" var="services"/>
+<fmt:message bundle="${language}" key="services" var="servicesall"/>
 <fmt:message bundle="${language}" key="entername" var="entername"/>
 <fmt:message bundle="${language}" key="nameError" var="nameError"/>
 <fmt:message bundle="${language}" key="errorExist" var="errorExist"/>
 <fmt:message bundle="${language}" key="addnewdoctor" var="addnewdoctor"/>
+<fmt:message bundle="${language}" key="doctorname" var="docname"/>
 
 <head>
     <title>${addnewdoctor}</title>
@@ -48,7 +49,7 @@
                     </span>
 
                 <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${nameService}</label>
+                    <label for="name" class="cols-sm-2 control-label">${docname}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
@@ -60,7 +61,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">${services}</label>
+                    <label class="cols-sm-2 control-label">${servicesall}</label>
                     <div class="cols-sm-10">
                         <c:forEach var="service" items="${services}">
                             <div class="input-group">

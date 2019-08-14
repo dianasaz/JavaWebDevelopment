@@ -57,6 +57,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
             </script>
+
 <!-- /script-nav -->
 <div class="clearfix"></div>
 </body>

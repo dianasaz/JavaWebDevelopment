@@ -23,14 +23,14 @@ import java.util.Properties;
 import java.util.concurrent.Executor;
 
 /**
- * The Class ConnectingPool.
+ * The Class PoolConnection.
  */
-public class ConnectingPool implements Connection, AutoCloseable {
+public class PoolConnection implements Connection, AutoCloseable {
 
     /**
      * The Constant LOGGER.
      */
-    private static final Logger LOGGER = LogManager.getLogger(ConnectingPool.class);
+    private static final Logger LOGGER = LogManager.getLogger(PoolConnection.class);
 
     /**
      * The connection.
@@ -42,7 +42,7 @@ public class ConnectingPool implements Connection, AutoCloseable {
      *
      * @param connection the connection
      */
-    ConnectingPool(Connection connection) {
+    PoolConnection(Connection connection) {
         this.connection = connection;
     }
 
