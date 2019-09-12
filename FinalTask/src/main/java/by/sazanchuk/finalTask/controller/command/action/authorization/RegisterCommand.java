@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -137,7 +136,7 @@ public class RegisterCommand implements Command {
     }
 
     private String isValid(User user){
-        UserValidator userValidator = new UserValidator();
+        UserValidator userValidator = UserValidator.getValidator();
         return userValidator.isValid(user);
     }
 }

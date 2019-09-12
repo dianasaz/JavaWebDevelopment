@@ -1,3 +1,5 @@
+use mydatabase;
+
 CREATE TABLE `user`
 (
   `user_id`     int PRIMARY KEY     NOT NULL AUTO_INCREMENT,

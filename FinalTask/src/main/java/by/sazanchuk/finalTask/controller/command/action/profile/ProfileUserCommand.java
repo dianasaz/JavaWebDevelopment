@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.controller.command.action.profileUser;
+package by.sazanchuk.finalTask.controller.command.action.profile;
 
 import by.sazanchuk.finalTask.controller.command.ConfigurationManager;
 import by.sazanchuk.finalTask.controller.command.action.Command;

@@ -109,7 +109,7 @@ public class TakeCouponCommand implements Command {
     }
 
     private String isValid(Coupon coupon){
-        CouponValidator couponValidator = new CouponValidator();
+        CouponValidator couponValidator = CouponValidator.getValidator();
         return couponValidator.isValid(coupon);
     }
 

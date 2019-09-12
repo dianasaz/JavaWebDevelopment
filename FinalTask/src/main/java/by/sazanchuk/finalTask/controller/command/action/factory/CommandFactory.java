@@ -10,11 +10,11 @@ import by.sazanchuk.finalTask.controller.command.action.doctor.WatchDoctorComman
 import by.sazanchuk.finalTask.controller.command.action.pet.DeletePetCommand;
 import by.sazanchuk.finalTask.controller.command.action.profile.ProfileAdminCommand;
 import by.sazanchuk.finalTask.controller.command.action.profile.ProfileCommand;
-import by.sazanchuk.finalTask.controller.command.action.profileUser.EditProfileCommand;
+import by.sazanchuk.finalTask.controller.command.action.profile.EditProfileCommand;
 import by.sazanchuk.finalTask.controller.command.action.HomePageCommand;
 import by.sazanchuk.finalTask.controller.command.action.authorization.LoginCommand;
 import by.sazanchuk.finalTask.controller.command.action.authorization.LogoutCommand;
-import by.sazanchuk.finalTask.controller.command.action.profileUser.ProfileUserCommand;
+import by.sazanchuk.finalTask.controller.command.action.profile.ProfileUserCommand;
 import by.sazanchuk.finalTask.controller.command.action.authorization.RegisterCommand;
 import by.sazanchuk.finalTask.controller.command.action.pet.RegisterPetCommand;
 import by.sazanchuk.finalTask.controller.command.action.service.AddServiceCommand;

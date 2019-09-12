@@ -10,7 +10,6 @@ import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.ServiceService;
 import by.sazanchuk.finalTask.validator.DoctorValidator;
-import com.sun.org.apache.regexp.internal.RE;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,7 +76,7 @@ public class AddDoctorCommand implements Command {
     }
 
     private String isValid(Doctor doctor) {
-        DoctorValidator doctorValidator = new DoctorValidator();
+        DoctorValidator doctorValidator = DoctorValidator.getValidator();
         return doctorValidator.isValid(doctor);
     }
 

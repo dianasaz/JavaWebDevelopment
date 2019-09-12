@@ -1,3 +1,4 @@
+use mydatabase;
 INSERT INTO `user` (`login`,
                     `password`,
                     `role`,

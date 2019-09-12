@@ -17,6 +17,11 @@ public class CouponValidator implements Validator<Coupon> {
     private static final String DATE_MONTH_ERROR= "date_month_error";
     private static final String VALID = "valid";
 
+    private static CouponValidator validator;
+
+    private CouponValidator(){
+        validator = new CouponValidator();
+    }
 
     @Override
     public String isValid(Coupon entity) {
@@ -38,5 +43,10 @@ public class CouponValidator implements Validator<Coupon> {
         if (!matcher.find()) return DATE_ERROR;
 
         return VALID;
+    }
+
+    public static CouponValidator getValidator() {
+        if (validator == null) return new CouponValidator();
+        else return validator;
     }
 }

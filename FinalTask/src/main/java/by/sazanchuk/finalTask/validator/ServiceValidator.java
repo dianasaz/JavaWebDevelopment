@@ -16,6 +16,12 @@ public class ServiceValidator implements Validator<Service> {
     private static final String PRICE_ERROR = "price_error";
     private static final String VALID = "valid";
 
+    private static ServiceValidator validator;
+
+    private ServiceValidator(){
+        validator = new ServiceValidator();
+    }
+
     @Override
     public String isValid(Service entity) {
         if (entity == null) return ENTITY_NULL;
@@ -29,5 +35,11 @@ public class ServiceValidator implements Validator<Service> {
         if (!matcher.find()) return PRICE_ERROR;
 
         return VALID;
+    }
+
+    public static ServiceValidator getValidator() {
+        if (validator == null){
+            return new ServiceValidator();
+        } else return validator;
     }
 }

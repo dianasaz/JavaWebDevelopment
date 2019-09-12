@@ -1,4 +1,4 @@
-package by.sazanchuk.finalTask.controller.command.action.profileUser;
+package by.sazanchuk.finalTask.controller.command.action.profile;
 
 import by.sazanchuk.finalTask.controller.command.ConfigurationManager;
 import by.sazanchuk.finalTask.controller.command.action.Command;
@@ -119,7 +119,7 @@ public class EditProfileCommand implements Command {
     }
 
     private String isValid(User user){
-        UserValidator userValidator = new UserValidator();
+        UserValidator userValidator = UserValidator.getValidator();
         return userValidator.isValid(user);
     }
 

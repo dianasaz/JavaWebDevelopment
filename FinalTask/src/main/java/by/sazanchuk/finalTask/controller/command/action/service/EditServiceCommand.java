@@ -96,7 +96,7 @@ public class EditServiceCommand implements Command {
     }
 
     private String isValid(Service service) {
-        ServiceValidator serviceValidator = new ServiceValidator();
+        ServiceValidator serviceValidator = ServiceValidator.getValidator();
         return serviceValidator.isValid(service);
     }
 

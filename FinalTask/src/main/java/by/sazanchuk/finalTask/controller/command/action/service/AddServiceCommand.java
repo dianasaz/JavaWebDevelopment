@@ -8,7 +8,6 @@ import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.service.ServiceService;
 import by.sazanchuk.finalTask.validator.ServiceValidator;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -66,7 +65,7 @@ public class AddServiceCommand implements Command {
     }
 
     private String isValid(Service service) {
-        ServiceValidator serviceValidator = new ServiceValidator();
+        ServiceValidator serviceValidator = ServiceValidator.getValidator();
         return serviceValidator.isValid(service);
     }
 

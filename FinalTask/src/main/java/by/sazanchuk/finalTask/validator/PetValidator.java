@@ -1,6 +1,7 @@
 package by.sazanchuk.finalTask.validator;
 
 import by.sazanchuk.finalTask.entity.Pet;
+import by.sazanchuk.finalTask.entity.PetList;
 
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -16,6 +17,12 @@ public class PetValidator implements Validator<Pet> {
     private static final String NAME_ERROR= "name_error";
     private static final String VALID = "valid";
 
+    private static PetValidator validator;
+
+    private PetValidator(){
+        validator = new PetValidator();
+    }
+
     @Override
     public String isValid(Pet entity) {
         if (entity == null) return ENTITY_NULL;
@@ -29,5 +36,11 @@ public class PetValidator implements Validator<Pet> {
         if (!matcher.find()) return NAME_ERROR;
 
         return VALID;
+    }
+
+    public static PetValidator getValidator() {
+        if (validator == null){
+            return new PetValidator();
+        } else return validator;
     }
 }

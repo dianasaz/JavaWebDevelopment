@@ -101,7 +101,6 @@ public enum CommandType {
      * @return the command type
      */
     public static CommandType of(String command) {
-
         return Stream.of(CommandType.values())
                 .filter(c -> c.command.equalsIgnoreCase(command))
                 .findFirst().orElse(HOME_PAGE);

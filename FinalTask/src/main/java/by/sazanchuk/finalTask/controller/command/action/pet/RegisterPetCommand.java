@@ -9,7 +9,6 @@ import by.sazanchuk.finalTask.service.PetService;
 import by.sazanchuk.finalTask.service.ServiceException;
 import by.sazanchuk.finalTask.service.ServiceFactory;
 import by.sazanchuk.finalTask.validator.PetValidator;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -78,7 +77,7 @@ public class RegisterPetCommand implements Command {
 
 
     private String isValid(Pet pet) {
-        PetValidator petValidator = new PetValidator();
+        PetValidator petValidator = PetValidator.getValidator();
         return petValidator.isValid(pet);
     }
 

@@ -96,7 +96,7 @@ public class EditDoctorCommand implements Command {
     }
 
     private String isValid(Doctor doctor){
-        DoctorValidator doctorValidator = new DoctorValidator();
+        DoctorValidator doctorValidator = DoctorValidator.getValidator();
         return doctorValidator.isValid(doctor);
     }
 }

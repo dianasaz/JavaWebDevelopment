@@ -1,8 +1,6 @@
 package by.sazanchuk.finalTask.validator;
 
 import by.sazanchuk.finalTask.entity.User;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-import com.sun.org.apache.xerces.internal.impl.dv.xs.AbstractDateTimeDV;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,6 +27,12 @@ public class UserValidator implements Validator<User> {
     private static final String EMAIL_ERROR = "email_error";
     private static final String VALID = "valid";
     private static final String NULL_ENTITY = "null_entity";
+
+    private static UserValidator validator;
+
+    private UserValidator() {
+        validator = new UserValidator();
+    }
 
     @Override
     public String isValid(User entity) {
@@ -59,5 +63,11 @@ public class UserValidator implements Validator<User> {
         if (!matcher.find()) return PHONE_ERROR;
 
         return VALID;
+    }
+
+    public static UserValidator getValidator() {
+        if (validator == null){
+            return new UserValidator();
+        } else return validator;
     }
 }
