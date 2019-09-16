@@ -19,10 +19,6 @@ public class CouponValidator implements Validator<Coupon> {
 
     private static CouponValidator validator;
 
-    private CouponValidator(){
-        validator = new CouponValidator();
-    }
-
     @Override
     public String isValid(Coupon entity) {
         if (entity == null) return ENTITY_NULL;
@@ -46,7 +42,7 @@ public class CouponValidator implements Validator<Coupon> {
     }
 
     public static CouponValidator getValidator() {
-        if (validator == null) return new CouponValidator();
-        else return validator;
+        if (validator == null) validator = new CouponValidator();
+        return validator;
     }
 }

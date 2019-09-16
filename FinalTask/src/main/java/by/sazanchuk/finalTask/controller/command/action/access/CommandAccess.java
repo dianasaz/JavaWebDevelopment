@@ -43,6 +43,7 @@ public class CommandAccess {
         commandTypes.add(CommandType.DELETE_PET);
         commandTypes.add(CommandType.REGISTER_PET);
         commandTypes.add(CommandType.TAKE_COUPON);
+        commandTypes.add(CommandType.EDIT_COUPON);
         return commandTypes;
     }
 

@@ -19,10 +19,6 @@ public class PetValidator implements Validator<Pet> {
 
     private static PetValidator validator;
 
-    private PetValidator(){
-        validator = new PetValidator();
-    }
-
     @Override
     public String isValid(Pet entity) {
         if (entity == null) return ENTITY_NULL;
@@ -40,7 +36,8 @@ public class PetValidator implements Validator<Pet> {
 
     public static PetValidator getValidator() {
         if (validator == null){
-            return new PetValidator();
-        } else return validator;
+            validator = new PetValidator();
+        }
+        return validator;
     }
 }

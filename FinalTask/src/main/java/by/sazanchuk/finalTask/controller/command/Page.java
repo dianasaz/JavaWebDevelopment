@@ -55,7 +55,9 @@ public enum Page {
     /**
      * Take coupon page.
      */
-    TAKE_COUPON("/WEB-INF/add/take_coupon.jsp");
+    TAKE_COUPON("/WEB-INF/add/take_coupon.jsp"),
+
+    EDIT_COUPON("WEB-INF/edit/edit_coupon.jsp");
 
 
     private final String value;

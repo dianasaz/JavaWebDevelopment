@@ -30,10 +30,6 @@ public class UserValidator implements Validator<User> {
 
     private static UserValidator validator;
 
-    private UserValidator() {
-        validator = new UserValidator();
-    }
-
     @Override
     public String isValid(User entity) {
         if (entity == null) return NULL_ENTITY;
@@ -67,7 +63,8 @@ public class UserValidator implements Validator<User> {
 
     public static UserValidator getValidator() {
         if (validator == null){
-            return new UserValidator();
-        } else return validator;
+            validator = new UserValidator();
+        }
+        return validator;
     }
 }

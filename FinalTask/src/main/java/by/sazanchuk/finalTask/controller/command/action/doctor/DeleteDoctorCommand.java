@@ -20,7 +20,6 @@ public class DeleteDoctorCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
         String name = request.getParameter(NAME);
-        // User user = (User) request.getSession().getAttribute(USER);
 
         try {
             if (name != null | !name.isEmpty()) {

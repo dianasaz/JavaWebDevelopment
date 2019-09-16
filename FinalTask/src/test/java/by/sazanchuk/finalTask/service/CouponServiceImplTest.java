@@ -141,6 +141,34 @@ public class CouponServiceImplTest {
         assertNotNull(couponService.findByIdentity(coupon1.getIdentity()));
     }
 
+    @Test
+    public void savemy() throws ServiceException, ParseException {
+        serviceService.save(service);
+        doctorService.save(doctor, service);
+        userService.save(user);
+        pet.setUser_identity(user.getId());
+        petService.save(pet);
+
+        String date = "2019-09-09 10:00";
+        Date date8 = dateFormat.parse(date);
+
+        coupon1.setUser_id(user.getId());
+        coupon1.setPet_id(pet.getIdentity());
+        coupon1.setDoctor_id(doctor.getIdentity());
+        coupon1.setService_id(service.getIdentity());
+        couponService.save(coupon1);
+
+        Coupon newCoupon = new Coupon();
+        newCoupon.setIdentity(coupon1.getIdentity());
+        newCoupon.setUser_id(coupon1.getUser_id());
+        newCoupon.setPet_id(coupon1.getPet_id());
+        newCoupon.setService_id(coupon1.getService_id());
+        newCoupon.setDoctor_id(coupon1.getDoctor_id());
+        newCoupon.setTime(date8);
+
+        couponService.save(newCoupon);
+    }
+
     @Test (expected = ServiceException.class)
     public void deleteException() throws ServiceException {
         couponService.delete(null);

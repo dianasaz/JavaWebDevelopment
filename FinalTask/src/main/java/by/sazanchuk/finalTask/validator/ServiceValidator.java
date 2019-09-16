@@ -18,10 +18,6 @@ public class ServiceValidator implements Validator<Service> {
 
     private static ServiceValidator validator;
 
-    private ServiceValidator(){
-        validator = new ServiceValidator();
-    }
-
     @Override
     public String isValid(Service entity) {
         if (entity == null) return ENTITY_NULL;
@@ -39,7 +35,8 @@ public class ServiceValidator implements Validator<Service> {
 
     public static ServiceValidator getValidator() {
         if (validator == null){
-            return new ServiceValidator();
-        } else return validator;
+            validator = new ServiceValidator();
+        }
+        return validator;
     }
 }

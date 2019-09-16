@@ -16,10 +16,6 @@ public class DoctorValidator implements Validator<Doctor> {
 
     private static DoctorValidator validator;
 
-    private DoctorValidator(){
-        validator = new DoctorValidator();
-    }
-
     @Override
     public String isValid(Doctor entity) {
         if (entity == null) return ENTITY_NULL;
@@ -32,7 +28,7 @@ public class DoctorValidator implements Validator<Doctor> {
     }
 
     public static DoctorValidator getValidator() {
-        if (validator == null) return new DoctorValidator();
-        else return validator;
+        if (validator == null) validator = new DoctorValidator();
+        return validator;
     }
 }

@@ -24,7 +24,7 @@ import java.util.List;
 public class CouponDao extends BaseDao implements Dao<Coupon> {
     private static final String INSERT_ALL_INFO = "INSERT INTO coupon (`user_id`, `doctor_id`, `time`, `pet_id`, `service_id`) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_NAME = "SELECT `user_id`, `doctor_id`, `time`, `pet_id`, `service_id` FROM coupon WHERE `id` = ?";
-    private static final String UPDATE_DOCTOR = "UPDATE coupon SET `user_id` = ? && `doctor_id` = ? && `time` = ? && `pet_id` = ? && `service_id` = ? WHERE `id` = ?";
+    private static final String UPDATE_DOCTOR = "UPDATE coupon SET `user_id` = ?, `doctor_id` = ?, `time` = ?, `pet_id` = ?, `service_id` = ? WHERE `id` = ?";
     private static final String DELETE_BY_IDENTITY = "DELETE FROM coupon WHERE `id` = ?";
     private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `user_id`,`doctor_id`, `time`, `pet_id`, `service_id` FROM coupon ORDER BY `user_id`";
     private static final String IS_EXIST = "SELECT `id` FROM coupon WHERE `time` = ? && `doctor_id` = ?";
@@ -170,19 +170,16 @@ public class CouponDao extends BaseDao implements Dao<Coupon> {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(UPDATE_DOCTOR);
-            statement.setInt(6, entity.getIdentity());
-            statement.setInt(5, entity.getService_id());
+            statement.setInt(3, entity.getIdentity());
+            statement.setInt(1, entity.getUser_id());
             statement.setInt(2, entity.getDoctor_id());
             statement.setTimestamp(3, new Timestamp(entity.getTime().getTime()));
-            statement.setInt(1, entity.getUser_id());
             statement.setInt(4, entity.getPet_id());
+            statement.setInt(5, entity.getService_id());
+            statement.setInt(6, entity.getIdentity());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
-        } finally {
-            try {
-                if (statement != null) statement.close();
-            } catch(SQLException e) {}
         }
     }
 

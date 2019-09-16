@@ -149,6 +149,9 @@
                                         </c:if>
                                     </c:forEach>
                                 </div>
+                                <div class="col-md-4">
+                                    <p><a href="controller?command=edit_coupon&coupon_id=${coupon.identity}">update</a></p>
+                                </div>
                             </div>
                         </c:forEach>
                     </c:if>

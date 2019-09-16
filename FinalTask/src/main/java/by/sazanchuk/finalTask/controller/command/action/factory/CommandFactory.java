@@ -2,6 +2,7 @@ package by.sazanchuk.finalTask.controller.command.action.factory;
 
 import by.sazanchuk.finalTask.controller.command.action.ChangeLanguageCommand;
 import by.sazanchuk.finalTask.controller.command.action.Command;
+import by.sazanchuk.finalTask.controller.command.action.coupon.EditCouponCommand;
 import by.sazanchuk.finalTask.controller.command.action.coupon.TakeCouponCommand;
 import by.sazanchuk.finalTask.controller.command.action.doctor.AddDoctorCommand;
 import by.sazanchuk.finalTask.controller.command.action.doctor.DeleteDoctorCommand;
@@ -25,26 +26,7 @@ import by.sazanchuk.finalTask.controller.command.action.service.WatchServiceComm
 import java.util.EnumMap;
 import java.util.Map;
 
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.ADD_DOCTOR;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.ADD_SERVICE;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.CHANGE_LANGUAGE;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.DELETE_DOCTOR;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.DELETE_PET;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.DELETE_SERVICE;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.EDIT_DOCTOR;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.EDIT_PROFILE;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.EDIT_SERVICE;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.HOME_PAGE;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.LOGIN;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.LOGOUT;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.PROFILE;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.PROFILE_ADMIN;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.PROFILE_USER;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.REGISTER;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.REGISTER_PET;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.TAKE_COUPON;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.WATCH_DOCTOR;
-import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.WATCH_SERVICE;
+import static by.sazanchuk.finalTask.controller.command.action.factory.CommandType.*;
 
 /**
  * The type Command factory.
@@ -73,6 +55,7 @@ public class CommandFactory {
         commands.put(TAKE_COUPON, new TakeCouponCommand());
         commands.put(EDIT_DOCTOR, new EditDoctorCommand());
         commands.put(EDIT_SERVICE, new EditServiceCommand());
+        commands.put(EDIT_COUPON, new EditCouponCommand());
     }
 
     /**

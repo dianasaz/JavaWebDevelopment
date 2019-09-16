@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
  * The type Service factory.
  */
 public class ServiceFactory{
-    private static Logger logger = LogManager.getLogger(ServiceFactory.class);
+   // private static Logger logger = LogManager.getLogger(ServiceFactory.class);
 
     private TransactionFactory factory;
 
@@ -65,7 +65,7 @@ public class ServiceFactory{
             } catch(DaoException e) {
                 throw new ServiceException(e);
             } catch(InstantiationException | IllegalAccessException e) {
-                logger.error("It is impossible to instance by.sazanchuk.finalTask.service class", e);
+                //logger.error("It is impossible to instance by.sazanchuk.finalTask.service class", e);
                 throw new ServiceException(e);
             }
         }
