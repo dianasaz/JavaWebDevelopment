@@ -64,7 +64,7 @@
                             <c:if test="${user != null}">
                                 <c:if test="${user_role eq 'administrator'}">
                                     <div class="col-md-3">
-                                        <a href="controller?command=delete_doctor&name=${doctor.name}">${deletedoctor}</a>
+                                        <a href="controller?command=delete_doctor&doctor_id=${doctor.identity}>${deletedoctor}</a>
                                     </div>
                                     <div class="col-md-3">
                                         <a href="controller?command=edit_doctor&doctor_id=${doctor.identity}">${editdoctor}</a>

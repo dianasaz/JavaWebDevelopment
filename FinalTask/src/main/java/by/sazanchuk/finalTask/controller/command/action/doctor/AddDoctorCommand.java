@@ -41,7 +41,7 @@ public class AddDoctorCommand implements Command {
             return goBackWithError(request, ERROR_NULL);
         } else {
             try {
-                if (!searchDoctor(name)) {
+                if (!searchDoctor(name)) { /*todo*/
                     List<String> services = Arrays.asList(service);
                     ServiceFactory factory = new ServiceFactory();
                     ServiceService serviceService = factory.getService(ServiceService.class);

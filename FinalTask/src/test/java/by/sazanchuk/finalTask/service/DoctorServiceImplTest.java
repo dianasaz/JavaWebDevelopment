@@ -21,6 +21,7 @@ public class DoctorServiceImplTest {
     private static ServiceFactory factory;
     private static Doctor doctor1;
     private static Doctor doctor2;
+    private static Doctor doctor3;
     private static Service service1;
     private static Service service2;
 
@@ -38,6 +39,9 @@ public class DoctorServiceImplTest {
 
         doctor2 = new Doctor();
         doctor2.setName("Gosha Trevi");
+
+        doctor3 = new Doctor();
+        doctor3.setName("Gosha Tr");
 
         service1 = new Service();
         service1.setName("Microchipping");
@@ -112,8 +116,9 @@ public class DoctorServiceImplTest {
     public void findByName() throws ServiceException {
         serviceService.save(service2);
         service.save(doctor2, service2);
+        service.save(doctor3, service2);
 
-        assertNotNull(service.findByName(doctor2.getName()));
+        assertEquals(2, service.findByName("Gosha").size());
     }
 
     @Test (expected = ServiceException.class)

@@ -3,6 +3,7 @@ package by.sazanchuk.finalTask.service;
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.entity.Doctor;
 
+import javax.print.Doc;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public interface DoctorService extends Service{
      * @return the doctor
      * @throws ServiceException the service exception
      */
-    Doctor findByName(String name) throws ServiceException;
+    List<Doctor> findByName(String name) throws ServiceException;
 
     /**
      * Save int.

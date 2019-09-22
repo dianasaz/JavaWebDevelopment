@@ -6,6 +6,7 @@ import by.sazanchuk.finalTask.dao.ServiceDao;
 import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,10 +56,10 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor findByName(String name) throws ServiceException {
+    public List<Doctor> findByName(String name) throws ServiceException {
         try {
             DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
-            Doctor doctor = null;
+            List<Doctor> doctor = new ArrayList<>();
             if (name != null) {
                 doctor = doctorDao.readByName(name);
             } else throw new ServiceException();

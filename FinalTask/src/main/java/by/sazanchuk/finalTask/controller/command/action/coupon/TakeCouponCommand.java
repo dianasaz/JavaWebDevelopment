@@ -102,10 +102,10 @@ public class TakeCouponCommand implements Command {
         return serviceService.searchServiceByName(s);
     }
 
-    private Doctor getDoctor(String name) throws ServiceException {
+    private Doctor getDoctor(String id) throws ServiceException {
         ServiceFactory factory = new ServiceFactory();
         DoctorService doctorService = factory.getService(DoctorService.class);
-        return doctorService.findByName(name);
+        return doctorService.findByIdentity(Integer.parseInt(id));
     }
 
     private String isValid(Coupon coupon){

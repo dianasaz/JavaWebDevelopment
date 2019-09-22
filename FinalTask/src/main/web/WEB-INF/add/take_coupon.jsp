@@ -78,7 +78,7 @@
                                 <c:forEach var="doc" items="${doctors}">
                                     <c:forEach var="docservice" items="${doc.service}">
                                         <c:if test="${docservice.name eq service.name}">
-                                            <option value="${doc.name}">${doc.name}</option>
+                                            <option value="${doc.identity}">${doc.name}</option>
                                         </c:if>
                                     </c:forEach>
                                 </c:forEach>

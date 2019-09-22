@@ -21,7 +21,8 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
     private static final String UPDATE_NAME_AND_PRICE = "UPDATE service SET `name` = ?, `price` = ? WHERE `id` = ?";
     private static final String SELECT_NAME_AND_PRICE = "SELECT `name`, `price` FROM service WHERE `id` = ?";
     private static final String INSERT_ALL_INFORMATION = "INSERT INTO service (`name`, `price`) VALUES (?, ?)";
-    private static final String SEARCH_NAME = "SELECT `name` FROM service WHERE `name` = ?";
+    private static final String SEARCH_NAME = "SELECT `name`, `price`, `id` FROM service WHERE LOCATE(?, `name`)";
+    private static final String SEARCH_PRICE = "SELECT `name`, `price` FROM service WHERE LOCATE(?, `price`)";
     private static final String SELECT_PRICE_AND_ID = "SELECT `id`, `price`, `name` FROM service WHERE `name` = ?";
     private static final String SELECT_SERVICE_ID_FROM_SERVICE_DOCTOR = "SELECT `service_id` FROM doctor_service WHERE `doctor_id` = ?";
 
@@ -90,7 +91,7 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
      * @return the service
      * @throws DaoException the dao exception
      */
-    public Service searchService(String name) throws DaoException {
+    public Service searchServiceByName(String name) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         Service service = null;
@@ -100,12 +101,36 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 service = new Service();
+                service.setName(resultSet.getString("name"));
+                service.setPrice(resultSet.getInt("price"));
+                service.setIdentity(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
             throw new DaoException();
         }
 
         return service;
+    }
+
+    public List<Service> searchServiceByPrice(String price) throws DaoException {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        Service service = null;
+        try {
+            statement = connection.prepareStatement(SEARCH_PRICE, Statement.RETURN_GENERATED_KEYS);
+            statement.setString(1, price);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                service = new Service();
+                service.setName(resultSet.getString("name"));
+                service.setPrice(resultSet.getInt("price"));
+                service.setIdentity(resultSet.getInt("id"));
+            }
+        } catch (SQLException e) {
+            throw new DaoException();
+        }
+
+        return null;
     }
 
     /**

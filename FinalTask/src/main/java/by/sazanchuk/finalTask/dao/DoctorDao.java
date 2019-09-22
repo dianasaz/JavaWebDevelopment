@@ -18,7 +18,7 @@ import java.util.List;
 public class DoctorDao extends BaseDao implements Dao<Doctor> {
     private static final String INSERT_ALL_INFO = "INSERT INTO doctor ( `name`) VALUES (?)";
     private static final String SELECT_NAME = "SELECT `name` FROM doctor WHERE `id` = ?";
-    private static final String SELECT_ID = "SELECT `id` FROM doctor WHERE `name` = ?";
+    private static final String SELECT_ID = "SELECT `id`, `name` FROM doctor WHERE LOCATE(?, `name`)";
     private static final String UPDATE_DOCTOR = "UPDATE doctor SET `name` = ? WHERE `id` = ?";
     private static final String DELETE_BY_IDENTITY = "DELETE FROM doctor WHERE `id` = ?";
     private static final String SELECT_ALL_INFO_ORDER_BY_NAME = "SELECT `id`, `name` FROM doctor ORDER BY `name`";
@@ -138,20 +138,22 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
      * @return the doctor
      * @throws DaoException the dao exception
      */
-    public Doctor readByName(String name) throws DaoException {
+    public List<Doctor> readByName(String name) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
             statement = connection.prepareStatement(SELECT_ID);
             statement.setString(1, name);
             resultSet = statement.executeQuery();
+            List<Doctor> doctors = new ArrayList<>();
             Doctor doctor = null;
-            if (resultSet.next()) {
+            while (resultSet.next()) {
                 doctor = new Doctor();
                 doctor.setName(name);
                 doctor.setIdentity(resultSet.getInt("id"));
+                doctors.add(doctor);
             }
-            return doctor;
+            return doctors;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {

@@ -2,7 +2,6 @@ package by.sazanchuk.finalTask.service;
 
 import by.sazanchuk.finalTask.dao.DaoException;
 import by.sazanchuk.finalTask.dao.ServiceDao;
-import by.sazanchuk.finalTask.dao.connectionPool.ConnectionPoolException;
 import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
 
@@ -104,7 +103,7 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
             if (name == null) throw new ServiceException();
             else {
                 serviceDao = transaction.createDao(ServiceDao.class);
-                return serviceDao.searchService(name) != null;
+                return serviceDao.searchServiceByName(name) != null;
             }
         } catch (DaoException e) {
             throw new ServiceException(e);

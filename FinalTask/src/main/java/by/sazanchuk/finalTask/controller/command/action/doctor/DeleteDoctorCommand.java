@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
  * The type Delete doctor command.
  */
 public class DeleteDoctorCommand implements Command {
-    private static final String NAME = "name";
+    private static final String DOCTOR_ID = "doctor_id";
     private static final String ERROR_DELETE = "error_delete";
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
-        String name = request.getParameter(NAME);
+        String name = request.getParameter(DOCTOR_ID);
 
         try {
             if (name != null | !name.isEmpty()) {
@@ -36,14 +36,14 @@ public class DeleteDoctorCommand implements Command {
     }
 
 
-    private void deleteDoctor(String name, HttpServletRequest request) throws ServiceException {
+    private void deleteDoctor(String id, HttpServletRequest request) throws ServiceException {
 
         ServiceFactory factory = new ServiceFactory();
 
         DoctorService service = factory.getService(DoctorService.class);
 
         Doctor doctor;
-        doctor = service.findByName(name);
+        doctor = service.findByIdentity(Integer.parseInt(id));
         if (doctor != null) {
             service.delete(doctor.getIdentity());
         }
