@@ -61,6 +61,8 @@ public interface ServiceService extends Service {
      */
     List<by.sazanchuk.finalTask.entity.Service> searchWithOneDoctor(Doctor doctor) throws ServiceException;
 
+    List<by.sazanchuk.finalTask.entity.Service> searchServiceByPrice(Integer price) throws ServiceException;
+
     /**
      * Search service by name by . sazanchuk . final task . entity . service.
      *

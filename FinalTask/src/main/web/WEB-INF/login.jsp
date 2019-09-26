@@ -33,9 +33,9 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/validation/loginValidation.js"></script>
 </head>
 <body>
-
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <form method="POST"
@@ -44,8 +44,11 @@
                 ${signin}
             </div>
 
-            <input type="text" id="login" class="fadeIn second" name="login" placeholder="${log}">
-            <input type="password" id="password" class="fadeIn third" name="password" placeholder="${userpassword}"
+            <input type="text" oninput="check()" id="login" class="fadeIn second"
+                   name="login" placeholder="${log}">
+
+            <input type="password" oninput="checkPassword()" id="password" class="fadeIn third"
+                   name="password" placeholder="${userpassword}"
                    style="  background-color: #f6f6f6;
         border: none;
         color: #0d0d0d;

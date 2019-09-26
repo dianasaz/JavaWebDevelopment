@@ -149,7 +149,7 @@ public class DoctorDao extends BaseDao implements Dao<Doctor> {
             Doctor doctor = null;
             while (resultSet.next()) {
                 doctor = new Doctor();
-                doctor.setName(name);
+                doctor.setName(resultSet.getString("name"));
                 doctor.setIdentity(resultSet.getInt("id"));
                 doctors.add(doctor);
             }

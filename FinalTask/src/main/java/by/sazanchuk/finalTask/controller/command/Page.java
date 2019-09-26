@@ -11,7 +11,7 @@ public enum Page {
     /**
      * Login page.
      */
-    LOGIN("/WEB-INF/access/login.jsp"),
+    LOGIN("/WEB-INF/login.jsp"),
     /**
      * Profile user page.
      */

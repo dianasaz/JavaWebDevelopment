@@ -81,8 +81,8 @@
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" id="login" class="fadeIn second" name="login"
-                                   placeholder="${enterlogin}">
+                            <input type="text" oninput="checkLogin()" id="login" class="fadeIn second" name="login"
+                                   required placeholder="${enterlogin}" title="loxxx">
                         </div>
                     </div>
                 </div>

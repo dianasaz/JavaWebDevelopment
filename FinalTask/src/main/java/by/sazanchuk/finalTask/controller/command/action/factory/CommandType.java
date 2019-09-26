@@ -87,7 +87,9 @@ public enum CommandType {
      */
     EDIT_SERVICE("edit_service"),
 
-    EDIT_COUPON("edit_coupon");
+    EDIT_COUPON("edit_coupon"),
+
+    SEARCH("search");
 
 
     private String command;

@@ -125,4 +125,17 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
         }
 
     }
+
+    public List<Service> searchServiceByPrice(Integer price) throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            if (price == null) throw new ServiceException();
+            else {
+                serviceDao = transaction.createDao(ServiceDao.class);
+                return serviceDao.searchServiceByPrice(price);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
 }

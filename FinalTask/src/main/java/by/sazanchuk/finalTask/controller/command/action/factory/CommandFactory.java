@@ -18,6 +18,7 @@ import by.sazanchuk.finalTask.controller.command.action.authorization.LogoutComm
 import by.sazanchuk.finalTask.controller.command.action.profile.ProfileUserCommand;
 import by.sazanchuk.finalTask.controller.command.action.authorization.RegisterCommand;
 import by.sazanchuk.finalTask.controller.command.action.pet.RegisterPetCommand;
+import by.sazanchuk.finalTask.controller.command.action.search.SearchCommand;
 import by.sazanchuk.finalTask.controller.command.action.service.AddServiceCommand;
 import by.sazanchuk.finalTask.controller.command.action.service.DeleteServiceCommand;
 import by.sazanchuk.finalTask.controller.command.action.service.EditServiceCommand;
@@ -56,6 +57,7 @@ public class CommandFactory {
         commands.put(EDIT_DOCTOR, new EditDoctorCommand());
         commands.put(EDIT_SERVICE, new EditServiceCommand());
         commands.put(EDIT_COUPON, new EditCouponCommand());
+        commands.put(SEARCH, new SearchCommand());
     }
 
     /**

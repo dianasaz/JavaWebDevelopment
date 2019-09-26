@@ -1,5 +1,6 @@
 package by.sazanchuk.finalTask.service;
 
+import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
 import org.junit.After;
 import org.junit.Assert;
@@ -7,6 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import javax.print.Doc;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -122,6 +125,54 @@ public class ServiceServiceImplTest {
         service.save(service3);
 
         assertEquals(service3.getIdentity(), service.searchServiceByName("Sterilizacia").getIdentity());
+    }
+
+    @Test
+    public void searchServiceByPrice() throws ServiceException {
+        service.save(service3);
+
+        assertEquals(1, service.searchServiceByPrice(2000).size());
+    }
+
+    //DELETE POTOM todo
+    @Test
+    public void myTestAfterDelete() throws ServiceException {
+
+
+        DoctorService doctorService = factory.getService(DoctorService.class);
+        for (Doctor d: doctorService.findByName("Sterili")){
+            doctorService.delete(d.getIdentity());
+        }
+
+        Service service4 = new Service();
+        service4.setName("Sterili");
+        service4.setPrice(2000);
+        service.save(service4);
+
+        Doctor doctor = new Doctor();
+        doctor.setName("Sterili");
+
+        String search = "2000";
+
+        doctorService.save(doctor, service4);
+
+        List<Object> objects = new ArrayList<>();
+        List<Doctor> doctors = doctorService.findByName(search);//КОСЯЯЯЯЯЯЯЯЯЯЯЯК
+        List<Service> services = null;
+
+        try {
+            int s = Integer.parseInt(search);
+            if (s != 0) {
+                services = service.searchServiceByPrice(s);
+            }
+        } catch (NumberFormatException e) {}
+
+        Service se = service.searchServiceByName(search);
+        if (doctors != null) objects.addAll(doctors);
+        if (services != null) objects.addAll(services);
+        if (se != null) objects.add(se);
+
+        assertEquals(1, objects.size());
     }
 
     @Test (expected = ServiceException.class)
