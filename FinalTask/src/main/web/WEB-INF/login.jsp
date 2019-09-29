@@ -44,7 +44,7 @@
                 ${signin}
             </div>
 
-            <input type="text" oninput="check()" id="login" class="fadeIn second"
+            <input type="text" oninput="checkLogin()" id="login" class="fadeIn second"
                    name="login" placeholder="${log}">
 
             <input type="password" oninput="checkPassword()" id="password" class="fadeIn third"

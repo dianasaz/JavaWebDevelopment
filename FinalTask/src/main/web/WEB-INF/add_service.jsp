@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: dianasaz
-  Date: 04.08.2019
-  Time: 23:20
+  Date: 01.08.2019
+  Time: 14:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -10,19 +10,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <fmt:message bundle="${language}" key="add" var="add"/>
-<fmt:message bundle="${language}" key="services" var="servicesall"/>
+<fmt:message bundle="${language}" key="priceService" var="priceService"/>
+<fmt:message bundle="${language}" key="nameService" var="nameService"/>
+<fmt:message bundle="${language}" key="enterprice" var="enterprice"/>
 <fmt:message bundle="${language}" key="entername" var="entername"/>
-<fmt:message bundle="${language}" key="nameError" var="nameError"/>
-<fmt:message bundle="${language}" key="errorExist" var="errorExist"/>
-<fmt:message bundle="${language}" key="addnewdoctor" var="addnewdoctor"/>
-<fmt:message bundle="${language}" key="doctorname" var="docname"/>
+<fmt:message bundle="${language}" key="errornameservice" var="errorname"/>
+<fmt:message bundle="${language}" key="priceerrorservice" var="errorprice"/>
+<fmt:message bundle="${language}" key="addnewservice" var="addnewservice"/>
 
 <head>
-    <title>${addnewdoctor}</title>
+    <title>${addnewservice}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
@@ -35,6 +36,7 @@
     <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
     <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
+    <script src="js/validation/loginValidation.js"></script>
 </head>
 <body>
 
@@ -43,43 +45,44 @@
 
         <div class="main-form">
             <form class="login10-form" method="POST"
-                  action="controller?command=add_doctor">
+                  action="controller?command=add_service">
 					<span class="login100-form-title">
-                        ${addnewdoctor}
+                        ${addnewservice}
                     </span>
 
                 <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${docname}</label>
+                    <label for="name" class="cols-sm-2 control-label">${nameService}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="name"
+                            <input type="text" oninput="checkServiceName()" class="form-control" name="name" id="name"
                                    placeholder="${entername}"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">${servicesall}</label>
+                    <label class="cols-sm-2 control-label">${priceService}</label>
                     <div class="cols-sm-10">
-                        <c:forEach var="service" items="${services}">
-                            <div class="input-group">
-                                <input type="checkbox" name="service" value="${service.name}"> ${service.name}
-                            </div>
-                        </c:forEach>
+                        <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span>
+                            <input type="text" oninput="checkServicePrice()" class="form-control" name="price" id="price"
+                                   placeholder="${enterprice}"/>
+                        </div>
                     </div>
                 </div>
 
                 <c:if test="${name_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                        ${nameError}
+                            ${errorname}
                     </div>
                 </c:if>
 
-                <c:if test="${error_exist eq true}">
+                <c:if test="${price_error eq true}">
                     <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${errorExist}
+                            ${errorprice}
                     </div>
                 </c:if>
 
@@ -97,21 +100,21 @@
 
 
 <!--===============================================================================================-->
-<script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/animsition/js/animsition.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/bootstrap/js/popper.js"></script>
-<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/select2/select2.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/daterangepicker/moment.min.js"></script>
-<script src="../../vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/countdowntime/countdowntime.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="../../js/main.js"></script>
+<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
 
 <style>
     .form-group {

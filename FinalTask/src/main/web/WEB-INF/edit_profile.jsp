@@ -47,6 +47,7 @@
     <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
     <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
+    <script src="js/validation/loginValidation.js"></script>
 </head>
 <body>
 
@@ -65,7 +66,7 @@
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="login" id="login"
+                            <input type="text" oninput="checkLogin()" class="form-control" name="login" id="login"
                                    placeholder="${user.login}"/>
                         </div>
                     </div>
@@ -77,7 +78,7 @@
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="password" id="password"
+                            <input type="text" oninput="checkPassword()" class="form-control" name="password" id="password"
                                    placeholder="${enterpassword}"/>
                         </div>
                     </div>
@@ -89,7 +90,7 @@
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="name"
+                            <input type="text" oninput="checkName()" class="form-control" name="name" id="name"
                                    placeholder="${user.name}"/>
                         </div>
                     </div>
@@ -100,7 +101,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="email" id="email"
+                            <input type="text" oninput="checkEmail()" class="form-control" name="email" id="email"
                                    placeholder="${user.email}"/>
                         </div>
                     </div>
@@ -112,7 +113,7 @@
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-users fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="phoneNumber" id="phoneNumber"
+                            <input type="text" oninput="checkPhone()" class="form-control" name="phoneNumber" id="phoneNumber"
                                    placeholder="${user.phoneNumber}"/>
                         </div>
                     </div>
@@ -124,7 +125,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="address" id="Address"
+                            <input type="text" oninput="checkAddress()" class="form-control" name="address" id="Address"
                                    placeholder="${user.address}"/>
                         </div>
                     </div>
@@ -204,21 +205,21 @@
 
 
 <!--===============================================================================================-->
-<script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/animsition/js/animsition.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/bootstrap/js/popper.js"></script>
-<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/select2/select2.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/daterangepicker/moment.min.js"></script>
-<script src="../../vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/countdowntime/countdowntime.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="../../js/main.js"></script>
+<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
 
 <style>
     .form-group {

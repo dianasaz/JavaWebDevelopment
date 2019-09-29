@@ -62,6 +62,7 @@
     <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
     <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
+    <script src="js/validation/loginValidation.js"></script>
 </head>
 <body>
 
@@ -82,7 +83,7 @@
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
                             <input type="text" oninput="checkLogin()" id="login" class="fadeIn second" name="login"
-                                   required placeholder="${enterlogin}" title="loxxx">
+                                   required placeholder="${enterlogin}">
                         </div>
                     </div>
                 </div>
@@ -93,7 +94,7 @@
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" class="fadeIn second" name="name" id="name"
+                            <input type="text" oninput="checkName()" class="fadeIn second" name="name" id="name"
                                    placeholder="${entername}"/>
                         </div>
                     </div>
@@ -104,7 +105,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="fadeIn second" name="email" id="email"
+                            <input type="text" oninput="checkEmail()" class="fadeIn second" name="email" id="email"
                                    placeholder="${enteremail}"/>
                         </div>
                     </div>
@@ -116,7 +117,7 @@
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-users fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" class="fadeIn second" name="phoneNumber" id="phoneNumber"
+                            <input type="text" oninput="checkPhone()" class="fadeIn second" name="phoneNumber" id="phoneNumber"
                                    placeholder="${enterphone}"/>
                         </div>
                     </div>
@@ -127,7 +128,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="password" id="password" class="fadeIn third" name="password"
+                            <input type="password" oninput="checkPassword()" id="password" class="fadeIn third" name="password"
                                    placeholder="${enterpassword}"
                                    style="  background-color: #f6f6f6;
         border: none;
@@ -156,7 +157,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="text" class="fadeIn second" name="address" id="Address"
+                            <input type="text" oninput="checkAddress()" class="fadeIn second" name="address" id="Address"
                                    placeholder="${useraddress}"/>
                         </div>
                     </div>
@@ -541,5 +542,3 @@
 </body>
 
 </html>
-
-

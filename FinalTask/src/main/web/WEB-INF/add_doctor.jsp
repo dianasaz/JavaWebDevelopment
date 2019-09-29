@@ -1,24 +1,28 @@
 <%--
   Created by IntelliJ IDEA.
   User: dianasaz
-  Date: 09.08.2019
-  Time: 19:44
+  Date: 04.08.2019
+  Time: 23:20
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<fmt:message bundle="${language}" key="priceService" var="priceService"/>
-<fmt:message bundle="${language}" key="nameService" var="nameService"/>
-<fmt:message bundle="${language}" key="enterprice" var="enterprice"/>
+<fmt:message bundle="${language}" key="add" var="add"/>
+<fmt:message bundle="${language}" key="services" var="servicesall"/>
 <fmt:message bundle="${language}" key="entername" var="entername"/>
-<fmt:message bundle="${language}" key="editservice" var="edit"/>
+<fmt:message bundle="${language}" key="nameError" var="nameError"/>
+<fmt:message bundle="${language}" key="errorExist" var="errorExist"/>
+<fmt:message bundle="${language}" key="addnewdoctor" var="addnewdoctor"/>
+<fmt:message bundle="${language}" key="doctorname" var="docname"/>
 
 <head>
-    <title>${edit}</title>
+    <title>${addnewdoctor}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
@@ -31,6 +35,8 @@
     <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
     <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
+    <script src="js/validation/loginValidation.js"></script>
+
 </head>
 <body>
 
@@ -39,40 +45,49 @@
 
         <div class="main-form">
             <form class="login10-form" method="POST"
-                  action="controller?command=edit_service">
+                  action="controller?command=add_doctor">
 					<span class="login100-form-title">
-                        ${edit}
+                        ${addnewdoctor}
                     </span>
 
                 <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${nameService}</label>
+                    <label for="name" class="cols-sm-2 control-label">${docname}</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="name" id="name"
-                                   placeholder="${service.name}"/>
+                            <input type="text" oninput="checkDoctor()" class="form-control" name="name" id="name"
+                                   placeholder="${entername}"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label">${priceService}</label>
+                    <label class="cols-sm-2 control-label">${servicesall}</label>
                     <div class="cols-sm-10">
-                        <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa"
-                                                                       aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" name="price" id="price"
-                                   placeholder="${service.price}"/>
-                        </div>
+                        <c:forEach var="service" items="${services}">
+                            <div class="input-group">
+                                <input type="checkbox" name="service" value="${service.name}"> ${service.name}
+                            </div>
+                        </c:forEach>
                     </div>
                 </div>
 
+                <c:if test="${name_error eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                        ${nameError}
+                    </div>
+                </c:if>
 
+                <c:if test="${error_exist eq true}">
+                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                            ${errorExist}
+                    </div>
+                </c:if>
 
                 <div class="container-login100-form-btn">
                     <button type="submit" class="login100-form-btn">
-                        ${edit}
+                        ${add}
                     </button>
                 </div>
 
@@ -84,23 +99,27 @@
 
 
 <!--===============================================================================================-->
-<script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/animsition/js/animsition.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/bootstrap/js/popper.js"></script>
-<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/select2/select2.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/daterangepicker/moment.min.js"></script>
-<script src="../../vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/countdowntime/countdowntime.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="../../js/main.js"></script>
+<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
 
 <style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
     label {
         margin-bottom: 15px;
     }
@@ -151,3 +170,7 @@
 </body>
 
 </html>
+
+
+
+

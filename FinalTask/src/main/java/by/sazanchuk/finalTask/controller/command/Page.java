@@ -23,15 +23,15 @@ public enum Page {
     /**
      * Register pet page.
      */
-    REGISTER_PET("/WEB-INF/register/register_pet.jsp"),
+    REGISTER_PET("/WEB-INF/register_pet.jsp"),
     /**
      * Edit profile page.
      */
-    EDIT_PROFILE("/WEB-INF/edit/edit_profile.jsp"),
+    EDIT_PROFILE("/WEB-INF/edit_profile.jsp"),
     /**
      * Register page.
      */
-    REGISTER("/WEB-INF/register/register.jsp"),
+    REGISTER("/WEB-INF/register.jsp"),
     /**
      * No access page.
      */
@@ -43,11 +43,11 @@ public enum Page {
     /**
      * Add service page.
      */
-    ADD_SERVICE("/WEB-INF/add/add_service.jsp"),
+    ADD_SERVICE("/WEB-INF/add_service.jsp"),
     /**
      * Add doctor page.
      */
-    ADD_DOCTOR("/WEB-INF/add/add_doctor.jsp"),
+    ADD_DOCTOR("/WEB-INF/add_doctor.jsp"),
     /**
      * Watch doctor page.
      */
