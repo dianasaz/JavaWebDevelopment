@@ -79,11 +79,11 @@ function checkServiceName() {
 
 function checkServicePrice() {
 
-    var input = document.getElementById("price");
-    if (!/^[1-9][0-9]{1,6}$/.test(input.value)) {
-        input.style.border = "2px solid #ed1d12";
+    var inputPrice = document.getElementById("price");
+    if (!/^[1-9][0-9]{1,6}$/.test(inputPrice.value)) {
+        inputPrice.style.border = "2px solid #ed1d12";
     } else {
-        input.style.border = "none";
+        inputPrice.style.border = "none";
     }
 }
 
