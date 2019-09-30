@@ -15,9 +15,9 @@ public class UserValidator implements Validator<User> {
     private static final String PASSWORD = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]*)(?!.*\\s).{8,33}$";
     private static final String EMAIL = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$";
     //в формате (ул.\проспект\...) улица дом(-корпус*) и квартира
-    private static final String ADDRESS = "^([A-Za-z]{1,10}\\.?\\s?)?[a-zA-Z]{1,20}\\s\\d{1,3}(\\-\\,\\d{1})?([\\.\\s\\,a-z]{1,10}[\\d]{1,5})?";
+    private static final String ADDRESS = "^([A-Za-zА-Яа-я]{1,10}\\.?\\s?)?[a-zA-ZА-Яа-я]{1,20}\\s\\d{1,3}(\\-\\,\\d{1})?([\\.\\s\\,a-zа-я]{1,10}[\\d]{1,5})?";
     //имя фамилия с ограничением в 16 символов
-    private static final String NAME = "^[A-Z][a-z]{1,16}\\s[A-Z][a-z]{1,16}$";
+    private static final String NAME = "^[A-ZА-Я][a-zа-я]{1,16}\\s[A-ZА-Я][a-zа-я]{1,16}$";
     private static final String PHONE = "[0-9]{9}";
     private static final String LOGIN_ERROR = "login_error";
     private static final String PASSWORD_ERROR = "password_error";

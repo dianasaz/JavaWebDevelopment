@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * The type Pet validator.
  */
 public class PetValidator implements Validator<Pet> {
-    private static final String NAME = "^[A-Z][a-z]{1,16}$";
+    private static final String NAME = "^[A-ZА-Я][a-zа-я]{1,16}$";
     private static final String ENTITY_NULL = "entity_null";
     private static final String DATE_ERROR= "date_error";
     private static final String NAME_ERROR= "name_error";

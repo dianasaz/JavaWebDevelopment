@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * The type Doctor validator.
  */
 public class DoctorValidator implements Validator<Doctor> {
-    private static final String NAME = "^[A-Z][a-z]+\\s[A-Z][a-z]+(\\s[A-Z][a-z]+)?$";
+    private static final String NAME = "^[A-ZА-Я][a-zа-я]+\\s[A-ZА-Я][a-zа-я]+(\\s[A-ZА-Я][a-zа-я]+)?$";
     private static final String ENTITY_NULL = "entity_null";
     private static final String NAME_ERROR = "name_error";
     private static final String VALID = "valid";

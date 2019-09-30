@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * The type Service validator.
  */
 public class ServiceValidator implements Validator<Service> {
-    private static final String NAME = "^[A-Z][a-z]+\\s?[A-Z]?[a-z]+\\s?[A-Z]?[a-z]+$";
+    private static final String NAME = "^[A-ZА-Я][a-zа-я]+\\s?[A-ZА-Я]?[a-zа-я]+\\s?[A-ZА-Я]?[a-zа-я]+$";
     private static final String PRICE = "^[1-9][0-9]{1,6}$";
     private static final String ENTITY_NULL = "entity_null";
     private static final String NAME_ERROR = "name_error";
