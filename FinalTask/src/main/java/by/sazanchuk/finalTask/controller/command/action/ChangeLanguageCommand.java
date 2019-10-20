@@ -12,17 +12,18 @@ import javax.servlet.http.HttpSession;
  * The type Change language command.
  */
 public class ChangeLanguageCommand implements Command {
-    private static final Logger logger = LogManager.getLogger(ChangeLanguageCommand.class);
-
     private static final String LANGUAGE = "lang";
     private static final String EN = "EN";
     private static final String RU = "RU";
     private static final String NEXT_LANGUAGE = "nextLang";
+    private static final String REFERER = "Referer";
 
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String language = request.getParameter(LANGUAGE).toUpperCase();
+        String referer = request.getHeader(REFERER);
+
         if (language.equalsIgnoreCase(RU)) {
             language = EN;
         } else {
@@ -30,7 +31,10 @@ public class ChangeLanguageCommand implements Command {
         }
         String next = getNextLang(language);
         setAttributes(request, language, next);
-        return new CommandResult("/controller?command=home_page");
+
+        String path = referer.substring(45);
+        if (path.isEmpty()) return new CommandResult("controller?command=home_page", true);
+        else return new CommandResult("" + path, true);
     }
 
     /**

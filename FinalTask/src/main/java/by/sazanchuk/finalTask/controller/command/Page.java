@@ -7,7 +7,7 @@ public enum Page {
     /**
      * Home page page.
      */
-    HOME_PAGE("/WEB-INF/main//index.jsp"),
+    HOME_PAGE("/WEB-INF/index.jsp"),
     /**
      * Login page.
      */
@@ -15,11 +15,11 @@ public enum Page {
     /**
      * Profile user page.
      */
-    PROFILE_USER("/WEB-INF/profile/profile_user.jsp"),
+    PROFILE_USER("/WEB-INF/profile_user.jsp"),
     /**
      * Profile admin page.
      */
-    PROFILE_ADMIN("/WEB-INF/profile/profile_admin.jsp"),
+    PROFILE_ADMIN("/WEB-INF/profile_admin.jsp"),
     /**
      * Register pet page.
      */
@@ -39,7 +39,7 @@ public enum Page {
     /**
      * Watch service page.
      */
-    WATCH_SERVICE("/WEB-INF/watch/watch_service.jsp"),
+    WATCH_SERVICE("/WEB-INF/watch_service.jsp"),
     /**
      * Add service page.
      */
@@ -51,13 +51,15 @@ public enum Page {
     /**
      * Watch doctor page.
      */
-    WATCH_DOCTOR("/WEB-INF/watch/watch_doctor.jsp"),
+    WATCH_DOCTOR("/WEB-INF/watch_doctor.jsp"),
     /**
      * Take coupon page.
      */
-    TAKE_COUPON("/WEB-INF/add/take_coupon.jsp"),
+    TAKE_COUPON("/WEB-INF/take_coupon.jsp"),
 
-    EDIT_COUPON("WEB-INF/edit/edit_coupon.jsp");
+    EDIT_COUPON("WEB-INF/edit_coupon.jsp"),
+
+    SEARCH("WEB-INF/search.jsp");
 
 
     private final String value;

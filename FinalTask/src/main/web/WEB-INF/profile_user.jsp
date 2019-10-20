@@ -2,6 +2,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
+<c:choose>
+    <c:when test="${sessionScope.lang != null}">
+        <fmt:setLocale value="${sessionScope.lang}" variant="en"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="ru"/>
+    </c:otherwise>
+</c:choose>
+<fmt:setBundle basename="language" var="language" scope="session"/>
 
 <fmt:message bundle="${language}" key="editprofile" var="edit"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
@@ -18,7 +27,6 @@
 <fmt:message bundle="${language}" key="takecoupon" var="take"/>
 <fmt:message bundle="${language}" key="yourcoupons" var="cs"/>
 
-
 <html lang="${language}">
 <head>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -27,6 +35,7 @@
     <!------ Include the above in your HEAD tag ---------->
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <div class="container emp-profile">
     <div style="margin-left: 20%; margin-right: 20%;">
         <table style="margin-bottom: 20px">
@@ -45,74 +54,74 @@
     </div>
     <form class="form" method="POST" action="controller?command=profile">
         <div class="row">
-            <table class="col-md-8">
+            <table class="col-8">
 
                 <div class="tab-content" id="myTabContent">
-                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
                         <b>${userinfo}</b> </label>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <label>${userlogin}</label>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <p>${user.login}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <label>${username}</label>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <p>${user.name}</p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <label>${useremail}</label>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <p><a href="mailto:${user.email}">${user.email}</a></p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <label>${userphone}</label>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <label>${useraddress}</label>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <p>${user.address}</p>
                         </div>
                     </div>
 
                 </div>
             </table>
-            <table class="col-md-8">
+            <table class="col-8">
                 <div class="tab-content" id="myTaabContent">
                     <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
                         <b>${yourpets}</b> </label>
 
                     <c:forEach var="pet" items="${pets}">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-2">
                                 <label>${pet.name}</label>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-2">
                                 <p>${pet.kind}</p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-2">
                                 <p>${pet.dateOfBirth}</p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-2">
                                 <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a></p>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-2">
                                 <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">${take}</a></p>
                             </div>
                         </div>
@@ -163,7 +172,7 @@
 </div>
 <style>
     body {
-        background: -webkit-linear-gradient(left, #f2fff0, #00c6ff);
+        background: -webkit-linear-gradient(left, #f5f5f5, #9cd6f3c4);
     }
 
     .emp-profile {

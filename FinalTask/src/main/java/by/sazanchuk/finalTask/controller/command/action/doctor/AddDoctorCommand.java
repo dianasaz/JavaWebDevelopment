@@ -85,6 +85,6 @@ public class AddDoctorCommand implements Command {
         ServiceFactory factory = new ServiceFactory();
         DoctorService service = factory.getService(DoctorService.class);
 
-        return service.findByName(name) != null;
+        return service.findByName(name).size() != 0;
     }
 }

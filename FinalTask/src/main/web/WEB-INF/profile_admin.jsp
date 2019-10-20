@@ -34,6 +34,7 @@
     <!------ Include the above in your HEAD tag ---------->
 </head>
 <body>
+<jsp:include page="header.jsp"/>
 <div class="container emp-profile">
     <div style="margin-left: 20%; margin-right: 20%;">
         <table style="margin-bottom: 20px">
@@ -154,7 +155,7 @@
 </div>
 <style>
     body {
-        background: -webkit-linear-gradient(left, #eaffe2, #00c6ff);
+        background: -webkit-linear-gradient(left, #f5f5f5, #9cd6f3c4);
     }
 
     .emp-profile {

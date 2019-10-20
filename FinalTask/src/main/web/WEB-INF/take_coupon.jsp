@@ -35,7 +35,7 @@
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
 </head>
 <body>
-
+<jsp:include page="header.jsp"/>
 <div class="limiter">
     <div class="container-login100">
 
@@ -176,23 +176,24 @@
 
 
 <!--===============================================================================================-->
-<script src="../../vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/animsition/js/animsition.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/bootstrap/js/popper.js"></script>
-<script src="../../vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/select2/select2.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/daterangepicker/moment.min.js"></script>
-<script src="../../vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="../../vendor/countdowntime/countdowntime.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="../../js/main.js"></script>
+<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
 
 <style>
+
     .container1 {
         margin-left: -18%;
     }

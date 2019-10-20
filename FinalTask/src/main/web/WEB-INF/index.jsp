@@ -52,47 +52,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="js/responsiveslides.min.js"></script>
 </head>
 <body>
-<div class="header">
-    <div class="container mt-5">
-        <ul class="cl-effect-21" style="margin-top: 2%">
-            <li style="margin-top: 2%; float: left;">
-                <img src="images/logo.png" alt=""/>
-            </li>
-            <li style="margin-top: 3.5%; color: black; float: left;"><p style="color: black;">${workh}</p></li>
-
-            <li style="margin-top: 3.5%; float: right;">
-                <c:choose>
-                    <c:when test="${user == null}">
-                        <a style="color: black" href="controller?command=login">${signin}</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a style="color: black" href="controller?command=logout">${signout}</a>
-                    </c:otherwise>
-                </c:choose>
-            </li>
-            <li style="float: right; margin-top: 3.5%;">
-                <c:choose>
-                    <c:when test="${sessionScope.lang != null}">
-                        <a style="color: black"
-                           href="controller?command=change_language&lang=${sessionScope.lang}"
-                           type="button" id="button"
-                           class="login-button">${sessionScope.nextLang}</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a style="color: black" href="controller?command=change_language&lang=ru"
-                           type="button" id="button"
-                           class="login-button">EN</a>
-                    </c:otherwise>
-                </c:choose>
-            </li>
-        </ul>
-    </div>
-</div>
+<jsp:include page="header.jsp"/>
 <div class="container">
     <div class="header-bottom">
         <div class="menu">
             <span class="menu-info"> </span>
-            <jsp:include page="menu.jsp"/>
+            <jsp:include page="main/menu.jsp"/>
         </div>
     </div>
     <div class="header-banner">
@@ -103,5 +68,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
     </div>
 </div>
+
 </body>
 </html>

@@ -80,6 +80,7 @@ public class CommandAccess {
         commandTypes.add(CommandType.HOME_PAGE);
         commandTypes.add(CommandType.PROFILE);
         commandTypes.add(CommandType.WATCH_DOCTOR);
+        commandTypes.add(CommandType.SEARCH);
 
 
         return commandTypes;

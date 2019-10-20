@@ -49,6 +49,10 @@ public class Doctor {
         }
     }
 
+    public String getClassName(){
+        return "Doctor";
+    }
+
     /**
      * gets identity of doctor
      *

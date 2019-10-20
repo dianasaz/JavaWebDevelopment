@@ -63,6 +63,10 @@ public class Service {
         return price;
     }
 
+    public String getClassName(){
+        return "Service";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

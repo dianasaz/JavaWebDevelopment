@@ -22,8 +22,12 @@ public class SearchCommand implements Command {
         try {
             if (search != null) {
                 List<Object> objects = getResult(search);
-                request.setAttribute("objects", objects);
-                return new CommandResult(ConfigurationManager.getProperty("path.page.service"), false);
+                if (objects.size() == 0) {
+                    return goBackWithError(request, "error");
+                } else {
+                    request.setAttribute("objects", objects);
+                    return new CommandResult(ConfigurationManager.getProperty("path.page.search"), false);
+                }
             } else return goBackWithError(request, "error");
         } catch (ServiceException e) {
             return goBackWithError(request, "error");
@@ -56,6 +60,6 @@ public class SearchCommand implements Command {
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
         request.setAttribute(error, true);
-        return new CommandResult(ConfigurationManager.getProperty("path.page.search"), false); //todo
+        return new CommandResult(ConfigurationManager.getProperty("path.page.home"), false); //todo
     }
 }
