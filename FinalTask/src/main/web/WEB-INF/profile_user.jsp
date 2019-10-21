@@ -104,7 +104,7 @@
             </table>
             <table class="col-8">
                 <div class="tab-content" id="myTaabContent">
-                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
                         <b>${yourpets}</b> </label>
 
                     <c:forEach var="pet" items="${pets}">
@@ -133,32 +133,32 @@
                     </c:if>
                 </div>
             </table>
-            <table class="col-md-8">
+            <table class="col-8">
                 <div class="tab-content" id="myTaaabContent">
-                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
                         <b>${cs}</b> </label>
 
                     <c:if test="${coupons != null}">
                         <c:forEach var="coupon" items="${coupons}">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <c:forEach var="doctor" items="${doctors}">
                                         <c:if test="${doctor.identity eq coupon.doctor_id}">
                                             <p>${doctor.name}</p>
                                         </c:if>
                                     </c:forEach>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <label><fmt:formatDate value="${coupon.time}" pattern="yyyy-MM-dd HH:mm"/></label>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <c:forEach var="service" items="${services}">
                                         <c:if test="${service.identity eq coupon.service_id}">
                                             <p>${service.name}</p>
                                         </c:if>
                                     </c:forEach>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     <p><a href="controller?command=edit_coupon&coupon_id=${coupon.identity}">update</a></p>
                                 </div>
                             </div>

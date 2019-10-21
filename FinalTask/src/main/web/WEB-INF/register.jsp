@@ -9,6 +9,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
+<c:choose>
+    <c:when test="${sessionScope.lang != null}">
+        <fmt:setLocale value="${sessionScope.lang}" variant="en"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="ru"/>
+    </c:otherwise>
+</c:choose>
+<fmt:setBundle basename="language" var="language" scope="session"/>
 
 <fmt:message bundle="${language}" key="singin" var="signin"/>
 <fmt:message bundle="${language}" key="enteroulogin" var="enterlogin"/>
@@ -62,10 +71,10 @@
     <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
     <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
-    <script src="js/validation/loginValidation.js"></script>
+    <script src="js/validation/validation.js"></script>
 </head>
 <body>
-
+<jsp:include page="header.jsp"/>
 <div class="limiter">
     <div class="wrapper fadeInDown">
         <div id="formContent">

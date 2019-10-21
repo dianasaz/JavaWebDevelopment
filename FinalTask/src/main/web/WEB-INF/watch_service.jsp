@@ -10,6 +10,16 @@
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
 
+<c:choose>
+    <c:when test="${sessionScope.lang != null}">
+        <fmt:setLocale value="${sessionScope.lang}" variant="en"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="ru"/>
+    </c:otherwise>
+</c:choose>
+<fmt:setBundle basename="language" var="language" scope="session"/>
+
 <fmt:message bundle="${language}" key="editprofile" var="edit"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
@@ -33,12 +43,12 @@
     <div style="margin-left: 20%; margin-right: 20%;">
         <table style="margin-bottom: 20px">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-6">
                     <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
                 </div>
                 <c:if test="${user != null}">
                     <c:if test="${user_role eq 'administrator'}">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <a href="controller?command=add_service">${add}</a>
                         </div>
                     </c:if>
@@ -48,25 +58,25 @@
     </div>
     <form class="form" method="POST" action="controller?command=watch_service">
         <div class="row">
-            <table class="col-md-8">
+            <table class="col-8">
                 <div class="tab-content" id="myTaabContent">
-                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
                         <b>${servicescaps}</b> </label>
 
                     <c:forEach var="service" items="${services}">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-3">
                                 <label>${service.name}</label>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-3">
                                 <p>${service.price}</p>
                             </div>
                             <c:if test="${user != null}">
                                 <c:if test="${user_role eq 'administrator'}">
-                                    <div class="col-md-3">
+                                    <div class="col-3">
                                         <a href="controller?command=delete_service&name=${service.name}">${deleteservice}</a>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-3">
                                         <a href="controller?command=edit_service&id=${service.identity}">${edit}</a>
                                     </div>
                                 </c:if>

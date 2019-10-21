@@ -9,6 +9,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
+<c:choose>
+    <c:when test="${sessionScope.lang != null}">
+        <fmt:setLocale value="${sessionScope.lang}" variant="en"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="ru"/>
+    </c:otherwise>
+</c:choose>
+<fmt:setBundle basename="language" var="language" scope="session"/>
+
 <fmt:message bundle="${language}" key="takecoupon" var="takecoupon"/>
 <fmt:message bundle="${language}" key="errortime" var="errortime"/>
 <fmt:message bundle="${language}" key="choosedoctor" var="choosedoctor"/>
@@ -176,21 +186,21 @@
 
 
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
-<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
-<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
+<script src="../../../classes/artifacts/unnamed/js/main.js"></script>
 
 <style>
 
@@ -220,7 +230,7 @@
         margin-top: 30px;
         margin: 0 auto;
         padding: 10px 40px;
-        background: #009edf;
+        background: -webkit-linear-gradient(left, #f5f5f5, #b3def4c4);
         color: #FFF;
         text-shadow: none;
         box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);

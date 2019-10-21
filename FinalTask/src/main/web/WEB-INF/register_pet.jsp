@@ -2,6 +2,16 @@
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<c:choose>
+    <c:when test="${sessionScope.lang != null}">
+        <fmt:setLocale value="${sessionScope.lang}" variant="en"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="ru"/>
+    </c:otherwise>
+</c:choose>
+<fmt:setBundle basename="language" var="language" scope="session"/>
+
 <fmt:message bundle="${language}" key="signup" var="signup"/>
 <fmt:message bundle="${language}" key="pet" var="pet"/>
 <fmt:message bundle="${language}" key="cat" var="cat"/>
@@ -18,11 +28,11 @@
     <title>${signup}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.css">
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -30,10 +40,10 @@
     <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
     <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
-    <script src="js/validation/loginValidation.js"></script>
+    <script src="js/validation/validation.js"></script>
 </head>
 <body>
-
+<jsp:include page="header.jsp"/>
 <div class="limiter">
     <div class="container-login100">
 
@@ -45,8 +55,8 @@
 					</span>
 
                         <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">${username}</label>
-                            <div class="cols-sm-10">
+                            <label for="name" class="cols-2 control-label">${username}</label>
+                            <div class="cols-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
@@ -57,8 +67,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="cols-sm-2 control-label">${pet}</label>
-                            <div class="cols-sm-10">
+                            <label class="cols-2 control-label">${pet}</label>
+                            <div class="cols-10">
                                 <div class="input-group">
                                     <input type="radio" name="kind" value="cat"> ${cat}
                                     <input type="radio" name="kind" VALUE="dog"> ${dog}
@@ -69,7 +79,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <input type="text" class="form-control" name="dateOfBirth" id="dateOfBirth"
                                    placeholder="${enterdate}">
                             <script>
@@ -113,21 +123,21 @@
 
 
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
-<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
-<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
+<script src="../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
+<script src="../../../classes/artifacts/unnamed/js/main.js"></script>
 
 <style>
     .form-group {
@@ -160,7 +170,7 @@
         margin-top: 30px;
         margin: 0 auto;
         padding: 10px 40px;
-        background: #009edf;
+        background: -webkit-linear-gradient(left, #f5f5f5, #b3def4c4);
         color: #FFF;
         text-shadow: none;
         box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);

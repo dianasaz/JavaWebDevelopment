@@ -9,6 +9,15 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
+<c:choose>
+    <c:when test="${sessionScope.lang != null}">
+        <fmt:setLocale value="${sessionScope.lang}" variant="en"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="ru"/>
+    </c:otherwise>
+</c:choose>
+<fmt:setBundle basename="language" var="language" scope="session"/>
 
 <fmt:message bundle="${language}" key="addnewservice" var="addservice"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
@@ -55,58 +64,58 @@
         </table>
         <form class="form" method="POST" action="controller?command=profile">
             <div class="row">
-                <table class="col-md-8">
+                <table class="col-8">
 
                     <div class="tab-content" id="myTabContent">
-                        <label class="col-md-6 col-md-offset-3 control-label"
+                        <label class="col-6 col-offset-3 control-label"
                                style="font-size: 20px; text-align: center;">
                             <b>${userinfo}</b> </label>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>${userlogin}</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <p>${user.login}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>${username}</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <p>${user.name}</p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>${useremail}</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <p><a href="mailto:${user.email}">${user.email}</a></p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>${userphone}</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <label>${useraddress}</label>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-6">
                                 <p>${user.address}</p>
                             </div>
                         </div>
 
                     </div>
                 </table>
-                <table class="col-md-8">
+                <table class="col-8">
                     <div class="tab-content" id="myTaabContent">
-                        <label class="col-md-6 col-md-offset-3 control-label"
+                        <label class="col-6 col-offset-3 control-label"
                                style="font-size: 20px; text-align: center;">
                             <b>${userswithcoupons}</b> </label>
 
@@ -114,28 +123,28 @@
                             <div class="row">
                                 <c:forEach var="user" items="${users}">
                                     <c:if test="${user.id eq coupon.user_id}">
-                                        <div class="col-md-3">
+                                        <div class="col-3">
                                             <label>${user.name}</label>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-3">
                                             <label><fmt:formatDate value="${coupon.time}"
                                                                    pattern="yyyy-MM-dd HH:mm"/></label>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-3">
                                             <c:forEach var="service" items="${services}">
                                                 <c:if test="${service.identity eq coupon.service_id}">
                                                     <p>${service.name}</p>
                                                 </c:if>
                                             </c:forEach>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-3">
                                             <c:forEach var="doctor" items="${doctors}">
                                                 <c:if test="${doctor.identity eq coupon.doctor_id}">
                                                     <p>${doctor.name}</p>
                                                 </c:if>
                                             </c:forEach>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-3">
                                             <p><a href="mailto:${user.email}">${write} ${user.email}</a></p>
                                             <p><a href="callto:${user.phoneNumber}">${call} ${user.phoneNumber}</a></p>
                                         </div>

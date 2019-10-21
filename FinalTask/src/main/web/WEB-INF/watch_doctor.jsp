@@ -10,6 +10,17 @@
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
 
 
+<c:choose>
+    <c:when test="${sessionScope.lang != null}">
+        <fmt:setLocale value="${sessionScope.lang}" variant="en"/>
+    </c:when>
+    <c:otherwise>
+        <fmt:setLocale value="ru"/>
+    </c:otherwise>
+</c:choose>
+<fmt:setBundle basename="language" var="language" scope="session"/>
+
+
 <fmt:message bundle="${language}" key="editprofile" var="edit"/>
 <fmt:message bundle="${language}" key="errordelete" var="errordelete"/>
 <fmt:message bundle="${language}" key="home" var="home"/>
@@ -48,27 +59,27 @@
     </div>
     <form class="form" method="POST" action="controller?command=watch_doctor">
         <div class="row">
-            <table class="col-md-8">
+            <table class="col-8">
                 <div class="tab-content" id="myTaabContent">
-                    <label class="col-md-6 col-md-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
                         <b>${doctorcaps}</b> </label>
 
                     <c:forEach var="doctor" items="${doctors}">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-3">
                                 <label>${doctor.name}</label>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-3">
                                 <c:forEach var="service" items="${doctor.service}">
                                     <p>${service.name}</p>
                                 </c:forEach>
                             </div>
                             <c:if test="${user != null}">
                                 <c:if test="${user_role eq 'administrator'}">
-                                    <div class="col-md-3">
-                                        <a href="controller?command=delete_doctor&doctor_id=${doctor.identity}>${deletedoctor}</a>
+                                    <div class="col-3">
+                                        <a href="controller?command=delete_doctor&doctor_id=${doctor.identity}">${deletedoctor}</a>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-3">
                                         <a href="controller?command=edit_doctor&doctor_id=${doctor.identity}">${editdoctor}</a>
                                     </div>
                                 </c:if>
@@ -96,8 +107,7 @@
 
     .tab-content {
         margin-left: 20%;
-        margin-right: 20%;
-        width: 500px;
+        width: 600px;
     }
 
     .profile-img img {

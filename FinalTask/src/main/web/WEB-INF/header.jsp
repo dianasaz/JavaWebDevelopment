@@ -48,7 +48,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 <div class="header">
-    <div class="container mt-5">
+    <div class="container">
         <ul class="cl-effect-21" style="margin-top: 2%">
             <li style="margin-top: 2%; float: left;">
                 <img src="images/logo.png" alt=""/>
@@ -80,7 +80,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     </c:otherwise>
                 </c:choose>
             </li>
-            <li>
+            <li style="float: right; margin-top: 3.5%;">
                 <form action="controller?command=search" method="post" id="search">
                     <input type="text" name="search" value="поиск" onfocus="if(this.value=='поиск') this.value='';" class="input" />
                     <input type="submit" name="" value="" class="submit" />
@@ -91,7 +91,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <style>
     .header {
-        background: -webkit-linear-gradient(left, #f5f5f5, #9cd6f3c4);
+        background: -webkit-linear-gradient(left, #f5f5f5, #b3def4c4);
         min-height: 180px;
     }
 </style>
