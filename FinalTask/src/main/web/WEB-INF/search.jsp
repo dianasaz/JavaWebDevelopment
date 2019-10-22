@@ -26,6 +26,8 @@
 <fmt:message bundle="${language}" key="deletepet" var="deletepet"/>
 <fmt:message bundle="${language}" key="takecoupon" var="take"/>
 <fmt:message bundle="${language}" key="yourcoupons" var="cs"/>
+<fmt:message bundle="${language}" key="errorNullSearch" var="searchNull"/>
+
 
 <html lang="${language}">
 <head>
@@ -37,37 +39,83 @@
 <body>
 <jsp:include page="header.jsp"/>
 <div class="container emp-profile">
-    <div style="margin-left: 20%; margin-right: 20%;">
+    <div class="d-flex justify-content-start">
+        <button type="button" class="btn btn-outline-info p-l-10"
+                onclick="window.location.href='controller?command=home_page'">${home}</button>
+    </div>
+    <br>
+    <c:choose>
+        <c:when test="${error_null_search eq true}">
+            <div class="m-16 alert alert-info " role="alert">
+               ${searchNull}
+            </div>
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="object" items="${objects}">
+                <div class="rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+                    <div class="row">
+                        <div class="col-6">
+                            <p>${object.name}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>${object.getClass().getSimpleName()}</p>
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="col-6">
+                        <label>${object.name}</label>
+                    </div>
+                    <div class="col-6">
+                        <p>${object.getClassName()}</p>
+                    </div>
+                </div>
+                -->
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+
+
+    <!--<div style="margin-left: 20%; margin-right: 20%;">
         <table style="margin-bottom: 20px">
             <div class="row">
-                <div class="col-md-4">
-                    <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-info"
+                            onclick="window.location.href='controller?command=home_page'">${home}</button>
                 </div>
             </div>
         </table>
     </div>
-    <form class="form" method="POST" action="controller?command=profile">
-        <div class="row">
-            <table class="col-8">
-                <div class="tab-content" id="myTaabContent">
-                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
-                        <b>Result</b> </label>
-
-                    <c:forEach var="object" items="${objects}">
+    <div class="row">
+        <table class="col-8">
+            <div class="tab-content" id="myTaabContent">
+                <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
+                    <b>Result</b> </label>
+                <c:choose>
+                    <c:when test="${error_null_search eq true}">
                         <div class="row">
-                            <div class="col-6">
-                                <label>${object.name}</label>
-                            </div>
-                            <div class="col-6">
-                                <p>${object.getClassName()}</p>
+                            <div class="col-12">
+                                <label>${searchNull}</label>
                             </div>
                         </div>
-                    </c:forEach>
-                </div>
-            </table>
-        </div>
-    </form>
-
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach var="object" items="${objects}">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>${object.name}</label>
+                                </div>
+                                <div class="col-6">
+                                    <p>${object.getClassName()}</p>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </table>
+    </div>
+    -->
 </div>
 <style>
     body {
@@ -101,7 +149,6 @@
         border: none;
         border-radius: 0;
         font-size: 15px;
-        background: #212529b8;
     }
 
     .profile-img .file input {

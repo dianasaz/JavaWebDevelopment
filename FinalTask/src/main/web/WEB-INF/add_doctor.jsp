@@ -49,60 +49,58 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<div class="limiter">
-    <div class="container-login100">
+<div>
 
-        <div class="main-form">
-            <form class="login10-form" method="POST"
-                  action="controller?command=add_doctor">
-					<span class="login100-form-title">
-                        ${addnewdoctor}
-                    </span>
+    <div class="main-form">
+        <form class="login10-form" method="POST"
+              action="controller?command=add_doctor">
+            <div class="m-5">
+                <span class="login100-form-title">
+                    ${addnewdoctor}
+                </span>
+            </div>
 
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${docname}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">${docname}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkDoctor()" class="form-control" name="name" id="name"
-                                   placeholder="${entername}"/>
-                        </div>
+                        <input type="text" oninput="checkDoctor()" class="form-control" name="name" id="name"
+                               placeholder="${entername}"/>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="cols-sm-2 control-label">${servicesall}</label>
-                    <div class="cols-sm-10">
+            <div class="form-group">
+                <label class="cols-sm-2 control-label">${servicesall}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
                         <c:forEach var="service" items="${services}">
-                            <div class="input-group">
-                                <input type="checkbox" name="service" value="${service.name}"> ${service.name}
-                            </div>
+                            <input type="checkbox" class="pb-5" name="service" value="${service.name}"> ${service.name}
+                            <br>
                         </c:forEach>
                     </div>
-                </div>
 
-                <c:if test="${name_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+                </div>
+            </div>
+
+            <c:if test="${name_error eq true}">
+                <div class="m-16 alert alert-info " role="alert">
                         ${nameError}
-                    </div>
-                </c:if>
-
-                <c:if test="${error_exist eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${errorExist}
-                    </div>
-                </c:if>
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn">
-                        ${add}
-                    </button>
                 </div>
+            </c:if>
 
+            <c:if test="${error_exist eq true}">
+                <div class="m-16 alert alert-info " role="alert">
+                        ${errorExist}
+                </div>
+            </c:if>
 
-            </form>
-        </div>
+            <div class="container-login100-form-btn">
+                <button type="submit" class="btn btn-info p-l-10">${add}</button>
+            </div>
+        </form>
     </div>
 </div>
 

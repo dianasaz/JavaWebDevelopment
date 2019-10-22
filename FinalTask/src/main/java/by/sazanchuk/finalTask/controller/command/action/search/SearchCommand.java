@@ -14,6 +14,7 @@ import java.util.List;
 
 public class SearchCommand implements Command {
     private static final String SEARCH = "search";
+    private static final String ERROR_NULL = "error_null_search";
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
@@ -23,7 +24,7 @@ public class SearchCommand implements Command {
             if (search != null) {
                 List<Object> objects = getResult(search);
                 if (objects.size() == 0) {
-                    return goBackWithError(request, "error");
+                    return goBackWithError(request, ERROR_NULL);
                 } else {
                     request.setAttribute("objects", objects);
                     return new CommandResult(ConfigurationManager.getProperty("path.page.search"), false);
@@ -60,6 +61,6 @@ public class SearchCommand implements Command {
 
     private CommandResult goBackWithError(HttpServletRequest request, String error) {
         request.setAttribute(error, true);
-        return new CommandResult(ConfigurationManager.getProperty("path.page.home"), false); //todo
+        return new CommandResult(ConfigurationManager.getProperty("path.page.search"), false);
     }
 }

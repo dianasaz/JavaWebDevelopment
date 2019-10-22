@@ -38,24 +38,49 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<c:set value="${user != null and user_role eq 'administrator'}" var="rule"/>
 
 <div class="container emp-profile">
-    <div style="margin-left: 20%; margin-right: 20%;">
-        <table style="margin-bottom: 20px">
-            <div class="row">
-                <div class="col-6">
-                    <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
-                </div>
-                <c:if test="${user != null}">
-                    <c:if test="${user_role eq 'administrator'}">
-                        <div class="col-6">
-                            <a href="controller?command=add_service">${add}</a>
-                        </div>
-                    </c:if>
+    <div class="d-flex justify-content-around" style="margin: 5px;">
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=home_page'">
+            ${home}
+        </button>
+        <c:if test="${rule eq true}">
+            <button type="button" class="btn btn-outline-info"
+                    onclick="window.location.href='controller?command=add_service'">
+                    ${add}
+            </button>
+        </c:if>
+    </div>
+    <br>
+    <div style="margin-left: 5rem; margin-right: 5rem;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">service</th>
+                <th scope="col">price</th>
+                <c:if test="${rule eq true}">
+                    <th scope="col">Actions</th>
                 </c:if>
-            </div>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="service" items="${services}">
+                <tr>
+                    <td>${service.name}</td>
+                    <td>${service.price}</td>
+                    <c:if test="${rule eq true}">
+                        <td><a href="controller?command=delete_service&name=${service.name}">${deleteservice}</a>
+                            <br>
+                            <a href="controller?command=edit_service&id=${service.identity}">${edit}</a></td>
+                    </c:if>
+                </tr>
+            </c:forEach>
+            </tbody>
         </table>
     </div>
+    <!--
     <form class="form" method="POST" action="controller?command=watch_service">
         <div class="row">
             <table class="col-8">
@@ -88,7 +113,7 @@
             </table>
         </div>
     </form>
-
+-->
 </div>
 <style>
     body {

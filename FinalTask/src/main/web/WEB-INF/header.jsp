@@ -22,8 +22,8 @@
 <fmt:message bundle="${language}" key="singin" var="signin"/>
 <fmt:message bundle="${language}" key="signout" var="signout"/>
 <fmt:message bundle="${language}" key="workhours" var="workh"/>
-<html>
-<head>
+
+
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all"/>
     <!--/bootstarp-css -->
     <!--css-->
@@ -45,48 +45,57 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/modernizr.custom.js"></script>
     <script src="js/responsiveslides.min.js"></script>
-</head>
-<body>
-<div class="header">
-    <div class="container">
-        <ul class="cl-effect-21" style="margin-top: 2%">
-            <li style="margin-top: 2%; float: left;">
-                <img src="images/logo.png" alt=""/>
-            </li>
-            <li style="margin-top: 3.5%; color: black; float: left;"><p style="color: black;">${workh}</p></li>
 
-            <li style="margin-top: 3.5%; float: right;">
-                <c:choose>
-                    <c:when test="${user == null}">
-                        <a style="color: black" href="controller?command=login">${signin}</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a style="color: black" href="controller?command=logout">${signout}</a>
-                    </c:otherwise>
-                </c:choose>
-            </li>
-            <li style="float: right; margin-top: 3.5%;">
+<div class="header d-flex align-items-center">
+    <div class="container">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div>
+                <img src="images/logo.png" alt="" onclick="window.location.href='controller?command=home_page'"/>
+            </div>
+            <div>
+                <strong class="rounded d-inline-block mb-2 text-white bg-info pr-2 pl-2">${workh}</strong>
+            </div>
+            <div>
+                <form class="form-inline my-2 my-lg-0" action="controller" method="get">
+                    <input type="hidden" value="search" name="command">
+                    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search"
+                           aria-label="Search">
+                    <button type="submit" class="btn btn-info">Search</button>
+                </form>
+            </div>
+            <div>
                 <c:choose>
                     <c:when test="${sessionScope.lang != null}">
-                        <a style="color: black"
-                           href="controller?command=change_language&lang=${sessionScope.lang}"
-                           type="button" id="button"
-                           class="login-button">${sessionScope.nextLang}</a>
+                        <button type="button" class="btn btn-info"
+                                onclick="window.location.href='controller?command=change_language&lang=${sessionScope.lang}'">
+                                ${sessionScope.nextLang}
+                        </button>
                     </c:when>
                     <c:otherwise>
-                        <a style="color: black" href="controller?command=change_language&lang=ru"
-                           type="button" id="button"
-                           class="login-button">EN</a>
+                        <button type="button" class="btn btn-info"
+                                onclick="window.location.href='controller?command=change_language&lang=ru'">
+                            EN
+                        </button>
                     </c:otherwise>
                 </c:choose>
-            </li>
-            <li style="float: right; margin-top: 3.5%;">
-                <form action="controller?command=search" method="post" id="search">
-                    <input type="text" name="search" value="поиск" onfocus="if(this.value=='поиск') this.value='';" class="input" />
-                    <input type="submit" name="" value="" class="submit" />
-                </form>
-            </li>
-        </ul>
+            </div>
+            <div>
+                <c:choose>
+                    <c:when test="${user == null}">
+                        <button type="button" class="btn btn-info"
+                                onclick="window.location.href='controller?command=login'">
+                                ${signin}
+                        </button>
+                    </c:when>
+                    <c:otherwise>
+                        <button type="button" class="btn btn-info"
+                                onclick="window.location.href='controller?command=logout'">
+                                ${signout}
+                        </button>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </div>
     </div>
 </div>
 <style>
@@ -95,5 +104,3 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         min-height: 180px;
     }
 </style>
-</body>
-</html>

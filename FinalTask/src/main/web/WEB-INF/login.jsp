@@ -33,16 +33,13 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="js/validation/loginValidation.js"></script>
+    <script src="js/validation/validation.js"></script>
 </head>
 <body>
 <div class="wrapper fadeInDown">
     <div id="formContent">
-        <form method="POST"
+        <form method="POST" style="margin-top: 20px"
               action="controller?command=login">
-            <div class="fadeIn first">
-                ${signin}
-            </div>
 
             <input type="text" oninput="checkLogin()" id="login" class="fadeIn second"
                    name="login" placeholder="${log}">
@@ -67,26 +64,32 @@
         transition: all 0.5s ease-in-out;
         -webkit-border-radius: 5px 5px 5px 5px;
         border-radius: 5px 5px 5px 5px;">
-            <input type="submit" class="fadeIn fourth" value=" ${signin}">
-
-            <c:if test="${error_authentification eq true}">
-                <div class="container1" role="alert">
-                        ${enterinvalid}
-                </div>
-            </c:if>
-
-            <div id="formFooter">
-                <a href="controller?command=home_page" class="txt2">
-                    ${continuegueast}
-                </a>
-            </div>
-            <div id="formFooter">
-                <div class="form-group ">
-                    <a href="controller?command=register" type="button" id="button"
-                       class="login-button">${register}</a>
-                </div>
-            </div>
+            <button type="button" class="btn btn-info" style="margin-top: 10px"
+                    onclick="this.form.submit()">
+                ${signin}
+            </button>
         </form>
+
+        <c:if test="${error_authentification eq true}">
+            <div class="m-16 alert alert-warning " role="alert">
+                    ${enterinvalid}
+            </div>
+        </c:if>
+
+        <div id="formFooter">
+            <button type="button" class="btn btn-outline-info"
+                    onclick="window.location.href='controller?command=home_page'">
+                ${continuegueast}
+            </button>
+        </div>
+        <div id="formFooter">
+            <div>
+                <button type="button" class="btn btn-outline-info"
+                        onclick="window.location.href='controller?command=register'">
+                    ${register}
+                </button>
+            </div>
+        </div>
 
     </div>
 </div>

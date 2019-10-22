@@ -45,121 +45,114 @@
 <body>
 <jsp:include page="header.jsp"/>
 <div class="container emp-profile">
-    <div style="margin-left: 20%; margin-right: 20%;">
-        <table style="margin-bottom: 20px">
-            <div class="row">
-                <div class="col-md-3">
-                    <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="controller?command=add_service" class="profile-edit-btn">${addservice}</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="controller?command=add_doctor" class="profile-edit-btn">${adddoctor}</a>
-                </div>
-                <div class="col-md-3">
-                    <a href="controller?command=edit_profile" class="profile-edit-btn">${edit}</a>
-                </div>
+    <div class="d-flex justify-content-around" style="margin: 5px;">
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=home_page'">
+            ${home}
+        </button>
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=add_service'">
+            ${addservice}
+        </button>
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=add_doctor'">
+            ${adddoctor}
+        </button>
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=edit_profile'">
+            ${edit}
+        </button>
+    </div>
+    <div class="d-flex justify-content-center m-5">
+        <h4>${userinfo}</h4>
+    </div>
+    <div style="margin-left: 20px; margin-right: 20px">
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${userlogin}</p>
             </div>
-        </table>
-        <form class="form" method="POST" action="controller?command=profile">
-            <div class="row">
-                <table class="col-8">
-
-                    <div class="tab-content" id="myTabContent">
-                        <label class="col-6 col-offset-3 control-label"
-                               style="font-size: 20px; text-align: center;">
-                            <b>${userinfo}</b> </label>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>${userlogin}</label>
-                            </div>
-                            <div class="col-6">
-                                <p>${user.login}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>${username}</label>
-                            </div>
-                            <div class="col-6">
-                                <p>${user.name}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>${useremail}</label>
-                            </div>
-                            <div class="col-6">
-                                <p><a href="mailto:${user.email}">${user.email}</a></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>${userphone}</label>
-                            </div>
-                            <div class="col-6">
-                                <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-6">
-                                <label>${useraddress}</label>
-                            </div>
-                            <div class="col-6">
-                                <p>${user.address}</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </table>
-                <table class="col-8">
-                    <div class="tab-content" id="myTaabContent">
-                        <label class="col-6 col-offset-3 control-label"
-                               style="font-size: 20px; text-align: center;">
-                            <b>${userswithcoupons}</b> </label>
-
-                        <c:forEach var="coupon" items="${coupons}">
-                            <div class="row">
-                                <c:forEach var="user" items="${users}">
-                                    <c:if test="${user.id eq coupon.user_id}">
-                                        <div class="col-3">
-                                            <label>${user.name}</label>
-                                        </div>
-                                        <div class="col-3">
-                                            <label><fmt:formatDate value="${coupon.time}"
-                                                                   pattern="yyyy-MM-dd HH:mm"/></label>
-                                        </div>
-                                        <div class="col-3">
-                                            <c:forEach var="service" items="${services}">
-                                                <c:if test="${service.identity eq coupon.service_id}">
-                                                    <p>${service.name}</p>
-                                                </c:if>
-                                            </c:forEach>
-                                        </div>
-                                        <div class="col-3">
-                                            <c:forEach var="doctor" items="${doctors}">
-                                                <c:if test="${doctor.identity eq coupon.doctor_id}">
-                                                    <p>${doctor.name}</p>
-                                                </c:if>
-                                            </c:forEach>
-                                        </div>
-                                        <div class="col-3">
-                                            <p><a href="mailto:${user.email}">${write} ${user.email}</a></p>
-                                            <p><a href="callto:${user.phoneNumber}">${call} ${user.phoneNumber}</a></p>
-                                        </div>
-                                    </c:if>
-                                </c:forEach>
-
-                            </div>
-                        </c:forEach>
-
-                    </div>
-                </table>
+            <div class="col-6">
+                <p>${user.login}</p>
             </div>
-        </form>
+        </div>
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${username}</p>
+            </div>
+            <div class="col-6">
+                <p>${user.name}</p>
+            </div>
+        </div>
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${useremail}</p>
+            </div>
+            <div class="col-6">
+                <p><a href="mailto:${user.email}">${user.email}</a></p>
+            </div>
+        </div>
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${userphone}</p>
+            </div>
+            <div class="col-6">
+                <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
+            </div>
+        </div>
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${useraddress}</p>
+            </div>
+            <div class="col-6">
+                <p>${user.address}</p>
+            </div>
+        </div>
     </div>
 
+    <div class="d-flex justify-content-center m-5">
+        <p>${userswithcoupons}</p>
+    </div>
+
+    <c:forEach var="coupon" items="${coupons}">
+        <c:forEach var="user" items="${users}">
+            <c:if test="${user.id eq coupon.user_id}">
+                <div class=" rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+                    <div class="row">
+                        <div class="col-3">
+                            <label>${user.name}</label>
+                        </div>
+                        <div class="col-3">
+                            <label><fmt:formatDate value="${coupon.time}"
+                                                   pattern="yyyy-MM-dd HH:mm"/></label>
+                        </div>
+                        <div class="col-3">
+                            <c:forEach var="service" items="${services}">
+                                <c:if test="${service.identity eq coupon.service_id}">
+                                    <p>${service.name}</p>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                        <div class="col-3">
+                            <c:forEach var="doctor" items="${doctors}">
+                                <c:if test="${doctor.identity eq coupon.doctor_id}">
+                                    <p>${doctor.name}</p>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6" style="text-align: right">
+                            <p><a href="mailto:${user.email}">${write} ${user.email}</a></p>
+                        </div>
+                        <div class="col-6" style="text-align: left">
+                            <p><a href="callto:${user.phoneNumber}">${call} ${user.phoneNumber}</a></p>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
+        </c:forEach>
+    </c:forEach>
 
 </div>
 <style>
