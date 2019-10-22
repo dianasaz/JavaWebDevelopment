@@ -37,137 +37,130 @@
 <body>
 <jsp:include page="header.jsp"/>
 <div class="container emp-profile">
-    <div style="margin-left: 20%; margin-right: 20%;">
-        <table style="margin-bottom: 20px">
-            <div class="row">
-                <div class="col-md-4">
-                    <a href="controller?command=edit_profile" class="profile-edit-btn">${edit}</a>
-                </div>
-                <div class="col-md-4">
-                    <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
-                </div>
-                <div class="col-md-4">
-                    <a href="controller?command=register_pet" class="profile-edit-btn">${registerpet}</a>
-                </div>
-            </div>
-        </table>
+    <div class="d-flex justify-content-around" style="margin: 5px;">
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=home_page'">
+            ${home}
+        </button>
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=edit_profile'">
+            ${edit}
+        </button>
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=register_pet'">
+            ${registerpet}
+        </button>
     </div>
-    <form class="form" method="POST" action="controller?command=profile">
-        <div class="row">
-            <table class="col-8">
-
-                <div class="tab-content" id="myTabContent">
-                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
-                        <b>${userinfo}</b> </label>
-                    <div class="row">
-                        <div class="col-6">
-                            <label>${userlogin}</label>
-                        </div>
-                        <div class="col-6">
-                            <p>${user.login}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label>${username}</label>
-                        </div>
-                        <div class="col-6">
-                            <p>${user.name}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label>${useremail}</label>
-                        </div>
-                        <div class="col-6">
-                            <p><a href="mailto:${user.email}">${user.email}</a></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label>${userphone}</label>
-                        </div>
-                        <div class="col-6">
-                            <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <label>${useraddress}</label>
-                        </div>
-                        <div class="col-6">
-                            <p>${user.address}</p>
-                        </div>
-                    </div>
-
-                </div>
-            </table>
-            <table class="col-8">
-                <div class="tab-content" id="myTaabContent">
-                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
-                        <b>${yourpets}</b> </label>
-
-                    <c:forEach var="pet" items="${pets}">
-                        <div class="row">
-                            <div class="col-2">
-                                <label>${pet.name}</label>
-                            </div>
-                            <div class="col-2">
-                                <p>${pet.kind}</p>
-                            </div>
-                            <div class="col-2">
-                                <p>${pet.dateOfBirth}</p>
-                            </div>
-                            <div class="col-2">
-                                <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a></p>
-                            </div>
-                            <div class="col-2">
-                                <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">${take}</a></p>
-                            </div>
-                        </div>
-                    </c:forEach>
-                    <c:if test="${error_delete eq true}">
-                        <div class="container1" role="alert">
-                                ${errordelete}
-                        </div>
-                    </c:if>
-                </div>
-            </table>
-            <table class="col-8">
-                <div class="tab-content" id="myTaaabContent">
-                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
-                        <b>${cs}</b> </label>
-
-                    <c:if test="${coupons != null}">
-                        <c:forEach var="coupon" items="${coupons}">
-                            <div class="row">
-                                <div class="col-4">
-                                    <c:forEach var="doctor" items="${doctors}">
-                                        <c:if test="${doctor.identity eq coupon.doctor_id}">
-                                            <p>${doctor.name}</p>
-                                        </c:if>
-                                    </c:forEach>
-                                </div>
-                                <div class="col-4">
-                                    <label><fmt:formatDate value="${coupon.time}" pattern="yyyy-MM-dd HH:mm"/></label>
-                                </div>
-                                <div class="col-4">
-                                    <c:forEach var="service" items="${services}">
-                                        <c:if test="${service.identity eq coupon.service_id}">
-                                            <p>${service.name}</p>
-                                        </c:if>
-                                    </c:forEach>
-                                </div>
-                                <div class="col-4">
-                                    <p><a href="controller?command=edit_coupon&coupon_id=${coupon.identity}">update</a></p>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </c:if>
-                </div>
-            </table>
+    <div class="d-flex justify-content-center m-5">
+        <h4>${userinfo}</h4>
+    </div>
+    <div style="margin-left: 20px; margin-right: 20px">
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${userlogin}</p>
+            </div>
+            <div class="col-6">
+                <p>${user.login}</p>
+            </div>
         </div>
-    </form>
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${username}</p>
+            </div>
+            <div class="col-6">
+                <p>${user.name}</p>
+            </div>
+        </div>
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${useremail}</p>
+            </div>
+            <div class="col-6">
+                <p><a href="mailto:${user.email}">${user.email}</a></p>
+            </div>
+        </div>
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${userphone}</p>
+            </div>
+            <div class="col-6">
+                <p><a href="callto:${user.phoneNumber}">${user.phoneNumber}</a></p>
+            </div>
+        </div>
+        <div class="row rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <div class="col-6">
+                <p>${useraddress}</p>
+            </div>
+            <div class="col-6">
+                <p>${user.address}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center m-5">
+        <p>${yourpets}</p>
+    </div>
+
+    <c:forEach var="pet" items="${pets}">
+    <div class=" rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+        <div class="row">
+            <div class="col-3">
+                <label>${pet.name}</label>
+            </div>
+            <div class="col-3">
+                <label><fmt:formatDate value="${pet.dateOfBirth}" pattern="yyyy-MM-dd HH:mm"/></label>
+            </div>
+            <div class="col-3">
+                <p>${pet.kind}</p>
+            </div>
+            <div class="col-3" style="text-align: left">
+                <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a></p>
+                <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">${take}</a></p>
+            </div>
+        </div>
+        </c:forEach>
+        <c:if test="${error_delete eq true}">
+            <div class="m-16 alert alert-warning " role="alert">
+                    ${errordelete}
+            </div>
+        </c:if>
+    </div>
+
+    <div class="d-flex justify-content-center m-5">
+        <p>${cs}</p>
+    </div>
+
+    <c:if test="${coupons != null}">
+    <c:forEach var="coupon" items="${coupons}">
+    <div class=" rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+        <div class="row">
+            <div class="col-3">
+                <c:forEach var="doctor" items="${doctors}">
+                    <c:if test="${doctor.identity eq coupon.doctor_id}">
+                        <label>${doctor.name}</label>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="col-3">
+                <label><fmt:formatDate value="${coupon.time}"
+                                       pattern="yyyy-MM-dd HH:mm"/></label>
+            </div>
+            <div class="col-3">
+                <c:forEach var="service" items="${services}">
+                    <c:if test="${service.identity eq coupon.service_id}">
+                        <label>${service.name}</label>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="col-3">
+                <p>
+                    <a href="controller?command=edit_coupon&coupon_id=${coupon.identity}">update</a>
+                </p>
+            </div>
+        </div>
+        </c:forEach>
+    </div>
+    </c:if>
 
 </div>
 <style>
@@ -183,26 +176,9 @@
         background: #fff;
     }
 
-    .tab-content {
-        margin-left: 20%;
-        margin-right: 20%;
-        width: 500px;
-    }
-
     .profile-img img {
         width: 70%;
         height: 100%;
-    }
-
-    .profile-img .file {
-        position: relative;
-        overflow: hidden;
-        margin-top: -20%;
-        width: 70%;
-        border: none;
-        border-radius: 0;
-        font-size: 15px;
-        background: #212529b8;
     }
 
     .profile-img .file input {
@@ -219,35 +195,10 @@
     .profile-head h6 {
         color: #0062cc;
     }
-
-    .profile-edit-btn {
-        border: none;
-        border-radius: 1.5rem;
-        width: 70%;
-        padding: 2%;
-        font-weight: 600;
-        color: #6c757d;
-        cursor: pointer;
-    }
-
     .proile-rating span {
         color: #495057;
         font-size: 15px;
         font-weight: 600;
-    }
-
-    .profile-head .nav-tabs {
-        margin-bottom: 5%;
-    }
-
-    .profile-head .nav-tabs .nav-link {
-        font-weight: 600;
-        border: none;
-    }
-
-    .profile-head .nav-tabs .nav-link.active {
-        border: none;
-        border-bottom: 2px solid #0062cc;
     }
 
     .profile-work p {

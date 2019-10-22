@@ -25,14 +25,16 @@
 <fmt:message bundle="${language}" key="wrongname" var="wrongname"/>
 
 <head>
-    <title>${signup}</title>
+    <title>${register}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.css">
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -41,103 +43,120 @@
     <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
     <script src="js/validation/validation.js"></script>
+
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<div class="limiter">
-    <div class="container-login100">
 
-        <div class="main-form">
-                    <form class="login10-form" method="POST"
-                          action="controller?command=register_pet">
-					<span class="login100-form-title">
-						${signup}
-					</span>
+<div class="container-login100">
 
-                        <div class="form-group">
-                            <label for="name" class="cols-2 control-label">${username}</label>
-                            <div class="cols-10">
-                                <div class="input-group">
+    <div class="main-form">
+        <form class="login10-form" method="POST"
+              action="controller?command=register_pet">
+            <div class="m-2">
+                <span class="login100-form-title">
+                    ${register}
+                </span>
+            </div>
+
+            <div class="form-group">
+                <div class="cols-sm-10">
+                    <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                                    <input type="text" oninput="checkPetName()" class="form-control" name="name" id="name"
-                                           placeholder="${username}"/>
-                                </div>
-                            </div>
+                        <input type="text" oninput="checkPetName()" class="form-control" name="name" id="name"
+                               placeholder="${entername}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" name="kind" class="form-check-input" value="cat">${cat}
+                            </label>
                         </div>
-
-                        <div class="form-group">
-                            <label class="cols-2 control-label">${pet}</label>
-                            <div class="cols-10">
-                                <div class="input-group">
-                                    <input type="radio" name="kind" value="cat"> ${cat}
-                                    <input type="radio" name="kind" VALUE="dog"> ${dog}
-                                    <input type="radio" name="kind" value="hamster"> ${hamster}
-                                    <input type="radio" name="kind" value="parrot"> ${parrot}
-                                    <input type="radio" name="kind" value="turtle"> ${turtle}
-                                </div>
-                            </div>
+                        <div class="form-check-inline">
+                            <label class="form-check-label">
+                                <input type="radio" name="kind" class="form-check-input" value="dog">${dog}
+                            </label>
                         </div>
-
-                        <div class="col-6">
-                            <input type="text" class="form-control" name="dateOfBirth" id="dateOfBirth"
-                                   placeholder="${enterdate}">
-                            <script>
-                                $(function() {
-                                    $('input[name="dateOfBirth"]').daterangepicker({
+                        <div class="form-check-inline disabled">
+                            <label class="form-check-label">
+                                <input type="radio" name="kind" class="form-check-input" value="hamster">${hamster}
+                            </label>
+                        </div>
+                        <div class="form-check-inline disabled">
+                            <label class="form-check-label">
+                                <input type="radio" name="kind" class="form-check-input" value="turtle">${turtle}
+                            </label>
+                        </div>
+                        <div class="form-check-inline disabled">
+                            <label class="form-check-label">
+                                <input type="radio" name="kind" class="form-check-input" value="parrot">${parrot}
+                            </label>
+                        </div>
+            </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa"
+                                                                       aria-hidden="true"></i></span>
+                        <input type="text" class="form-control" name="dateOfBirth" id="dateOfBirth"
+                               placeholder="${enterdate}"/>
+                        <script>
+                            $(function() {
+                                $('input[name="dateOfBirth"]').daterangepicker({
                                         singleDatePicker: true,
                                         showDropdowns: true,
                                         minYear: 1990,
                                         maxYear: parseInt(moment().format('YYYY'),10)
                                     }
-                                    );
-                                });
-                            </script>
-                        </div>
+                                );
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
 
+            <c:if test="${name_error eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
+                        ${wrongname}
+                </div>
+            </c:if>
 
-                        <c:if test="${date_error eq true}">
-                            <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                                    ${wrongdate}
-                            </div>
-                        </c:if>
+            <c:if test="${date_error eq true}">
+                <div class="m-16 alert alert-warning " role="alert">
+                        ${wrongdate}
+                </div>
+            </c:if>
 
-                        <c:if test="${name_error eq true}">
-                            <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                                    ${wrongname}
-                            </div>
-                        </c:if>
-
-
-                        <div class="container-login100-form-btn">
-                            <button type="submit" class="login100-form-btn">
-                                ${register}
-                            </button>
-                        </div>
-
-
-                    </form>
-        </div>
+            <div class="container-login100-form-btn">
+                <button type="submit" class="btn btn-info p-l-10">${register}</button>
+            </div>
+        </form>
     </div>
 </div>
 
-
 <!--===============================================================================================-->
-<script src="../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
-<script src="../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
 <!--===============================================================================================-->
-<script src="../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
-<script src="../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
 <!--===============================================================================================-->
-<script src="../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
+<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
-<script src="../../../classes/artifacts/unnamed/js/main.js"></script>
+<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
 
 <style>
     .form-group {
@@ -170,8 +189,7 @@
         margin-top: 30px;
         margin: 0 auto;
         padding: 10px 40px;
-        background: -webkit-linear-gradient(left, #f5f5f5, #b3def4c4);
-        color: #FFF;
+        background: -webkit-linear-gradient(left, #f5f5f5, #addaf1c4);
         text-shadow: none;
         box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
         height: auto;
@@ -183,7 +201,11 @@
     }
 
     .main-form {
-        width: auto;
+        padding: 3%;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 0.5rem;
+        background: #fff;
     }
 
     .login10-form {
@@ -193,7 +215,9 @@
 </style>
 </body>
 
-</html>
+
+
+
 
 
 

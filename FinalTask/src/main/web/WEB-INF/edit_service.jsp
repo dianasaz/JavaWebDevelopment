@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: dianasaz
-  Date: 09.08.2019
-  Time: 19:44
+  Date: 01.08.2019
+  Time: 14:02
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -25,9 +25,11 @@
 <fmt:message bundle="${language}" key="editservice" var="edit"/>
 
 <head>
-    <title>${edit}</title>
+    <title>${addnewservice}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
@@ -44,51 +46,56 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<div class="limiter">
-    <div class="container-login100">
+<div class="container-login100">
+    <div class="main-form">
+        <form class="login10-form" method="POST"
+              action="controller?command=edit_service">
+            <div class="m-2">
+                <span class="login100-form-title">
+                    ${edit}
+                </span>
+            </div>
 
-        <div class="main-form">
-            <form class="login10-form" method="POST"
-                  action="controller?command=edit_service">
-					<span class="login100-form-title">
-                        ${edit}
-                    </span>
-
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${nameService}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">${nameService}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkServiceName()" class="form-control" name="name" id="name"
-                                   placeholder="${service.name}"/>
-                        </div>
+                        <input type="text" oninput="checkServiceName()" class="form-control" name="name" id="name"
+                               placeholder="${service.name}"/>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="cols-sm-2 control-label">${priceService}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">${priceService}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkServicePrice()" class="form-control" name="price" id="price"
-                                   placeholder="${service.price}"/>
-                        </div>
+                        <input type="text" oninput="checkServicePrice()" class="form-control" name="name" id="price"
+                               placeholder="${service.price}"/>
                     </div>
                 </div>
+            </div>
 
-
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn">
-                        ${edit}
-                    </button>
+            <c:if test="${price_error eq true}">
+                <div class="m-16 alert alert-info " role="alert">
+                        ${errorprice}
                 </div>
+            </c:if>
 
+            <c:if test="${name_error eq true}">
+                <div class="m-16 alert alert-warning " role="alert">
+                        ${errorname}
+                </div>
+            </c:if>
 
-            </form>
-        </div>
+            <div class="container-login100-form-btn">
+                <button type="submit" class="btn btn-info p-l-10">${edit}</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -111,6 +118,10 @@
 <script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
 
 <style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
     label {
         margin-bottom: 15px;
     }
@@ -138,7 +149,6 @@
         margin: 0 auto;
         padding: 10px 40px;
         background: -webkit-linear-gradient(left, #f5f5f5, #addaf1c4);
-        color: #FFF;
         text-shadow: none;
         box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
         height: auto;
@@ -150,7 +160,11 @@
     }
 
     .main-form {
-        width: auto;
+        padding: 3%;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 0.5rem;
+        background: #fff;
     }
 
     .login10-form {
@@ -161,3 +175,7 @@
 </body>
 
 </html>
+
+
+
+

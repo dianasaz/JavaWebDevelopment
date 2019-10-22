@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: dianasaz
-  Date: 09.08.2019
-  Time: 17:19
+  Date: 04.08.2019
+  Time: 23:20
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -26,9 +26,11 @@
 <fmt:message bundle="${language}" key="nameError" var="nameError"/>
 
 <head>
-    <title>${editdoctor}</title>
+    <title>${addnewdoctor}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
     <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
@@ -46,132 +48,133 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<div class="limiter">
-    <div class="container-login100">
+<div class="container-login100">
 
-        <div class="main-form">
-            <form class="login10-form" method="POST"
-                  action="controller?command=edit_doctor">
-					<span class="login100-form-title">
-                        ${editdoctor}
-                    </span>
+    <div class="main-form">
+        <form class="login10-form" method="POST"
+              action="controller?command=edit_doctor">
+            <div class="m-2">
+                <span class="login100-form-title">
+                    ${addnewdoctor}
+                </span>
+            </div>
 
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${namedoctor}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">${namedoctor}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkDoctor()" class="form-control" name="name" id="name"
-                                   placeholder="${entername}"/>
-                        </div>
+                        <input type="text" oninput="checkDoctor()" class="form-control" name="name" id="name"
+                               placeholder="${entername}"/>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="cols-sm-2 control-label">${enterservices}</label>
-                    <div class="cols-sm-10">
+            <div class="form-group">
+                <label class="cols-sm-2 control-label">${servicesall}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
                         <c:forEach var="service" items="${services}">
-                            <div class="input-group">
-                                <input type="checkbox" name="service" value="${service.name}"> ${service.name}
-                            </div>
+                            <input type="checkbox" class="pb-5" name="service" value="${service.name}"> ${service.name}
+                            <br>
                         </c:forEach>
                     </div>
+
                 </div>
+            </div>
 
-                <c:if test="${name_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${nameError}
-                    </div>
-                </c:if>
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn">
-                        ${edit}
-                    </button>
+            <c:if test="${name_error eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
+                        ${nameError}
                 </div>
+            </c:if>
 
+            <c:if test="${error_exist eq true}">
+                <div class="m-16 alert alert-warning " role="alert">
+                        ${errorExist}
+                </div>
+            </c:if>
 
-            </form>
-        </div>
+            <div class="container-login100-form-btn">
+                <button type="submit" class="btn btn-info p-l-10">${edit}</button>
+            </div>
+        </form>
     </div>
 </div>
 
+    <!--===============================================================================================-->
+    <script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
+    <script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
+    <script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
 
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
-<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
-<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
+    <style>
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-<style>
-    .form-group {
-        margin-bottom: 15px;
-    }
+        label {
+            margin-bottom: 15px;
+        }
 
-    label {
-        margin-bottom: 15px;
-    }
+        .form-control {
+            height: auto !important;
+            padding: 8px 12px !important;
+        }
 
-    .form-control {
-        height: auto !important;
-        padding: 8px 12px !important;
-    }
+        .input-group {
+            box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21) !important;
+        }
 
-    .input-group {
-        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21) !important;
-    }
+        .login100-form-title {
+            margin-left: 3%;
+            font-size: 30px;
+        }
 
-    .login100-form-title {
-        margin-left: 3%;
-        font-size: 30px;
-    }
+        .form-group button {
+            background-color: whitesmoke;
+        }
 
-    .form-group button {
-        background-color: whitesmoke;
-    }
+        .container-login100 {
+            margin-top: 30px;
+            margin: 0 auto;
+            padding: 10px 40px;
+            background: -webkit-linear-gradient(left, #f5f5f5, #addaf1c4);
+            text-shadow: none;
+            box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
+            height: auto;
+        }
 
-    .container-login100 {
-        margin-top: 30px;
-        margin: 0 auto;
-        padding: 10px 40px;
-        background: -webkit-linear-gradient(left, #f5f5f5, #addaf1c4);
-        color: #FFF;
-        text-shadow: none;
-        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
-        height: auto;
-    }
+        span.input-group-addon i {
+            color: #009edf;
+            font-size: 17px;
+        }
 
-    span.input-group-addon i {
-        color: #009edf;
-        font-size: 17px;
-    }
+        .main-form {
+            padding: 3%;
+            margin-top: 3%;
+            margin-bottom: 3%;
+            border-radius: 0.5rem;
+            background: #fff;
+        }
 
-    .main-form {
-        width: auto;
-    }
-
-    .login10-form {
-        margin-left: 30%;
-        margin-right: 30%;
-    }
-</style>
+        .login10-form {
+            margin-left: 30%;
+            margin-right: 30%;
+        }
+    </style>
 </body>
 
 </html>
-
-
-
-
-

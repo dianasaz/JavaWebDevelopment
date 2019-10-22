@@ -4,6 +4,7 @@ import by.sazanchuk.finalTask.controller.command.Page;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -31,6 +32,7 @@ public class ChangeLanguageCommand implements Command {
         }
         String next = getNextLang(language);
         setAttributes(request, language, next);
+        response.addCookie(new Cookie("lang", language));
 
         String path = referer.substring(45);
         if (path.isEmpty()) return new CommandResult("controller?command=home_page", true);

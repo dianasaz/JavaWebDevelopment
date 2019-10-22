@@ -6,6 +6,7 @@ import by.sazanchuk.finalTask.controller.command.action.CommandResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,7 +19,6 @@ public class LogoutCommand implements Command {
     private static final String ID = "user_id";
     private static final String USER = "user";
 
-
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response)  {
         HttpSession session = request.getSession();
@@ -26,7 +26,20 @@ public class LogoutCommand implements Command {
         logger.info("user was above: id:" + userId);
         session.removeAttribute(ID);
         session.removeAttribute(USER);
-
-        return new CommandResult(Page.HOME_PAGE.getPage(), false);
+        session.removeAttribute("user_role");
+        request.removeAttribute("user");
+    /*    Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (int i = 0; i < cookies.length; i++) {
+                if (cookies[i].getName().equalsIgnoreCase("login")) {
+                    cookies[i].setValue(null);
+                }
+                if (cookies[i].getName().equalsIgnoreCase("password")) {
+                    cookies[i].setValue(null);
+                }
+            }
+        }
+*/
+        return new CommandResult("/controller?command=home_page", false);
     }
 }

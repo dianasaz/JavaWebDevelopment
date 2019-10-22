@@ -32,6 +32,9 @@
 <fmt:message bundle="${language}" key="useaddress" var="useraddress"/>
 <fmt:message bundle="${language}" key="write" var="write"/>
 <fmt:message bundle="${language}" key="call" var="call"/>
+<fmt:message bundle="${language}" key="time" var="time"/>
+<fmt:message bundle="${language}" key="service" var="serv"/>
+<fmt:message bundle="${language}" key="doctor" var="doctor"/>
 <fmt:message bundle="${language}" key="userswithcoupons" var="userswithcoupons"/>
 
 
@@ -112,7 +115,22 @@
     <div class="d-flex justify-content-center m-5">
         <p>${userswithcoupons}</p>
     </div>
-
+    <div class=" rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+        <div class="row">
+            <div class="col-3">
+                <label>${username}</label>
+            </div>
+            <div class="col-3">
+                <label>${time}</label>
+            </div>
+            <div class="col-3">
+                <label>${serv}</label>
+            </div>
+            <div class="col-3">
+                <label>${doctor}</label>
+            </div>
+        </div>
+    </div>
     <c:forEach var="coupon" items="${coupons}">
         <c:forEach var="user" items="${users}">
             <c:if test="${user.id eq coupon.user_id}">

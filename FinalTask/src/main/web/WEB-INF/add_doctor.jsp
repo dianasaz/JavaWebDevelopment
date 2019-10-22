@@ -49,12 +49,13 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<div>
+
+<div class="container-login100">
 
     <div class="main-form">
         <form class="login10-form" method="POST"
               action="controller?command=add_doctor">
-            <div class="m-5">
+            <div class="m-2">
                 <span class="login100-form-title">
                     ${addnewdoctor}
                 </span>
@@ -86,13 +87,13 @@
             </div>
 
             <c:if test="${name_error eq true}">
-                <div class="m-16 alert alert-info " role="alert">
+                <div class="m-16 alert alert-warning" role="alert">
                         ${nameError}
                 </div>
             </c:if>
 
             <c:if test="${error_exist eq true}">
-                <div class="m-16 alert alert-info " role="alert">
+                <div class="m-16 alert alert-warning " role="alert">
                         ${errorExist}
                 </div>
             </c:if>
@@ -103,7 +104,6 @@
         </form>
     </div>
 </div>
-
 
 <!--===============================================================================================-->
 <script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -154,7 +154,6 @@
         margin: 0 auto;
         padding: 10px 40px;
         background: -webkit-linear-gradient(left, #f5f5f5, #addaf1c4);
-        color: #FFF;
         text-shadow: none;
         box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
         height: auto;
@@ -166,7 +165,11 @@
     }
 
     .main-form {
-        width: auto;
+        padding: 3%;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 0.5rem;
+        background: #fff;
     }
 
     .login10-form {
@@ -176,7 +179,6 @@
 </style>
 </body>
 
-</html>
 
 
 

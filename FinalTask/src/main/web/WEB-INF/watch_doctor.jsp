@@ -28,7 +28,9 @@
 <fmt:message bundle="${language}" key="deletedoctor" var="deletedoctor"/>
 <fmt:message bundle="${language}" key="editdoctor" var="editdoctor"/>
 <fmt:message bundle="${language}" key="doctorscaps" var="doctorcaps"/>
-
+<fmt:message bundle="${language}" key="doctor" var="doc"/>
+<fmt:message bundle="${language}" key="actions" var="act"/>
+<fmt:message bundle="${language}" key="service" var="serv"/>
 
 <html lang="${language}">
 <head>
@@ -39,58 +41,52 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+<c:set value="${user != null and user_role eq 'administrator'}" var="rule"/>
 
 <div class="container emp-profile">
-    <div style="margin-left: 20%; margin-right: 20%;">
-        <table style="margin-bottom: 20px">
-            <div class="row">
-                <div class="col-md-6">
-                    <a href="controller?command=home_page" class="profile-edit-btn">${home}</a>
-                </div>
-                <c:if test="${user != null}">
-                    <c:if test="${user_role eq 'administrator'}">
-                        <div class="col-md-6">
-                            <a href="controller?command=add_doctor">${add}</a>
-                        </div>
-                    </c:if>
+    <div class="d-flex justify-content-around" style="margin: 5px;">
+        <button type="button" class="btn btn-outline-info"
+                onclick="window.location.href='controller?command=home_page'">
+            ${home}
+        </button>
+        <c:if test="${rule eq true}">
+            <button type="button" class="btn btn-outline-info"
+                    onclick="window.location.href='controller?command=add_doctor'">
+                    ${add}
+            </button>
+        </c:if>
+    </div>
+    <br>
+    <div style="margin-left: 5rem; margin-right: 5rem;">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">${doc}</th>
+                <th scope="col">${serv}</th>
+                <c:if test="${rule eq true}">
+                    <th scope="col">${act}</th>
                 </c:if>
-            </div>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="doctor" items="${doctors}">
+            <tr>
+                <td>${doctor.name}</td>
+                <td>
+                    <c:forEach var="service" items="${doctor.service}">
+                    <p>${service.name}</p>
+                </c:forEach>
+                </td>
+                <c:if test="${rule eq true}">
+                    <td><a href="controller?command=delete_doctor&doctor_id=${doctor.identity}">${deletedoctor}</a>
+                        <br>
+                        <a href="controller?command=edit_doctor&doctor_id=${doctor.identity}">${editdoctor}</a></td>
+                </c:if>
+            </tr>
+            </c:forEach>
+            </tbody>
         </table>
     </div>
-    <form class="form" method="POST" action="controller?command=watch_doctor">
-        <div class="row">
-            <table class="col-8">
-                <div class="tab-content" id="myTaabContent">
-                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
-                        <b>${doctorcaps}</b> </label>
-
-                    <c:forEach var="doctor" items="${doctors}">
-                        <div class="row">
-                            <div class="col-3">
-                                <label>${doctor.name}</label>
-                            </div>
-                            <div class="col-3">
-                                <c:forEach var="service" items="${doctor.service}">
-                                    <p>${service.name}</p>
-                                </c:forEach>
-                            </div>
-                            <c:if test="${user != null}">
-                                <c:if test="${user_role eq 'administrator'}">
-                                    <div class="col-3">
-                                        <a href="controller?command=delete_doctor&doctor_id=${doctor.identity}">${deletedoctor}</a>
-                                    </div>
-                                    <div class="col-3">
-                                        <a href="controller?command=edit_doctor&doctor_id=${doctor.identity}">${editdoctor}</a>
-                                    </div>
-                                </c:if>
-                            </c:if>
-                        </div>
-                    </c:forEach>
-                </div>
-            </table>
-        </div>
-    </form>
-
 </div>
 <style>
     body {
@@ -105,25 +101,9 @@
         background: #fff;
     }
 
-    .tab-content {
-        margin-left: 20%;
-        width: 600px;
-    }
-
     .profile-img img {
         width: 70%;
         height: 100%;
-    }
-
-    .profile-img .file {
-        position: relative;
-        overflow: hidden;
-        margin-top: -20%;
-        width: 70%;
-        border: none;
-        border-radius: 0;
-        font-size: 15px;
-        background: #212529b8;
     }
 
     .profile-img .file input {
@@ -141,34 +121,10 @@
         color: #0062cc;
     }
 
-    .profile-edit-btn {
-        border: none;
-        border-radius: 1.5rem;
-        width: 70%;
-        padding: 2%;
-        font-weight: 600;
-        color: #6c757d;
-        cursor: pointer;
-    }
-
     .proile-rating span {
         color: #495057;
         font-size: 15px;
         font-weight: 600;
-    }
-
-    .profile-head .nav-tabs {
-        margin-bottom: 5%;
-    }
-
-    .profile-head .nav-tabs .nav-link {
-        font-weight: 600;
-        border: none;
-    }
-
-    .profile-head .nav-tabs .nav-link.active {
-        border: none;
-        border-bottom: 2px solid #0062cc;
     }
 
     .profile-work p {

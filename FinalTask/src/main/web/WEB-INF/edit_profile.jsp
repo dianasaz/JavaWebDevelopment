@@ -1,15 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" isELIgnored="false" pageEncoding="UTF-8" %>
-<c:choose>
-    <c:when test="${sessionScope.lang != null}">
-        <fmt:setLocale value="${sessionScope.lang}" variant="en"/>
-    </c:when>
-    <c:otherwise>
-        <fmt:setLocale value="ru"/>
-    </c:otherwise>
-</c:choose>
-<fmt:setBundle basename="language" var="language" scope="session"/>
 
 <fmt:message bundle="${language}" key="editprofile" var="editprofile"/>
 <fmt:message bundle="${language}" key="edit" var="edit"/>
@@ -36,253 +27,477 @@
 <fmt:message bundle="${language}" key="phoneproperties" var="phoneprop"/>
 
 
-
 <html lang="${language}">
 <head>
-    <title>${editprofile}</title>
+    <title>${edit}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
-    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans:600'>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <script type="text/javascript" src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="vendor/daterangepicker/moment.js"></script>
-    <script type="text/javascript" src="vendor/daterangepicker/daterangepicker.js"></script>
-    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css"/>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="js/validation/validation.js"></script>
 </head>
 <body>
-<jsp:include page="header.jsp"/>
-<div class="limiter">
-    <div class="container-login100">
-        <div class="main-form">
-            <form class="login10-form" method="POST"
-                  action="controller?command=edit_profile">
-					<span class="login100-form-title">
-						${editprofile}
-					</span>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <form method="POST" style="margin-top: 20px"
+              action="controller?command=edit_profile">
 
-                <div class="form-group">
-                    <label for="login" class="cols-sm-2 control-label">${log}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa"
-                                                                       aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkLogin()" class="form-control" name="login" id="login"
-                                   placeholder="${user.login}"/>
-                        </div>
-                    </div>
+            <input type="text" oninput="checkLogin()" id="login" class="fadeIn second"
+                   name="login" placeholder="${user.login}">
+            <input type="password" oninput="checkPassword()" id="password" class="fadeIn third"
+                   name="password" placeholder="${enterpassword}"
+                   style="  background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;">
+            <input type="text" oninput="checkName()" id="name" class="fadeIn third"
+                   name="name" placeholder="${user.name}"
+                   style="  background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;">
+            <input type="email" oninput="checkEmail()" id="email" class="fadeIn third"
+                   name="email" placeholder="${user.email}"
+                   style="  background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;">
+            <input type="text" oninput="checkPhone()" id="phoneNumber" class="fadeIn third"
+                   name="phoneNumber" placeholder="${user.phoneNumber}"
+                   style="  background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;">
+            <input type="text" oninput="checkAddress()" id="address" class="fadeIn third"
+                   name="address" placeholder="${user.address}"
+                   style="  background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;">
+            <button type="button" class="btn btn-info" style="margin-top: 10px"
+                    onclick="this.form.submit()">
+                ${edit}
+            </button>
+
+            <c:if test="${error_registration eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
+                        ${errorlogin}
                 </div>
+            </c:if>
 
-                <div class="form-group">
-                    <label for="password" class="cols-sm-2 control-label">${userpassword}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa"
-                                                                       aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkPassword()" class="form-control" name="password" id="password"
-                                   placeholder="${enterpassword}"/>
-                        </div>
-                    </div>
+            <c:if test="${error_email eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
+                        ${erroremail}
                 </div>
+            </c:if>
 
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${username}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-user fa"
-                                                                       aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkName()" class="form-control" name="name" id="name"
-                                   placeholder="${user.name}"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">${useremail}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkEmail()" class="form-control" name="email" id="email"
-                                   placeholder="${user.email}"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="phoneNumber" class="cols-sm-2 control-label">${userphone}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-users fa"
-                                                                       aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkPhone()" class="form-control" name="phoneNumber" id="phoneNumber"
-                                   placeholder="${user.phoneNumber}"/>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="form-group">
-                    <label for="address" class="cols-sm-2 control-label">${useraddress}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkAddress()" class="form-control" name="address" id="Address"
-                                   placeholder="${user.address}"/>
-                        </div>
-                    </div>
-                </div>
-
-                <c:if test="${error_registration eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${errorlogin}
-                    </div>
-                </c:if>
-
-                <c:if test="${error_email eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${erroremail}
-                    </div>
-                </c:if>
-
-                <c:if test="${email_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+            <c:if test="${email_error eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
                         ${wrongemail}
-                    </div>
-                </c:if>
+                </div>
+            </c:if>
 
-                <c:if test="${login_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+            <c:if test="${login_error eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
                         ${wronglogin}
-                    </div>
-                </c:if>
+                </div>
+            </c:if>
 
-                <c:if test="${error_number eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+            <c:if test="${error_number eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
                         ${phoneprop}
-                    </div>
-                </c:if>
+                </div>
+            </c:if>
 
-                <c:if test="${password_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+            <c:if test="${password_error eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
                         ${wrongpassword}
-                    </div>
-                </c:if>
+                </div>
+            </c:if>
 
-                <c:if test="${address_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+            <c:if test="${address_error eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
                         ${wrongaddress}
-                    </div>
-                </c:if>
+                </div>
+            </c:if>
 
-
-                <c:if test="${phone_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+            <c:if test="${phone_error eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
                         ${wrongphone}
-                    </div>
-                </c:if>
+                </div>
+            </c:if>
 
-
-                <c:if test="${name_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
+            <c:if test="${name_error eq true}">
+                <div class="m-16 alert alert-warning" role="alert">
                         ${wrongname}
-                    </div>
-                </c:if>
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn">
-                        ${edit}
-                    </button>
                 </div>
+            </c:if>
 
-                <div class="container-login100-form-btn">
-                    <a href="controller?command=profile" class="profile-edit-btn">${profile}</a>
-                </div>
+        </form>
 
-
-            </form>
-        </div>
     </div>
 </div>
-
-
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/animsition/js/animsition.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/popper.js"></script>
-<script src="../../../../classes/artifacts/unnamed/vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/moment.min.js"></script>
-<script src="../../../../classes/artifacts/unnamed/vendor/daterangepicker/daterangepicker.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/vendor/countdowntime/countdowntime.js"></script>
-<!--===============================================================================================-->
-<script src="../../../../classes/artifacts/unnamed/js/main.js"></script>
-
 <style>
-    .form-group {
-        margin-bottom: 15px;
+    html {
+        background-color: #56baed;
     }
 
-    label {
-        margin-bottom: 15px;
+    body {
+        font-family: "Poppins", sans-serif;
     }
 
-    .form-control {
-        height: auto !important;
-        padding: 8px 12px !important;
+    a {
+        color: #92badd;
+        display: inline-block;
+        text-decoration: none;
+        font-weight: 400;
     }
 
-    .input-group {
-        box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.21) !important;
+    h2 {
+        text-align: center;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        display: inline-block;
+        margin: 40px 8px 10px 8px;
+        color: #cccccc;
     }
 
-    .login100-form-title {
-        margin-left: 3%;
-        font-size: 30px;
+
+    /* STRUCTURE */
+
+    .wrapper {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        min-height: 100%;
+        padding: 20px;
     }
 
-    .form-group button {
-        background-color: whitesmoke;
+    #formContent {
+        -webkit-border-radius: 10px 10px 10px 10px;
+        border-radius: 10px 10px 10px 10px;
+        background: #fff;
+        padding: 30px;
+        width: 90%;
+        max-width: 450px;
+        position: relative;
+        -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+        box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+        text-align: center;
     }
 
-    .container-login100 {
-        margin-top: 30px;
-        margin: 0 auto;
-        padding: 10px 40px;
-        background: -webkit-linear-gradient(left, #f5f5f5, #addaf1c4);
-        color: #FFF;
-        text-shadow: none;
-        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
-        height: auto;
+    #formFooter {
+        background-color: #f6f6f6;
+        border-top: 1px solid #dce8f1;
+        padding: 25px;
+        text-align: center;
+        -webkit-border-radius: 0 0 10px 10px;
+        border-radius: 0 0 10px 10px;
     }
 
-    span.input-group-addon i {
-        color: #009edf;
-        font-size: 17px;
+    input[type=button], input[type=submit], input[type=reset] {
+        background-color: #56baed;
+        border: none;
+        color: white;
+        padding: 15px 80px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        text-transform: uppercase;
+        font-size: 13px;
+        -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+        box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+        margin: 5px 20px 40px 20px;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
     }
 
-    .main-form {
-        width: auto;
+    input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover {
+        background-color: #39ace7;
     }
 
-    .login10-form {
-        margin-left: 30%;
-        margin-right: 30%;
+    input[type=button]:active, input[type=submit]:active, input[type=reset]:active {
+        -moz-transform: scale(0.95);
+        -webkit-transform: scale(0.95);
+        -o-transform: scale(0.95);
+        -ms-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
+    input[type=text] {
+        background-color: #f6f6f6;
+        border: none;
+        color: #0d0d0d;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+    }
+
+    input[type=password] {
+        background-color: #f6f6f6;
+        border: none;
+        color: inherit;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 5px;
+        width: 85%;
+        border: 2px solid #f6f6f6;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transition: all 0.5s ease-in-out;
+        -webkit-border-radius: 5px 5px 5px 5px;
+        border-radius: 5px 5px 5px 5px;
+    }
+
+    input[type=text]:focus {
+        background-color: #fff;
+        border-bottom: 2px solid #5fbae9;
+    }
+
+    input[type=text]::placeholder {
+        color: #cccccc;
+    }
+
+    input[type=password]:focus {
+        background-color: #fff;
+        border-bottom: 2px solid #5fbae9;
+    }
+
+    input[type=password]::placeholder {
+        color: #cccccc;
+    }
+
+
+    /* ANIMATIONS */
+
+    /* Simple CSS3 Fade-in-down Animation */
+    .fadeInDown {
+        -webkit-animation-name: fadeInDown;
+        animation-name: fadeInDown;
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+
+    @-webkit-keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100%, 0);
+            transform: translate3d(0, -100%, 0);
+        }
+        100% {
+            opacity: 1;
+            -webkit-transform: none;
+            transform: none;
+        }
+    }
+
+    /* Simple CSS3 Fade-in Animation */
+    @-webkit-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @-moz-keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .fadeIn {
+        opacity: 0;
+        -webkit-animation: fadeIn ease-in 1;
+        -moz-animation: fadeIn ease-in 1;
+        animation: fadeIn ease-in 1;
+
+        -webkit-animation-fill-mode: forwards;
+        -moz-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+
+        -webkit-animation-duration: 1s;
+        -moz-animation-duration: 1s;
+        animation-duration: 1s;
+    }
+
+    .fadeIn.first {
+        -webkit-animation-delay: 0.4s;
+        -moz-animation-delay: 0.4s;
+        animation-delay: 0.4s;
+    }
+
+    .fadeIn.second {
+        -webkit-animation-delay: 0.6s;
+        -moz-animation-delay: 0.6s;
+        animation-delay: 0.6s;
+    }
+
+    .fadeIn.third {
+        -webkit-animation-delay: 0.8s;
+        -moz-animation-delay: 0.8s;
+        animation-delay: 0.8s;
+    }
+
+    .fadeIn.fourth {
+        -webkit-animation-delay: 1s;
+        -moz-animation-delay: 1s;
+        animation-delay: 1s;
+    }
+
+    /* Simple CSS3 Fade-in Animation */
+    .underlineHover:after {
+        display: block;
+        left: 0;
+        bottom: -10px;
+        width: 0;
+        height: 2px;
+        background-color: #56baed;
+        content: "";
+        transition: width 0.2s;
+    }
+
+    .underlineHover:hover {
+        color: #0d0d0d;
+    }
+
+    .underlineHover:hover:after {
+        width: 100%;
+    }
+
+
+    /* OTHERS */
+
+    *:focus {
+        outline: none;
     }
 </style>
 </body>
 
 </html>
+
 

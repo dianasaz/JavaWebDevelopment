@@ -49,61 +49,56 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<div class="limiter">
-    <div class="container-login100">
+<div class="container-login100">
+    <div class="main-form">
+        <form class="login10-form" method="POST"
+              action="controller?command=add_service">
+            <div class="m-2">
+                <span class="login100-form-title">
+                    ${addnewservice}
+                </span>
+            </div>
 
-        <div class="main-form">
-            <form class="login10-form" method="POST"
-                  action="controller?command=add_service">
-					<span class="login100-form-title">
-                        ${addnewservice}
-                    </span>
-
-                <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">${nameService}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">${nameService}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkServiceName()" class="form-control" name="name" id="name"
-                                   placeholder="${entername}"/>
-                        </div>
+                        <input type="text" oninput="checkServiceName()" class="form-control" name="name" id="name"
+                               placeholder="${entername}"/>
                     </div>
                 </div>
+            </div>
 
-                <div class="form-group">
-                    <label class="cols-sm-2 control-label">${priceService}</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
+            <div class="form-group">
+                <label for="name" class="cols-sm-2 control-label">${priceService}</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa"
                                                                        aria-hidden="true"></i></span>
-                            <input type="text" oninput="checkServicePrice()" class="form-control" name="price" id="price"
-                                   placeholder="${enterprice}"/>
-                        </div>
+                        <input type="text" oninput="checkServicePrice()" class="form-control" name="name" id="price"
+                               placeholder="${enterprice}"/>
                     </div>
                 </div>
+            </div>
 
-                <c:if test="${name_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${errorname}
-                    </div>
-                </c:if>
-
-                <c:if test="${price_error eq true}">
-                    <div class="container alert alert-warning alert-dismissible fade show m-t-16" role="alert">
-                            ${errorprice}
-                    </div>
-                </c:if>
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" class="login100-form-btn">
-                        ${add}
-                    </button>
+            <c:if test="${price_error eq true}">
+                <div class="m-16 alert alert-info " role="alert">
+                        ${errorprice}
                 </div>
+            </c:if>
 
+            <c:if test="${name_error eq true}">
+                <div class="m-16 alert alert-warning " role="alert">
+                        ${errorname}
+                </div>
+            </c:if>
 
-            </form>
-        </div>
+            <div class="container-login100-form-btn">
+                <button type="submit" class="btn btn-info p-l-10">${add}</button>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -157,7 +152,6 @@
         margin: 0 auto;
         padding: 10px 40px;
         background: -webkit-linear-gradient(left, #f5f5f5, #addaf1c4);
-        color: #FFF;
         text-shadow: none;
         box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.31);
         height: auto;
@@ -169,7 +163,11 @@
     }
 
     .main-form {
-        width: auto;
+        padding: 3%;
+        margin-top: 3%;
+        margin-bottom: 3%;
+        border-radius: 0.5rem;
+        background: #fff;
     }
 
     .login10-form {

@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -33,8 +34,6 @@ public class LoginCommand implements Command {
     private static final String USER_ROLE = "user_role";
     private static final String USER = "user";
     private static final String PETS = "pets";
-
-
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response){
@@ -59,6 +58,26 @@ public class LoginCommand implements Command {
 
         if (userExist) {
             logger.log(Level.INFO, "user authorized with login - " + login);
+/*
+            Cookie l = null;
+            Cookie p = null;
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equalsIgnoreCase("login")) {
+                        cookies[i].setValue(login);
+                        l = cookies[i];
+                    }
+                    if (cookies[i].getName().equalsIgnoreCase("password")) {
+                        cookies[i].setValue(password);
+                        p = cookies[i];
+                    }
+                }
+            }
+            if (l == null && p == null) {
+                response.addCookie(new Cookie("login", login));
+                response.addCookie(new Cookie("password", password));
+            }*/
             return new CommandResult("/controller?command=home_page", false);
         } else {
             logger.log(Level.INFO, "user with such login and password doesn't exist");

@@ -27,6 +27,9 @@
 <fmt:message bundle="${language}" key="deleteservice" var="deleteservice"/>
 <fmt:message bundle="${language}" key="edit" var="edit"/>
 <fmt:message bundle="${language}" key="services" var="servicescaps"/>
+<fmt:message bundle="${language}" key="service" var="serv"/>
+<fmt:message bundle="${language}" key="price" var="price"/>
+<fmt:message bundle="${language}" key="actions" var="act"/>
 
 
 <html lang="${language}">
@@ -58,10 +61,10 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">service</th>
-                <th scope="col">price</th>
+                <th scope="col">${serv}</th>
+                <th scope="col">${price}</th>
                 <c:if test="${rule eq true}">
-                    <th scope="col">Actions</th>
+                    <th scope="col">${act}</th>
                 </c:if>
             </tr>
             </thead>
@@ -80,40 +83,6 @@
             </tbody>
         </table>
     </div>
-    <!--
-    <form class="form" method="POST" action="controller?command=watch_service">
-        <div class="row">
-            <table class="col-8">
-                <div class="tab-content" id="myTaabContent">
-                    <label class="col-6 col-offset-3 control-label" style="font-size: 20px; text-align: center;">
-                        <b>${servicescaps}</b> </label>
-
-                    <c:forEach var="service" items="${services}">
-                        <div class="row">
-                            <div class="col-3">
-                                <label>${service.name}</label>
-                            </div>
-                            <div class="col-3">
-                                <p>${service.price}</p>
-                            </div>
-                            <c:if test="${user != null}">
-                                <c:if test="${user_role eq 'administrator'}">
-                                    <div class="col-3">
-                                        <a href="controller?command=delete_service&name=${service.name}">${deleteservice}</a>
-                                    </div>
-                                    <div class="col-3">
-                                        <a href="controller?command=edit_service&id=${service.identity}">${edit}</a>
-                                    </div>
-                                </c:if>
-                            </c:if>
-
-                        </div>
-                    </c:forEach>
-                </div>
-            </table>
-        </div>
-    </form>
--->
 </div>
 <style>
     body {
