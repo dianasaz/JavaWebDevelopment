@@ -17,13 +17,12 @@ public class ChangeLanguageCommand implements Command {
     private static final String EN = "EN";
     private static final String RU = "RU";
     private static final String NEXT_LANGUAGE = "nextLang";
-    private static final String REFERER = "Referer";
+    private static final String REFERER = "referer";
 
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         String language = request.getParameter(LANGUAGE).toUpperCase();
-        String referer = request.getHeader(REFERER);
 
         if (language.equalsIgnoreCase(RU)) {
             language = EN;
@@ -32,11 +31,18 @@ public class ChangeLanguageCommand implements Command {
         }
         String next = getNextLang(language);
         setAttributes(request, language, next);
+
         response.addCookie(new Cookie("lang", language));
 
-        String path = referer.substring(45);
-        if (path.isEmpty()) return new CommandResult("controller?command=home_page", true);
-        else return new CommandResult("" + path, true);
+        String referer = request.getHeader(REFERER);
+        int pos = referer.lastIndexOf("/") + 1;
+        String path;
+        if (pos >= referer.length()){
+            path = "controller?command=home_page";
+        } else {
+            path = referer.substring(pos);
+        }
+        return new CommandResult(path, true);
     }
 
     /**

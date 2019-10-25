@@ -58,27 +58,30 @@ public class LoginCommand implements Command {
 
         if (userExist) {
             logger.log(Level.INFO, "user authorized with login - " + login);
-/*
+
             Cookie l = null;
             Cookie p = null;
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
-                for (int i = 0; i < cookies.length; i++) {
-                    if (cookies[i].getName().equalsIgnoreCase("login")) {
-                        cookies[i].setValue(login);
-                        l = cookies[i];
+                for (Cookie c: cookies) {
+                    if (c.getName().equalsIgnoreCase("user_login")) {
+                        c.setValue(login);
+                        response.addCookie(c);
+                        l = c;
                     }
-                    if (cookies[i].getName().equalsIgnoreCase("password")) {
-                        cookies[i].setValue(password);
-                        p = cookies[i];
+                    if (c.getName().equalsIgnoreCase("user_password")) {
+                        c.setValue(password);
+                        response.addCookie(c);
+                        p = c;
                     }
                 }
             }
+
             if (l == null && p == null) {
-                response.addCookie(new Cookie("login", login));
-                response.addCookie(new Cookie("password", password));
-            }*/
-            return new CommandResult("/controller?command=home_page", false);
+                response.addCookie(new Cookie("user_login", login));
+                response.addCookie(new Cookie("user_password", password));
+            }
+            return new CommandResult("controller?command=home_page", true);
         } else {
             logger.log(Level.INFO, "user with such login and password doesn't exist");
             return goBackWithError(request, ERROR_AUTHENTIFICATION);

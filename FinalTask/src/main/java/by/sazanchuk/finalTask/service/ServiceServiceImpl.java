@@ -118,7 +118,7 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
             if (name == null) throw new ServiceException();
             else {
                 serviceDao = transaction.createDao(ServiceDao.class);
-                return serviceDao.readByName(name);
+                return serviceDao.searchServiceByName(name);
             }
         } catch (DaoException e) {
             throw new ServiceException(e);
@@ -133,6 +133,19 @@ public class ServiceServiceImpl extends ServiceImpl implements ServiceService {
             else {
                 serviceDao = transaction.createDao(ServiceDao.class);
                 return serviceDao.searchServiceByPrice(price);
+            }
+        } catch (DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<Service> searchServiceByPartOfName(String name) throws ServiceException {
+        ServiceDao serviceDao = null;
+        try {
+            if (name == null) throw new ServiceException();
+            else {
+                serviceDao = transaction.createDao(ServiceDao.class);
+                return serviceDao.readByName(name);
             }
         } catch (DaoException e) {
             throw new ServiceException(e);

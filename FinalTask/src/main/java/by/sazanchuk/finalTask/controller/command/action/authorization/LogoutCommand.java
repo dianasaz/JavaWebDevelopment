@@ -28,18 +28,20 @@ public class LogoutCommand implements Command {
         session.removeAttribute(USER);
         session.removeAttribute("user_role");
         request.removeAttribute("user");
-    /*    Cookie[] cookies = request.getCookies();
+        Cookie[] cookies = request.getCookies();
         if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equalsIgnoreCase("login")) {
-                    cookies[i].setValue(null);
+            for (Cookie cookie: cookies) {
+                if (cookie.getName().equalsIgnoreCase("user_login")) {
+                    cookie.setValue(null);
+                    response.addCookie(cookie);
                 }
-                if (cookies[i].getName().equalsIgnoreCase("password")) {
-                    cookies[i].setValue(null);
+                if (cookie.getName().equalsIgnoreCase("user_password")) {
+                    cookie.setValue(null);
+                    response.addCookie(cookie);
                 }
             }
         }
-*/
-        return new CommandResult("/controller?command=home_page", false);
+
+        return new CommandResult("controller?command=home_page", true);
     }
 }

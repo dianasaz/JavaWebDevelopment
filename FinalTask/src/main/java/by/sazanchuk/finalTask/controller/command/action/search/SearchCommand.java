@@ -51,10 +51,10 @@ public class SearchCommand implements Command {
             }
         } catch (NumberFormatException e) {}
 
-        Service se = service.searchServiceByName(search);
+        List<Service> se = service.searchServiceByPartOfName(search);
         if (doctors != null) objects.addAll(doctors);
         if (services != null) objects.addAll(services);
-        if (se != null) objects.add(se);
+        if (se != null) objects.addAll(se);
 
         return objects;
     }

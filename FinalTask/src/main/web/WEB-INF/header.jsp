@@ -45,6 +45,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/modernizr.custom.js"></script>
     <script src="js/responsiveslides.min.js"></script>
+    <script src="js/validation/validation.js"></script>
+
 
 <div class="header d-flex align-items-center">
     <div class="container">
@@ -59,8 +61,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <form class="form-inline my-2 my-lg-0" action="controller" method="get">
                     <input type="hidden" value="search" name="command">
                     <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search"
-                           aria-label="Search">
-                    <button type="submit" class="btn btn-info">Search</button>
+                           aria-label="Search" id="search" oninput="checkSearch()">
+                    <button type="submit" class="btn btn-info" id="button_search" disabled>Search</button>
                 </form>
             </div>
             <div>

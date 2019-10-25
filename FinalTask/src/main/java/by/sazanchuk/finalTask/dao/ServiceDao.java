@@ -96,7 +96,7 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
         ResultSet resultSet = null;
         Service service = null;
         try {
-            statement = connection.prepareStatement(SEARCH_NAME, Statement.RETURN_GENERATED_KEYS); //todo должно на выходе быть не одно услуга, так как ищем подстркоу в строке
+            statement = connection.prepareStatement(SELECT_PRICE_AND_ID, Statement.RETURN_GENERATED_KEYS); //todo должно на выходе быть не одно услуга, так как ищем подстркоу в строке
             statement.setString(1, name);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -108,33 +108,26 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
         } catch (SQLException e) {
             throw new DaoException();
         }
-
         return service;
     }
 
-    /**
-     * Read by name service.
-     *
-     * @param name the name
-     * @return the service
-     * @throws DaoException the dao exception
-     */
-    public Service readByName(String name) throws DaoException {
+    public List<Service> readByName(String name) throws DaoException {
         PreparedStatement statement = null;
         ResultSet resultSet = null;
         try {
-            statement = connection.prepareStatement(SELECT_PRICE_AND_ID);
+            statement = connection.prepareStatement(SEARCH_NAME);
             statement.setString(1, name);
-
             resultSet = statement.executeQuery();
+            List<Service> services = new ArrayList<>();
             Service service = null;
-            if (resultSet.next()) {
+            while(resultSet.next()) {
                 service = new Service();
-                service.setIdentity(resultSet.getInt("id"));
-                service.setPrice(resultSet.getInt("price"));
                 service.setName(resultSet.getString("name"));
+                service.setPrice(resultSet.getInt("price"));
+                service.setIdentity(resultSet.getInt("id"));
+                services.add(service);
             }
-            return service;
+            return services;
         } catch (SQLException e) {
             throw new DaoException(e);
         } finally {
@@ -145,8 +138,6 @@ public class ServiceDao extends BaseDao implements Dao<Service> {
             }
         }
     }
-
-
 
         @Override
         public void update(Service entity) throws DaoException {

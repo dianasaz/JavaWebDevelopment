@@ -3,12 +3,10 @@ package by.sazanchuk.finalTask.service;
 import by.sazanchuk.finalTask.entity.Doctor;
 import by.sazanchuk.finalTask.entity.Service;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,6 +176,15 @@ public class ServiceServiceImplTest {
     @Test (expected = ServiceException.class)
     public void searchServiceByNameException() throws ServiceException {
         service.searchServiceByName(null);
+    }
+
+    @Test
+    public void searchByNamePart() throws ServiceException {
+        service.save(service1);
+        service.save(service2);
+        service.save(service3);
+
+        assertEquals(2, service.searchServiceByPartOfName("a").size());
     }
 
     @After

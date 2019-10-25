@@ -64,12 +64,12 @@ public class HomePageCommand implements Command {
                     if (language.equalsIgnoreCase("en")) next_lang = "RU";
                     else next_lang = "EN";
                 }
-               /* if (cookies[i].getName().equalsIgnoreCase("login")) {
+                if (cookies[i].getName().equalsIgnoreCase("user_login")) {
                     if (cookies[i].getValue() != null) login = cookies[i].getValue();
                 }
-                if (cookies[i].getName().equalsIgnoreCase("password")) {
+                if (cookies[i].getName().equalsIgnoreCase("user_password")) {
                     if (cookies[i].getValue() != null) password = cookies[i].getValue();
-                }*/
+                }
             }
         }
 
@@ -127,8 +127,7 @@ public class HomePageCommand implements Command {
     }
 
 
-    private void setAttributesToSession(List<Service> services, List<Doctor> doctors, String[] names,String lang, String next_l, HttpServletRequest request) {
-        HttpSession session = request.getSession();
+    private void setAttributesToSession(List<Service> services, List<Doctor> doctors, String[] names,String lang, String next_l, HttpServletRequest request) {        HttpSession session = request.getSession();
         session.setAttribute(SERVICES, services);
         session.setAttribute(SERVICE_NAMES, names);
         session.setAttribute(DOCTORS, doctors);

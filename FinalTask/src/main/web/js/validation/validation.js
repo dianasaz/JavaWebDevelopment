@@ -97,3 +97,15 @@ function checkDoctor() {
     }
 }
 
+function checkSearch() {
+    var input = document.getElementById("search");
+    var button = document.getElementById("button_search");
+    if (!/^.+$/.test(input.value)) {
+        button.disabled = true;
+    } else {
+        button.disabled = false;
+    }
+
+
+}
+

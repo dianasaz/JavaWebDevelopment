@@ -95,7 +95,7 @@ public class DoctorServiceImpl extends ServiceImpl implements DoctorService {
             else {
                 DoctorDao doctorDao = transaction.createDao(DoctorDao.class);
                 ServiceDao serviceDao = transaction.createDao(ServiceDao.class);
-                if (serviceDao.readByName(service.getName()) != null) {
+                if (serviceDao.searchServiceByName(service.getName()) != null) {
                     int doctor_id = save(doctor);
                     doctorDao.createDS(doctor_id, service.getIdentity());
                 } else throw new ServiceException();

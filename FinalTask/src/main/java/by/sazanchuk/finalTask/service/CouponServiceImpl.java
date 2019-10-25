@@ -95,7 +95,8 @@ public class CouponServiceImpl extends ServiceImpl implements CouponService {
             else {
                 CouponDao couponDao = transaction.createDao(CouponDao.class);
                 List<Coupon> coupons = couponDao.getCouponsOfOneUser(user_id);
-                return coupons;
+                if (coupons.size() == 0) return null;
+                else return coupons;
             }
         } catch (DaoException e) {
             throw new ServiceException(e);

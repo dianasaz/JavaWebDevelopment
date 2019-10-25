@@ -100,24 +100,23 @@
     <div class="d-flex justify-content-center m-5">
         <p>${yourpets}</p>
     </div>
-
-    <c:forEach var="pet" items="${pets}">
     <div class=" rounded bg-light border-dark p-3" style="margin-bottom: inherit">
-        <div class="row">
-            <div class="col-3">
-                <label>${pet.name}</label>
+        <c:forEach var="pet" items="${pets}">
+            <div class="row">
+                <div class="col-3">
+                    <label>${pet.name}</label>
+                </div>
+                <div class="col-3">
+                    <label><fmt:formatDate value="${pet.dateOfBirth}" pattern="yyyy-MM-dd HH:mm"/></label>
+                </div>
+                <div class="col-3">
+                    <p>${pet.kind}</p>
+                </div>
+                <div class="col-3" style="text-align: left">
+                    <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a></p>
+                    <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">${take}</a></p>
+                </div>
             </div>
-            <div class="col-3">
-                <label><fmt:formatDate value="${pet.dateOfBirth}" pattern="yyyy-MM-dd HH:mm"/></label>
-            </div>
-            <div class="col-3">
-                <p>${pet.kind}</p>
-            </div>
-            <div class="col-3" style="text-align: left">
-                <p><a href="controller?command=delete_pet&name=${pet.name}">${deletepet}</a></p>
-                <p><a href="controller?command=take_coupon&pet_id=${pet.identity}">${take}</a></p>
-            </div>
-        </div>
         </c:forEach>
         <c:if test="${error_delete eq true}">
             <div class="m-16 alert alert-warning " role="alert">
@@ -126,40 +125,39 @@
         </c:if>
     </div>
 
-    <div class="d-flex justify-content-center m-5">
-        <p>${cs}</p>
-    </div>
-
     <c:if test="${coupons != null}">
-    <c:forEach var="coupon" items="${coupons}">
-    <div class=" rounded bg-light border-dark p-3" style="margin-bottom: inherit">
-        <div class="row">
-            <div class="col-3">
-                <c:forEach var="doctor" items="${doctors}">
-                    <c:if test="${doctor.identity eq coupon.doctor_id}">
-                        <label>${doctor.name}</label>
-                    </c:if>
-                </c:forEach>
-            </div>
-            <div class="col-3">
-                <label><fmt:formatDate value="${coupon.time}"
-                                       pattern="yyyy-MM-dd HH:mm"/></label>
-            </div>
-            <div class="col-3">
-                <c:forEach var="service" items="${services}">
-                    <c:if test="${service.identity eq coupon.service_id}">
-                        <label>${service.name}</label>
-                    </c:if>
-                </c:forEach>
-            </div>
-            <div class="col-3">
-                <p>
-                    <a href="controller?command=edit_coupon&coupon_id=${coupon.identity}">update</a>
-                </p>
-            </div>
+        <div class="d-flex justify-content-center m-5">
+            <p>${cs}</p>
         </div>
-        </c:forEach>
-    </div>
+        <div class=" rounded bg-light border-dark p-3" style="margin-bottom: inherit">
+            <c:forEach var="coupon" items="${coupons}">
+                <div class="row">
+                    <div class="col-3">
+                        <c:forEach var="doctor" items="${doctors}">
+                            <c:if test="${doctor.identity eq coupon.doctor_id}">
+                                <label>${doctor.name}</label>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                    <div class="col-3">
+                        <label><fmt:formatDate value="${coupon.time}"
+                                               pattern="yyyy-MM-dd HH:mm"/></label>
+                    </div>
+                    <div class="col-3">
+                        <c:forEach var="service" items="${services}">
+                            <c:if test="${service.identity eq coupon.service_id}">
+                                <label>${service.name}</label>
+                            </c:if>
+                        </c:forEach>
+                    </div>
+                    <div class="col-3">
+                        <p>
+                            <a href="">update</a>
+                        </p>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
     </c:if>
 
 </div>
@@ -195,6 +193,7 @@
     .profile-head h6 {
         color: #0062cc;
     }
+
     .proile-rating span {
         color: #495057;
         font-size: 15px;
